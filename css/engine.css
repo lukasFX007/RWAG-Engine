@@ -1,125 +1,172 @@
-body {
-    font-family:var(--game-font);
+/* =========================================================================
+   RWAG Engine
+   -------------------------------------------------------------------------
+   Návrh vychází z toho, jak se hra opravdu hraje: text čte nahlas jeden
+   člověk ze skupiny, telefon drží v ruce venku, často na přímém slunci,
+   a rozhodnutí znamená, že se někam fyzicky dojde.
+
+   Z toho plyne:
+   - text je hlavní prvek stránky, všechno ostatní je potichu
+   - velké dotykové plochy (min 56 px), ať to jde ovládat i za chůze
+   - ikona u volby není ozdoba, ale znak charakteru akce z legendy
+     (stopy = postup, lupa = průzkum, nůž = násilí ...), proto dostala
+     vlastní sloupec - skupina má poznat povahu volby dřív, než ji přečte
+   - iniciála na začátku scény odděluje scény od sebe při čtení nahlas
+
+   Barvy jsou z prostředí hry: pískovec Českého ráje, les, železo
+   a rubrika - červený inkoust, kterým se ve středověkých rukopisech
+   psaly pokyny a důležitá místa.
+   ========================================================================= */
+
+:root{
+    /* --- písma --- */
+    --font-default: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-medieval: "MedievalSharp", serif;
+    --font-typewriter: "Special Elite", monospace;
+    /* display se používá jen na iniciály, nadpisy a číslo reputace,
+       ať zůstane čitelnost těla textu na uživatelově volbě */
+    --font-display: "MedievalSharp", serif;
+
+    /* --- velikosti --- */
+    --game-font-size:17px;
+    --title-size:calc(var(--game-font-size) * 1.35);
+    --subtitle-size:calc(var(--game-font-size) * 1.15);
+    --label-size:calc(var(--game-font-size) * .78);
+    --small-size:calc(var(--game-font-size) * .88);
+
+    /* --- rytmus --- */
+    --space-1:calc(var(--game-font-size) * .35);
+    --space-2:calc(var(--game-font-size) * .7);
+    --space-3:calc(var(--game-font-size) * 1.1);
+    --space-4:calc(var(--game-font-size) * 1.7);
+    --space-5:calc(var(--game-font-size) * 2.6);
+
+    --radius:10px;
+    --button-radius:8px;
+    --tap:56px;
+    --measure:34rem;
+
+    /* --- ovládací prvky --- */
+    --button-size:clamp(38px, calc(var(--game-font-size) * 2.2), 54px);
+    --icon-button-size:var(--button-size);
+    --role-button-size:var(--button-size);
+    --settings-indent:0px;
+    --slider-color:var(--accent);
+
+    /* --- výchozí (tmavé) schéma, přepisují ho body.theme-* --- */
+    --bg-color:#12170F;
+    --text-color:#E7DCC6;
+    --panel-color:#1B2117;
+    --panel-bg:#161C13;
+    --panel-item-bg:#1B2117;
+    --border-color:#2F3A28;
+    --panel-border:#2F3A28;
+    --muted:#9AA189;
+    --rubric:#C4472C;
+    --verdigris:#5FA98C;
+    --accent:var(--verdigris);
+    --font-active-color:var(--verdigris);
+    --sigil-bg:#232C1E;
+    --shadow:0 2px 10px rgba(0,0,0,.45);
+}
+
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+}
+
+body{
+    font-family:var(--font-default);
     font-size:var(--game-font-size);
     background:var(--bg-color);
     color:var(--text-color);
-    margin: 0;
-    padding: 15px;
+    margin:0;
+    padding:var(--space-3) var(--space-3) var(--space-5);
+    -webkit-text-size-adjust:100%;
 }
 
 button,
 input,
 select,
-textarea {
+textarea{
     font-family:inherit;
-    box-sizing:border-box;
+    font-size:inherit;
     color:var(--text-color);
 }
 
-:root{
-    --bg-color:#111;
-    --text-color:#eee;
-    --title-size:20px;
-    --subtitle-size:18px;
-    --game-font-size:16px;
-    --panel-color:#222;
-    --border-color:#444;
-    --panel-bg:#222;
-    --panel-item-bg:#222;
-    --panel-border:#444;
-    --font-active-color:#4ea3ff;
-    --font-default: system-ui, sans-serif;
-    --font-medieval: "MedievalSharp", serif;
-    --font-typewriter: "Special Elite", monospace;
-    --button-size:clamp(32px, calc(var(--game-font-size) * 2), 52px);
-    --role-button-size:var(--button-size);
-    --button-radius:calc(var(--game-font-size) / 2);
-    --slider-color:var(--border-color); /*barva slideru */
-    --settings-indent:15px; /*odsazení tlačítek a slideru */
-    --icon-button-size:clamp(32px, calc(var(--game-font-size) * 2), 52px);
+/* viditelné zaostření pro ovládání klávesnicí */
+:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
 }
 
 h1{
+    font-family:var(--font-display);
     font-size:var(--title-size);
-    font-weight:700;
-    margin:0 0 20px;
-/*    font-weight:bold;*/
+    font-weight:400;
+    margin:0 0 var(--space-3);
 }
 
 h2{
+    font-family:var(--font-display);
     font-size:var(--subtitle-size);
-    font-weight:700;
-    margin:0 0 16px;
-/*    font-weight:bold;*/
+    font-weight:400;
+    letter-spacing:.02em;
+    margin:0 0 var(--space-3);
 }
 
-.theme-picker{
-    display:flex;
-    gap:10px;
-    padding-left:var(--settings-indent);
-    margin-bottom:15px;
-}
+/* =========================================================================
+   Barevná schémata
+   Nejsou to jen tři nálady - každé je na jinou situaci v terénu.
+   ========================================================================= */
 
-.theme-btn{
-    width:var(--button-size);
-    height:var(--button-size);
-    border-radius:calc(var(--game-font-size) / 4);
-    border:2px solid #666;
-    font-size:var(--game-font-size);
-/*    font-weight:bold;*/
-    cursor:pointer;
-}
-
-.theme-btn.dark{
-    background:#111;
-    color:#fff;
-}
-
-.theme-btn.light{
-    background:#fff;
-    color:#111;
-}
-
-.theme-btn.medieval{
-    background:#d58b24;
-    color:#111;
-}
-
-/* tmavé schéma */
+/* večer a v lese: tmavé, ať nesvítí do očí */
 body.theme-dark{
-    --bg-color:#111;
-    --text-color:#eee;
-    --panel-color:#222;
-    --border-color:#444;
-    --panel-bg:#222;
-    --panel-item-bg:#222;
-    --panel-border:#444;
+    --bg-color:#12170F;
+    --text-color:#E7DCC6;
+    --panel-color:#1B2117;
+    --panel-bg:#161C13;
+    --panel-item-bg:#1B2117;
+    --border-color:#2F3A28;
+    --panel-border:#2F3A28;
+    --muted:#9AA189;
+    --rubric:#C4472C;
+    --verdigris:#5FA98C;
+    --sigil-bg:#232C1E;
+    --shadow:0 2px 10px rgba(0,0,0,.45);
 }
 
-/* světlé schéma */
+/* na přímém slunci: maximální kontrast, žádné šedivé polotóny */
 body.theme-light{
-    --bg-color:#fff;
-    --text-color:#111;
-    --panel-color:#f0f0f0;
-    --border-color:#ccc;
-    --panel-bg:#f2f2f2;
-    --panel-item-bg:#f2f2f2;
-    --panel-border:#ccc;
+    --bg-color:#FBF8F1;
+    --text-color:#16120C;
+    --panel-color:#FFFFFF;
+    --panel-bg:#FFFFFF;
+    --panel-item-bg:#F3EDE1;
+    --border-color:#C3B79F;
+    --panel-border:#C3B79F;
+    --muted:#5E5646;
+    --rubric:#9C2D16;
+    --verdigris:#2E6B54;
+    --sigil-bg:#EFE7D6;
+    --shadow:0 2px 10px rgba(30,20,0,.12);
 }
 
-/* středověké schéma */
+/* atmosféra: pergamen, na který kamarád tiskl kartičky */
 body.theme-medieval{
-/*    --bg-color:#d88b32;*/
     --bg-color:transparent;
-    --text-color:#57320c;
-/*    --panel-color:#e6a04d;*/
-    --panel-color:rgba(239,176,93,.85);
-    --border-color:#8b5a20;
-/*    --panel-bg:#efb05d;
-    --panel-item-bg:#efb05d;*/
-    --panel-bg:rgba(239,176,93,.92);
-    --panel-item-bg:rgba(239,176,93,.85);
-    --panel-border:#8b5a20;
+    --text-color:#41260A;
+    --panel-color:rgba(244,214,166,.88);
+    --panel-bg:rgba(240,204,150,.96);
+    --panel-item-bg:rgba(246,220,177,.85);
+    --border-color:#9A6A2C;
+    --panel-border:#8B5A20;
+    --muted:#7A5522;
+    --rubric:#9E2B12;
+    --verdigris:#3F6B4A;
+    --sigil-bg:rgba(255,240,214,.9);
+    --shadow:0 2px 10px rgba(80,45,0,.25);
 
     background-image:url("images/background_medieval.png");
     background-repeat:repeat;
@@ -127,217 +174,305 @@ body.theme-medieval{
     background-attachment:fixed;
 }
 
-.theme-preview,
-.font-preview{
+/* =========================================================================
+   Volba písma
+   ========================================================================= */
+
+body.font-default{ font-family:var(--font-default); }
+body.font-medieval{ font-family:var(--font-medieval); }
+body.font-typewriter{ font-family:var(--font-typewriter); }
+
+.font-default,   #fontDefault,   .font-preview.default{ font-family:var(--font-default); }
+.font-medieval,  #fontMedieval,  .font-preview.medieval{ font-family:var(--font-medieval); }
+.font-typewriter,#fontTypewriter,.font-preview.typewriter{ font-family:var(--font-typewriter); }
+
+/* =========================================================================
+   Horní lišta a reputace
+   ========================================================================= */
+
+#topbar{
+    max-width:var(--measure);
+    margin:0 auto var(--space-3);
+}
+
+#status{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:var(--space-2);
+    padding-bottom:var(--space-2);
+    border-bottom:1px solid var(--border-color);
+}
+
+#menuButton{
+    display:flex;
+    align-items:center;
+    justify-content:center;
     width:var(--button-size);
     height:var(--button-size);
-    border-radius:var(--button-radius);
-    border:2px solid var(--border-color);
-    background:var(--panel-item-bg);
-    color:var(--text-color);
-    cursor:pointer;
-    font-size:var(--game-font-size);
-/*    font-weight:bold;*/
-}
-
-.font-preview.active,
-.theme-preview.active{
-    outline:2px solid var(--text-color);
-    transform:scale(1.08);
-}
-
-.theme-preview:hover,
-.font-preview:hover,
-.toggle-button:hover,
-.toggle-button.on:hover,
-.icon-button:hover,
-.primary-button:hover{
-    filter:brightness(1.1);
-}
-
-.theme-preview.dark{
-    background:#111;
-    color:white;
-}
-
-.theme-preview.light{
-    background:white;
-    color:black;
-}
-
-.theme-preview.medieval{
-/*    background:#d98b2b;*/
-    background:transparent;
-    color:#57320c;
-
-    background-image:url("images/background_medieval.png");
-    background-repeat:repeat;
-    background-position:top left;
-    background-attachment:fixed;
-}
-
-/* výchozí font */
-body.font-default{
-    --font-active-color:#666;
-    /* šedá #666 */
-    font-family:var(--font-default);
-}
-
-#fontDefault{
-    font-family:var(--font-default);
-}
-
-.font-default{
-    font-family:var(--font-default);
-}
-
-.font-preview.default{
-    font-family:var(--font-default);
-}
-
-/* středovéký font */
-body.font-medieval{
-    --font-active-color:#666;
-    /* hnědá #783f04, tmavší hnědá #57320c */
-    font-family:var(--font-medieval);
-}
-
-#fontMedieval{
-    font-family:var(--font-medieval);
-/*    font-weight:bold;*/
-}
-
-.font-medieval{
-    font-family:var(--font-medieval);
-/*    font-weight:bold;*/
-}
-
-.font-preview.medieval{
-    font-family:var(--font-medieval);
-/*    font-weight:bold;*/
-}
-
-/* psací stroj font */
-body.font-typewriter{
-    --font-active-color:#666;
-     /* modrá - default #4ea3ff, tmavší #3d85c6 */
-    font-family:var(--font-typewriter);
-}
-
-#fontTypewriter{
-    font-family:var(--font-typewriter);
-}
-
-.font-typewriter{
-    font-family:var(--font-typewriter);
-}
-
-.font-preview.typewriter{
-    font-family:var(--font-typewriter);
-}
-
-.slider-wrapper{
-    padding-left:var(--settings-indent);
-    padding-right:var(--settings-indent);
-}
-
-#fontSizeRange{
-    width:100%;
-    accent-color:var(--border-color);
-    cursor:pointer;
-}
-
-#status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 8px 0;
-    font-size:calc(var(--game-font-size) + 2px);
-}
-
-#menuButton {
+    margin-left:calc(var(--space-2) * -1);
     background:none;
     border:none;
+    border-radius:var(--button-radius);
     color:var(--text-color);
-    font-size:calc(var(--game-font-size) + 10px);
+    font-size:calc(var(--game-font-size) + 8px);
+    line-height:1;
     cursor:pointer;
 }
 
-.status-right {
-    font-size:calc(var(--game-font-size) + 2px);
+/* reputace je jediné číslo, které hra sleduje - dostane vlastní tvar */
+.rep{
+    display:inline-flex;
+    align-items:center;
+    gap:var(--space-1);
+    padding:var(--space-1) var(--space-2);
+    border:1px solid var(--border-color);
+    border-radius:999px;
+    line-height:1;
 }
 
-#game {
-    max-width: 600px;
-    margin: auto;
+.rep-icon{
+    font-size:var(--small-size);
 }
 
-.scene-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 12px;
-    margin-bottom: 20px;
+.rep-value{
+    font-family:var(--font-display);
+    font-size:calc(var(--game-font-size) * 1.2);
+    letter-spacing:.02em;
 }
 
-.text {
-    margin-bottom: 20px;
-    line-height: 1.6;
-    white-space: pre-wrap;
+.rep-pos{ color:var(--verdigris); border-color:var(--verdigris); }
+.rep-neg{ color:var(--rubric);    border-color:var(--rubric); }
+.rep-neu{ color:var(--muted); }
+
+/* =========================================================================
+   Scéna
+   ========================================================================= */
+
+#game,
+#launcher{
+    max-width:var(--measure);
+    margin:0 auto;
 }
 
-.choice {
-    display:block;
+.scene-image{
     width:100%;
-    margin:10px 0;
-    padding:12px;
+    height:auto;
+    display:block;
+    border-radius:var(--radius);
+    margin-bottom:var(--space-4);
+}
+
+.text{
+    margin:0 0 var(--space-4);
+    line-height:1.65;
+    white-space:pre-wrap;
+    text-wrap:pretty;
+}
+
+/* Iniciála. Ve středověkém rukopise otevírala odstavec; tady dělá totéž,
+   co potřebuje předčítající - je vidět, kde nová scéna začíná.
+   Krátké scény ji nedostanou, vypadala by směšně (třídu dává ui.js). */
+.text--versal::first-letter{
+    float:left;
+    font-family:var(--font-display);
+    font-size:3.1em;
+    line-height:.8;
+    padding:.06em .12em 0 0;
+    color:var(--rubric);
+}
+
+/* =========================================================================
+   Volby
+   Znak charakteru akce má vlastní sloupec - je to slovník z legendy,
+   ne dekorace, a skupina podle něj pozná povahu volby na první pohled.
+   ========================================================================= */
+
+.choice{
+    display:grid;
+    grid-template-columns:var(--tap) 1fr;
+    align-items:stretch;
+    width:100%;
+    min-height:var(--tap);
+    margin:0 0 var(--space-2);
+    padding:0;
     background:var(--panel-color);
     border:1px solid var(--border-color);
+    border-radius:var(--radius);
     color:var(--text-color);
-    border-radius:var(--game-font-size);
-    cursor:pointer;
     text-align:left;
     font-size:var(--game-font-size);
-    font-family:inherit;
+    cursor:pointer;
+    overflow:hidden;
+    transition:border-color .15s ease, background .15s ease;
 }
 
-.choice:disabled {
-    opacity: .5;
+.choice-sigil{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--sigil-bg);
+    border-right:1px solid var(--border-color);
+    font-size:calc(var(--game-font-size) * 1.25);
+    line-height:1;
 }
 
-.choice:disabled:hover{
-    transform:none;
-    filter:none;
+.choice-label{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:var(--space-1);
+    padding:var(--space-2) var(--space-3);
+    line-height:1.4;
+}
+
+.choice:hover{
+    border-color:var(--accent);
+}
+
+.choice:active{
+    background:var(--panel-item-bg);
 }
 
 /* zamčená volba - podmínka není splněná */
 .choice.locked{
     border-style:dashed;
+    color:var(--muted);
 }
 
+.choice.locked .choice-sigil{
+    background:transparent;
+    color:var(--muted);
+}
+
+.choice:disabled{
+    cursor:default;
+}
+
+.choice:disabled:hover{
+    border-color:var(--border-color);
+}
+
+/* zamčená volba, kterou lze otevřít schopností role */
 .choice.unlockable{
     border-style:solid;
-    border-color:var(--font-active-color);
+    border-color:var(--rubric);
+    color:var(--text-color);
 }
 
+.choice.unlockable .choice-sigil{
+    background:transparent;
+    color:var(--rubric);
+}
+
+/* co je potřeba splnit - drobný štítek pod textem volby */
 .choice-requirement{
-    display:block;
-    margin-top:6px;
-    font-size:calc(var(--game-font-size) * .8);
-    opacity:.75;
+    font-size:var(--label-size);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--rubric);
 }
 
-/* toasty - krátká hlášení o efektech */
+/* =========================================================================
+   Výběr scénáře
+   ========================================================================= */
+
+.scenario-list{
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-3);
+}
+
+.scenario-card{
+    display:grid;
+    grid-template-columns:112px 1fr;
+    background:var(--panel-color);
+    border:1px solid var(--border-color);
+    border-radius:var(--radius);
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:border-color .15s ease;
+}
+
+.scenario-card:hover{
+    border-color:var(--accent);
+}
+
+.scenario-image{
+    grid-row:1 / -1;
+    width:112px;
+    height:100%;
+}
+
+.scenario-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.scenario-info{
+    padding:var(--space-3) var(--space-3) 0;
+}
+
+.scenario-title{
+    font-family:var(--font-display);
+    font-size:var(--subtitle-size);
+    letter-spacing:.02em;
+    margin-bottom:var(--space-1);
+}
+
+.scenario-description{
+    font-size:var(--small-size);
+    line-height:1.5;
+    color:var(--muted);
+}
+
+.scenario-details{
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--space-1) var(--space-3);
+    padding:var(--space-2) var(--space-3) var(--space-3);
+    font-size:var(--label-size);
+    color:var(--muted);
+}
+
+.scenario-detail{
+    display:flex;
+    align-items:center;
+    gap:var(--space-1);
+}
+
+.scenario-icon{
+    flex-shrink:0;
+}
+
+.scenario-continue{
+    grid-column:2;
+    margin:0 var(--space-3) var(--space-3);
+    min-height:44px;
+    background:transparent;
+    border:1px solid var(--accent);
+    border-radius:var(--button-radius);
+    color:var(--accent);
+    font-size:var(--small-size);
+    cursor:pointer;
+}
+
+/* =========================================================================
+   Toasty
+   ========================================================================= */
+
 #toasts{
     position:fixed;
     left:50%;
-    bottom:20px;
+    bottom:var(--space-3);
     transform:translateX(-50%);
-    width:min(420px,92vw);
+    width:min(var(--measure),92vw);
     display:flex;
     flex-direction:column;
-    gap:8px;
+    gap:var(--space-1);
     z-index:2000;
     pointer-events:none;
 }
@@ -345,11 +480,12 @@ body.font-typewriter{
 .toast{
     background:var(--panel-bg);
     border:1px solid var(--panel-border);
-    color:var(--text-color);
+    border-left:3px solid var(--rubric);
     border-radius:var(--button-radius);
-    padding:10px 14px;
-    font-size:calc(var(--game-font-size) * .9);
-    box-shadow:0 4px 16px rgba(0,0,0,.35);
+    padding:var(--space-2) var(--space-3);
+    font-size:var(--small-size);
+    line-height:1.45;
+    box-shadow:var(--shadow);
     opacity:1;
     transition:opacity .3s ease;
 }
@@ -358,437 +494,333 @@ body.font-typewriter{
     opacity:0;
 }
 
-/* karta hráče s rolí a jejími schopnostmi */
+/* =========================================================================
+   Boční menu
+   ========================================================================= */
+
+#menuPanel{
+    position:fixed;
+    top:0;
+    left:-360px;
+    width:min(360px,92vw);
+    height:100vh;
+    padding:var(--space-3);
+    background:var(--panel-bg);
+    color:var(--text-color);
+    border-right:1px solid var(--panel-border);
+    transition:left .25s ease;
+    z-index:1000;
+    overflow-y:auto;
+    box-shadow:var(--shadow);
+}
+
+#menuPanel.menu-open{
+    left:0;
+}
+
+.menu-title{
+    font-family:var(--font-display);
+    font-size:var(--title-size);
+    letter-spacing:.02em;
+    padding-bottom:var(--space-2);
+    margin-bottom:var(--space-3);
+    border-bottom:1px solid var(--panel-border);
+}
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:var(--space-2);
+    min-height:48px;
+    padding:var(--space-2) var(--space-2);
+    margin-bottom:var(--space-1);
+    background:transparent;
+    border:none;
+    border-radius:var(--button-radius);
+    cursor:pointer;
+}
+
+.menu-item:hover{
+    background:var(--panel-item-bg);
+}
+
+.menu-section{
+    margin:var(--space-4) 0 var(--space-2);
+    font-size:var(--label-size);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+}
+
+.menu-description{
+    margin-bottom:var(--space-3);
+    font-size:var(--small-size);
+    line-height:1.5;
+    color:var(--muted);
+}
+
+#menuPanel hr{
+    border:none;
+    border-top:1px solid var(--panel-border);
+    margin:var(--space-3) 0;
+}
+
+.menu-buttons{
+    display:flex;
+    gap:var(--space-1);
+    flex-wrap:wrap;
+}
+
+.menu-buttons button{
+    padding:var(--space-2) var(--space-3);
+}
+
+.legend-row{
+    display:flex;
+    align-items:flex-start;
+    gap:var(--space-2);
+    margin:var(--space-2) 0;
+    font-size:var(--small-size);
+    line-height:1.45;
+}
+
+.legend-row .scenario-icon{
+    width:1.8em;
+    text-align:center;
+}
+
+/* =========================================================================
+   Nastavení
+   ========================================================================= */
+
+.settings-section,
+.slider-wrapper{
+    padding:0;
+}
+
+.setting-row,
+.checkbox-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:var(--space-2);
+    min-height:48px;
+    padding:0;
+}
+
+.theme-picker{
+    display:flex;
+    gap:var(--space-2);
+    margin-bottom:var(--space-3);
+}
+
+.theme-preview,
+.font-preview{
+    width:var(--button-size);
+    height:var(--button-size);
+    border:1px solid var(--border-color);
+    border-radius:var(--button-radius);
+    cursor:pointer;
+    transition:.15s;
+}
+
+.theme-preview.active,
+.font-preview.active{
+    border-color:var(--font-active-color);
+    box-shadow:0 0 0 2px var(--font-active-color);
+}
+
+.theme-preview:hover,
+.font-preview:hover{
+    filter:brightness(1.08);
+}
+
+.theme-preview.dark{     background:#12170F; color:#E7DCC6; }
+.theme-preview.light{    background:#FBF8F1; color:#16120C; }
+.theme-preview.medieval{ background:#EFCC96; color:#41260A; }
+
+#fontSizeRange{
+    width:100%;
+    height:32px;
+    accent-color:var(--accent);
+    cursor:pointer;
+}
+
+.toggle-button{
+    width:calc(var(--game-font-size) * 3.4);
+    height:calc(var(--game-font-size) * 1.9);
+    border:1px solid var(--border-color);
+    border-radius:999px;
+    background:var(--panel-item-bg);
+    color:var(--muted);
+    font-size:var(--small-size);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.toggle-button.on{
+    background:var(--verdigris);
+    border-color:var(--verdigris);
+    color:#0E1410;
+}
+
+/* =========================================================================
+   Hráči a role
+   ========================================================================= */
+
+.primary-button,
+.icon-button{
+    min-height:48px;
+    padding:var(--space-2) var(--space-3);
+    background:transparent;
+    border:1px solid var(--border-color);
+    border-radius:var(--button-radius);
+    color:var(--text-color);
+    cursor:pointer;
+    transition:border-color .15s ease;
+}
+
+.primary-button{
+    width:100%;
+    margin-top:var(--space-2);
+}
+
+.primary-button:hover,
+.icon-button:hover{
+    border-color:var(--accent);
+}
+
+.icon-button{
+    min-width:var(--icon-button-size);
+    padding:var(--space-1);
+}
+
+.players-table{
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-1);
+}
+
+.players-header{
+    display:none;
+}
+
+.player-row,
+.player-row-editor{
+    display:flex;
+    align-items:center;
+    gap:var(--space-2);
+    padding:var(--space-1) 0;
+}
+
+.player-name-cell{
+    flex:1;
+}
+
+.player-role-cell{
+    color:var(--muted);
+    font-size:var(--small-size);
+}
+
+#playerNameInput,
+#playerEditName,
+.player-row input,
+.player-row-editor input{
+    flex:1;
+    min-height:44px;
+    padding:0 var(--space-2);
+    background:var(--panel-item-bg);
+    border:1px solid var(--border-color);
+    border-radius:var(--button-radius);
+}
+
+/* karta hráče: jméno, role a její schopnosti - to, co bylo na kartičce */
 .role-card{
+    padding:var(--space-3);
+    margin-bottom:var(--space-2);
     background:var(--panel-item-bg);
     border:1px solid var(--panel-border);
-    border-radius:8px;
-    padding:10px;
-    margin-bottom:10px;
+    border-radius:var(--radius);
 }
 
 .role-card-header{
-    margin-bottom:8px;
+    padding-bottom:var(--space-2);
+    margin-bottom:var(--space-2);
+    border-bottom:1px solid var(--panel-border);
+    font-family:var(--font-display);
+    font-size:var(--subtitle-size);
+    letter-spacing:.02em;
 }
 
 .role-ability{
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
-    gap:8px;
-    padding:6px 0;
-    font-size:calc(var(--game-font-size) * .85);
+    gap:var(--space-2);
+    padding:var(--space-2) 0;
+    font-size:var(--small-size);
+    line-height:1.45;
 }
 
 .role-ability.ability-used{
-    opacity:.55;
+    color:var(--muted);
 }
 
 .ability-state{
     white-space:nowrap;
+    font-size:var(--label-size);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--muted);
 }
 
 .ability-use{
     flex-shrink:0;
-    background:var(--panel-color);
-    border:1px solid var(--border-color);
+    min-height:40px;
+    padding:0 var(--space-3);
+    background:transparent;
+    border:1px solid var(--accent);
     border-radius:var(--button-radius);
-    padding:6px 10px;
-    cursor:pointer;
-    font-size:calc(var(--game-font-size) * .85);
-}
-
-.scenario-continue{
-    grid-column:1 / -1;
-    margin-top:8px;
-    background:var(--panel-color);
-    border:1px solid var(--border-color);
-    border-radius:var(--button-radius);
-    padding:8px;
-    cursor:pointer;
-    font-size:calc(var(--game-font-size) * .85);
-}
-
-#menuPanel{
-    position:fixed;
-    top:0;
-    left:-350px;
-    width:min(350px,90vw);
-    height:100vh;
-    background:var(--panel-bg);
-    color:var(--text-color);
-    border-right:2px solid var(--panel-border);
-    padding:10px;
-    box-sizing:border-box;
-    transition:left .25s ease;
-    z-index:1000;
-    overflow-y:auto;
-}
-
-#menuPanel.menu-open{
-    left:0;
-    display:block;
-}
-
-.menu-title{
-    font-size:calc(var(--game-font-size) + 4px);
-/*    font-weight:bold;*/
-/*    margin-bottom:20px;*/
-    padding:calc(var(--game-font-size) / 2) 0;
-    margin:calc(var(--game-font-size) / 2) 0;
-}
-
-.menu-item{
-    padding:calc(var(--game-font-size) / 2) 0;
-    margin:calc(var(--game-font-size) / 2) 0;
-    background:var(--panel-item-bg);
-    border:none;
-    border-radius:8px;
+    color:var(--accent);
+    font-size:var(--small-size);
     cursor:pointer;
 }
 
-.menu-item:hover{
-    opacity:.8;
-    filter:brightness(1.15);
+.ability-use:hover{
+    background:var(--accent);
+    color:var(--bg-color);
 }
 
-.menu-section{
-    padding:calc(var(--game-font-size) / 2) 0;
-    margin:calc(var(--game-font-size) / 2) 0;
-/*    margin-top:15px;*/
-    margin-bottom:10px;
-/*    font-weight:bold;*/
+/* =========================================================================
+   Pohyb
+   Jediná animace v aplikaci: nová scéna nastoupí zdola, volby po ní.
+   Dává předčítajícímu vědět, že se obsah vyměnil.
+   ========================================================================= */
+
+@media (prefers-reduced-motion: no-preference){
+    .scene-image,
+    .text,
+    .choice{
+        animation:scene-in .32s ease both;
+    }
+    .text{ animation-delay:.04s; }
+    .choice:nth-of-type(1){ animation-delay:.10s; }
+    .choice:nth-of-type(2){ animation-delay:.16s; }
+    .choice:nth-of-type(3){ animation-delay:.22s; }
+    .choice:nth-of-type(n+4){ animation-delay:.28s; }
 }
 
-.menu-buttons{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
+@keyframes scene-in{
+    from{ opacity:0; transform:translateY(6px); }
+    to  { opacity:1; transform:none; }
 }
 
-.menu-buttons button{
-    padding:8px 12px;
-}
+/* =========================================================================
+   Větší displeje
+   ========================================================================= */
 
-.menu-description{
-    opacity:.7;
-    margin-bottom:15px;
-}
-
-.legend-row{
-    display:flex;
-    align-items:center;
-    margin:6px 0;
-}
-
-.legend-row .scenario-icon{
-    width:2em;
-    flex-shrink:0;
-    text-align:center;
-}
-
-.setting-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:10px 0;
-    padding-left:var(--settings-indent);
-    padding-right:var(--settings-indent);
-}
-
-.settings-section {
-    padding-left:var(--settings-indent);
-    padding-right:var(--settings-indent);
-}
-
-.toggle-button{
-    width:calc(var(--game-font-size) * 4);
-    height:calc(var(--game-font-size) * 2);
-    border-radius:var(--game-font-size);
-    border:1px solid var(--border-color);
-    background:#777;
-    color:white;
-    cursor:pointer;
-    font-size:var(--game-font-size);
-/*    font-weight:bold; */
-    transition:.2s;
-}
-
-.toggle-button.on{
-    background:#3a9d5d;
-}
-
-.scenario-list{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.scenario-card{
-    display:grid;
-    grid-template-columns:120px 1fr;
-    background:var(--panel-color);
-    border:1px solid var(--border-color);
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.scenario-card:hover,
-.choice:hover{
-    transform:scale(1.02);
-    filter:brightness(1.1);
-}
-
-.scenario-image{
-    width:120px;
-    flex-shrink:0;
-    grid-row:1 / span 2;
-}
-
-.scenario-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.scenario-info{
-    padding:12px;
-}
-
-.scenario-title{
-    font-size:calc(var(--game-font-size) + 4px);
-    margin-bottom:8px;
-}
-
-.scenario-description{
-    margin-bottom:10px;
-    opacity:.8;
-}
-
-.scenario-detail{
-    display:flex;
-    align-items:center;
-    margin:4px 0;
-}
-
-.scenario-details{
-    padding:12px;
-}
-
-.scenario-icon{
-    width:2em;
-    text-align:center;
-    flex-shrink:0;
-}
-
-.players-table{
-    display:flex;
-    flex-direction:column;
-/*    gap:4px;*/
-    width:100%;
-    margin: var(--game-font-size) 0;
-}
-
-.players-header{
-    display:grid;
-    grid-template-columns:
-        minmax(0,1fr)
-        var(--button-size)
-        minmax(0,1fr)
-        var(--button-size);
-    gap:4px;
-    align-items:center;
-    margin-bottom:6px;
-}
-
-.player-row{
-    width:100%;
-    display:grid;
-    grid-template-columns:
-        minmax(0,1fr)
-        var(--button-size)
-        var(--button-size);
-    gap:4px;
-    align-items:center;
-    padding: 3px;
-    height:calc(var(--button-size)*1,1)
-}
-
-.player-row:has(.player-role-cell:only-child){
-    grid-template-columns:
-        minmax(0,1fr)
-        var(--button-size);
-}
-
-.player-row-editor{
-    width:100%;
-    display:grid;
-    grid-template-columns:
-        minmax(0,1fr)
-        var(--button-size)
-        minmax(0,1fr)
-        var(--button-size);
-    gap:4px;
-    align-items:center;
-    padding: 3px;
-    height:calc(var(--button-size)*1,1)
-}
-
-.player-role-cell,
-.player-confirm-cell{
-    display:flex;
-/*    justify-content:center;*/
-    align-items:center;
-/*    text-align:center;*/
-    background:var(--panel-color);
-    color:var(--text-color);
-    font-size:var(--game-font-size);
-}
-
-.player-name input{
-    width:100%;
-    box-sizing:border-box;
-}
-
-#playersAdd{
-    margin-top:calc(var(--game-font-size) / 2) 0;
-/*    text-align:center;*/
-/*    align-items:center;*/
-    margin-bottom:calc(var(--game-font-size) / 2) 0;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    align-items:flex-start;
-}
-
-.player-name-edit{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
-.player-name-edit input{
-    flex:1;
-}
-
-.player-row-editor button,
-.player-row button{
-    font:inherit;
-    font-size:var(--game-font-size);
-    height:var(--button-size);
-    width:var(--button-size);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0;
-    background:var(--panel-color);
-    color:var(--text-color);
-    border-radius:1px;
-    cursor:pointer;
-}
-
-.player-row-editor input,
-.player-row input{
-    font:inherit;
-    font-size:inherit;
-    color:#666;
-    height:var(--button-size);
-    min-width:0;
-    width:100%;
-}
-
-.player-row-editor input::placeholder,
-.player-row input::placeholder{
-    font:inherit;
-}
-
-.player-name-cell{
-    height:var(--button-size);
-    display:flex;
-    align-items:center;
-    min-width:0;
-    width:100%;
-    background:var(--panel-color);
-    color:var(--text-color);
-    font-size:var(--game-font-size);
-}
-
-.player-name-cell input{
-    width:100%;
-    min-width:0;
-    max-width:100%;
-    height:var(--button-size);
-    padding:4px 8px;
-}
-
-.player-name-cell span{
-    display:block;
-    width:100%;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    box-sizing:border-box;
-}
-
-#playersList{
-    width:100%;
-    overflow:hidden;
-    gap:2px;
-}
-
-.players-hint{
-    margin-top:6px;
-    font-size:0.85em;
-    opacity:.7;
-    text-align:center;
-}
-
-.icon-button{
-    font-size:calc(var(--game-font-size) * 1.0);
-/*    width:var(--icon-button-size);
-    height:var(--icon-button-size);*/
-    padding:calc(var(--game-font-size) * 1.0);
-    border-radius:50%;
-    background:var(--panel-color);
-    color:var(--text-color);
-    cursor:pointer;
-/*    display:flex;*/
-/*    text-align:center;*/
-    vertical-align: middle;
-    align-items:center;
-    border:2px solid var(--border-color);
-}
-
-.primary-button{
-    width:100%;
-    min-height:var(--button-size);
-    padding:calc(var(--game-font-size) * 1.0) calc(var(--game-font-size) * 1.5);
-    border-radius:12px;
-    font-size:calc(var(--game-font-size) * 1.0);
-/*    font-weight:bold;*/
-    background:var(--accent-color);
-    color:var(--text-color);
-    cursor:pointer;
-    border:2px solid var(--border-color);
-}
-
-.icon-button:disabled,
-.primary-button:disabled{
-    opacity: .5;
-    cursor:not-allowed
-}
-
-.checkbox-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin:calc(var(--game-font-size) / 2) 0;
-    cursor:pointer;
-    accent-color:var(--border-color);
-}
-
-.checkbox-row label{
-    cursor:pointer;
+@media (min-width: 700px){
+    body{
+        padding:var(--space-4) var(--space-3) var(--space-5);
+    }
 }

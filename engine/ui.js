@@ -17,8 +17,13 @@ const UI={
 
     renderText(scene){
         const d=document.createElement("div");
-        d.className="text";
-        d.innerHTML=Array.isArray(scene.text)?scene.text.join("<br><br>"):scene.text;
+        const text=Array.isArray(scene.text)
+            ? scene.text.join("<br><br>")
+            : scene.text;
+
+        // iniciálu dostanou jen delší scény, u krátké hlášky by vypadala hloupě
+        d.className = text.length > 140 ? "text text--versal" : "text";
+        d.innerHTML = text;
         this.root.appendChild(d);
     },
 
@@ -30,12 +35,28 @@ const UI={
             if(this.isChoiceLocked(c)){
                 this.renderLockedChoice(b,c);
             }else{
-                b.innerText=`${icons[c.icon]||""} ${c.text}`;
+                b.innerHTML=this.choiceMarkup(
+                    icons[c.icon] || icons.stopy,
+                    c.text
+                );
                 b.onclick=()=>Engine.gotoScene(c.goto);
             }
 
             this.root.appendChild(b);
         });
+    },
+
+    // znak charakteru akce má vlastní sloupec - viz legenda hry
+    choiceMarkup(sigil, text, requirement){
+        return `
+            <span class="choice-sigil">${sigil}</span>
+            <span class="choice-label">
+                <span>${text}</span>
+                ${requirement
+                    ? `<span class="choice-requirement">${requirement}</span>`
+                    : ""}
+            </span>
+        `;
     },
 
     // disableIf = zamkni, když platí ALESPOŇ JEDNA podmínka
@@ -55,12 +76,11 @@ const UI={
             Conditions.describeChoiceRequirement(choice);
 
         button.classList.add("locked");
-        button.innerHTML=`
-            ${icons.zamceno} ${choice.text}
-            ${requirement
-                ? `<span class="choice-requirement">${requirement}</span>`
-                : ""}
-        `;
+        button.innerHTML=this.choiceMarkup(
+            icons.zamceno,
+            choice.text,
+            requirement
+        );
 
         // Tupec: [1/hru] skupina může ignorovat podmínku rozhodnutí
         const unlocker = this.findUnlocker();
@@ -70,12 +90,11 @@ const UI={
         }
 
         button.classList.add("unlockable");
-        button.innerHTML=`
-            ${icons.odemceno} ${choice.text}
-            <span class="choice-requirement">
-                ${requirement} - lze odemknout schopností role ${unlocker.role.name}
-            </span>
-        `;
+        button.innerHTML=this.choiceMarkup(
+            icons.odemceno,
+            choice.text,
+            `${requirement} &middot; otevře ${unlocker.role.name}`
+        );
         button.onclick=()=>{
             Menu.confirm(
                 `Odemknout tuto volbu schopností role ${unlocker.role.name} (${unlocker.player.name})? Jde to jen jednou za hru.`,
