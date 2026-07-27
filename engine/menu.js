@@ -49,6 +49,15 @@ const Menu = {
         }
     },
 
+    openMenu(){
+        this.open=true;
+        const p=document.getElementById("menuPanel");
+        if(p){
+            p.classList.add("menu-open");
+        }
+        this.render();
+    },
+
     close(){
         this.open=false;
         const p=document.getElementById("menuPanel");
@@ -71,6 +80,9 @@ const Menu = {
                 break;
             case "legend":
                 this.renderLegend();
+                break;
+            case "save":
+                this.renderSave();
                 break;
             case "confirm":
                 this.renderConfirm();
@@ -98,7 +110,9 @@ const Menu = {
             ${icons.knihy} Přehled pravidel ${icons.vpred}
         </div>
         <div class="menu-item">${icons.graf} Statistiky ${icons.zabrana}</div>
-        <div class="menu-item">${icons.disketa} Uložit / Načíst pozici ${icons.zabrana}</div>
+        <div class="menu-item" id="menuSave">
+            ${icons.disketa} Uložit / Načíst pozici ${icons.vpred}
+        </div>
         <div class="menu-item" id="menuExit">
             ${icons.dvere} Ukončit scénář
         </div>
@@ -126,6 +140,10 @@ const Menu = {
         document.getElementById("menuLegend").onclick=(e)=>{
             e.stopPropagation();
             this.showLegend();
+        };
+        document.getElementById("menuSave").onclick=(e)=>{
+            e.stopPropagation();
+            this.showSave();
         };
         document.getElementById("menuExit").onclick=(e)=>{
             e.stopPropagation();
@@ -175,7 +193,83 @@ const Menu = {
         this.page="about";
         this.render();
     },
-    
+
+    showSave(){
+        this.page="save";
+        this.render();
+    },
+
+    renderSave(){
+        const gameId = Engine.game && Engine.game.gameId;
+        const saved = gameId ? Save.describe(gameId) : null;
+
+        document.getElementById("menuPanel").innerHTML=`
+        <div class="menu-title">
+            ${icons.disketa} Uložit / Načíst pozici
+        </div>
+        <div class="menu-description">
+            Hra se ukládá sama po každém rozhodnutí.
+            ${saved
+                ? `Poslední uložení: <strong>${saved}</strong>.`
+                : "Zatím nic uloženo."}
+        </div>
+        <div class="menu-item" id="saveNow">
+            ${icons.disketa} Uložit teď
+        </div>
+        ${saved ? `
+        <div class="menu-item" id="saveLoad">
+            ${icons.zpet} Načíst uloženou pozici
+        </div>
+        <div class="menu-item" id="saveClear">
+            ${icons.krizek} Smazat uloženou pozici
+        </div>` : ""}
+        <hr>
+        <div class="menu-item" id="menuBack">
+            ${icons.zpet} Zpět do menu
+        </div>
+        `;
+
+        document.getElementById("saveNow").onclick=(e)=>{
+            e.stopPropagation();
+            if(Save.save()){
+                UI.toast(`${icons.disketa} Pozice uložena.`);
+            }else{
+                UI.toast(`${icons.krizek} Uložení se nepodařilo.`);
+            }
+            this.showMain();
+        };
+
+        if(saved){
+            document.getElementById("saveLoad").onclick=(e)=>{
+                e.stopPropagation();
+                this.confirm(
+                    "Načíst uloženou pozici? Rozehraný postup se zahodí.",
+                    ()=>{
+                        const data = Save.read(gameId);
+                        this.close();
+                        this.page="main";
+                        Engine.start(gameId, data);
+                    }
+                );
+            };
+            document.getElementById("saveClear").onclick=(e)=>{
+                e.stopPropagation();
+                this.confirm(
+                    "Opravdu smazat uloženou pozici?",
+                    ()=>{
+                        Save.clear(gameId);
+                        this.showSave();
+                    }
+                );
+            };
+        }
+
+        document.getElementById("menuBack").onclick=(e)=>{
+            e.stopPropagation();
+            this.showMain();
+        };
+    },
+
     renderSettings(){
         document.getElementById("menuPanel").innerHTML=`
         <div class="menu-title">
@@ -621,6 +715,48 @@ deletePlayer(index){
     this.renderRoles();
 },
     
+    // Výhody a nevýhody role. Schopnosti s usage "once" dostanou tlačítko,
+    // které je spotřebuje - to je ta kartička "1/hru" převedená do appky.
+    renderAbilities(player, playerIndex){
+        const role = player.role;
+        if(!role) return "";
+
+        let html = "";
+
+        (role.advantages || []).forEach((ability,abilityIndex)=>{
+            const once =
+                ability.usage &&
+                ability.usage.type === "once";
+            const used =
+                Engine.isAbilityUsed(playerIndex,"advantages",abilityIndex);
+
+            html += `
+            <div class="role-ability ${used ? "ability-used" : ""}">
+                <span>${icons[ability.icon] || icons.plus} ${ability.text}</span>
+                ${once
+                    ? (used
+                        ? `<span class="ability-state">${icons.fajfka} použito</span>`
+                        : `<button class="ability-use"
+                                data-player="${playerIndex}"
+                                data-ability="${abilityIndex}">
+                                Použít
+                           </button>`)
+                    : ""}
+            </div>
+            `;
+        });
+
+        (role.disadvantages || []).forEach(ability=>{
+            html += `
+            <div class="role-ability">
+                <span>${icons[ability.icon] || icons.minus} ${ability.text}</span>
+            </div>
+            `;
+        });
+
+        return html;
+    },
+
     renderAssignedRoles(){
         const panel =
             document.getElementById("menuPanel");
@@ -631,31 +767,20 @@ deletePlayer(index){
                 ${icons.hraci}
                 Hráči a jejich role
             </div>
-            <div class="players-table">
-                <div class="players-header">
-                    <div>Jméno</div>
-                    <div></div>
-                    <div>Role</div>
-                    <div></div>
+        `;
+        players.forEach((player,playerIndex)=>{
+            html += `
+            <div class="role-card">
+                <div class="role-card-header">
+                    ${icons.role} <strong>${player.name}</strong>
+                    - ${player.role?.name || "?"}
                 </div>
-                `;
-                players.forEach(player=>{
-                    html += `
-                    <div class="player-row-editor">
-                        <div class="player-name-cell">
-                            ${player.name}
-                        </div>
-                        <div></div>
-                        <div class="player-role-cell">
-                            ${player.role?.name || "?"}
-                        </div>
-                        <div></div>
-                    </div>
-                `;
-                });
-                    html += `
+                ${this.renderAbilities(player, playerIndex)}
             </div>
-                <button 
+            `;
+        });
+        html += `
+                <button
                     id="editPlayersButton"
                     class="primary-button">
                     ${icons.nastaveni}
@@ -667,10 +792,18 @@ deletePlayer(index){
                 </div>
             `;
         panel.innerHTML = html;
-        console.log(
-            "EDIT BUTTON:",
-            document.getElementById("editPlayersButton")
-        );
+
+        panel.querySelectorAll(".ability-use").forEach(button=>{
+            button.onclick=(e)=>{
+                e.stopPropagation();
+                const playerIndex = Number(button.dataset.player);
+                const abilityIndex = Number(button.dataset.ability);
+                if(Engine.useAbility(playerIndex,"advantages",abilityIndex)){
+                    this.renderRoles();
+                }
+            };
+        });
+
         document.getElementById("editPlayersButton").onclick=(e)=>{
             e.stopPropagation();
             

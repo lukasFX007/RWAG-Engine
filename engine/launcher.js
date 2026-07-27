@@ -41,6 +41,10 @@ const Launcher = {
                     ScenarioStatus.get(
                         scenario.status
                     );
+                const saved =
+                    window.Save
+                        ? Save.describe(scenario.id)
+                        : null;
                 const card=document.createElement(
                     "div"
                 );
@@ -91,34 +95,51 @@ const Launcher = {
                         </span>
                     </div>
                 </div>
+                ${saved
+                    ? `<button class="scenario-continue">
+                           ${icons.disketa} Pokračovat (${saved})
+                       </button>`
+                    : ""}
                 `;
                 card.onclick=()=>{
                     this.startScenario(
                         scenario
                     );
                 };
+                if(saved){
+                    card.querySelector(".scenario-continue")
+                        .onclick=(e)=>{
+                            e.stopPropagation();
+                            this.startScenario(
+                                scenario,
+                                Save.read(scenario.id)
+                            );
+                        };
+                }
                 container.appendChild(card);
             }
         );
         root.appendChild(container);
     },
 
-    startScenario(scenario) {
+    startScenario(scenario, saved) {
         console.log(
             "START SCENARIO:",
-            scenario.id
+            scenario.id,
+            saved ? "(pokračování)" : "(nová hra)"
         );
-    
+
         document.getElementById(
             "launcher"
         ).style.display = "none";
-    
+
         document.getElementById(
             "game"
         ).style.display = "block";
-           
+
         Engine.start(
-            scenario.id
+            scenario.id,
+            saved
         );
     }
 };

@@ -306,6 +306,109 @@ body.font-typewriter{
     opacity: .5;
 }
 
+.choice:disabled:hover{
+    transform:none;
+    filter:none;
+}
+
+/* zamčená volba - podmínka není splněná */
+.choice.locked{
+    border-style:dashed;
+}
+
+.choice.unlockable{
+    border-style:solid;
+    border-color:var(--font-active-color);
+}
+
+.choice-requirement{
+    display:block;
+    margin-top:6px;
+    font-size:calc(var(--game-font-size) * .8);
+    opacity:.75;
+}
+
+/* toasty - krátká hlášení o efektech */
+#toasts{
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%);
+    width:min(420px,92vw);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    z-index:2000;
+    pointer-events:none;
+}
+
+.toast{
+    background:var(--panel-bg);
+    border:1px solid var(--panel-border);
+    color:var(--text-color);
+    border-radius:var(--button-radius);
+    padding:10px 14px;
+    font-size:calc(var(--game-font-size) * .9);
+    box-shadow:0 4px 16px rgba(0,0,0,.35);
+    opacity:1;
+    transition:opacity .3s ease;
+}
+
+.toast-hide{
+    opacity:0;
+}
+
+/* karta hráče s rolí a jejími schopnostmi */
+.role-card{
+    background:var(--panel-item-bg);
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    padding:10px;
+    margin-bottom:10px;
+}
+
+.role-card-header{
+    margin-bottom:8px;
+}
+
+.role-ability{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:8px;
+    padding:6px 0;
+    font-size:calc(var(--game-font-size) * .85);
+}
+
+.role-ability.ability-used{
+    opacity:.55;
+}
+
+.ability-state{
+    white-space:nowrap;
+}
+
+.ability-use{
+    flex-shrink:0;
+    background:var(--panel-color);
+    border:1px solid var(--border-color);
+    border-radius:var(--button-radius);
+    padding:6px 10px;
+    cursor:pointer;
+    font-size:calc(var(--game-font-size) * .85);
+}
+
+.scenario-continue{
+    grid-column:1 / -1;
+    margin-top:8px;
+    background:var(--panel-color);
+    border:1px solid var(--border-color);
+    border-radius:var(--button-radius);
+    padding:8px;
+    cursor:pointer;
+    font-size:calc(var(--game-font-size) * .85);
+}
+
 #menuPanel{
     position:fixed;
     top:0;
