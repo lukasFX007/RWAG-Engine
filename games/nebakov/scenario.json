@@ -5,16 +5,22 @@
   "legend": "legend.json",
   "events": "events.json",
   "roleSet": "roles.json",
-  "players_min":3,
-  "players_max":8,
+  "players_min": 3,
+  "players_max": 8,
   "startScene": "scene_211",
   "scenes": [
     {
       "id": "scene_206",
       "text": "Teď, když mezi vámi není žádný pacifista, na jehož znechucený výraz byste se museli koukat a poslouchat jeho poznámky, můžete se pustit do ohledání místa. Dokud budete na tomto místě, postarejte se o to, aby se zde nenacházel pacifista. Nezapomeňte ho ale vzít s sebou, až odsud půjdete pryč a informovat ho o postupu. Ale v jeho zájmu možná vynechejte zbytečné detaily.",
-      "effects":[
-        {"type":"reputation","value":1},
-        {"type":"toast","text":"Za váš čin jste ztratili 1 bod reputace."}
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        },
+        {
+          "type": "toast",
+          "text": "Za váš čin jste ztratili 1 bod reputace."
+        }
       ],
       "choices": [
         {
@@ -22,7 +28,8 @@
           "text": "Pokračovat v dobrodružství.",
           "goto": "scene_301"
         }
-      ]
+      ],
+      "cardCode": "B06"
     },
     {
       "id": "scene_211",
@@ -33,73 +40,2865 @@
           "text": "Pokračovat v dobrodružství.",
           "goto": "scene_206"
         }
-      ]
+      ],
+      "cardCode": "B11"
     },
     {
       "id": "scene_301",
       "text": "Nic nenasvědčuje tomu, že by se zde nacházel někdo další a tak jste se rozhodli přijít blíž. Kolem nejsou žádné stopy zápasu a vypadá to, že sem ten člověk přišel sám. Zběžným pohledem vidíte, že se jedná o mladého muže. Je oblečený jen na lehko - boty, nohavice, košile a varkoč v barvě rodu Nebáků. Navíc je vyzbrojen pouze úzkou dýkou. Z toho usuzujete, že to není voják, ale spíše posel, nebo možná zvěd.",
       "choices": [
-        {"icon":"lupa","text":"Prohlédnout si muže.","goto":"scene_302"},
-        {"icon":"stopy","text":"Pokračovat na Nebákov.","goto":"scene_303"}
-      ]
-    },
-    {
-      "id":"scene_302",
-      "text":"Větší rudé skvrny naznačují, že má zranění na levé paži a na hrudi. Krev má také na obou rukou a stejně tak na obličeji. A mezi plavými vlasy má červenohnědé chuchvalce. Pravou nohu má složenou pod sebou. Nejspíš se chtěl jen na chvilku schovat do stínu a zmožen únavou se sesunul pod strom. Jen Bůh ví, co se tomu chudákovi stalo. Vaším očím neušla ani kožená tašvice, kterou křečovitě svírá v ruce.",
-      "choices":[
-        {"icon":"lupa","text":"Prohlédnout si jeho tašvici.","goto":"scene_304"},
-        {"icon":"lupa","text":"Prohlédnout si muže více zblízka.","goto":"scene_305"}
-      ]
-    },
-    {
-      "id":"scene_303",
-      "text":"Po krátké rozvaze jste se rozhodli, že půjdete dál. Tomu člověku byste stejně už nejspíš nedokázali pomoct. A potom, co jste viděli v jakém je stavu, ještě více vnímáte naléhavost dopisu od paní MAchny. Kousek dál odsud na cestě vidíte kapky krve. Stopy vás tedy zajisté vedou dál, směrem k Nebákovské pevnosti. Začínáte se obávat, že před vámi je, mírně řečeno, zajímavé dobrodružství. Dojděte na místo, kde je les po obou stranách cesty a zpevněná cesta se mění v kamenitou.",
-      "choices":[
-        {"icon":"stopy","text":"Pokračovat v dobrodružství.","goto":"scene_999"}
-      ]
-    },
-    {
-      "id":"scene_304",
-      "image":"lipa01.jpg",
-      "text":"Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže muž náhle otevřel oči a chytil ho za zápěstí. Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá, zasípal.",
-      "effects":[
-        {"type":"reputation","value":-1},
-        {"type":"toast","text":"Za váš čin jste ztratili 1 bod reputace."}
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si muže.",
+          "goto": "scene_302"
+        },
+        {
+          "icon": "stopy",
+          "text": "Pokračovat na Nebákov.",
+          "goto": "scene_303"
+        }
       ],
-      "choices":[
-        {"icon":"stopy","text":"Pokračovat na Nebákov.","goto":"scene_303"},
-        {"icon":"bublina","text":"Vydrž, pomůžeme ti.","goto":"scene_306"}
-      ]
+      "cardCode": "C01"
     },
     {
-      "id":"scene_305",
-      "image":"lipa02.jpg",
-      "text":"Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve.",
-      "choices":[
-        {"icon":"stopy","text":"Pokračovat na Nebákov.","goto":"scene_303"},
-        {"icon":"bublina","text":"Vydrž, pomůžeme ti.","goto":"scene_306","disableIf":[{"type":"reputation","operator":"<","value":1}]}
-      ]
-    },
-    {
-      "id":"scene_306",
-      "image":"lipa02.jpg",
-      "text":"Mužova tvář se kroutí bolestí. Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete zbavit ho trápení jednou provždy?",
-            "effects":[
-        {"type":"reputation","value":1},
-        {"type":"toast","text":"Za váš čin jste získali 1 bod reputace!"}
+      "id": "scene_302",
+      "text": "Větší rudé skvrny naznačují, že má zranění na levé paži a na hrudi. Krev má také na obou rukou a stejně tak na obličeji. A mezi plavými vlasy má červenohnědé chuchvalce. Pravou nohu má složenou pod sebou. Nejspíš se chtěl jen na chvilku schovat do stínu a zmožen únavou se sesunul pod strom. Jen Bůh ví, co se tomu chudákovi stalo. Vaším očím neušla ani kožená tašvice, kterou křečovitě svírá v ruce.",
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si jeho tašvici.",
+          "goto": "scene_304"
+        },
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si muže více zblízka.",
+          "goto": "scene_305"
+        }
       ],
-      "choices":[
-        {"icon":"mozek","text":"Pokusit se pomoci mu od bolesti.","goto":"scene_999"},
-        {"icon":"nuz","text":"Zbavit ho trápení natrvalo.","goto":"scene_999"}
+      "cardCode": "C02"
+    },
+    {
+      "id": "scene_303",
+      "text": "Po krátké rozvaze jste se rozhodli, že půjdete dál. Tomu člověku byste stejně už nejspíš nedokázali pomoct. A potom, co jste viděli v jakém je stavu, ještě více vnímáte naléhavost dopisu od paní MAchny. Kousek dál odsud na cestě vidíte kapky krve. Stopy vás tedy zajisté vedou dál, směrem k Nebákovské pevnosti. Začínáte se obávat, že před vámi je, mírně řečeno, zajímavé dobrodružství. Dojděte na místo, kde je les po obou stranách cesty a zpevněná cesta se mění v kamenitou.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračovat v dobrodružství.",
+          "goto": "scene_999"
+        }
+      ],
+      "cardCode": "C03"
+    },
+    {
+      "id": "scene_304",
+      "image": "lipa01.jpg",
+      "text": "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže muž náhle otevřel oči a chytil ho za zápěstí. Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá, zasípal.",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        },
+        {
+          "type": "toast",
+          "text": "Za váš čin jste ztratili 1 bod reputace."
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračovat na Nebákov.",
+          "goto": "scene_303"
+        },
+        {
+          "icon": "bublina",
+          "text": "Vydrž, pomůžeme ti.",
+          "goto": "scene_306"
+        }
+      ],
+      "cardCode": "C04"
+    },
+    {
+      "id": "scene_305",
+      "image": "lipa02.jpg",
+      "text": "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračovat na Nebákov.",
+          "goto": "scene_303"
+        },
+        {
+          "icon": "bublina",
+          "text": "Vydrž, pomůžeme ti.",
+          "goto": "scene_306",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "cardCode": "C05"
+    },
+    {
+      "id": "scene_306",
+      "image": "lipa02.jpg",
+      "text": "Mužova tvář se kroutí bolestí. Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete zbavit ho trápení jednou provždy?",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        },
+        {
+          "type": "toast",
+          "text": "Za váš čin jste získali 1 bod reputace!"
+        }
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Pokusit se pomoci mu od bolesti.",
+          "goto": "scene_999"
+        },
+        {
+          "icon": "nuz",
+          "text": "Zbavit ho trápení natrvalo.",
+          "goto": "scene_999"
+        }
+      ],
+      "cardCode": "C06"
+    },
+    {
+      "id": "scene_999",
+      "text": "Konec ukázky.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Vrátit se na začátek.",
+          "goto": "scene_206"
+        }
       ]
     },
     {
-      "id":"scene_999",
-      "text":"Konec ukázky.",
-      "choices":[
-        {"icon":"stopy","text":"Vrátit se na začátek.","goto":"scene_206"}
+      "id": "card_intro_dopis",
+      "text": [
+        "Ctihodní a stateční dobrodruzi,",
+        "k vám nechť doputují tato slova jako hlas z hradu Nebákova, jenž stojí na skále již po mnoho let a dosud se vždy opíral o věrnost svých lidí i přízeň osudu. Píši vám já, Machna, paní tohoto hradu, v čase, kdy nad našimi zdmi ulpívá stín neklidu a neblahého tušení.",
+        "Před nedávnem přišel na Nebákov muž neznámého jména i původu. Nežádal chléb ani nocleh jako jiní poutníci, nýbrž mluvil o věcech, jež zchladily krev i těm nejotrlejším. Pravil, že na Nebákov má v blízké době dopadnout zkáza, jejíž povahu nechtěl – či nemohl – plně vyjevit. Tvrdil však, že zná cestu, jak toto neštěstí odvrátit, a že bez jeho pomoci hrad i jeho lid čeká bídný osud.",
+        "Cizinec nyní na hradě setrvává. Je mu poskytnuto přístřeší a strava, avšak je držen pod dohledem a stranou očí hradní posádky i prostého lidu. Jeho řeč je podivná, avšak ne řeč blázna. V očích má cosi, co nedá spát, a slova jeho se vpíjejí do mysli jako rez do železa.",
+        "Při jedné příležitosti se do rukou hradních dostal jeho deník. Nevíme, zda jej vydal úmyslně, či jej ztratil z nedbalosti. Listy jsou popsány písmem a znaky, jež nikdo z nás nepoznává – snad jde o cizí řeč, snad o záměrně skrytou šifru. Ať je tomu jakkoli, deník dosud nevydal svá tajemství a spíše přidal další otázky než odpovědi.",
+        "Proto se na vás obracím. Je třeba zjistit, kým onen muž ve skutečnosti je, odkud přišel a jaká hrozba má Nebákovu viset nad hlavou. Zda mluví pravdu, či nás chce svést z cesty strachem a klamem. Takový úkol žádá bystrou mysl, pevnou ruku i odvahu čelit věcem skrytým – i těm, jež jsou psány mezi řádky.",
+        "Po jistý čas nebudu moci na hradě setrvat a zůstanu v Ratajích, kde mne vážou jiné povinnosti. Správu Nebákova po tu dobu převezme pan Bartoloměj, muž rozvážný a věrný, jemuž můžete v mezích jeho pravomocí důvěřovat. Cizinec bude po tuto dobu na hradě trpěn, avšak bez rozhodujícího slova – dokud nebude známa pravda.",
+        "Přijmete-li tuto výzvu, dostane se vám pohostinství, ochrany hradních zdí a odměny, jež bude úměrná tomu, co odhalíte. Především však můžete být těmi, kdo odvrátí zlo dříve, než se dá do pohybu.",
+        "Nechť vás při cestě i při slovech provází bdělost a rozvaha.",
+        "Dáno v dobré víře a s nadějí,",
+        "Machna, paní z Nebákova<br>psáno v čase nejistém, léta Páně 1423"
+      ],
+      "choices": [],
+      "todo": "Zvací dopis je fyzická příloha v obálce; ve hře se čte na kartě B09. Návaznost není na dopise uvedena."
+    },
+    {
+      "id": "card_legenda",
+      "text": [
+        "Stručný přehled značení na kartách:",
+        "📜A29 ⇨ najděte a přečtěte kartu A29<br>⇨ rozhodnutí (= vyberte si jednu z možností)<br>[Sedíte] ⇨ podmínka uvedené akce<br>😊 ⇨ kladná reputace (= více než 0) / zvýšení reputace<br>😐 ⇨ žádná reputace (= 0 bodů)<br>😡 ⇨ špatná reputace (= méně než 0) / pokles reputace<br>⌛ ⇨ náhodné setkání (= vrchní karta z balíčku „N“)",
+        "Obecné označení charakteru akce:<br>🔍 průzkum, zvídavost<br>👣 cestování, postup<br>👑 šlechetnost, odvaha<br>🗡️ nátlak, násilí<br>🌿 příroda<br>🧠 znalosti"
+      ],
+      "choices": [],
+      "todo": "Referenční stránka (rub karty rolí), nikoli herní scéna. Obsah odpovídá legend.json. „📜A29“ je pouze ilustrativní příklad, nejde o skutečný odkaz na kartu."
+    },
+    {
+      "id": "card_P01",
+      "cardCode": "P01",
+      "text": [
+        "Troskovické dobrodružství: Tajemství Nebákova",
+        "Dobrodružství je určeno pro skupinu 4 – 8 hráčů.<br>Celá hra, až na pár výjimek, sestává z několika balíčků karet.<br>Příběhové balíčky jsou označeny „A“ až „H“. Ty vás postupně provedou celým dobrodružstvím. Balíčky ani karty v nich si nečtěte dopředu ani zpětně. Není totiž pravidlo, že by za sebou karty šly popořadě podle čísel, a tak by se mohlo stát, že se připravíte o moment překvapení, a to nejen při dalším průchodu hrou."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Kartu P01 vraťte do pouzdra a pokračujte kartou P02.",
+          "goto": "card_P02"
+        }
+      ],
+      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+    },
+    {
+      "id": "card_P02",
+      "cardCode": "P02",
+      "text": [
+        "Dále jsou tu balíčky s kartami kladné reputace „REP +“ a záporné reputace „REP -“ a balíčky označené písmeny „N“ a „O“.<br>Karty z těchto balíčků si budete brát a vracet zpět podle konkrétní situace ve hře nebo ve chvíli, kdy vás k tomu hra vyzve (například pomocí události). Nepotřebný balíček je lepší vždy vrátit do pouzdra, aby se vám karty nepomíchaly.",
+        "V neposlední řadě jsou tu tři obálky. K jejich otevření a odhalení jejich obsahu vás hra také včas vyzve."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Kartu P02 vraťte do pouzdra a pokračujte kartou P03.",
+          "goto": "card_P03"
+        }
+      ],
+      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+    },
+    {
+      "id": "card_P03",
+      "cardCode": "P03",
+      "text": [
+        "Aby byla hra záživnější, je pro vás připravený balíček rolí. Každá z rolí má daný charakter (👤), výhody (⊕) a nevýhody (⊖).",
+        "Role si rozdělíte na konci seznamovacího balíčku, jakmile vás k tomu hra vyzve. Každý si poté náhodně vylosujte z balíčku rolí jednu kartu, představí se přečtením příslušné karty ostatním a začne se podle ní chovat. Na rubu karty je také stručný přehled značek.",
+        "Pokud si budete chtít roli s někým vyměnit, musí s tím souhlasit všichni ostatní hráči! Nepřidělené role poté vrátíte zpět do pouzdra."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Kartu P03 vraťte do pouzdra a pokračujte kartou P04.",
+          "goto": "card_P04"
+        }
+      ],
+      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+    },
+    {
+      "id": "card_P04",
+      "cardCode": "P04",
+      "text": [
+        "Ve hře platí pouze pár základních pravidel:<br>• Nepoužívejte jiné mapy ani mobilní telefony. Vše, co potřebujete pro řešení situací, máte v rukou a hlavě.<br>• Nedívejte se na karty dříve, než k tomu budete vyzváni hrou.<br>• Buďte poctiví vůči hře i vůči sobě navzájem.<br>• Pokud chcete udělat ústupek, musí s tím souhlasit všichni.<br>• Ale hlavně se bavte a užijte si výlet!",
+        "Na kartě je dále uvedeno:<br>• Kartu P04 vraťte do pouzdra."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Vezměte si balíček „A“ a přečtěte kartu A01.",
+          "goto": "card_A01"
+        }
+      ],
+      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+    },
+    {
+      "id": "card_P05",
+      "cardCode": "P05",
+      "text": [
+        "Co udělat po skončení hry:<br>• Balíček „N“ zamíchejte lícem dolů a navrchu nechte N01.<br>• Karty reputací vraťte do příslušného balíčku (REP+ / REP-).<br>• Ostatní balíčky srovnejte lícem dolů podle čísel (O1 navrchu).<br>• Na spodu každého balíčku nechte kartu k tomu určenou.<br>• Všechny balíčky vraťte do příslušných pouzder.<br>• Mapy a dopis vraťte do příslušných obálek a příslušného pouzdra.<br>• Karty P01 – P05 nechte otočené lícem nahoru (01 navrchu).",
+        "A nezapomeňte se vrátit a zažít dobrodružství znovu!"
+      ],
+      "choices": [],
+      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+    },
+    {
+      "id": "card_A01",
+      "cardCode": "A01",
+      "text": [
+        "Vítejte vážení a ctění hrdinové!",
+        "Jistě už se nemůžete dočkat, až společně prožijete následující dobrodružství!<br>Avšak dříve než se na něj vydáte, budete chtít zjistit, nebo si možná připomenout, jak to všechno bude probíhat."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokud jste toto dobrodružství ještě nikdy neprožili, určitě pokračujte čtením karty A02, abyste se dozvěděli základy hraní.",
+          "goto": "card_A02"
+        },
+        {
+          "icon": "mozek",
+          "text": "V případě, že už jste toto dobrodružství prožili, můžete otočit rovnou kartu A03. V takovém případě se rozhodněte sami.",
+          "goto": "card_A03"
+        }
       ]
+    },
+    {
+      "id": "card_A02",
+      "cardCode": "A02",
+      "text": [
+        "Karty popisují, co se děje kolem vás – použijte svou představivost.",
+        "Ve spodní části karty mohou být v rámečcích napsané pokyny týkající se toho, co máte udělat. Pokud je na kartě uvedeno například „📜A04“, znamená to, že si máte vzít kartu 04 z balíčku „A“.<br>A zpravidla byste měli tu stávající ihned vrátit zpět do příslušného balíčku. Kdy si kartu naopak ponechat, se dozvíte dále.<br>A případné výjimky budou uvedené na konkrétní kartě.",
+        "Na kartě je dále uvedeno:<br>• Odložte do balíčku „A“ karty A01 a A02."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A04"
+        }
+      ]
+    },
+    {
+      "id": "card_A03",
+      "cardCode": "A03",
+      "text": [
+        "Jste zkušení dobrodruzi. A takové mají v místním kraji lidé rádi. Ihned si zvyšte reputaci! 😊😊",
+        "Nyní si každý z vás vylosujte svoji roli. Nezapomeňte, že jakmile se s rolemi všichni seznámíte, ihned se podle nich musíte chovat.",
+        "A teď už vzhůru na cestu!<br>👑 Audentes fortuna iuvat! 👑"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 2
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Balíček „A“ odložte. Vezměte si balíček „B“ a přečtěte B01.",
+          "goto": "card_B01"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_A04",
+      "cardCode": "A04",
+      "text": [
+        "Ne vždy to bude tak snadné. Na kartách budou i rozhodnutí. A jednou provedené rozhodnutí nelze jednoduše vzít zpět!",
+        "Rozhodnutí poznáte podle značky mezi jednotlivými akcemi.<br>Většina rozhodnutí má následek, který je uvedený za šipkou (➤) u toho konkrétního rozhodnutí.",
+        "Co znamená symbol 📜 už víte díky předchozí kartě. Tak si to hned zkuste."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A05"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vyrazit rovnou do akce",
+          "goto": "card_A06"
+        }
+      ]
+    },
+    {
+      "id": "card_A05",
+      "cardCode": "A05",
+      "text": [
+        "Možná vás na kartách zaujal symbol 🧠, 🔍 nebo 👣.<br>A v průběhu dobrodružství narazíte i na další symboly. Symbol před rozhodnutím nebo úkolem je obecné označení charakteru dané akce. Zde je přehled a obecný význam některých z nich:",
+        "🔍 průzkum, zvídavost<br>👣 cestování, postup<br>👑 šlechetnost, odvaha<br>🗡️ nátlak, násilí<br>🌿 příroda<br>🧠 znalosti"
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A07"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vyrazit rovnou do akce",
+          "goto": "card_A06"
+        }
+      ]
+    },
+    {
+      "id": "card_A06",
+      "cardCode": "A06",
+      "text": [
+        "Ale no tak. Žádný učený přeci z nebe nespadl. Pamatujte, že chování ovlivňuje vaši reputaci. Tu můžete získat, ale i ztratit. A na základě vaší reputace s vámi někteří lidé jednají.<br>Podle toho, jestli reputaci získáte nebo ztratíte, si buď vezmete, nebo odevzdáte příslušnou reputační kartu. Všímejte si na kartách symbolů 😊 nebo 😡. Jejich význam je následující:<br>😊: +📜😊 nebo -📜😡<br>😡: +📜😡 nebo -📜😊",
+        "Nyní si reputaci snižte (😡). Příště se už řiďte symboly na kartách."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A08"
+        }
+      ]
+    },
+    {
+      "id": "card_A07",
+      "cardCode": "A07",
+      "text": [
+        "Při dobrodružství narazíte i na symboly týkající se reputace. Tu můžete získat, ale i ztratit. A na základě vaší reputace s vámi někteří lidé jednají.<br>Podle toho, jestli reputaci získáte nebo ztratíte, si buď vezmete, nebo odevzdáte příslušnou reputační kartu. Všímejte si na kartách symbolů 😊 nebo 😡. Jejich význam je následující:<br>😊: +📜😊 nebo -📜😡<br>😡: +📜😡 nebo -📜😊",
+        "Nyní si reputaci zvyšte (😊). Příště se už řiďte symboly na kartách."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A08"
+        }
+      ]
+    },
+    {
+      "id": "card_A08",
+      "cardCode": "A08",
+      "text": [
+        "Některá rozhodnutí budou podmíněna. Pokud tomu tak bude, podmínka bude uvedena v hranatých závorkách.",
+        "Může se například týkat stavu vaší reputace. Význam je následující:<br>😊: kladná reputace (více než 0 bodů reputace)<br>😐: žádná reputace (0 bodů reputace)<br>😡: špatná reputace (méně než 0 bodů reputace)",
+        "Zda podmínku reputace splňujete, zjistíte sečtením reputačních karet."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A09"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vyrazit rovnou do akce",
+          "goto": "card_A10"
+        }
+      ]
+    },
+    {
+      "id": "card_A09",
+      "cardCode": "A09",
+      "text": "Výborně! Jste stateční a zároveň rozvážní. A toho si lidé cení. 😊<br>Budou před vámi i rozhodnutí, která vám nabídnou úkol. Úkoly nejsou napsané v rámečku, ale na svitku. Pokud si takové rozhodnutí vyberete a úkol přijmete, kartu si ponechte, dokud úkol nesplníte.<br>Případná odměna za úkol je vždy uvedena za šipkou (➤).<br>Pokud je odměnou za úkol další karta, můžete si ji přečíst až po jeho splnění.",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Zjistit více o úkolech",
+          "goto": "card_A12"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vyrazit rovnou do akce",
+          "goto": "card_A11"
+        }
+      ]
+    },
+    {
+      "id": "card_A10",
+      "cardCode": "A10",
+      "text": "To myslíte vážně? 😡 Je chválihodné, že jste stateční, ale i statečný hrdina musí umět naslouchat a učit se.<br>Budou před vámi i rozhodnutí, která vám nabídnou úkol. Úkoly nejsou napsané v rámečku, ale na svitku. Pokud si takové rozhodnutí vyberete a úkol přijmete, kartu si ponechte, dokud úkol nesplníte.<br>Případná odměna za úkol je vždy uvedena za šipkou (➤).<br>Pokud je odměnou za úkol další karta, můžete si ji přečíst až po jeho splnění.",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Zjistit více o úkolech",
+          "goto": "card_A12"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vyrazit rovnou do akce",
+          "goto": "card_A11"
+        }
+      ]
+    },
+    {
+      "id": "card_A11",
+      "cardCode": "A11",
+      "text": [
+        "Co jste to za hrdiny, když vás nezajímá, jak plnit úkoly? 😡<br>Úkoly budou tvořit velkou část dobrodružství, tak hezky poslouchejte!",
+        "Úkoly nejsou běžné akce a vždy vyžadují vaši interakci s okolím.",
+        "Na jedné kartě mohou být až dva úkoly. Některé povinné, jiné pouze volitelné. Pokud se musíte rozhodnout, smíte si vybrat pouze jeden.",
+        "Jakmile splníte vybraný povinný úkol z karty, vraťte ji do balíčku, pokud vám ovšem karta neříká něco jiného."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A13"
+        }
+      ]
+    },
+    {
+      "id": "card_A12",
+      "cardCode": "A12",
+      "text": [
+        "Úkoly budou tvořit velkou část vašeho dobrodružství. Je dobře, že se o ně zajímáte a chcete se něco naučit.",
+        "Úkoly nejsou běžné akce a vždy vyžadují vaši interakci s okolím.",
+        "Na jedné kartě mohou být až dva úkoly. Některé povinné, jiné pouze volitelné. Pokud se musíte rozhodnout, smíte si vybrat pouze jeden.",
+        "A až splníte vybraný povinný úkol z karty, vraťte ji do balíčku, pokud vám ovšem karta neříká něco jiného."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat ve výuce",
+          "goto": "card_A13"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_A13",
+      "cardCode": "A13",
+      "text": [
+        "Když bude na kartě značka ⏳, znamená to, že vás potkalo náhodné setkání. V takovém případě otočte vrchní kartu z balíčku „N“ a nahlas ji přečtěte. Vyhodnoťte ji dříve, než budete pokračovat v dobrodružství, pokud není uvedeno jinak.<br>Můžete také narazit na výrazy „událost“, „poslání“, „prokletí“ a jiné, ale s tím už si určitě poradíte.",
+        "Víc už toho teď vědět nepotřebujete."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "[😊] Pokračovat",
+          "goto": "card_A14"
+        },
+        {
+          "icon": "stopy",
+          "text": "[😐/😡] Pokračovat ➤ ⏳ a potom",
+          "goto": "card_A14"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_A14",
+      "cardCode": "A14",
+      "text": [
+        "A ještě jedna věc … díky, nebo snad kvůli vašim rozhodnutím se možná připravíte o část příběhu. Budiž vám to motivací k tomu, abyste se do dobrodružství pustili znovu a příště se rozhodli jinak.",
+        "Nyní si rozdělte role a potom už vzhůru za dobrodružstvím!<br>(Chcete-li připomenout, jak fungují role, podívejte se na kartu P03.)",
+        "👑 Audentes fortuna iuvat! 👑"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Balíček „A“ odložte. Vezměte si balíček „B“ a přečtěte B01.",
+          "goto": "card_B01"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_B01",
+      "cardCode": "B01",
+      "text": [
+        "Povoz vás vysadil u tábořiště v Troskovicích. Vzal si peníze za cestu a teď už odjíždí pryč.",
+        "Dříve, než vyjdete za dobrodružstvím, si přečtete zvací dopis, na základě kterého jste se sem vydali. A můžete to klidně udělat u dobrého pití.",
+        "Na kartě je dále uvedeno:<br>• 🔍 Úkol (volitelný): Osvěžte se v místní hospůdce ➤ 😊"
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Úkol: Přečtěte si zvací dopis",
+          "goto": "card_B09"
+        }
+      ]
+    },
+    {
+      "id": "card_B02",
+      "cardCode": "B02",
+      "text": [
+        "Ačkoliv jste je neznali, vážíte si toho, jakou oběť přinesli.",
+        "Zatímco jste zde stáli a mlčky rozjímali, všimli si vašeho chrabrého činu kolemjdoucí. Co nevidět tato událost roznese po okolí.",
+        "A místní si váží projevené úcty vůči jejich hrdinům. 😊"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [],
+      "todo": "Na kartě nebyl ve zdroji nalezen explicitní odkaz na další kartu (pravděpodobně se pokračuje zpět na B03/B04) – doplní autor scénáře."
+    },
+    {
+      "id": "card_B03",
+      "cardCode": "B03",
+      "text": [
+        "Pomník je věnován českým hrdinům z Troskovic a blízkého okolí, kteří padli ve Velké válce.",
+        "Čtete si jména, která tu jsou uvedená, a říkáte si, kolik mladých životů bylo ve válce zbytečně promarněno."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol (volitelný): Držte minutu ticha za padlé",
+          "goto": "card_B02"
+        },
+        {
+          "icon": "stopy",
+          "text": "Jít rovnou za dobrodružstvím",
+          "goto": "card_B04"
+        }
+      ]
+    },
+    {
+      "id": "card_B04",
+      "cardCode": "B04",
+      "text": [
+        "Ve stínu vysokého stromu postává starší pohublý muž v ošuntělých hadrech. V ruce drží hůl a přes rameno má tlumok se svitky.",
+        "Gestem naznačuje, ať přijdete blíž.",
+        "„Zdravím vás, dobří lidé. Žel, po delší době jsem byl donucen opustit svou jeskyni v Apoleně. Strávil jsem tam mnoho let. Studoval jsem byliny a trávil čas přípravou mastí a léčivých odvarů. Rozhodl jsem se, že se o své nabyté vědomosti budu dělit s ostatními. …“"
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Přijít blíž k němu",
+          "goto": "card_B07"
+        },
+        {
+          "icon": "stopy",
+          "text": "Ignorovat ho",
+          "goto": "card_B08"
+        }
+      ]
+    },
+    {
+      "id": "card_B05",
+      "cardCode": "B05",
+      "text": [
+        "Rozložili jste mapu a snažíte se v ní zorientovat. Jsou v ní viditelně zakreslené důležité záchytné body. Takže i když to tu neznáte, s touhle mapou by se vám zde mohlo dobře cestovat. Hlavní pro vás je, že je tam vyznačená cesta na Nebákov. A ta je teď cíl vaší cesty.",
+        "Také vás zaujala značka pomníku kousek odsud. Můžete se jít podívat, co připomíná, nebo se vydat rovnou za dobrodružstvím."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Úkol: Dojděte k pomníku",
+          "goto": "card_B03"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vydat se rovnou za dobrodružstvím",
+          "goto": "card_B04"
+        }
+      ]
+    },
+    {
+      "id": "card_B07",
+      "cardCode": "B07",
+      "text": [
+        "„… ostatními. Už mám svá léta a můj čas se blíží. Prosím, vezměte si něco málo z mých znalostí. A máte-li dobrou pověst, klidně i víc.“",
+        "Na kartě je dále uvedeno:<br>• 🌿 Výhoda [😊]: Smíte si náhodně vybrat až 4 další, každou výměnou za 1 pozitivní reputaci."
+      ],
+      "choices": [
+        {
+          "icon": "priroda",
+          "text": "Zamíchejte karty B12 a náhodně si jednu vyberte",
+          "goto": "card_B10"
+        }
+      ]
+    },
+    {
+      "id": "card_B08",
+      "cardCode": "B08",
+      "text": [
+        "Náhle vás přemohla malátnost a v hrudi cítíte stísněný pocit.<br>Je to snad předtucha něčeho zlého? Nebo jste si právě uvědomili, že je pro vás tento kraj cizí a může vás ledacos překvapit?<br>Je to snad trest za nějaké špatné rozhodnutí?",
+        "Na kartě je dále uvedeno:<br>• 💀 Prokletí [😐 > 3]: ➤ 😡😡<br>• 💀 Prokletí: Jakmile odložíte balíček „B“ ➤ ⏳<br>• Ponechte si tuto kartu, dokud toto prokletí nepomine."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Pokračovat v dobrodružství",
+          "goto": "card_B10"
+        }
+      ],
+      "todo": "Přiřazení textu prokletí ke kartě B08 je rekonstruované – ověřte proti originálu."
+    },
+    {
+      "id": "card_B09",
+      "cardCode": "B09",
+      "text": [
+        "K dopisu je přiložena mapa, která by vás měla dovést na Nebákov.",
+        "Avšak pokud si kdykoliv nebudete vědět rady, můžete požádat o pomoc někoho z místních. Ale pozor, nemají tu rádi cizince, a proto za každou takovou pomoc ztratíte jednu kladnou reputaci.<br>(Pokud je vaše reputace záporná, pomoc využít nemůžete.)"
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Úkol: Prohlédněte si přiloženou mapu",
+          "goto": "card_B05"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vyrazit rovnou za dobrodružstvím",
+          "goto": "card_B04"
+        }
+      ]
+    },
+    {
+      "id": "card_B10",
+      "cardCode": "B10",
+      "text": [
+        "Vaše kroky by nyní ale už vážně měly vést na Nebákov. Správce hradiště vás zajisté očekává.",
+        "Na mapě je cesta vyznačená červenými směrovkami. Vede skrze Slatějov a do Ždáru, kde, jak známo, roste tisíciletá lípa. Ta je asi v půli cesty a mohla by vám snad poskytnout stín pro krátký odpočinek. Od lípy vás mapa vede dále k mlýnu a pak konečně na hrad.",
+        "Na kartě je dále uvedeno:<br>• ⏳ Událost: Dojdete na rozcestí „Svitačka“ ➤ ⏳"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte k tisícileté lípě",
+          "goto": "scene_211"
+        }
+      ]
+    },
+    {
+      "id": "card_B12",
+      "cardCode": "B12",
+      "text": [
+        "Bylinné karty (v balíčku je jich šest, všechny nesou kód B12):",
+        "🌿 Kontryhel – Alchemilla<br>Pomůže ti od břichabolu. Máš-li běhání, nevolnost nebo větry, připrav sobě ve vodě odvar a popíjej jej čistý bez medu, a to ráno, v poledne i navečer.",
+        "🌿 Čekanka – Cichorium<br>Máš-li bolest v játrech a na ledvinách, připrav sobě odvar a ten přebytečnou žluč z těla vyplaví. Pomůže též se vředy v žaludku a uleví od otravy z požití jedu.",
+        "🌿 Zázvor – Zingiber<br>Z kořene zázvoru udělej sobě odvar, chceš-li se horkosti v sobě zbavit. Nebo ho požij samotný. Snad díky ohni, který v něm dříme, pomáhá také vyhnat z těla bolest.",
+        "🌿 Kopretina řimbaba – Leucanthemum<br>Horečku sníží i bolest utiší. Rozžvýkej a spolkni jeden list, nebo pět, když je bolest velká. Pomazání olejovým odvarem odpuzuje hmyz a hojí jeho kousnutí.",
+        "🌿 Heřmánek – Matricaria<br>Heřmánek je zázračný všelék. Na bolest, zranění, vředy, horečku i na uklidnění ducha při špatných snech. Sušený i čerstvý můžete povařit v oleji či vodě, nebo jen tak jísti.",
+        "🌿 Mák vlčí – Papaver rhoeas<br>Vyvař květ, stvol i listy a získáš nálev pro zklidnění těla i duše a vyhnání kašle z těla. Dej však pozor na čerstvou šťávu! Neb budeš vidět věci nevídané."
+      ],
+      "choices": [],
+      "todo": "Šest fyzických karet se stejným kódem B12 (předměty/znalosti do inventáře), nikoli scéna s návazností. Přiřazení textu „Pomůže ti od břichabolu…“ ke Kontryhelu je rekonstruované."
+    },
+    {
+      "id": "card_C07",
+      "cardCode": "C07",
+      "text": [
+        "Je od vás šlechetné, že mu chcete pomoci. Ten čin se jistě brzy roznese po kraji! 😊",
+        "Existují například byliny, které tiší bolest. Pokud je znáte, můžete je nasbírat. Také můžete zkusit štěstí v okolních staveních. Je to pro dobrou věc, a proto vás to nebude stát ztrátu reputace. Třeba nic neseženete, ale i snaha se cení. A stále je tu také ta druhá možnost."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "priroda",
+          "text": "Úkol: Sežeňte něco na bolest a vraťte se ke stromu",
+          "goto": "card_C09"
+        },
+        {
+          "icon": "nuz",
+          "text": "Zkusili jste, co se dalo, ale bez výsledku. Nemáte jinou volbu.",
+          "goto": "card_C08"
+        }
+      ]
+    },
+    {
+      "id": "card_C08",
+      "cardCode": "C08",
+      "text": [
+        "Muž se s velkou námahou odtlačil loktem od kmene. Sjel rukou k opasku a vytáhl z pouzdra dýku. Položil si ji do klína.<br>„Kněz už mi požehnal,“ řekl a opřel se o strom. „A tak vás prosím … pomozte mi důstojně … dojít k Pánu.“",
+        "Teď už se tomu nelze vyhnout. Musíte jen určit toho, kdo to udělá.",
+        "Na kartě je dále uvedeno:<br>• 📜C10 je určena pouze pro tohoto člena družiny."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol: Určete jednoho z vás, kdo to udělá",
+          "goto": "card_C10"
+        }
+      ]
+    },
+    {
+      "id": "card_C09",
+      "cardCode": "C09",
+      "text": [
+        "„Děkuji, šlechetní pánové, … ale těch pár bylin … mě stejně nezachrání. … Neztrácejte tu čas … s mrtvolou.“",
+        "Po chvíli hledání se vám podařilo sehnat něco na tišení bolesti. Když jste se vrátili k lípě, zraněný mělce oddychoval a spal. Jeho tvář viditelně pobledla. Probrali jste ho lehkým zatřesením a podali mu lék. Muž polknul, zakašlal a poté promluvil. Jeho slova byla prokládaná hlubokými nádechy."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračovat kartou C08",
+          "goto": "card_C08"
+        }
+      ]
+    },
+    {
+      "id": "card_C10",
+      "cardCode": "C10",
+      "text": "Muž leží před tebou odevzdaný svému osudu. Poklekl jsi k němu a jen pro sebe v duchu pronesl krátkou modlitbu.<br>Potom jsi oběma rukama uchopil dýku a špičkou ostří našel místo, kde je srdce. Zatlačením na jílec jsi mu ji zaryl do hrudníku. Muž nekladl žádný odpor.<br>S posledním vydechnutím otevřel oči, stiskl ti ruku a zašeptal:<br>„Šel ka po le...“ Chvilku nato jeho sevření povolilo.",
+      "choices": [
+        {
+          "icon": "lebka",
+          "text": "Vezmi si kartu C11 (platí jen pro tebe)",
+          "goto": "card_C11"
+        },
+        {
+          "icon": "stopy",
+          "text": "Přečtěte kartu C12 (platí pro všechny)",
+          "goto": "card_C12"
+        }
+      ]
+    },
+    {
+      "id": "card_C11",
+      "cardCode": "C11",
+      "text": [
+        "Muž zůstal opřený o strom a s očima vytřeštěnýma na tebe. Zavřel jsi tomu nebožákovi víčka, ale ten jeho pohled tě bude pronásledovat ještě dlouho.<br>Hrůzou jsi oněměl a musíš si dát něco na kuráž, aby se ti vrátila řeč.",
+        "Na kartě je dále uvedeno:<br>• 💀 Klatba: Od této chvíle nemůžeš mluvit.<br>• Za každé porušení klatby ztratí celá skupina reputaci (😡).<br>• 👑 Úkol (volitelný): Dej si panáka ➤ zrušení klatby"
+      ],
+      "choices": [],
+      "todo": "Osobní karta klatby (ponechává si ji jeden hráč), nikoli scéna s návazností."
+    },
+    {
+      "id": "card_C12",
+      "cardCode": "C12",
+      "text": "Ještě než ten chudák vydechl naposledy, vám něco stihl sdělit. Společně teď zvažujete, co tím asi myslel. Má vás to snad nasměrovat správným směrem? Jak rádi byste mu teď položili spoustu otázek.<br>Bohužel vám toho už víc nepoví. A tak musíte pracovat s tím, co víte, rozhodnout se a vyrazit na cestu, pryč z tohohle smutného místa.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte k nebákovskému mlýnu",
+          "goto": "card_C15"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_C13",
+      "cardCode": "C13",
+      "text": "Konečně jste se trochu rozkoukali a rozdýchali se. Náhle se další část silně poškozeného zdiva začala hroutit ze skály a s hlučným šplouchnutím dopadla do rybníka.<br>Jste si jistí, že místo, kde stála věž, není to, co byste teď chtěli navštívit.<br>Zvuk padající věže doprovázelo zděšené volání lidí, kteří se hemží kolem nebákovského mlýna.",
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol: Dejte si něco ve mlýně",
+          "goto": "card_C18"
+        },
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte zpět k lípě",
+          "goto": "card_C19"
+        }
+      ]
+    },
+    {
+      "id": "card_C14",
+      "cardCode": "C14",
+      "text": "Prohlédli jste tašvici toho nebožáka. Obsahovala pár grošů, mapu a list s nahrubo načrtnutým portrétem nějakého muže. Kresba je provedena černým uhlem. Jen kámen, který mu visí na krku, je výrazně modrý.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračujte kartou C16",
+          "goto": "card_C16"
+        }
+      ]
+    },
+    {
+      "id": "card_C15",
+      "cardCode": "C15",
+      "text": [
+        "Teď už je vám víc než jasné, odkud stoupá ten dým.<br>Na skále, kde stál dříve Nebákov, je jen hromada rozvalin. Mezi kamením ční doutnající kusy dřeva. Ten zvuk, který jste zaslechli, musel být padající kus věže hradu, jehož zbytky sotva stojí na skalním masivu. Nad spáleništěm hrozivě krouží hejno krkavců.",
+        "Všude kolem je cítit smrt. To není místo, které byste teď chtěli navštívit."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte zpět k lípě",
+          "goto": "card_C17"
+        },
+        {
+          "icon": "koruna",
+          "text": "Úkol: Občerstvěte se ve mlýně",
+          "goto": "card_C18"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_C16",
+      "cardCode": "C16",
+      "text": [
+        "Netušíte, zda je to ten záhadný cizinec, o kterém se píše v dopise, ale je to vaše jediná stopa, a tudíž i jediná naděje. Takže teď už jen zbývá ho najít. Kde ale začít?",
+        "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 02“.<br>• ⏳ Událost: Povedou-li vaše kroky na vámi vybrané „správné místo“ přes rozcestí označené „Troskovice – Křenovy“, zastavte se tam a vyhodnoťte náhodné setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Až budete rozhodnutí, že jste na správném místě",
+          "goto": "card_C24"
+        }
+      ]
+    },
+    {
+      "id": "card_C17",
+      "cardCode": "C17",
+      "text": [
+        "Vrátili jste se ke stromu. Nelze ignorovat všudypřítomné bzučení much. Bezvládné tělo muže leží opřené o kmen lípy.<br>Pacifista proto pokračuje dalších 20 kroků a tam počká na ostatní.",
+        "Předpokládáte, že teď už nikomu nebude vadit, když se podíváte, co důležitého ten muž nesl v tašvici."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si jeho tašvici",
+          "goto": "card_C14"
+        }
+      ]
+    },
+    {
+      "id": "card_C18",
+      "cardCode": "C18",
+      "text": [
+        "U mlýna pod Nebákovem panuje ponurá atmosféra, až z toho mrazí. Před mlýnem ženy ošetřují ty, kteří měli štěstí a přežili. Ze stodoly je slyšet nářek těch, kteří měli štěstí méně. A do sklepa pacholci odnášejí ty, kteří ho neměli vůbec. Pantáta vás obslouží, ale nadšený není. 😡 Pár peněz navíc by jeho mínění o vás určitě zlepšilo.",
+        "Na kartě je dále uvedeno:<br>• 👑 Úkol (volitelný): Nechte spropitné ➤ 😊"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Vraťte se zpět k tisícileté lípě",
+          "goto": "card_C17"
+        }
+      ]
+    },
+    {
+      "id": "card_C19",
+      "cardCode": "C19",
+      "text": [
+        "Vrátili jste se ke stromu. Pacifista pokračuje dalších 20 kroků a tam počká na zbytek skupiny.",
+        "Muž je bledý a nedýchá. Přišli jste pozdě, teď už mu nikdo nepomůže. Škoda. 😡 Tašvice leží vedle jeho bezvládné ruky. Ten chudák ještě stihl prsty od krve napsat na kořen stromu: „A p o L“.",
+        "Na kartě je dále uvedeno:<br>• 💀 Následek: Ten, kdo dorazil poslední, si sám vyhodnotí setkání (⏳).<br>• 💀 Následek: Celá skupina ztrácí reputaci (😡😡)."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si jeho tašvici",
+          "goto": "card_C14"
+        }
+      ],
+      "todo": "Dva rámečky „Následek“ (⏳ / 😡😡) jsou ve zdroji vysázené mezi kartami C19 a C21 – jejich přiřazení právě ke C19 je rekonstruované, ověřte proti originálu."
+    },
+    {
+      "id": "card_C20",
+      "cardCode": "C20",
+      "text": [
+        "Severovýchodní vítr k vám donesl zápach spáleného dřeva. Z místa, kde nejspíš leží Nebákov, vidíte skrz stromy k obloze stoupat dým.",
+        "A kromě toho jste směrem od Nebákova právě uslyšeli burácení kamenů, jako když se rozpadá puklá skála."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Otočit se a vrátit se zpátky",
+          "goto": "card_C22"
+        },
+        {
+          "icon": "lupa",
+          "text": "Pokračovat na Nebákov",
+          "goto": "card_C23"
+        }
+      ]
+    },
+    {
+      "id": "card_C21",
+      "cardCode": "C21",
+      "text": "Běželi jste marně. Na skále, kde dříve stál Nebákov, je jen hromada rozvalin. Zbytky rozbořeného hradu sotva stojí na skalním masivu. Mezi kamením ční doutnající kusy dřeva a nad spáleništěm hrozivě krouží hejno krkavců.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Kartu C21 odložte a pokračujte čtením karty C13.",
+          "goto": "card_C13"
+        }
+      ]
+    },
+    {
+      "id": "card_C22",
+      "cardCode": "C22",
+      "text": [
+        "Rozhodnutí už padlo a nelze ho vzít zpět.<br>To, co cítíte, vidíte a slyšíte, vás dost vystrašilo.<br>Zatímco jste se rozmýšleli, co udělat, uslyšeli jste další rachocení a padání kamenů doprovázené hlasitým šplouchnutím. Následoval křik mnoha lidí. To jistě zbytky pevnosti spadly do rybníka.<br>Máte pocit, že nebákovským už stejně není pomoci.<br>Lidi s dobrou pověstí budou ale za takové rozhodnutí stíhat výčitky.",
+        "Na kartě je dále uvedeno:<br>• 💀 Prokletí [😊]: ➤ 😡😡"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Vraťte se zpět k tisícileté lípě",
+          "goto": "card_C19"
+        }
+      ]
+    },
+    {
+      "id": "card_C23",
+      "cardCode": "C23",
+      "text": [
+        "Rozhodnutí už padlo a nelze ho vzít zpět.<br>To, co cítíte, vidíte a slyšíte, vás ještě víc vyburcovalo k jednání.<br>Máte pocit, že nebákovští vás teď potřebují víc než kdy dřív.<br>A navíc jste právě uslyšeli další rachocení a padání kamenů doprovázené hlasitým šplouchnutím.<br>Následoval křik. Zděšený křik mnoha lidí – mužů, žen i dětí.<br>Situace se zdá být velice vážná.",
+        "Teď není času nazbyt, utíkejte!"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Doběhněte k nebákovskému mlýnu!",
+          "goto": "card_C21"
+        }
+      ]
+    },
+    {
+      "id": "card_C24",
+      "cardCode": "C24",
+      "text": "Dorazili jste na místo, o kterém se domníváte, že zde zjistíte víc o tom záhadném muži, o němž psala paní Machna a jehož portrét jste našli. Je na čase zjistit, zda byl váš úsudek správný.",
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Pokud vás vaše rozhodnutí dovedlo do skalního města zvaného Apolena nebo do jeho blízkosti",
+          "goto": "card_C25"
+        },
+        {
+          "icon": "mozek",
+          "text": "Pokud jste došli do Troskovic do hospůdky, která nese název Apolena, nebo do její blízkosti",
+          "goto": "card_C26"
+        },
+        {
+          "icon": "mozek",
+          "text": "Pokud stojíte na nějakém jiném místě",
+          "goto": "card_C27"
+        }
+      ]
+    },
+    {
+      "id": "card_C25",
+      "cardCode": "C25",
+      "text": [
+        "Po chvíli společného přemýšlení, radění a koukání do mapy jste vyhodnotili, že se vás ten, teď už mrtvý, muž z Nebákova, budiž mu země lehká, snažil poslat směrem k Apoleně, skalnímu městu ležícímu na východ od Troskovic. Nejste si však úplně jistí, zda je rozumné chodit do skal. Jednak na vás může spadnout zvětralý kámen a jednak kdoví, co se v místních jeskyních pohybuje za živly.<br>Zůstanete proto raději u vstupu a zkusíte se nejdříve zeptat v okolí.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Nechoďte hlouběji do skalního města.<br>• 👣 Podmínka postupu: Vyhodnoťte náhodné setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Balíček „C“ odložte. Vezměte si balíček „D“ a přečtěte D01.",
+          "goto": "card_D01"
+        }
+      ]
+    },
+    {
+      "id": "card_C26",
+      "cardCode": "C26",
+      "text": [
+        "Po chvíli společného přemýšlení a radění jste vyhodnotili, že se vás ten, teď už mrtvý, muž z Nebákova, budiž mu země lehká, snažil poslat směrem k Apoleně, hospůdce ležící v Troskovicích. Jeden z vás si totiž vzpomněl na název toho lokálu, u kterého vás ráno vysadil povoz a kde vaše výprava začala. A hospoda – to je přece hlavní místo veškerého dění! Ale i přesto, že vám vaše rozhodnutí dává smysl, máte takový zvláštní mrazivý pocit v zátylku.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Vyhodnoťte náhodné setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Balíček „C“ odložte. Vezměte si balíček „E“ a přečtěte E01.",
+          "goto": "card_E01"
+        }
+      ]
+    },
+    {
+      "id": "card_C27",
+      "cardCode": "C27",
+      "text": [
+        "Cítíte se bezradní. Snažili jste se přijít na to, kam se vás ten, teď už mrtvý, muž z Nebákova, budiž mu země lehká, asi snažil poslat. Ale vaše snažení bylo nejspíš marné. Po únavném plahočení a hledání toho správného místa jste se zastavili a odpočívali ve stínu u cesty.",
+        "Náhle se u vás zjevila ta dívka v černém, kterou jste již viděli dříve, a řekla: „Hlupáci, musíte do skal! Šel k Apoleně!“ 😡😡"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -2
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
+          "goto": "card_D01"
+        }
+      ]
+    },
+    {
+      "id": "card_D01",
+      "cardCode": "D01",
+      "text": "Na okraji cesty, v místě, kde vede pěšina do lesa, stojí tři strážní.<br>Jejich velitel se vám postaví do cesty se slovy: „Stůjte! Dál nikdo nesmí. V Apoleně se ukrývají loupežníci od jičínského Řáholce. Kdokoliv by se tam ukázal, tomu hrozí nebezpečí. A naším úkolem je tomu zabránit.“",
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[😊] Říct mu o portrétu tajemného muže",
+          "goto": "card_D07",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "icon": "stopy",
+          "text": "Odejít a zkusit štěstí v přilehlém tábořišti",
+          "goto": "card_D08"
+        }
+      ]
+    },
+    {
+      "id": "card_D02",
+      "cardCode": "D02",
+      "text": [
+        "Oba strážní jsou na vlas stejní. Dívají se na vás stejným výrazem. Kdybyste nevěděli, že jsou skutečně dva, asi byste měli nutkání přestat s pitím. Tím spíš potom, co najednou stejným hlasem řeknou: „Tak se ptejte.“",
+        "Na kartě je dále uvedeno:<br>• 🧠 Aktivita (volitelná): Vymyslete otázku, díky které zjistíte, kam se vydat. Poté vyberte dva z vás, kteří budou hrát stráže. Ti si tajně přečtou kartu D12. Jednomu z nich poté tu otázku položte."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Kartu D02 odložte a pokračujte čtením karty D11.",
+          "goto": "card_D11"
+        }
+      ]
+    },
+    {
+      "id": "card_D03",
+      "cardCode": "D03",
+      "text": [
+        "Dal se s vámi do řeči místní ochmelka. Ukázali jste mu podobiznu muže. On si ji dlouze prohlížel, potom se zamyslel a řekl:",
+        "„Příde mi, že sem ho tu viděl. Scháněl peníze. Že prej má důležitej úkol. Řekli sme mu, že tady na stromech zlato neroste, ať zkusí štěstí jinde. Pak šli kolem stráže a vzali ho bokem. Pak už sem se o něj nezajímal. Schválně se zeptejte velitele.“"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Vraťte se ke vstupu do Apoleny",
+          "goto": "card_D07"
+        }
+      ]
+    },
+    {
+      "id": "card_D04",
+      "cardCode": "D04",
+      "text": [
+        "Procházíte tábořištěm a rozhlížíte se kolem sebe. Hledáte někoho, kdo by byl ochotný se s vámi bavit. To neunikne pozornosti místního správce.",
+        "„Co tu chcete? Tady není veřejná zahrada. A jestli chcete přenocovat, zaplaťte předem.“<br>Zeptáte se ho na muže z portrétu a on odpoví:<br>„Možná sem ho tady viděl. Když mi pomůžete s prací, tak si i vzpomenu na podrobnosti.“"
+      ],
+      "choices": [
+        {
+          "icon": "priroda",
+          "text": "Úkol: Poskládejte u každého ohniště hromádku dříví",
+          "goto": "card_D09"
+        },
+        {
+          "icon": "stopy",
+          "text": "Spíše než pracovat, zkusit radši štěstí znovu u stráží",
+          "goto": "card_D10"
+        }
+      ]
+    },
+    {
+      "id": "card_D05",
+      "cardCode": "D05",
+      "text": [
+        "Jakmile jste vkročili do Troskovic, zmocnil se vás silný pocit, že jste tu správně. Snad to není jen proto, že jste tu už dnes byli a to místo je vám díky tomu povědomé.<br>Teď už vám nezbývá než doufat, že se s vámi bude v hospodě někdo bavit.",
+        "Na kartě je dále uvedeno:<br>• Náhle vámi otřásl silný poryv ledového větru, ale než jste se nadáli, byl pryč. Než budete pokračovat dále, vyhodnoťte setkání ➤ ⏳"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
+          "goto": "card_E01"
+        }
+      ]
+    },
+    {
+      "id": "card_D06",
+      "cardCode": "D06",
+      "text": [
+        "Hostinec pod Troskami je liduprázdný. Během rozhovoru si hostinský posteskl, že nemá poslední dobou moc velkou tržbu. Také jste ale zjistili, že ten, koho hledáte, tu nebyl. 😡<br>Teď jen doufáte, že si z vás stráže jen nestřílely a najdete nějakou stopu v té druhé hospodě.",
+        "Na kartě je dále uvedeno:<br>• 👑 Úkol (volitelný): Udělejte zde útratu ➤ 😊<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
+          "goto": "card_E01"
+        }
+      ]
+    },
+    {
+      "id": "card_D07",
+      "cardCode": "D07",
+      "text": [
+        "Strážný si zamyšleně prohlíží podobiznu. „Jo, takovej chlap se tady na nás nedávno nalepil. Šel s náma vod šenku až sem. Tady dvojčata ho vodháněly.“ Když řekl ‚tady dvojčata‘, ukázal přitom za sebe na zbylé dva strážné, kteří na vás koukali s podezíravým pohledem.",
+        "„Prej se zpakoval a vodešel do jiný hospody. No jo, jenže ten vlevo mi tvrdil, že do Troskovic, a ten vpravo, že pod Trosky. Jeden z nich mluví vždycky pravdu, ale ten druhej vždycky lže. Víte co? Můžete jim dohromady položit jednu otázku. Pak už je ale nezdržujte a běžte pryč. Nejsou tu placený za povídání s kolemjdoucíma.“"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračovat kartou D02",
+          "goto": "card_D02"
+        }
+      ]
+    },
+    {
+      "id": "card_D08",
+      "cardCode": "D08",
+      "text": "V tábořišti u Apoleny není zrovna živo. Jedno ohniště zrovna dohasíná a všeho všudy je tu jen pár lidí. Nejste si jistí, zda vám někdo z nich poradí.<br>Můžete ale také zkusit štěstí v blízkém křenovském šenku. Lidé si zpravidla rádi povídají u dobrého pití.",
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol: Sedněte si s někým na pivo a kus řeči",
+          "goto": "card_D03"
+        },
+        {
+          "icon": "lupa",
+          "text": "[😐/😊] Porozhlédnout se po tábořišti",
+          "goto": "card_D04"
+        }
+      ]
+    },
+    {
+      "id": "card_D09",
+      "cardCode": "D09",
+      "text": [
+        "„No to je krása!“ 😊 rozplývá se správce. „Jo, ten člověk tu byl. Je to pár dní. Viděl jsem ho přicházet támhle od Troskovic se strážnýma. Nebo abych to řekl přesně – cupital za nima jako pejsek a něco do nich hučel. Nocleh si nezaplatil, tak jsem se víc nestaral.“",
+        "Náhle k vám přistoupí velitel stráží a říká:<br>„Chlapi, je dobře, že pomáháte, ale je to k ničemu. Do Apoleny vás ani on nepustí, to by ho přišlo draho. Prostě tam nemůžete – nařízení shora. Tak už to sakra pochopte.“"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Říct mu, o co jde, a ukázat portrét muže",
+          "goto": "card_D07"
+        }
+      ]
+    },
+    {
+      "id": "card_D10",
+      "cardCode": "D10",
+      "text": [
+        "Už když jste se blížili ke strážím, jeden z nich si vás všiml a lehkým pokynutím hlavy na vás upozornil svého velitele. Ten se otočil, zavrtěl hlavou, dal si ruce v bok a rázným krokem vykročil k vám.",
+        "„Sakra chlapi! Já opravdu nevím, čemu nerozumíte. Do Apoleny vás nepustíme a hotovo!“ 😡",
+        "Neměli jste v plánu ho naštvat. No co už, stalo se. Teď už nemáte co ztratit."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Říct mu, o co jde, a ukázat portrét muže",
+          "goto": "card_D07"
+        }
+      ]
+    },
+    {
+      "id": "card_D11",
+      "cardCode": "D11",
+      "text": "Doufáte, že jste správně vyhodnotili, kam se vydat. Odměřený pohled stráží vám jasně říká, že už víc nepoví. Mimo to se na vás zle kouká jejich velitel a gestem naznačuje, abyste pokračovali v cestě. A vy ho nechcete zbytečně provokovat.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte pod Trosky",
+          "goto": "card_D06"
+        },
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte do Troskovic",
+          "goto": "card_D05"
+        }
+      ]
+    },
+    {
+      "id": "card_D12",
+      "cardCode": "D12",
+      "text": [
+        "◀ Strážný stojící vlevo mluví vždy pravdu.",
+        "▶ Strážný stojící vpravo je patologický lhář."
+      ],
+      "choices": [],
+      "todo": "Nápovědná karta pro dva hráče hrající stráže (viz D02), nikoli scéna s návazností."
+    },
+    {
+      "id": "card_E01",
+      "cardCode": "E01",
+      "text": "Přišli jste k hospůdce Apolena. Není tu zrovna nával. O zárubně dveří se opírá znuděný hospodský a hadrem odhání mouchy. Změří si vás pohledem a praví: „Pozdrav pánbůh. Čím posloužím, panstvo?“",
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„Pití pro každého a něco do žaludku!“",
+          "goto": "card_E03"
+        },
+        {
+          "icon": "bublina",
+          "text": "„Chceme jen radu. Neobjevil se tu tenhle člověk?“",
+          "goto": "card_E02"
+        }
+      ]
+    },
+    {
+      "id": "card_E02",
+      "cardCode": "E02",
+      "text": "Hospodský roztáhne ruce a pomalu se prohlédne. Potom dá ruce v bok a řekne: „Vypadám snad jako vývěska? Nepřijde mi. Tohle je hospoda. Tady čepujeme pivo a podáváme jídlo. Buď si něco dejte, nebo mě nezdržujte. Mám práci.“",
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„Nerozčiluj se. Chceme jen vědět, jestli tu ten člověk byl.“",
+          "goto": "card_E04"
+        },
+        {
+          "icon": "bublina",
+          "text": "„Dobře. Přines pití pro každého a něco do žaludku!“",
+          "goto": "card_E03"
+        }
+      ]
+    },
+    {
+      "id": "card_E03",
+      "cardCode": "E03",
+      "text": [
+        "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle.<br>Výraz hospodského se náhle změnil. Přívětivě se na vás usmál a řekl: „Tak se mi to líbí! Běžte se posadit, přátelé. Hned vám to přinesu.“ 😊",
+        "Během chvíle byl zpět se vším, co jste si objednali."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Podmínka postupu: Jeden z vás dopije nebo dojí",
+          "goto": "card_E07"
+        }
+      ]
+    },
+    {
+      "id": "card_E04",
+      "cardCode": "E04",
+      "text": "„Tak vy jste mi nerozuměli? Řekl jsem snad dost jasně, že prodávám pití a jídlo! A to mě tady živí. Nedostávám peníze za to, že si tu povídám s každým, kdo jde kolem. Takže jestli si nic nedáte, tak běžte pryč!“ 😡",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„No dobře. Tak my teda odcházíme!“",
+          "goto": "card_E05"
+        },
+        {
+          "icon": "bublina",
+          "text": "„Dobře, omlouváme se, nestojíme o problémy. Přines pro každého pití a něco do žaludku!“",
+          "goto": "card_E06"
+        }
+      ]
+    },
+    {
+      "id": "card_E05",
+      "cardCode": "E05",
+      "text": [
+        "Před hostincem postává ochmelka, kterému neušel váš živý rozhovor s hospodským. Sykne na vás:",
+        "„Hej, poďte sem. Včera večer tu někdo takovej byl. Hrál tady kostky. Jeden z kostkářů by vám určitě řek víc. Ale jestli tady chcete zůstat, radši udělejte útratu! Hospodskej nemá rád čumily.“"
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol [😐/😡]: Každý z vás si něco objedná",
+          "goto": "card_E06"
+        },
+        {
+          "icon": "koruna",
+          "text": "Úkol [😊]: Alespoň jeden z vás si něco objedná",
+          "goto": "card_E06"
+        }
+      ]
+    },
+    {
+      "id": "card_E06",
+      "cardCode": "E06",
+      "text": [
+        "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle.<br>Výraz hospodského se lehce změnil. Nasadil něco jako úsměv a řekl: „Tak přece víte, jak se chovat v hospodě. Běžte se posadit, hned vám to přinesu.“",
+        "Během chvíle byl zpět se vším, co jste si objednali."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Podmínka postupu: Jeden z vás dopije nebo dojí",
+          "goto": "card_E07"
+        }
+      ]
+    },
+    {
+      "id": "card_E07",
+      "cardCode": "E07",
+      "text": "Sotva jste na stůl položili první prázdný žejdlík, objevil se u vás hospodský se slovy: „Ještě něčím posloužím, panstvo?“<br>Pokud už jste si získali jeho přízeň, mohli byste se ho zkusit zeptat na muže z portrétu. Nebo můžete ještě chvíli posedět a počkat.",
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„A víš ty co? Dones nám ještě jednu rundu!“",
+          "goto": "card_E08"
+        },
+        {
+          "icon": "bublina",
+          "text": "[😐 > 3] „Někoho hledáme a ty bys nám mohl pomoct. Vypadá asi takhle.“ (Ukážete mu portrét.) „Prý se potloukal kolem Troskovic a pochybujeme, že by nezašel do tvojí hospody.“ – balíček „E“ odložte, vezměte si balíček „F“ a přečtěte si kartu F01.",
+          "goto": "card_F01",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "card_E08",
+      "cardCode": "E08",
+      "text": [
+        "„To jsem rád, že vám u nás chutná. Hned vám to donesu, přátelé!“ 😊",
+        "Z jeho veselého výrazu usuzujete, že jste si konečně získali jeho přízeň. Na někoho platí úsměv a prosba, někdo holt slyší jenom cinkání peněz. Jakmile přijde, jste odhodlaní se ho zeptat, jestli tady neviděl muže z portrétu."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Událost: Obsluha vám něco přinese – balíček „E“ odložte, vezměte si balíček „F“ a přečtěte si kartu F01.",
+          "goto": "card_F01"
+        }
+      ]
+    },
+    {
+      "id": "card_F01",
+      "cardCode": "F01",
+      "text": [
+        "Hospodský: „Tak ukažte.“ Na chvilku se zamyslel a potom pokračoval: „No jo, někdo takovej tu asi byl včera. Ale zrovna se hrál turnaj v kostkách a byl tu nával. A to víte, nestíhám všechno sledovat. Některý hráči ze včera tu ještě dneska jsou. Zkuste se zeptat někoho z nich.“",
+        "Jak se tak rozhlížíte po lokále, těžko říct, kdo z hostů hraje kostky. Budete je muset obejít a zeptat se."
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Úkol: Zjistěte, zda někdo z hostů hraje kostky",
+          "goto": "card_F02"
+        }
+      ]
+    },
+    {
+      "id": "card_F02",
+      "cardCode": "F02",
+      "text": [
+        "Po chvíli hledání jste skutečně našli muže, který hraje kostky. Dokonce se s vámi dal ochotně do řeči.",
+        "Kostkář: „Jo, hrál jsem s ním včera kostky. Ten měl tolik upito, že by ho obehrál i bezrukej slepec! Bohužel vám víc říct nedokážu. Ale stavte se za hospodským, ten mu … ehm … pomohl ven. Jestli víte, co tím myslím. Ale než půjdete, nechcete si taky hodit?“"
+      ],
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„Proč ne? Alespoň bude zábava.“",
+          "goto": "card_F03"
+        },
+        {
+          "icon": "stopy",
+          "text": "Jít rovnou za hospodským",
+          "goto": "card_F04"
+        }
+      ]
+    },
+    {
+      "id": "card_F03",
+      "cardCode": "F03",
+      "text": [
+        "Kostkář: „No výborně. Tak uvidíme, jestli vám to půjde líp než jemu včera. A co říkáte? Okořeníme si tu hru sázkou, nebo si zahrajeme jen tak?“",
+        "Škoda, že jste s tím dopředu nepočítali a svoje „speciální“ kostky nechali doma. Budete muset hrát s těmi, které vám půjčí hospodský. Snad nebudou vychýlené na tu druhou stranu."
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Hrát jen tak",
+          "goto": "card_F08"
+        },
+        {
+          "icon": "koruna",
+          "text": "Hrát o peníze",
+          "goto": "card_F09"
+        }
+      ]
+    },
+    {
+      "id": "card_F04",
+      "cardCode": "F04",
+      "text": [
+        "Hospodský: „To vám řek?“ Zamračil se. „No, možná sem mu pomoh ven. A vy se divíte? Byl vožralej jak zákon káže a neměl dost peněz na zaplacení útraty. Mával tady tim modrým šutrem a já nevěděl, jestli to není kradený. A s tím já nechci mít nic společnýho.“",
+        "Na kartě je dále uvedeno:<br>• 👑 Úkol (volitelný): Nechte spropitné alespoň ve výši desetiny útraty ➤ 😊"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Odejít pryč a poohlédnout se jinde",
+          "goto": "card_F11"
+        }
+      ]
+    },
+    {
+      "id": "card_F05",
+      "cardCode": "F05",
+      "text": [
+        "Kostkář: „Děkuju moc, přátelé! To až řeknu ženě, tak mi neuvěří. Cestou na jarmark o vás budu všem vyprávět! 😊 A za to, že jste takoví čestní, vám dám tohle.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale jak vidno, nefunguje. Alespoň ne při hře v kostky. Snad vám přinese štěstí při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+        "Na kartě je dále uvedeno:<br>• Kartu F05 si ponechte."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Jít za hospodským",
+          "goto": "card_F04"
+        }
+      ]
+    },
+    {
+      "id": "card_F06",
+      "cardCode": "F06",
+      "text": [
+        "Kostkář: „Haha! 😊 Tak nevím, jestli byste měli větší šanci než včera on. Ale protože jste hráli férově, dám vám tohle.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale vy to štěstí potřebujete víc. A třeba vám pomůže při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+        "Na kartě je dále uvedeno:<br>• Kartu F06 si ponechte."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Jít za hospodským",
+          "goto": "card_F04"
+        }
+      ]
+    },
+    {
+      "id": "card_F07",
+      "cardCode": "F07",
+      "text": [
+        "Kostkář: „Do psí díry! Tohle se nemělo stát. Chtěl jsem ženu vzít nazítří do Sobotky na jarmark. Teď mě akorát tak přerazí. Ale co už, včera jsem měl kliku, dneska ne. Takovej je život. Na to pivo ještě pár drobásků po kapsách najdu.“",
+        "Na jednu stranu je vám ho trochu líto. Na druhou stranu – hra je hra."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol (volitelný): Vraťte protihráči peníze",
+          "goto": "card_F05"
+        },
+        {
+          "icon": "stopy",
+          "text": "Se spokojeným výrazem z výhry teď odejít za hospodským",
+          "goto": "card_F04"
+        }
+      ]
+    },
+    {
+      "id": "card_F08",
+      "cardCode": "F08",
+      "text": "Kostkář: „Á, tady se někdo bojí, že by prohrál. No co, hra je hra, ať už o něco, nebo o nic. Ať vyhraje ten lepší!“",
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Událost: Výhra v kostkách",
+          "goto": "card_F06"
+        },
+        {
+          "icon": "lebka",
+          "text": "Událost: Prohra v kostkách",
+          "goto": "card_F10"
+        }
+      ]
+    },
+    {
+      "id": "card_F09",
+      "cardCode": "F09",
+      "text": "Kostkář: „To se mi líbí! Vždycky mám větší motivaci, když je co ztratit. Doufám, že dneska bude Fortuna při mě!“",
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Událost: Výhra v kostkách",
+          "goto": "card_F07"
+        },
+        {
+          "icon": "lebka",
+          "text": "Událost: Prohra v kostkách",
+          "goto": "card_F10"
+        }
+      ]
+    },
+    {
+      "id": "card_F10",
+      "cardCode": "F10",
+      "text": [
+        "Kostkář: „Taková smůla! Ještě, že to nebylo o peníze! To jediné mě zachránilo. Tohle vám dám.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale jak vidno, nefunguje. Alespoň ne při hře v kostky. Snad vám přinese štěstí při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+        "Na kartě je dále uvedeno:<br>• Kartu F10 si ponechte."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Jít za hospodským",
+          "goto": "card_F04"
+        }
+      ]
+    },
+    {
+      "id": "card_F11",
+      "cardCode": "F11",
+      "text": "Při odchodu z hospody vás ještě zastavil hospodský. „Jo, a ještě jsem si vzpomněl. Ráno tu byl Jarek vod vovcí, co má vohradu v Tachově u rozcestí. A stěžoval si, že ho ráno našel v chlívku. No, toho frejíře z vobrázku. Prej si ustlal na hnoji. No, tak mu dal pár ran do zubů a von upaloval pryč.“",
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "[😐 > 4] „Poradíš nám prosím, kde bysme toho Jarka našli?“",
+          "goto": "card_F12",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "icon": "bublina",
+          "text": "„Děkujeme za radu. Tak my zkusíme štěstí tam.“",
+          "goto": "card_F13"
+        }
+      ]
+    },
+    {
+      "id": "card_F12",
+      "cardCode": "F12",
+      "text": [
+        "Hospodský: „Kde byste asi tak mohli najít Jarka z Tachova?“ zeptal se jízlivě. Na chvíli se vzorově zamyslel a potom pokračoval: „Možná v Tachově, co myslíte?“ Od srdce se rozesmál, ale váš nechápavý výraz nejspíš vypověděl za vše. Hned proto dodal: „Aha. No, půjdete vodsuď na západ a pak na sever. Hlavní povede rovně, ale vy se dáte doleva. Vohrada je u vodbočky, co vede ke křížku svatýho Jána. To nemůžete minout. Prostě půjdete za zvukem. A smradem vovcí. Hehe.“",
+        "Váš další cíl je tímto daný – rozcestí u ohrady s ovcemi v Tachově.",
+        "Na kartě je dále uvedeno:<br>• ⏳ Událost: Opustíte Troskovice ➤ ⏳"
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Až budete rozhodnutí, že jste na správném místě",
+          "goto": "card_F14"
+        }
+      ]
+    },
+    {
+      "id": "card_F13",
+      "cardCode": "F13",
+      "text": [
+        "Váš další cíl je tedy jasný – najít Tachov a rozcestí u ohrady s ovcemi. A tam potom vyhledat pasáčka Jarka. Snad vám řekne, kam ten záhadný cizinec po potyčce s ním odešel, a možná i co je zač.",
+        "Škoda, že moc neznáte zdejší kraj. V mapě, kterou máte k dispozici, je více míst s ovcemi, ale žádný Tachov. Třeba se vám nějak povede najít to správné místo. A při nejhorším se zeptáte místních. Je lepší trocha ostudy, než tu bloudit až do setmění."
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Až budete rozhodnutí, že jste na správném místě",
+          "goto": "card_F14"
+        }
+      ]
+    },
+    {
+      "id": "card_F14",
+      "cardCode": "F14",
+      "text": "Je na čase zjistit, zda vás váš úsudek dovedl na správné místo.",
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "Pokud stojíte na rozcestí u ohrady s ovcemi v Tachově – balíček „F“ odložte, vezměte si balíček „G“ a přečtěte si kartu G01.",
+          "goto": "card_G01"
+        },
+        {
+          "icon": "lebka",
+          "text": "Pokud stojíte na jiném místě ➤ ztrácíte 2 body reputace (😡😡), vyhodnoťte setkání (⏳) a máte nový úkol: Dojděte na rozcestí u ohrady s ovcemi – balíček „F“ odložte, vezměte si balíček „G“ a přečtěte si kartu G01.",
+          "goto": "card_G01"
+        }
+      ],
+      "todo": "Karta obsahuje pouze rámečky s podmínkami, samostatný narativní text na ní ve zdroji není."
+    },
+    {
+      "id": "card_G01",
+      "cardCode": "G01",
+      "text": [
+        "Tachov je malá osada tvořená jen několika staveními rozmístěnými podél cesty. Až na bečení ovcí a cinkání jejich zvonců je tu ticho a klid. Jediný člověk široko daleko je muž, který vidlemi přehazuje hromadu sena. Je zabraný do práce a vypadá to, že si vás zatím nevšiml. Nebo jste mu prostě ukradení.",
+        "Možná by se toho dalo využít a trochu byste se tu mohli rozhlédnout a dříve, než ho oslovíte, zjistit, co se tu dnes ráno vlastně stalo.",
+        "Na kartě je dále uvedeno:<br>• 🔍 Úkol (volitelný): Podívejte se v okolí celé ohrady po něčem podezřelém."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Oslovit muže",
+          "goto": "card_G02"
+        }
+      ]
+    },
+    {
+      "id": "card_G02",
+      "cardCode": "G02",
+      "text": "Přišli jste až k plotu, chvíli muže pozorovali při práci a čekali, zda si vás sám všimne. Je vidět, že už má svůj věk, ale přesto je stále plný síly. Přemýšlíte, zda je to pasáček Jarek, o kterém se zmínil hospodský. Po chvíli si vás muž všiml, ale jen hlavou pokynul na pozdrav a pracuje dál.<br>Nejspíš ho budete muset oslovit sami.",
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„Zdař Bůh! Ty jsi Jarek?“",
+          "goto": "card_G04"
+        },
+        {
+          "icon": "bublina",
+          "text": "„Zdař Bůh! Prý tu bylo ráno živo.“",
+          "goto": "card_G03"
+        }
+      ]
+    },
+    {
+      "id": "card_G03",
+      "cardCode": "G03",
+      "text": "Pasáček si vás jednoho po druhém prohlédl dlouhým prozíravým pohledem. Zapíchnul vidle do země, zkřížil ruce a řekl:<br>„Žíkal kdo? Tady se toho napovídá. Já čeba slyšel, že se po klaji potuluje loupeživá tlupa. A vás sem tady v životě neviděl. Tak se sebelte a vypadněte. Nebo mám dojít plo lychtáže?“ 😡",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "[😐 > 4] Uklidnit situaci",
+          "goto": "card_G05",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "icon": "nuz",
+          "text": "Vyhrožovat",
+          "goto": "card_G06"
+        }
+      ]
+    },
+    {
+      "id": "card_G04",
+      "cardCode": "G04",
+      "text": [
+        "Pasáček si vás pomalu prohlédl a nakonec řekl: „Možná. Záleží na tom, kdo se ptá.“",
+        "Představili jste se a vysvětlili, o co jde.<br>Pasáček pokračoval: „Jestli de jen o tohle, tak budiž. Vyhnal sem ho a utíkal na západ.“ Něco se vám na tom vyprávění nezdá. Snad by se nějak dalo zjistit, jestli říká pravdu."
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[Našli jste krvavé skvrny] Říct mu to",
+          "goto": "card_G07"
+        },
+        {
+          "icon": "nuz",
+          "text": "Vyhrožovat",
+          "goto": "card_G06"
+        }
+      ]
+    },
+    {
+      "id": "card_G05",
+      "cardCode": "G05",
+      "text": "V klidu jste pasáčkovi vysvětlili, že rozhodně nestojíte o problémy, a zdůraznili, že tu nejste od toho, abyste řešili něčí neshody. Řekli jste mu, že si jen chlapi v hospodě pustili pusu na špacír, když jste se tam trochu vyptávali na toho muže z portrétu, a ukázali ho i jemu.<br>Jarek nic nezapíral a potvrdil, že toho „chlapíka“ vyhnal. A ten že „utíkal směrem na západ“. Ale stejně vám na tom vyprávění něco nesedí. Snad by se vám nějak mohlo povést zjistit, jestli říká pravdu.",
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[Našli jste krvavé skvrny] Říct mu to",
+          "goto": "card_G07"
+        },
+        {
+          "icon": "nuz",
+          "text": "Vyhrožovat",
+          "goto": "card_G06"
+        }
+      ]
+    },
+    {
+      "id": "card_G06",
+      "cardCode": "G06",
+      "text": [
+        "„Tak hele ty ovčáku! My víme, že jsi mu dal přes hubu. A máme na to svědky. Chceš nám pořád něco zapírat? Nebo bys to radši vysvětlil na rychtě v Troskovicích?“ 😡",
+        "Jarek: „Dobže, dobže. Vyžešíme to v klidu, jo? Pšiznávám se, dal sem mu jednu mezi oči. Klad mi jabka, měl sem si to nechat líbit? A chodit s tím na lychtu mi pšišlo jako ztláta času. A beztak by to zapšel.“"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„No a kde je teda teď?“",
+          "goto": "card_G08"
+        },
+        {
+          "icon": "bublina",
+          "text": "„Nevěříme ti ani slovo.“",
+          "goto": "card_G09"
+        }
+      ]
+    },
+    {
+      "id": "card_G07",
+      "cardCode": "G07",
+      "text": [
+        "„Jarku, podívej se. Všude kolem jsou krvavé skvrny. Docela čerstvé. Umíme si dát jedna a jedna dohromady. Nebo nám chceš tvrdit, že jsi tam kuchal ovci? Možná ti vynadal a ty jsi ho praštil. Nic ti nevyčítáme. Nejsme drábové, jen hledáme toho chlapíka.“",
+        "Jarek: „Jo, jo. Pšiznám se, dal sem mu jednu mezi oči. Byl splostej a klad mi jabka, měl sem si to nechat líbit? Chodit s tím na lychtu mi pšišlo jako ztláta času. A beztak by to zapšel.“"
+      ],
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "„No a kde je teda teď?“",
+          "goto": "card_G08"
+        },
+        {
+          "icon": "bublina",
+          "text": "„Nevěříme ti ani slovo.“",
+          "goto": "card_G09"
+        }
+      ]
+    },
+    {
+      "id": "card_G08",
+      "cardCode": "G08",
+      "text": [
+        "Jarek: „Tak to vážně netuším. Když sem ho viděl naposledy, stál tam na tom pažezu.“ Ukázal na pařez za druhou stranou ohrady. Koukal se tím směrem a vyprávěl to s takovým přesvědčením, jako by ho tam pořád viděl. „Hulákal na mě a takhle mi hlozil pěstí.“ Při tom zatnul ruku v pěst a pohrozil směrem k pařezu. „Pak uklouznul, nebo co, skutálel se smělem k vodopádu a zmizel.“",
+        "Na chvíli se zamyslel a potom pokračoval: „No, a když mi teď pomůžete, poladím vám, kudy se dá bezpečně dostat k vodopádu.“"
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[Našli jste u pařezu zakrvácený žulový kámen] Říct mu o něm",
+          "goto": "card_G10"
+        },
+        {
+          "icon": "bublina",
+          "text": "„A poradil bys nám, kudy se dostat k tomu vodopádu?“",
+          "goto": "card_G12"
+        }
+      ]
+    },
+    {
+      "id": "card_G09",
+      "cardCode": "G09",
+      "text": "Jarek: „Tak si čeba tlhněte nohou! 😡 Žíkám, že dostal do nosu a utíkal plyč. Když sem ho viděl naposledy, stál tam na tom pažezu.“ Ukázal na pařez za druhou stranou ohrady. Vyprávěl to, jako by ho tam pořád viděl. „Hulákal a takhle mi hlozil pěstí.“ Zatnul ruku v pěst a pohrozil k pařezu. „Pak uklouznul, nebo co, a skutálel se dolů smělem k vodopádu a zmizel mi z očí. Díky Bohu.“",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[Našli jste u pařezu zakrvácený žulový kámen] Říct mu o něm",
+          "goto": "card_G11"
+        },
+        {
+          "icon": "bublina",
+          "text": "„A poradil bys nám, kudy se dostat k tomu vodopádu?“",
+          "goto": "card_G12"
+        }
+      ],
+      "todo": "Rozdělení dvojice karet G10 / G11 mezi G08 (vlídná varianta) a G09 (nevlídná varianta) je rekonstruované – ověřte proti originálu."
+    },
+    {
+      "id": "card_G10",
+      "cardCode": "G10",
+      "text": "Jarek: „No jo, ten kámen sem po něm hodil. Ale minul sem. Oplavdu! Aspoň teda myslím… To víte, už sem stalej dědek a zlak mi neslouží tak jako džív. Hele, podívejte se, když budete mít kliku, bude si u vodopádu lízat lány a nebo dospávat kocovinu.“",
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Nabídnout Jarkovi pomoc",
+          "goto": "card_G18"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vydat se k vodopádu",
+          "goto": "card_G19"
+        }
+      ]
+    },
+    {
+      "id": "card_G11",
+      "cardCode": "G11",
+      "text": "Jarek: „No jo, ten kámen sem po něm hodil. Ale minul sem. Bohužel. Aspoň teda myslím… Holt už sem stalej dědek a zlak mi neslouží tak jako džív. Hele, co se stalo, stalo se. Já nevím, ploč bych se zlovna vám měl zpovídat. Najděte ho a zeptejte se ho sami.“",
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "[😐 > 2] Nabídnout Jarkovi pomoc",
+          "goto": "card_G18",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "icon": "stopy",
+          "text": "Vydat se k vodopádu",
+          "goto": "card_G19"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_G12",
+      "cardCode": "G12",
+      "text": "Jarek: „Vám tak budu ladit. 😡 Nakláčíte si sem jak páni a ptáte se na věci, do ktelých vám nic není. Vůbec vás neznám a nevim, ploč se tu s váma vlastně bavím, když mám svojí pláce dost. Musíme pšeházet seno, abych měl dost žládla plo ovce na zimu. Pak nazbílat jabka, aby ty moje holky nebyly dneska o hladu. Pláce jak na kostele. Stačí, že mě láno zdlžel ten pobuda a teď ještě vy.“",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "[😐 > 3] Nabídnout Jarkovi pomoc",
+          "goto": "card_G18",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "icon": "stopy",
+          "text": "Vydat se k vodopádu",
+          "goto": "card_G19"
+        }
+      ]
+    },
+    {
+      "id": "card_G13",
+      "cardCode": "G13",
+      "text": [
+        "Jarek se usmál od ucha k uchu a odhalil dásně postrádající spoustu zubů. „Jé! To je moje píšťalka! Děkuju moc! 😊 Můžu si s ní pšivolat svýho pejska. A vy mi zatím plosím spočítejte ty ovce.“",
+        "Vrátili jste Jarkovi jeho ztracenou píšťalku. Radši jste mu řekli, že jste ji našli cestou, když jste šli od Troskovic sem. Nechtěli jste tomu neznámému muži z Nebákova ještě víc zhoršit reputaci tím, že byste o něm rozhlašovali, že krade. Už takhle to vypadá, že je v problémech. A vy nevíte, jestli jeho pomoc náhodou nebudete ještě potřebovat.",
+        "Na kartě je dále uvedeno:<br>• Kartu s píšťalkou vraťte do balíčku."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "priroda",
+          "text": "Úkol: Spočítejte ovce v ohradě",
+          "goto": "card_G14"
+        }
+      ]
+    },
+    {
+      "id": "card_G14",
+      "cardCode": "G14",
+      "text": "Jarek: „Tak to vypadá, že bude za chvíli všechno zase pši stalym. Mám píšťalku a díky ní mám zpátky i svýho pejska. Zaběhnul se někde ve skalách nad Vidlákem. Jmenuje se Flek. A nebojte, nekouše. Teď už jen abych měl všechny ovečky a můžu v klidu spát. Ty jabka, co mi sněd ten pobuda, už vem čelt. Tak co? Kolik ovcí jste napočítali?“",
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "40 a více",
+          "goto": "card_G16"
+        },
+        {
+          "icon": "mozek",
+          "text": "méně než 40",
+          "goto": "card_G15"
+        }
+      ]
+    },
+    {
+      "id": "card_G15",
+      "cardCode": "G15",
+      "text": [
+        "Jarek: „A sakla! Toho sem se bál. Ještě požád mi nějaký ovečky chyběj. A to sem myslel, že už je mám všechny. Naštěstí už mám svýho pejska a ten mi je pomůže sehnat. Ale i tak vám děkuju za pomoc. 😊 Jo jo, se zvížatama sou holt stalosti.",
+        "Ale abyste nežekli, že sem jen stalej neludnej dědek, tak vám můžu poladit, jak se dostat k vodopádu a nezlomit si pši tom nohu.“"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "[😐 > 5] Zeptat se na cestu k vodopádu",
+          "goto": "card_G20",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 6
+            }
+          ]
+        },
+        {
+          "icon": "stopy",
+          "text": "Popřát hezký den a odejít",
+          "goto": "card_G21"
+        }
+      ]
+    },
+    {
+      "id": "card_G16",
+      "cardCode": "G16",
+      "text": "Jarek: „Cože? Já jich ale pšece tolik nemám. 😊 Nepočítali ste náhodou i belany? Já sem ale žíkal ovce! Belani se pšece nesplašili a nemyslím si, že by se mi za tu chvilku stihlo nalodit tolik mladejch.<br>No, tak koukám, že si je stejně budu muset pšepočítat sám. Ale abyste si nemysleli, že sem jen neludnej dědek, tak vám můžu poladit, jak se dostat k vodopádu a nezlomit si pši tom nohu.“",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "[😐 > 5] Zeptat se na cestu k vodopádu",
+          "goto": "card_G20",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 6
+            }
+          ]
+        },
+        {
+          "icon": "stopy",
+          "text": "Popřát hezký den a odejít",
+          "goto": "card_G21"
+        }
+      ]
+    },
+    {
+      "id": "card_G17",
+      "cardCode": "G17",
+      "text": [
+        "Z tohohle místa vás trochu mrazí. Na jedné straně zeď stromů, na druhé hradba skal. Slunce sem ani nepronikne a do toho ta vlezlá vlhkost. A navíc máte pocit, že vás někdo pozoruje. Nebo je to jen přelud?",
+        "Podle popisu od Jarka byste měli po téhle cestě dorazit na palouk s rozpadlým seníkem a pak se vydat podél koryta až k vodopádu.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte na palouk se seníkem",
+          "goto": "card_G24"
+        }
+      ]
+    },
+    {
+      "id": "card_G18",
+      "cardCode": "G18",
+      "text": "Jarek: „No, víte co. Jak tu láno ten pobuda kšičel, splašil mi moje ovečky a ty se lozutekly do lesa. Jedna byla až v Tloskovicích u tábožiště. Nejsem si úplně jistej, jestli už sem sehnal všechny. Můžete mi je pomoct spočítat? Já si teďka musím vyžezat píšťalku, ktelou sem někde ztlatil. A pasáček bez píšťalky, to je jako hlušeň bez hlušek, no nemám plavdu?“",
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[Získali jste píšťalku] Odevzdat píšťalku",
+          "goto": "card_G13"
+        },
+        {
+          "icon": "priroda",
+          "text": "Úkol: Spočítejte ovce v ohradě",
+          "goto": "card_G14"
+        }
+      ]
+    },
+    {
+      "id": "card_G19",
+      "cardCode": "G19",
+      "text": [
+        "Rozloučili jste se a obrátili se k odchodu. Za zády jste slyšeli, jak Jarek zavrčel: „Aaa! K saklu s tím. Počkejte ještě! Nechci vás mít na svědomí. Nechoďte k vodopádu shola, ale od lybníka. Cesta vede mezi skalama pšes palouk s lozpadlým seníkem. Lovně byste potom došli vyschlým kolytem aš k vodopádu. Ale lepší bude obejít skály z plava pšes louku, kde se loví vysoká. A teď už jděte. A bacha na vlky!“",
+        "S tím se otočil, vzal do ruky vidle a pokračoval v přehazování sena.<br>První záchytný bod v cestě k vodopádu by mohlo být loviště."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte na louku s lovištěm vysoké",
+          "goto": "card_G22"
+        }
+      ]
+    },
+    {
+      "id": "card_G20",
+      "cardCode": "G20",
+      "text": [
+        "Jarek: „Dobže, že si necháte poladit. Co já se tam nachodil, kdyš sem byl mlačí a vodíval si tam holky, hehe. No, teď už tam zajdu jen občas, natlhat vlaní oka na mazání na klouby… Každopádně, půjdete z kopce k Vidláku a potom doleva smělem na Želejov. Ke konci lybníka vedou dvě cesty do lesa. Vy půjdete až po tý dluhý. Je tam taková veliká skála, co jí žíkáme Pilíž. To by mohl bejt váš plvní záchytnej bod, že jste splávně. A ta cesta vás potom dovede až na palouk s lozpadlým seníkem. To bude váš dluhej záchytnej bod. Z palouku potom půjdete lovně podél kolyta až k vodopádu.“",
+        "Po chvíli čmárání vám mapu vrátil zpátky.",
+        "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 03“."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte ke skále za odbočkou do lesa",
+          "goto": "card_G17"
+        }
+      ],
+      "todo": "Ve zdroji jsou dvě revize karty G20. Použita je delší (➤ G17). Kratší revize (samostatný slide 1) končí úkolem „Dojděte na palouk se seníkem ➤ G24“ – rozhodněte, která verze je platná."
+    },
+    {
+      "id": "card_G21",
+      "cardCode": "G21",
+      "text": [
+        "Jarkův popis cesty nebyl zrovna podrobný, ale i přesto se vám nějakým způsobem podařilo jít podle toho, jak vám cestu popsal. Nebo alespoň doufáte, že jste šli správně. Teď je na čase zjistit, zda vás váš úsudek dovedl na správné místo.",
+        "Loviště se pozná podle toho, že je na něm krmelec a místo, kam dávají lovčí návnadu pro zvěř. A v blízkosti také určitě musí stát posed. Podle toho poznáte, že jste na správném místě."
+      ],
+      "choices": [
+        {
+          "icon": "mozek",
+          "text": "[Vidíte posed i krmelec] Jste na lovišti",
+          "goto": "card_G23"
+        },
+        {
+          "icon": "lebka",
+          "text": "[Nevidíte krmelec ani posed] Zabloudili jste",
+          "goto": "card_G26"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_G22",
+      "cardCode": "G22",
+      "text": [
+        "Cesta tu končí a vy se proto radíte, kudy dál. Váš rozhovor vyplašil srnku, která se tu pásla. Náhle k vám rázným krokem přišel lovčí a už z dálky na vás volal: „To snad nemyslíte vážně?! Nemůžete se bavit potišej? Vyplašili jste mi večeři! Ale když už jste tady, pomůžete mi alespoň zabít čas. A pak se hezky vraťte zpět, odkud jste přišli.“",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Vyhodnoťte 📜N12. Pro získání odměny za úspěch musí výzvu splnit dva členové výpravy.<br>• (V tuto chvíli nelze využít schopnosti rolí.)"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
+          "goto": "card_G24"
+        }
+      ]
+    },
+    {
+      "id": "card_G23",
+      "cardCode": "G23",
+      "text": [
+        "Jste na lovišti vysoké zvěře.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte na palouk se seníkem",
+          "goto": "card_G24"
+        }
+      ],
+      "todo": "Na slidu není k této kartě samostatný narativní text; text scény je proto pouze pomocný. Doplní autor scénáře."
+    },
+    {
+      "id": "card_G24",
+      "cardCode": "G24",
+      "text": [
+        "Došli jste na palouk s rozpadlým stavením. Chvíli vám trvalo najít v hluboké trávě pěšinu vedoucí k vodopádu. Očividně tudy dlouho nikdo nešel. Ale to vám dalo naději, že ten cizinec z Nebákova tam stále ještě je. Po chvíli jste konečně objevili téměř vyschlé koryto řeky, které vás dovedlo hloub do lesa a až k vodopádu.",
+        "Na kartě je dále uvedeno:<br>• 👑 Aktivita (volitelná): Cesta k vodopádu je opravdu dobrodružná, a proto tam chodit nemusíte… Ale můžete, pokud chcete umocnit svůj zážitek a získat reputaci ➤ 😊😊"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračujte kartou G25",
+          "goto": "card_G25"
+        }
+      ]
+    },
+    {
+      "id": "card_G25",
+      "cardCode": "G25",
+      "text": "Jak jste tak procházeli lesem obklopeným skalami, kde není slyšet zpěv ptáků ani vidět sluneční světlo, padá na vás pochmurná nálada. Teprve teď jste si začali uvědomovat, co všechno se dnes stalo a že zatím nic nešlo podle plánu. Mysleli jste si, že jednoduše navštívíte Nebákov, popovídáte si s místními, společně si zahrajete kostky u žejdlíku piva a možná si tu dokonce najdete i pár přátel. Paní Machna se vám odmění a vy spokojeně odjedete domů.<br>Pravda, byli jste v hospodě a mohli si zahrát kostky, ale vzpomínky na to mají zvláštní pachuť. Mrtvolnou pachuť spáleného dřeva.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Balíček „G“ odložte. Vezměte si balíček „H“ a přečtěte H01.",
+          "goto": "card_H01"
+        }
+      ]
+    },
+    {
+      "id": "card_G26",
+      "cardCode": "G26",
+      "text": [
+        "Jste přesvědčení o tom, že jste šli přesně podle toho, jak vám to Jarek popsal. Ale po posedu a krmelci tu nejsou ani stopy. Tohle nejspíš nebude ta louka s lovištěm vysoké zvěře, o které se pasáček zmínil.<br>Kde se vzala, tu se vzala, šla kolem vás bába s nůší na zádech.",
+        "„Bloudíme? Bloudíme?“ řekla skřípavým hlasem. Pak píchla prstem do mapy se slovy: „Musíte sem. A příště dávejte pozor!“ 😡",
+        "Zvedli jste zrak od mapy, ale po bábě jako by se zem slehla…"
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte na louku s lovištěm vysoké",
+          "goto": "card_G23"
+        }
+      ]
+    },
+    {
+      "id": "card_H01",
+      "cardCode": "H01",
+      "text": "Přicházíte k vodopádu a z toho, co tu vidíte, nemáte vůbec dobrý pocit. V proláklině od padající vody leží tělo muže v kápi. Máte hodně silné tušení, že je to ten, koho hledáte.<br>A aby toho nebylo málo, těla si ještě před vámi všiml vlk, který se už stihl pustit do díla. Naštěstí si vás zatím nevšiml.",
+      "choices": [
+        {
+          "icon": "nuz",
+          "text": "Pokusit se odehnat vlka",
+          "goto": "card_H04"
+        },
+        {
+          "icon": "stopy",
+          "text": "Raději odejít pryč",
+          "goto": "card_H05"
+        }
+      ]
+    },
+    {
+      "id": "card_H02",
+      "cardCode": "H02",
+      "text": "Jakmile jste vzali kámen do ruky, rozdrolil se na prach. Náraz na tvrdou skálu odvedl své. Ze záhybu kápě se při tom vykutálel svitek. Ihned jste poznali rozlomenou pečeť Nebáků. Těžko říct, zda ji poničil pád, nebo ten, kdo si psaní přečetl. Mohl to být snad tenhle muž? Zvědavost po tom, co je uvnitř, vás přemohla a svitek jste rozvinuli.<br>Bohužel je psaný písmem, které nikdo z vás nedokáže přečíst. Takže ani nevíte, komu je adresovaný. Snad by to písmo dokázal přečíst troskovický písař.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Odejít pryč",
+          "goto": "card_H07"
+        }
+      ]
+    },
+    {
+      "id": "card_H03",
+      "cardCode": "H03",
+      "text": [
+        "Shledali jste, že u vodopádu už toho moc nezmůžete. Nechcete se stát dalším chodem pro vlky. Je vám jasné, že ten jeden, kterého jste potkali, nebyl jediný. Sice se vám ho povedlo odehnat, ale proti celé smečce hladových vlků byste těžko obstáli. A jejich vytí už slyšíte všude kolem. A navíc, na to, abyste pochovali toho nebožtíka, nemáte lopatu. Jste si jistí, že od vodopádu jste odešli právě včas.",
+        "Je vám jasné, že ten, kdo tam ležel, byl muž, kterého jste hledali. Pasáček Jarek by si určitě zasloužil vědět, jak to s ním dopadlo.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Vraťte se zpět k ohradě s ovcemi",
+          "goto": "card_H08"
+        }
+      ]
+    },
+    {
+      "id": "card_H04",
+      "cardCode": "H04",
+      "text": "Stačilo začít křičet a mlátit o sebe klacky. Vlk vrčel a cenil zuby, ale nakonec utekl. Škoda, že váš hrdinský čin nikdo neocení.<br>Teď máte příležitost si tělo prohlédnout. Na druhou stranu je vám jasné, že takové tučné kořisti se vlk nevzdá tak snadno.",
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "[V okruhu 20 kroků od vás se nenachází žádný pacifista] Prohlédnout tělo",
+          "goto": "card_H06"
+        },
+        {
+          "icon": "stopy",
+          "text": "Raději odejít",
+          "goto": "card_H05"
+        }
+      ]
+    },
+    {
+      "id": "card_H05",
+      "cardCode": "H05",
+      "text": [
+        "Shledali jste, že u vodopádu už toho moc nezmůžete. Nechcete se stát dalším chodem pro vlky. Je vám jasné, že ten jeden vlk, kterého jste viděli, nebyl jediný a celé smečce hladových vlků byste se těžko ubránili. Jejich vytí už slyšíte všude kolem. A navíc, na to, abyste pochovali toho nebožtíka, nemáte lopatu. Jste si jistí, že od vodopádu jste odešli právě včas, ale nemáte ze sebe dobrý pocit.",
+        "Předpokládáte, že ten, kdo tam ležel, byl muž, kterého jste hledali. Pasáček Jarek by si určitě zasloužil vědět, jak to s ním dopadlo.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Vraťte se k ohradě s ovcemi",
+          "goto": "card_H08"
+        }
+      ]
+    },
+    {
+      "id": "card_H06",
+      "cardCode": "H06",
+      "text": "Muž má sice ohlodanou ruku, ale to není smrtelné zranění. To jste našli až po sejmutí jeho kápě. Na čele má ránu, která vede od kořene nosu nahoru. Ten chudák nejspíš uklouzl na mokré skále a spadl hlavou přímo na kámen. Tělo už je vychladlé a kůže bez barvy, ale i tak není pochyb o tom, že je to ten, koho jste hledali.<br>Modrý kámen, který měl na krku, vypadá hodně poškozeně.",
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si modrý kámen",
+          "goto": "card_H02"
+        },
+        {
+          "icon": "stopy",
+          "text": "Raději odejít pryč",
+          "goto": "card_H03"
+        }
+      ]
+    },
+    {
+      "id": "card_H07",
+      "cardCode": "H07",
+      "text": [
+        "Shledali jste, že u vodopádu už toho moc nezmůžete. Nechcete se stát dalším chodem pro vlky. Vlci žijí ve smečce a máte strach, že ten, kterého jste potkali, nebyl jediný. Sice se vám ho povedlo odehnat, ale proti celé smečce hladových vlků byste těžko obstáli. A jejich vytí slyšíte všude kolem. A navíc, na to, abyste pochovali toho nebožtíka, nemáte lopatu. Jste si jistí, že od vodopádu jste odešli právě včas.",
+        "Je vám jasné, že ten, kdo tam ležel, byl muž, kterého jste hledali. Teď je vaše jediné vodítko svitek, který měl u sebe."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte na cestu u rybníka západně odsud",
+          "goto": "card_H09"
+        }
+      ]
+    },
+    {
+      "id": "card_H08",
+      "cardCode": "H08",
+      "text": [
+        "Když jste Jarkovi všechno řekli, zblednul. „Počkjte, snad si nemyslíte, že to je moje vina. Já ho nezabil! Oplavdu ne! Plosím, běžte se za něj pšimluvit ke smílčímu kšíži svatýho Jana z Nepomuk. Já zatím dojdu plo hlobníka do Sobotky. Jo, a tohle sem našel v chlívě. Muselo to bej jeho. Nechte si to, já stejně neumím číst.“",
+        "Podal vám srolovaný svitek. S tím se otočil a vyrazil na cestu."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol: Dojděte ke kříži",
+          "goto": "card_H12"
+        }
+      ]
+    },
+    {
+      "id": "card_H09",
+      "cardCode": "H09",
+      "text": [
+        "Přišli jste na cestu, která vede podél rybníku.",
+        "Když se dáte doleva, dojdete do Troskovic. Místní písař by vám snad mohl pomoci rozluštit to tajemné písmo a říci vám, jakou zprávu ten záhadný cizinec z Nebákova nesl.",
+        "Když půjdete na druhou stranu, dojdete zpět nahoru do Tachova. Jarek by si možná zasloužil vědět, jak to s tím mužem dopadlo."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol: Dojděte k ohradě s ovcemi za Jarkem",
+          "goto": "card_H10"
+        },
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte do Troskovic",
+          "goto": "card_H15"
+        }
+      ]
+    },
+    {
+      "id": "card_H10",
+      "cardCode": "H10",
+      "text": [
+        "Po náročném stoupání jste přišli zpět k ohradě s ovcemi. Jarek vás posměšně vítá: „Tak to vypadá, že ste nepochodili. Že ten zmetek vzal nohy na lamena a utek?“ Když jste mu všechno řekli, zblednul. „Počkjte, snad si nemyslíte, že to je moje vina. Já ho nezabil! Oplavdu ne! Plosím, běžte se za něj pšimluvit ke smílčímu kšíži svatého Janu z Nepomuk. Já zatím dojdu do Sobotky plo hlobníka. Jo, a tohle sem našel v chlívě. Muselo to bej jeho. Nechte si to, já stejně neumím číst.“",
+        "Podal vám srolovaný svitek. S tím se otočil a vyrazil na cestu."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "Úkol: Dojděte ke kříži",
+          "goto": "card_H12"
+        },
+        {
+          "icon": "lupa",
+          "text": "Ihned si prohlédněte svitek",
+          "goto": "card_H11"
+        }
+      ]
+    },
+    {
+      "id": "card_H11",
+      "cardCode": "H11",
+      "text": [
+        "Neměli jste už co ztratit, a tak jste svitek rozvinuli, abyste si přečetli, co je uvnitř. Pečeť patřící Nebákům byla už stejně rozlomená. Těžko říct, zda ji rozlomil ten tajemný muž, nebo zvědavý pasáček. Bohužel jste zjistili, že je to napsané cizím písmem, které nikdo z vás nedokáže přečíst, natož aby rozuměl tomu, co je tam napsané. Snad by to dokázal troskovický písař.",
+        "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte do Troskovic",
+          "goto": "card_H15"
+        }
+      ]
+    },
+    {
+      "id": "card_H12",
+      "cardCode": "H12",
+      "text": [
+        "Došli jste ke křížku zasvěcenému svatému Janu z Nepomuk, který ochraňuje zpovědní tajemství. Cestou jste zvažovali, zda se zde rovnou nevyzpovídat a říct vše o cizinci, Jarkovi a jeho možné vině na smrti toho muže. Dospěli jste k závěru, že snad bude lepší, když to necháte být a zůstane to jen mezi Jarkem a Bohem. Možná kdybyste tu byli sami. U pomníku jste však potkali ženu z Želejova. Dali jste se s ní do řeči a ona velice ocenila to, že jste se šli za nebožtíka přimluvit u Pána. 😊",
+        "Jarkova žádost je splněna a duše toho muže v bezpečí, teď si v klidu můžete prohlédnout svitek."
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Prohlédnout si svitek",
+          "goto": "card_H13"
+        },
+        {
+          "icon": "stopy",
+          "text": "Vydejte se rovnou za písařem do Troskovic",
+          "goto": "card_H14"
+        }
+      ]
+    },
+    {
+      "id": "card_H13",
+      "cardCode": "H13",
+      "text": "Nejprve jste si prohlédli rozlomenou pečeť. Ihned jste poznali, že nese znak Nebáků. Těžko říct, zda ji rozlomil ten tajemný muž, nebo zvědavý pasáček. Zvědavost, co je uvnitř, vás přemohla a svitek jste rozvinuli. Nevěřícně jste na svitek koukali. Předávali jste si ho z ruky do ruky, ale bohužel, nikdo z vás ho nedokázal ani přečíst.<br>Je napsaný písmem, které nepřečtete. Takže ani nevíte, komu je dopis adresovaný. Snad by vám mohl pomoci troskovický písař.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte do Troskovic",
+          "goto": "card_H15"
+        }
+      ]
+    },
+    {
+      "id": "card_H14",
+      "cardCode": "H14",
+      "text": [
+        "Rozhodli jste se nechat věci tak, jak jsou. Jarek žije v blahé nevědomosti, že záhadný cizinec se brzy vrátí tam, odkud přišel, a je to tak asi lepší. Ať je Jarek jaký je, má už svoje léta a kdoví, jak by reagoval, kdybyste mu řekli, že má pod ohradou mrtvolu.",
+        "A až budete v Troskovicích mluvit s písařem, rovnou mu o nebožtíkovi řeknete. On určitě bude vědět, kdo je místní ras, a ten už se o něj postará.",
+        "Na kartě je dále uvedeno:<br>• ⏳ Událost: Dojdete k odbočce na Želejov ➤ ⏳"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte do Troskovic",
+          "goto": "card_H15"
+        }
+      ],
+      "todo": "Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu."
+    },
+    {
+      "id": "card_H15",
+      "cardCode": "H15",
+      "text": [
+        "Přišlo vám, že cesta zpět trvala věčnost. A celou tu dobu se vaše myšlenky obracely k tomu mrtvému muži pod vodopádem. Přemítali jste, jestli jste mohli něco udělat jinak, aby to celé dopadlo lépe. Kdyby se tak dal vrátit čas…",
+        "Konečně jste dorazili do Troskovic, kde vaše dnešní dobrodružství začalo. Jak vám to místo ráno přišlo zvláštní a cizí, tak se vám zde už teď začíná docela líbit. Čím dál tím víc si všímáte krásy této krajiny a napadlo vás, že kdyby měl být ráj někde v krajině české, klidně by to mohlo být v těchto místech."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Kartu H15 odložte a pokračujte čtením karty H16.",
+          "goto": "card_H16"
+        }
+      ]
+    },
+    {
+      "id": "card_H16",
+      "cardCode": "H16",
+      "text": [
+        "Jak se tak rozhlížíte kolem, někteří místní vám jsou už i povědomí a podle jejich reakce na vás soudíte, že vy jim též. Cestou do Troskovic vám dokonce hlavou kynuli na pozdrav. Nálada se vám tak i přes nedávné pochmurné události začala zlepšovat.",
+        "Po krátkém rozhovoru s rychtářem jste zjistili, že písař dostal neodkladné královské povolání do Prahy. Sbalil si věci a vyrazil k místní hospůdce, odkud ho chvíli po klekání odveze objednaný povoz. Ještě je čas, ještě byste ho tam měli zastihnout."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Úkol: Dojděte k hospůdce Apolena",
+          "goto": "card_H17"
+        }
+      ]
+    },
+    {
+      "id": "card_H17",
+      "cardCode": "H17",
+      "text": [
+        "Na to, jak tu bylo mrtvo, když jste se vyptávali na neznámého hosta, je tu teď znatelně živěji. Hostinský běhá od stolu ke stolu, aby stihl všechny obsloužit. Teď už byste mu i věřili, že má napilno.",
+        "Poznat mezi hosty písaře nebyl problém. Prozradilo ho, mírně řečeno, okázalé odění a velká cestovní truhla ležící u jeho nohou.",
+        "Čekání na povoz si krátil pitím piva a hrou v kostky, což je v tomto kraji očividně oblíbená kratochvíle. Počkali jste, až dohraje rundu, a poté ho oslovili."
+      ],
+      "choices": [
+        {
+          "icon": "koruna",
+          "text": "[😐 > 6]",
+          "goto": "card_H18",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 7
+            }
+          ]
+        },
+        {
+          "icon": "stopy",
+          "text": "[😐 = 1-6]",
+          "goto": "card_H21"
+        },
+        {
+          "icon": "lebka",
+          "text": "[😐 < 1]",
+          "goto": "card_H23"
+        }
+      ]
+    },
+    {
+      "id": "card_H18",
+      "cardCode": "H18",
+      "text": [
+        "Písař si vás jednoho po druhém prohlédl a potom do lokálu zakřičel: „Znáte je někdo?“ Díky vaší dobré reputaci se na vás snesla jen samá chvála. Písař k vám natáhl ruku se slovy: „Tak ukažte, co to máte.“",
+        "Rozbalil svitek a začal ho polohlasem pročítat. Po chvíli začal vyprávět: „Je to napsané písmem zvaným abur. Jedná se o poněkud mladé písmo, a tak není divu, že ho nejste schopni přečíst. Zdá se, že se jedná o dopis určený nějakému panu Jaroslavovi z Kutné Hory. Potvrzuje, že na Nebákově je poklad nesmírné hodnoty, pro který by stálo za to srovnat tvrz se zemí, a také, že paní Machně hrozí nebezpečí v podobě lsti.“"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračujte kartou H19",
+          "goto": "card_H19"
+        }
+      ]
+    },
+    {
+      "id": "card_H19",
+      "cardCode": "H19",
+      "text": [
+        "„Dokonce se mu prý podařilo dostat do přízně zlosynů, kteří za tou lstí stojí. Bojí se však, že za chvíli jeho klam prohlédnou, a tak žádá o pomoc a ochranu. A to jak pro sebe, tak pro tvrz samotnou. Na závěr dopisu uvádí, že se toho času bude ukrývat ve skalním městě zvaném Apolena, kde mu místní poustevník nabídl přístřeší ve své jeskyni. Bohužel tím jeho dopis končí. Pokud chcete vědět více, nejspíš budete muset do Kutné Hory a najít pana Jaroslava.“ S těmito slovy vám podal dopis zpět do ruky.",
+        "Zdá se, že vaše další dobrodružství bude pokračovat někde v Kutné Hoře. Nejdřív ale bude nutné oznámit paní Machně výsledek vašeho pátrání a také, jak to dopadlo s jejím sídlem.",
+        "Shledali jste, že teď je čas občerstvit se v místní hospůdce, přenocovat v přilehlém tábořišti a ráno si sehnat povoz, který vás odveze domů.",
+        "Úspěšně jste dokončili troskovické dobrodružství a dokázali si zachovat kladnou reputaci. To je velice chvályhodné!<br>Ale možná ho budete chtít zažít znovu a zkusit jiná rozhodnutí."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+          "goto": "card_P05"
+        }
+      ],
+      "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+    },
+    {
+      "id": "card_H20",
+      "cardCode": "H20",
+      "text": "Nedokážete skrýt své zklamání. Po celodenním snažení jste znovu na začátku.",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračujte kartou H22",
+          "goto": "card_H22"
+        }
+      ]
+    },
+    {
+      "id": "card_H21",
+      "cardCode": "H21",
+      "text": [
+        "Písař si vás jednoho po druhém prohlédl a potom do lokálu zakřičel: „Znáte je někdo?“ Někteří místní vás sice chválili, ale jiní si pod vousy brblali nehezká slova.<br>To písaře moc nepotěšilo. Podíval se na vás a řekl: „Nezlobte se, vzácní cizinci, ale právě jsem dostal královské pověření do Prahy. Je mi líto, ale nemůžu vám pomoci, neb mé myšlenky se nyní ubírají jiným směrem. Navštivte mě v mé pracovně po mém návratu. To vám snad už budu nápomocen. Do té doby jsem s Bohem.“",
+        "S tím se otočil zpět ke svému žejdlíku a přestal si vás všímat."
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračujte kartou H20",
+          "goto": "card_H20"
+        }
+      ]
+    },
+    {
+      "id": "card_H22",
+      "cardCode": "H22",
+      "text": [
+        "Nedokážete skrýt své zklamání. Nechápavě koukáte jeden na druhého a nechcete uvěřit tomu, že vše ztroskotalo jen kvůli tomu, že jste se snažili rychle pomoct místo toho, abyste byli vnímaví k okolí.<br>Shledali jste, že to zapijete v místní hospůdce, přenocujete v přilehlém tábořišti a ráno si seženete povoz, který vás odveze domů.",
+        "Dokončili jste troskovické dobrodružství, ale za jakou cenu?<br>Nebylo by lepší, kdyby vás tu lidé měli rádi?<br>Možná to budete chtít zkusit znovu a zvolit jiná rozhodnutí."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+          "goto": "card_P05"
+        }
+      ]
+    },
+    {
+      "id": "card_H23",
+      "cardCode": "H23",
+      "text": "Písař si vás jednoho po druhém prohlédl a potom do lokálu zakřičel: „Znáte je někdo?“ Troskovičtí si vás prohlíželi a přitom se nechápavě koukali jeden na druhého. Vaším směrem se upřela také pozornost strážných, kteří doteď byli zády k vám. Něco si mezi sebou šuškali, potom vstali a vyrazili vaším směrem. Jeden z nich při tom říkal: „Zatýkáme vás za podezření ze spáchání dvou trestných činů. Buď s námi půjdete po dobrém, nebo použijeme násilí.“ Celá hospoda ztichla. Někteří lidé se raději koukali do svých žejdlíků.",
+      "choices": [
+        {
+          "icon": "bublina",
+          "text": "[😐] „To musí být omyl, jsme nevinní!“",
+          "goto": "card_H24"
+        },
+        {
+          "icon": "bublina",
+          "text": "[😡] „Přiznáváme se, odveďte nás.“",
+          "goto": "card_H26"
+        }
+      ]
+    },
+    {
+      "id": "card_H24",
+      "cardCode": "H24",
+      "text": [
+        "Strážný: „Chcete nám tvrdit, že posel z Nebákova umřel u tý lípy sám od sebe? Někdo viděl, jak se motáte kolem. A že toho u vodopádu zakousli vlci? Chudák lovčí. Přiběhl sem celej bledej a vyprávěl nám, co tam viděl. A kdoví, co se vlastně doopravdy stalo na Nebákově. Co když v tom máte taky prsty. Měli ste si dávat větší pozor, protože lidi tady se zajímaj hlavně o druhý. Zvlášť, když sou tu cizí a strkaj nos do jejich záležitostí.“",
+        "Snažili jste se vysvětlit, jak to bylo. Snad díky tomu, že vaše pověst tu není vyloženě špatná, si vás strážní vyslechli. „O vaší vině zítra rozhodne rychtář,“ řekl ten druhý. „Noc ale strávíte u nás za mřížemi.“"
+      ],
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Pokračujte kartou H25",
+          "goto": "card_H25"
+        }
+      ]
+    },
+    {
+      "id": "card_H25",
+      "cardCode": "H25",
+      "text": [
+        "Nemůžete uvěřit tomu, jak to celé dopadlo. Ráno rychtář jistě uzná vaši nevinu. A pokud ne, pošlete posla pro pomoc. Škoda, že v tu dobu už bude písař pryč a vy se budete muset vrátit domů s nepořízenou.<br>Strážní vám jednomu po druhém postupně svázali ruce. A ve chvíli, kdy vám na hlavy nasadili pytle, se váš svět ponořil do tmy…",
+        "Dokončili jste troskovické dobrodružství, ale za jakou cenu?<br>Nebylo by lepší, kdyby vás tu lidé měli rádi?<br>Možná to budete chtít zkusit znovu a zvolit jiná rozhodnutí."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+          "goto": "card_P05"
+        }
+      ]
+    },
+    {
+      "id": "card_H26",
+      "cardCode": "H26",
+      "text": [
+        "Strážní vám postupně začali svazovat ruce. „Za tohle nás velitel pochválí,“ řekl jeden. „Souhlas, kamaráde. A zejtra už si s nima kat poradí. Stejně je nechápu. Zůstanou po nich dvě mrtvoly a oni si jako páni nakráčej do hospody. Co čekali? Že je za to pochválíme?“ Potom vám na hlavy nasadili pytle a váš svět se ponořil do tmy…",
+        "Dokončili jste troskovické dobrodružství, ale za jakou cenu?<br>Nebylo by lepší, kdyby vás tu lidé měli rádi?<br>Možná to budete chtít zkusit znovu a zvolit jiná rozhodnutí."
+      ],
+      "choices": [
+        {
+          "icon": "svitek",
+          "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+          "goto": "card_P05"
+        }
+      ]
+    },
+    {
+      "id": "card_N01",
+      "cardCode": "N01",
+      "text": [
+        "Slečna s kosou",
+        "Kde se vzala, tu se vzala, stojí před vámi dívka celá v černém s kosou v ruce. Ačkoliv je bledá a kostnatá, na jejím vzhledu je cosi podmanivého. Promluvila k vám mrazivě chladným hlasem:",
+        "„Čas od času se potkáme. Včas vás upozorním na nečekané události. Třeba zrovna teď!“",
+        "Leknutím jste mrkli, a když jste otevřeli oči, už tam nebyla.",
+        "Na kartě je dále uvedeno:<br>• Tuto kartu založte dospod balíčku „N“ a otočte tu, co je teď navrchu. Vždy když kartu z balíčku „N“ vyhodnotíte, vraťte ji dospod balíčku „N“ a pokračujte v příběhu."
+      ],
+      "choices": [],
+      "todo": "Karta N01 leží navrchu balíčku „N“ – uvádí mechaniku náhodných setkání. Nemá návaznost."
+    },
+    {
+      "id": "card_smutne_zeny",
+      "text": [
+        "Smutné ženy",
+        "„Kvůli nedávným událostem bylo mnoho mužů odvedeno na frontu. Ženy a dívky, které tu zůstaly samy, jsou smutné. Potěšte některou z nich květinou z čerstvě natrhaného kvítí.“",
+        "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_zlodej",
+      "text": [
+        "Zloděj!",
+        "„Okradli vás. A ani jste si toho nevšimli, že? Nic si z toho nedělejte, to se prostě stává.“",
+        "Možná byste se měli vydat do Troskovic a ohlásit krádež. Nebo to nechte být, ale nemine vás postih.",
+        "Na kartě je dále uvedeno:<br>• Postih: 😡<br>• Odměna: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_potulny_kostkar",
+      "text": [
+        "Potulný kostkař!",
+        "„Starý kostkař vás vyzývá, abyste předvedli svoje štěstí. Musí vám jedním hodem na šesti kostkách padnout součet přesně 21. Ale máte na to jen sedm pokusů!“",
+        "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_cikani",
+      "text": [
+        "Cikáni",
+        "„Podívejte! To jsou potulní muzikanti! A zvou vás na tancovačku! Zazpívejte si společně až dvě písně a nenechte nohy odpočinout. Přece je nechcete urazit.“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊 za 1 píseň<br>• Postih: 😡<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_neporadek_po_najezdu",
+      "text": [
+        "Nepořádek po nájezdu",
+        "„Po posledním nájezdu loupežníků z řáholeckého lesa tady zůstal hrozný nepořádek. Přidejte alespoň trochu ruku k dílu. Odsud až k dalšímu zastavení uklízejte nepořádek podél cesty.“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_pomoc_v_nouzi",
+      "text": [
+        "Pomoc v nouzi",
+        "„V Turnově se naskytly nové pracovní příležitosti. Hodně čeledínů odtáhlo a nechalo místní hospodáře bez pomoci. Nabídněte někomu z místních pomoc. Udělejte, o co vás žádá, a získáte odměnu.“",
+        "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_lecka_kmen",
+      "text": [
+        "Léčka?!",
+        "„Na cestě před vámi leží kmen stromu. Takové věci se zpravidla nedějí náhodou. Možná bude lepší, když to vezmete přes les nebo louku, a nebo si prostě najdete jinou cestu. A nebo půjdete dál a pokusíte Fortunu.“",
+        "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚁⚂⚃⚄: 😡😡"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_zkazena_voda",
+      "text": [
+        "Zkažená voda",
+        "„Mezi místními se povídá, že v troskovické studni je zkažená voda. Pokud máte zásoby vody, ihned ji všechnu vylijte. Přece nechcete mít zdravotní problémy.“"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_zraneni",
+      "text": [
+        "Zranění",
+        "„Kdybys tolik nepovídal a dával pozor na cestu, nezakopl bys o kámen. Ale neboj, za chvíli to přejde.“",
+        "Ten, kdo naposledy něco řekl, si zranil pravou nohu a bolestí na ni nemůže našlapovat. Pohybovat se může pouze s pomocí hole nebo přátel.",
+        "Bolest poleví až na konci následujícího balíčku karet."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_N12",
+      "cardCode": "N12",
+      "text": [
+        "Střelecká výzva",
+        "„Lovčí od Věžáku vás vyzývá na duel. Nenechte se zahanbit!“",
+        "Vyberte jednoho z vás. Ten si určí libovolný strom a pokusí se třikrát trefit do jeho kmene ze vzdálenosti 50 stop. Může házet čím chce – kámen, šiška, větev … ale má na to jen 5 pokusů.",
+        "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: 😊<br>• Tuto událost vyhodnoťte, jakmile uvidíte vhodné místo.<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
+      ],
+      "choices": [],
+      "todo": "Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost."
+    },
+    {
+      "id": "card_chudina_v_nouzi",
+      "text": [
+        "Chudina v nouzi",
+        "„‚Přišlaaa bídaaa, mooor a hlaaad.‘ Ozvěna té písně se nese krajem. Pozvěte někoho z místních na jídlo nebo pití. Zajisté to ocení.“",
+        "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_hadankar_kraj",
+      "text": [
+        "Hádankář",
+        "„Potkali jste cizince, který má pro vás hádanku:",
+        "‚Mám města, ale žádné zlato. Mám domy, ale žádné lidi. Mám lesy, ale žádnou zvěř. Mám vodu, ale žádné ryby. Co jsem?‘",
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• (Nepočítá se to, pokud splníte úkol v rámci dobrodružství.)<br>• Řešení najdete na kartě O01, uprostřed."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_hadankar_sul",
+      "text": [
+        "Hádankář",
+        "„Potkali jste cizince, který má pro vás hádanku:",
+        "‚Každý mne jí, ale nikdo neloví, ani neseje. Nerostu na poli ani na stromech. Kvůli mému vzniku musí umřít moře, ale když já se dotknu vody, zhynu. Co jsem?‘",
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, vpravo nahoře."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_hadankar_ticho",
+      "text": [
+        "Hádankář",
+        "„Potkali jste cizince, který má pro vás hádanku:",
+        "‚Můžu být všude, ale jsem málokde. Každý mne zná a čas od času si mne přeje. Pokud mne přivoláte, ztratím se. Je totiž velice těžké mne udržet. Co jsem?‘",
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O03, uprostřed nahoře."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_lecka_zablesk",
+      "text": [
+        "Léčka?!",
+        "„V křoví u cesty před vámi se něco zablesklo. Nemůže to být zbraň potulného lapky? Možná bude lepší, když to vezmete přes les nebo louku, a nebo si prostě najdete jinou cestu. A nebo půjdete dál a pokusíte Fortunu.“",
+        "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚀⚁⚄⚅: 😡😡"
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_hadankar_jehla",
+      "text": [
+        "Hádankář",
+        "„Potkali jste ženu, která má pro vás hádanku:",
+        "‚Mám jedno oko, ale i tak nevidím. Ač jsem malá, pro spoustu lidí jsem důležitá. Spojím i to, co zničil čas. Zakrývám živé, zatímco sama jsem neživá a nahá. Co jsem?‘",
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, uprostřed."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_hadankar_bratri",
+      "text": [
+        "Hádankář",
+        "„Potkali jste cizince, který má pro vás hádanku:",
+        "‚Jsou dva bratři, kteří se nikdy nepotkali. Nejí, nepijí, nechodí ven. Mnozí se za nimi vypravili, ale nikdy nedošli cíle. Ještě že Slunce je pravidelně navštěvuje. Znáte jejich jména?‘",
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O01, vpravo uprostřed a dole."
+      ],
+      "choices": [],
+      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+    },
+    {
+      "id": "card_hadankar_neuplna",
+      "text": [
+        "Hádankář",
+        "„Potkali jste ženu, která má pro vás hádanku:",
+        "‚Kdybych byla živá, neunesla bych tolik jako teď. Uvnitř jsem sice dutá, ale často plná živo…‘“"
+      ],
+      "choices": [],
+      "todo": "POZOR: text této hádanky je ve zdrojové extrakci odříznutý (prezentace nebyla stažena celá). Doplňte celý text a řešení z originálu."
     }
   ]
 }
-
