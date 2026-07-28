@@ -84,7 +84,7 @@
         {
           "icon": "stopy",
           "text": "Pokračovat v dobrodružství.",
-          "goto": "scene_999"
+          "goto": "card_C20"
         }
       ],
       "cardCode": "C03"
@@ -160,12 +160,12 @@
         {
           "icon": "mozek",
           "text": "Pokusit se pomoci mu od bolesti.",
-          "goto": "scene_999"
+          "goto": "card_C07"
         },
         {
           "icon": "nuz",
           "text": "Zbavit ho trápení natrvalo.",
-          "goto": "scene_999"
+          "goto": "card_C08"
         }
       ],
       "cardCode": "C06"
