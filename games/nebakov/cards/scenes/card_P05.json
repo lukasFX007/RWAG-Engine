@@ -1,0 +1,10 @@
+{
+  "id": "card_P05",
+  "cardCode": "P05",
+  "text": [
+    "Co udělat po skončení hry:<br>• Balíček „N“ zamíchejte lícem dolů a navrchu nechte N01.<br>• Karty reputací vraťte do příslušného balíčku (REP+ / REP-).<br>• Ostatní balíčky srovnejte lícem dolů podle čísel (O1 navrchu).<br>• Na spodu každého balíčku nechte kartu k tomu určenou.<br>• Všechny balíčky vraťte do příslušných pouzder.<br>• Mapy a dopis vraťte do příslušných obálek a příslušného pouzdra.<br>• Karty P01 – P05 nechte otočené lícem nahoru (01 navrchu).",
+    "A nezapomeňte se vrátit a zažít dobrodružství znovu!"
+  ],
+  "choices": [],
+  "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "card_F12",
+  "cardCode": "F12",
+  "text": [
+    "Hospodský: „Kde byste asi tak mohli najít Jarka z Tachova?“ zeptal se jízlivě. Na chvíli se vzorově zamyslel a potom pokračoval: „Možná v Tachově, co myslíte?“ Od srdce se rozesmál, ale váš nechápavý výraz nejspíš vypověděl za vše. Hned proto dodal: „Aha. No, půjdete vodsuď na západ a pak na sever. Hlavní povede rovně, ale vy se dáte doleva. Vohrada je u vodbočky, co vede ke křížku svatýho Jána. To nemůžete minout. Prostě půjdete za zvukem. A smradem vovcí. Hehe.“",
+    "Váš další cíl je tímto daný – rozcestí u ohrady s ovcemi v Tachově.",
+    "Na kartě je dále uvedeno:<br>• ⏳ Událost: Opustíte Troskovice ➤ ⏳"
+  ],
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "Až budete rozhodnutí, že jste na správném místě",
+      "goto": "card_F14"
+    }
+  ]
+}

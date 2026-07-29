@@ -1,0 +1,12 @@
+{
+  "id": "card_B11",
+  "text": "První čeho jste si z dálky všimli byla košatá koruna nádherné lípy. Jak jste přicházeli blíž, zmocňoval se vás pocit, že ve stínu toho stromu vidíte na zemi sedět člověka, opřeného o kmen. Teď už víte, že to nebyl pocit. Jakmile jste se dostali z přímého světla do stínu koruny, zrak se vám tomu šeru přizpůsobil. Je to skutečně člověk a oblečení má nasáklé krví. Takový pohled není nic příjemného pro pacifisty. Jestliže je nějaký s vámi ve skupině, znechuceně odchází směrem k Nebákovu. Zbytek skupiny zde zůstává.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat v dobrodružství.",
+      "goto": "card_B06"
+    }
+  ],
+  "cardCode": "B11"
+}

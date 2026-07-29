@@ -1,0 +1,24 @@
+{
+  "id": "card_E07",
+  "cardCode": "E07",
+  "text": "Sotva jste na stůl položili první prázdný žejdlík, objevil se u vás hospodský se slovy: „Ještě něčím posloužím, panstvo?“<br>Pokud už jste si získali jeho přízeň, mohli byste se ho zkusit zeptat na muže z portrétu. Nebo můžete ještě chvíli posedět a počkat.",
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„A víš ty co? Dones nám ještě jednu rundu!“",
+      "goto": "card_E08"
+    },
+    {
+      "icon": "bublina",
+      "text": "[😐 > 3] „Někoho hledáme a ty bys nám mohl pomoct. Vypadá asi takhle.“ (Ukážete mu portrét.) „Prý se potloukal kolem Troskovic a pochybujeme, že by nezašel do tvojí hospody.“ – balíček „E“ odložte, vezměte si balíček „F“ a přečtěte si kartu F01.",
+      "goto": "card_F01",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 4
+        }
+      ]
+    }
+  ]
+}

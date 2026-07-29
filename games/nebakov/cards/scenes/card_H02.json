@@ -1,0 +1,12 @@
+{
+  "id": "card_H02",
+  "cardCode": "H02",
+  "text": "Jakmile jste vzali kámen do ruky, rozdrolil se na prach. Náraz na tvrdou skálu odvedl své. Ze záhybu kápě se při tom vykutálel svitek. Ihned jste poznali rozlomenou pečeť Nebáků. Těžko říct, zda ji poničil pád, nebo ten, kdo si psaní přečetl. Mohl to být snad tenhle muž? Zvědavost po tom, co je uvnitř, vás přemohla a svitek jste rozvinuli.<br>Bohužel je psaný písmem, které nikdo z vás nedokáže přečíst. Takže ani nevíte, komu je adresovaný. Snad by to písmo dokázal přečíst troskovický písař.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Odejít pryč",
+      "goto": "card_H07"
+    }
+  ]
+}

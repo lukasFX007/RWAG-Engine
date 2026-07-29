@@ -1,0 +1,20 @@
+{
+  "id": "card_F03",
+  "cardCode": "F03",
+  "text": [
+    "Kostkář: „No výborně. Tak uvidíme, jestli vám to půjde líp než jemu včera. A co říkáte? Okořeníme si tu hru sázkou, nebo si zahrajeme jen tak?“",
+    "Škoda, že jste s tím dopředu nepočítali a svoje „speciální“ kostky nechali doma. Budete muset hrát s těmi, které vám půjčí hospodský. Snad nebudou vychýlené na tu druhou stranu."
+  ],
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "Hrát jen tak",
+      "goto": "card_F08"
+    },
+    {
+      "icon": "koruna",
+      "text": "Hrát o peníze",
+      "goto": "card_F09"
+    }
+  ]
+}

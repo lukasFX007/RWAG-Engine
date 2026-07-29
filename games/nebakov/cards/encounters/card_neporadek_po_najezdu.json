@@ -1,0 +1,9 @@
+{
+  "id": "card_neporadek_po_najezdu",
+  "text": [
+    "Nepořádek po nájezdu",
+    "„Po posledním nájezdu loupežníků z řáholeckého lesa tady zůstal hrozný nepořádek. Přidejte alespoň trochu ruku k dílu. Odsud až k dalšímu zastavení uklízejte nepořádek podél cesty.“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊"
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "card_C14",
+  "cardCode": "C14",
+  "text": "Prohlédli jste tašvici toho nebožáka. Obsahovala pár grošů, mapu a list s nahrubo načrtnutým portrétem nějakého muže. Kresba je provedena černým uhlem. Jen kámen, který mu visí na krku, je výrazně modrý.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračujte kartou C16",
+      "goto": "card_C16"
+    }
+  ]
+}

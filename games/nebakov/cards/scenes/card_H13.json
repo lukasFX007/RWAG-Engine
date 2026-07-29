@@ -1,0 +1,12 @@
+{
+  "id": "card_H13",
+  "cardCode": "H13",
+  "text": "Nejprve jste si prohlédli rozlomenou pečeť. Ihned jste poznali, že nese znak Nebáků. Těžko říct, zda ji rozlomil ten tajemný muž, nebo zvědavý pasáček. Zvědavost, co je uvnitř, vás přemohla a svitek jste rozvinuli. Nevěřícně jste na svitek koukali. Předávali jste si ho z ruky do ruky, ale bohužel, nikdo z vás ho nedokázal ani přečíst.<br>Je napsaný písmem, které nepřečtete. Takže ani nevíte, komu je dopis adresovaný. Snad by vám mohl pomoci troskovický písař.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte do Troskovic",
+      "goto": "card_H15"
+    }
+  ]
+}

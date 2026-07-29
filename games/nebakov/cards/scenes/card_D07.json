@@ -1,0 +1,15 @@
+{
+  "id": "card_D07",
+  "cardCode": "D07",
+  "text": [
+    "Strážný si zamyšleně prohlíží podobiznu. „Jo, takovej chlap se tady na nás nedávno nalepil. Šel s náma vod šenku až sem. Tady dvojčata ho vodháněly.“ Když řekl ‚tady dvojčata‘, ukázal přitom za sebe na zbylé dva strážné, kteří na vás koukali s podezíravým pohledem.",
+    "„Prej se zpakoval a vodešel do jiný hospody. No jo, jenže ten vlevo mi tvrdil, že do Troskovic, a ten vpravo, že pod Trosky. Jeden z nich mluví vždycky pravdu, ale ten druhej vždycky lže. Víte co? Můžete jim dohromady položit jednu otázku. Pak už je ale nezdržujte a běžte pryč. Nejsou tu placený za povídání s kolemjdoucíma.“"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat kartou D02",
+      "goto": "card_D02"
+    }
+  ]
+}

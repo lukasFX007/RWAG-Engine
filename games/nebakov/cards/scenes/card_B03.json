@@ -1,0 +1,20 @@
+{
+  "id": "card_B03",
+  "cardCode": "B03",
+  "text": [
+    "Pomník je věnován českým hrdinům z Troskovic a blízkého okolí, kteří padli ve Velké válce.",
+    "Čtete si jména, která tu jsou uvedená, a říkáte si, kolik mladých životů bylo ve válce zbytečně promarněno."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol (volitelný): Držte minutu ticha za padlé",
+      "goto": "card_B02"
+    },
+    {
+      "icon": "stopy",
+      "text": "Jít rovnou za dobrodružstvím",
+      "goto": "card_B04"
+    }
+  ]
+}

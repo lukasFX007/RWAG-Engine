@@ -1,0 +1,21 @@
+{
+  "id": "card_A06",
+  "cardCode": "A06",
+  "text": [
+    "Ale no tak. Žádný učený přeci z nebe nespadl. Pamatujte, že chování ovlivňuje vaši reputaci. Tu můžete získat, ale i ztratit. A na základě vaší reputace s vámi někteří lidé jednají.<br>Podle toho, jestli reputaci získáte nebo ztratíte, si buď vezmete, nebo odevzdáte příslušnou reputační kartu. Všímejte si na kartách symbolů 😊 nebo 😡. Jejich význam je následující:<br>😊: +📜😊 nebo -📜😡<br>😡: +📜😡 nebo -📜😊",
+    "Nyní si reputaci snižte (😡). Příště se už řiďte symboly na kartách."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A08"
+    }
+  ]
+}

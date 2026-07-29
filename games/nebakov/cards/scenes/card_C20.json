@@ -1,0 +1,20 @@
+{
+  "id": "card_C20",
+  "cardCode": "C20",
+  "text": [
+    "Severovýchodní vítr k vám donesl zápach spáleného dřeva. Z místa, kde nejspíš leží Nebákov, vidíte skrz stromy k obloze stoupat dým.",
+    "A kromě toho jste směrem od Nebákova právě uslyšeli burácení kamenů, jako když se rozpadá puklá skála."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Otočit se a vrátit se zpátky",
+      "goto": "card_C22"
+    },
+    {
+      "icon": "lupa",
+      "text": "Pokračovat na Nebákov",
+      "goto": "card_C23"
+    }
+  ]
+}

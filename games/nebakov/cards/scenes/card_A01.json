@@ -1,0 +1,20 @@
+{
+  "id": "card_A01",
+  "cardCode": "A01",
+  "text": [
+    "Vítejte vážení a ctění hrdinové!",
+    "Jistě už se nemůžete dočkat, až společně prožijete následující dobrodružství!<br>Avšak dříve než se na něj vydáte, budete chtít zjistit, nebo si možná připomenout, jak to všechno bude probíhat."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokud jste toto dobrodružství ještě nikdy neprožili, určitě pokračujte čtením karty A02, abyste se dozvěděli základy hraní.",
+      "goto": "card_A02"
+    },
+    {
+      "icon": "mozek",
+      "text": "V případě, že už jste toto dobrodružství prožili, můžete otočit rovnou kartu A03. V takovém případě se rozhodněte sami.",
+      "goto": "card_A03"
+    }
+  ]
+}

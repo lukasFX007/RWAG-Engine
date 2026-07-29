@@ -1,0 +1,20 @@
+{
+  "id": "card_H10",
+  "cardCode": "H10",
+  "text": [
+    "Po náročném stoupání jste přišli zpět k ohradě s ovcemi. Jarek vás posměšně vítá: „Tak to vypadá, že ste nepochodili. Že ten zmetek vzal nohy na lamena a utek?“ Když jste mu všechno řekli, zblednul. „Počkjte, snad si nemyslíte, že to je moje vina. Já ho nezabil! Oplavdu ne! Plosím, běžte se za něj pšimluvit ke smílčímu kšíži svatého Janu z Nepomuk. Já zatím dojdu do Sobotky plo hlobníka. Jo, a tohle sem našel v chlívě. Muselo to bej jeho. Nechte si to, já stejně neumím číst.“",
+    "Podal vám srolovaný svitek. S tím se otočil a vyrazil na cestu."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol: Dojděte ke kříži",
+      "goto": "card_H12"
+    },
+    {
+      "icon": "lupa",
+      "text": "Ihned si prohlédněte svitek",
+      "goto": "card_H11"
+    }
+  ]
+}

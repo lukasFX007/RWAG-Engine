@@ -1,0 +1,17 @@
+{
+  "id": "card_B02",
+  "cardCode": "B02",
+  "text": [
+    "Ačkoliv jste je neznali, vážíte si toho, jakou oběť přinesli.",
+    "Zatímco jste zde stáli a mlčky rozjímali, všimli si vašeho chrabrého činu kolemjdoucí. Co nevidět tato událost roznese po okolí.",
+    "A místní si váží projevené úcty vůči jejich hrdinům. 😊"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [],
+  "todo": "Na kartě nebyl ve zdroji nalezen explicitní odkaz na další kartu (pravděpodobně se pokračuje zpět na B03/B04) – doplní autor scénáře."
+}

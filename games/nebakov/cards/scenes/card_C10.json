@@ -1,0 +1,17 @@
+{
+  "id": "card_C10",
+  "cardCode": "C10",
+  "text": "Muž leží před tebou odevzdaný svému osudu. Poklekl jsi k němu a jen pro sebe v duchu pronesl krátkou modlitbu.<br>Potom jsi oběma rukama uchopil dýku a špičkou ostří našel místo, kde je srdce. Zatlačením na jílec jsi mu ji zaryl do hrudníku. Muž nekladl žádný odpor.<br>S posledním vydechnutím otevřel oči, stiskl ti ruku a zašeptal:<br>„Šel ka po le...“ Chvilku nato jeho sevření povolilo.",
+  "choices": [
+    {
+      "icon": "lebka",
+      "text": "Vezmi si kartu C11 (platí jen pro tebe)",
+      "goto": "card_C11"
+    },
+    {
+      "icon": "stopy",
+      "text": "Přečtěte kartu C12 (platí pro všechny)",
+      "goto": "card_C12"
+    }
+  ]
+}

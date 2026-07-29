@@ -1,0 +1,15 @@
+{
+  "id": "card_C26",
+  "cardCode": "C26",
+  "text": [
+    "Po chvíli společného přemýšlení a radění jste vyhodnotili, že se vás ten, teď už mrtvý, muž z Nebákova, budiž mu země lehká, snažil poslat směrem k Apoleně, hospůdce ležící v Troskovicích. Jeden z vás si totiž vzpomněl na název toho lokálu, u kterého vás ráno vysadil povoz a kde vaše výprava začala. A hospoda – to je přece hlavní místo veškerého dění! Ale i přesto, že vám vaše rozhodnutí dává smysl, máte takový zvláštní mrazivý pocit v zátylku.",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Vyhodnoťte náhodné setkání (⏳)."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Balíček „C“ odložte. Vezměte si balíček „E“ a přečtěte E01.",
+      "goto": "card_E01"
+    }
+  ]
+}

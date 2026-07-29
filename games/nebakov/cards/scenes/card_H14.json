@@ -1,0 +1,17 @@
+{
+  "id": "card_H14",
+  "cardCode": "H14",
+  "text": [
+    "Rozhodli jste se nechat věci tak, jak jsou. Jarek žije v blahé nevědomosti, že záhadný cizinec se brzy vrátí tam, odkud přišel, a je to tak asi lepší. Ať je Jarek jaký je, má už svoje léta a kdoví, jak by reagoval, kdybyste mu řekli, že má pod ohradou mrtvolu.",
+    "A až budete v Troskovicích mluvit s písařem, rovnou mu o nebožtíkovi řeknete. On určitě bude vědět, kdo je místní ras, a ten už se o něj postará.",
+    "Na kartě je dále uvedeno:<br>• ⏳ Událost: Dojdete k odbočce na Želejov ➤ ⏳"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte do Troskovic",
+      "goto": "card_H15"
+    }
+  ],
+  "todo": "Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu."
+}

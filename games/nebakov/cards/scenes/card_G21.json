@@ -1,0 +1,21 @@
+{
+  "id": "card_G21",
+  "cardCode": "G21",
+  "text": [
+    "Jarkův popis cesty nebyl zrovna podrobný, ale i přesto se vám nějakým způsobem podařilo jít podle toho, jak vám cestu popsal. Nebo alespoň doufáte, že jste šli správně. Teď je na čase zjistit, zda vás váš úsudek dovedl na správné místo.",
+    "Loviště se pozná podle toho, že je na něm krmelec a místo, kam dávají lovčí návnadu pro zvěř. A v blízkosti také určitě musí stát posed. Podle toho poznáte, že jste na správném místě."
+  ],
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "[Vidíte posed i krmelec] Jste na lovišti",
+      "goto": "card_G23"
+    },
+    {
+      "icon": "lebka",
+      "text": "[Nevidíte krmelec ani posed] Zabloudili jste",
+      "goto": "card_G26"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

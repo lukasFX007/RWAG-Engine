@@ -1,0 +1,26 @@
+{
+  "id": "card_C07",
+  "cardCode": "C07",
+  "text": [
+    "Je od vás šlechetné, že mu chcete pomoci. Ten čin se jistě brzy roznese po kraji! 😊",
+    "Existují například byliny, které tiší bolest. Pokud je znáte, můžete je nasbírat. Také můžete zkusit štěstí v okolních staveních. Je to pro dobrou věc, a proto vás to nebude stát ztrátu reputace. Třeba nic neseženete, ale i snaha se cení. A stále je tu také ta druhá možnost."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "priroda",
+      "text": "Úkol: Sežeňte něco na bolest a vraťte se ke stromu",
+      "goto": "card_C09"
+    },
+    {
+      "icon": "nuz",
+      "text": "Zkusili jste, co se dalo, ale bez výsledku. Nemáte jinou volbu.",
+      "goto": "card_C08"
+    }
+  ]
+}

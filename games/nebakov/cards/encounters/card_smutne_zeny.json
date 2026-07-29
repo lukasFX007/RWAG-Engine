@@ -1,0 +1,9 @@
+{
+  "id": "card_smutne_zeny",
+  "text": [
+    "Smutné ženy",
+    "„Kvůli nedávným událostem bylo mnoho mužů odvedeno na frontu. Ženy a dívky, které tu zůstaly samy, jsou smutné. Potěšte některou z nich květinou z čerstvě natrhaného kvítí.“",
+    "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

@@ -1,0 +1,15 @@
+{
+  "id": "card_C09",
+  "cardCode": "C09",
+  "text": [
+    "„Děkuji, šlechetní pánové, … ale těch pár bylin … mě stejně nezachrání. … Neztrácejte tu čas … s mrtvolou.“",
+    "Po chvíli hledání se vám podařilo sehnat něco na tišení bolesti. Když jste se vrátili k lípě, zraněný mělce oddychoval a spal. Jeho tvář viditelně pobledla. Probrali jste ho lehkým zatřesením a podali mu lék. Muž polknul, zakašlal a poté promluvil. Jeho slova byla prokládaná hlubokými nádechy."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat kartou C08",
+      "goto": "card_C08"
+    }
+  ]
+}

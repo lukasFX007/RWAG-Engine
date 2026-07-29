@@ -1,0 +1,15 @@
+{
+  "id": "card_G19",
+  "cardCode": "G19",
+  "text": [
+    "Rozloučili jste se a obrátili se k odchodu. Za zády jste slyšeli, jak Jarek zavrčel: „Aaa! K saklu s tím. Počkejte ještě! Nechci vás mít na svědomí. Nechoďte k vodopádu shola, ale od lybníka. Cesta vede mezi skalama pšes palouk s lozpadlým seníkem. Lovně byste potom došli vyschlým kolytem aš k vodopádu. Ale lepší bude obejít skály z plava pšes louku, kde se loví vysoká. A teď už jděte. A bacha na vlky!“",
+    "S tím se otočil, vzal do ruky vidle a pokračoval v přehazování sena.<br>První záchytný bod v cestě k vodopádu by mohlo být loviště."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte na louku s lovištěm vysoké",
+      "goto": "card_G22"
+    }
+  ]
+}

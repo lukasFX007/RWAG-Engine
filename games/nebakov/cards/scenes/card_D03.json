@@ -1,0 +1,15 @@
+{
+  "id": "card_D03",
+  "cardCode": "D03",
+  "text": [
+    "Dal se s vámi do řeči místní ochmelka. Ukázali jste mu podobiznu muže. On si ji dlouze prohlížel, potom se zamyslel a řekl:",
+    "„Příde mi, že sem ho tu viděl. Scháněl peníze. Že prej má důležitej úkol. Řekli sme mu, že tady na stromech zlato neroste, ať zkusí štěstí jinde. Pak šli kolem stráže a vzali ho bokem. Pak už sem se o něj nezajímal. Schválně se zeptejte velitele.“"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Vraťte se ke vstupu do Apoleny",
+      "goto": "card_D07"
+    }
+  ]
+}

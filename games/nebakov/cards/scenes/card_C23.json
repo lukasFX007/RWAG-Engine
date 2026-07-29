@@ -1,0 +1,15 @@
+{
+  "id": "card_C23",
+  "cardCode": "C23",
+  "text": [
+    "Rozhodnutí už padlo a nelze ho vzít zpět.<br>To, co cítíte, vidíte a slyšíte, vás ještě víc vyburcovalo k jednání.<br>Máte pocit, že nebákovští vás teď potřebují víc než kdy dřív.<br>A navíc jste právě uslyšeli další rachocení a padání kamenů doprovázené hlasitým šplouchnutím.<br>Následoval křik. Zděšený křik mnoha lidí – mužů, žen i dětí.<br>Situace se zdá být velice vážná.",
+    "Teď není času nazbyt, utíkejte!"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Doběhněte k nebákovskému mlýnu!",
+      "goto": "card_C21"
+    }
+  ]
+}

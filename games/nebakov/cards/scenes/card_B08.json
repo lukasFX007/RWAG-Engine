@@ -1,0 +1,16 @@
+{
+  "id": "card_B08",
+  "cardCode": "B08",
+  "text": [
+    "Náhle vás přemohla malátnost a v hrudi cítíte stísněný pocit.<br>Je to snad předtucha něčeho zlého? Nebo jste si právě uvědomili, že je pro vás tento kraj cizí a může vás ledacos překvapit?<br>Je to snad trest za nějaké špatné rozhodnutí?",
+    "Na kartě je dále uvedeno:<br>• 💀 Prokletí [😐 > 3]: ➤ 😡😡<br>• 💀 Prokletí: Jakmile odložíte balíček „B“ ➤ ⏳<br>• Ponechte si tuto kartu, dokud toto prokletí nepomine."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat v dobrodružství",
+      "goto": "card_B10"
+    }
+  ],
+  "todo": "Přiřazení textu prokletí ke kartě B08 je rekonstruované – ověřte proti originálu."
+}

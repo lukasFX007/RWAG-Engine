@@ -1,0 +1,16 @@
+{
+  "id": "card_C08",
+  "cardCode": "C08",
+  "text": [
+    "Muž se s velkou námahou odtlačil loktem od kmene. Sjel rukou k opasku a vytáhl z pouzdra dýku. Položil si ji do klína.<br>„Kněz už mi požehnal,“ řekl a opřel se o strom. „A tak vás prosím … pomozte mi důstojně … dojít k Pánu.“",
+    "Teď už se tomu nelze vyhnout. Musíte jen určit toho, kdo to udělá.",
+    "Na kartě je dále uvedeno:<br>• 📜C10 je určena pouze pro tohoto člena družiny."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol: Určete jednoho z vás, kdo to udělá",
+      "goto": "card_C10"
+    }
+  ]
+}

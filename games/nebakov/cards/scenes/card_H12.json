@@ -1,0 +1,26 @@
+{
+  "id": "card_H12",
+  "cardCode": "H12",
+  "text": [
+    "Došli jste ke křížku zasvěcenému svatému Janu z Nepomuk, který ochraňuje zpovědní tajemství. Cestou jste zvažovali, zda se zde rovnou nevyzpovídat a říct vše o cizinci, Jarkovi a jeho možné vině na smrti toho muže. Dospěli jste k závěru, že snad bude lepší, když to necháte být a zůstane to jen mezi Jarkem a Bohem. Možná kdybyste tu byli sami. U pomníku jste však potkali ženu z Želejova. Dali jste se s ní do řeči a ona velice ocenila to, že jste se šli za nebožtíka přimluvit u Pána. 😊",
+    "Jarkova žádost je splněna a duše toho muže v bezpečí, teď si v klidu můžete prohlédnout svitek."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Prohlédnout si svitek",
+      "goto": "card_H13"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vydejte se rovnou za písařem do Troskovic",
+      "goto": "card_H14"
+    }
+  ]
+}

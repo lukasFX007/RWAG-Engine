@@ -1,0 +1,18 @@
+{
+  "id": "card_C06",
+  "image": "lipa02.jpg",
+  "text": "Mužova tvář se kroutí bolestí. Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete zbavit ho trápení jednou provždy?",
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "Pokusit se pomoci mu od bolesti.",
+      "goto": "card_C07"
+    },
+    {
+      "icon": "nuz",
+      "text": "Zbavit ho trápení natrvalo.",
+      "goto": "card_C08"
+    }
+  ],
+  "cardCode": "C06"
+}

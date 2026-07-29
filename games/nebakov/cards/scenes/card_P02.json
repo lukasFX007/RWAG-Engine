@@ -1,0 +1,16 @@
+{
+  "id": "card_P02",
+  "cardCode": "P02",
+  "text": [
+    "Dále jsou tu balíčky s kartami kladné reputace „REP +“ a záporné reputace „REP -“ a balíčky označené písmeny „N“ a „O“.<br>Karty z těchto balíčků si budete brát a vracet zpět podle konkrétní situace ve hře nebo ve chvíli, kdy vás k tomu hra vyzve (například pomocí události). Nepotřebný balíček je lepší vždy vrátit do pouzdra, aby se vám karty nepomíchaly.",
+    "V neposlední řadě jsou tu tři obálky. K jejich otevření a odhalení jejich obsahu vás hra také včas vyzve."
+  ],
+  "choices": [
+    {
+      "icon": "svitek",
+      "text": "Kartu P02 vraťte do pouzdra a pokračujte kartou P03.",
+      "goto": "card_P03"
+    }
+  ],
+  "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+}

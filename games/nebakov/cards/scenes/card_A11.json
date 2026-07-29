@@ -1,0 +1,23 @@
+{
+  "id": "card_A11",
+  "cardCode": "A11",
+  "text": [
+    "Co jste to za hrdiny, když vás nezajímá, jak plnit úkoly? 😡<br>Úkoly budou tvořit velkou část dobrodružství, tak hezky poslouchejte!",
+    "Úkoly nejsou běžné akce a vždy vyžadují vaši interakci s okolím.",
+    "Na jedné kartě mohou být až dva úkoly. Některé povinné, jiné pouze volitelné. Pokud se musíte rozhodnout, smíte si vybrat pouze jeden.",
+    "Jakmile splníte vybraný povinný úkol z karty, vraťte ji do balíčku, pokud vám ovšem karta neříká něco jiného."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A13"
+    }
+  ]
+}

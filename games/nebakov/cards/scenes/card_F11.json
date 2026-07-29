@@ -1,0 +1,24 @@
+{
+  "id": "card_F11",
+  "cardCode": "F11",
+  "text": "Při odchodu z hospody vás ještě zastavil hospodský. „Jo, a ještě jsem si vzpomněl. Ráno tu byl Jarek vod vovcí, co má vohradu v Tachově u rozcestí. A stěžoval si, že ho ráno našel v chlívku. No, toho frejíře z vobrázku. Prej si ustlal na hnoji. No, tak mu dal pár ran do zubů a von upaloval pryč.“",
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "[😐 > 4] „Poradíš nám prosím, kde bysme toho Jarka našli?“",
+      "goto": "card_F12",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "icon": "bublina",
+      "text": "„Děkujeme za radu. Tak my zkusíme štěstí tam.“",
+      "goto": "card_F13"
+    }
+  ]
+}

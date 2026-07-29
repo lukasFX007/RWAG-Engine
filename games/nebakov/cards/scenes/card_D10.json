@@ -1,0 +1,22 @@
+{
+  "id": "card_D10",
+  "cardCode": "D10",
+  "text": [
+    "Už když jste se blížili ke strážím, jeden z nich si vás všiml a lehkým pokynutím hlavy na vás upozornil svého velitele. Ten se otočil, zavrtěl hlavou, dal si ruce v bok a rázným krokem vykročil k vám.",
+    "„Sakra chlapi! Já opravdu nevím, čemu nerozumíte. Do Apoleny vás nepustíme a hotovo!“ 😡",
+    "Neměli jste v plánu ho naštvat. No co už, stalo se. Teď už nemáte co ztratit."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Říct mu, o co jde, a ukázat portrét muže",
+      "goto": "card_D07"
+    }
+  ]
+}

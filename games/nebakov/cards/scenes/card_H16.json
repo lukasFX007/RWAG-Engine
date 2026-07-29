@@ -1,0 +1,15 @@
+{
+  "id": "card_H16",
+  "cardCode": "H16",
+  "text": [
+    "Jak se tak rozhlížíte kolem, někteří místní vám jsou už i povědomí a podle jejich reakce na vás soudíte, že vy jim též. Cestou do Troskovic vám dokonce hlavou kynuli na pozdrav. Nálada se vám tak i přes nedávné pochmurné události začala zlepšovat.",
+    "Po krátkém rozhovoru s rychtářem jste zjistili, že písař dostal neodkladné královské povolání do Prahy. Sbalil si věci a vyrazil k místní hospůdce, odkud ho chvíli po klekání odveze objednaný povoz. Ještě je čas, ještě byste ho tam měli zastihnout."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte k hospůdce Apolena",
+      "goto": "card_H17"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "card_A05",
+  "cardCode": "A05",
+  "text": [
+    "Možná vás na kartách zaujal symbol 🧠, 🔍 nebo 👣.<br>A v průběhu dobrodružství narazíte i na další symboly. Symbol před rozhodnutím nebo úkolem je obecné označení charakteru dané akce. Zde je přehled a obecný význam některých z nich:",
+    "🔍 průzkum, zvídavost<br>👣 cestování, postup<br>👑 šlechetnost, odvaha<br>🗡️ nátlak, násilí<br>🌿 příroda<br>🧠 znalosti"
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A07"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vyrazit rovnou do akce",
+      "goto": "card_A06"
+    }
+  ]
+}

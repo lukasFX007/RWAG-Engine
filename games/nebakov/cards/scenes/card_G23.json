@@ -1,0 +1,16 @@
+{
+  "id": "card_G23",
+  "cardCode": "G23",
+  "text": [
+    "Jste na lovišti vysoké zvěře.",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte na palouk se seníkem",
+      "goto": "card_G24"
+    }
+  ],
+  "todo": "Na slidu není k této kartě samostatný narativní text; text scény je proto pouze pomocný. Doplní autor scénáře."
+}

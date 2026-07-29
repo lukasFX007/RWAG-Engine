@@ -1,0 +1,30 @@
+{
+  "id": "card_G16",
+  "cardCode": "G16",
+  "text": "Jarek: „Cože? Já jich ale pšece tolik nemám. 😊 Nepočítali ste náhodou i belany? Já sem ale žíkal ovce! Belani se pšece nesplašili a nemyslím si, že by se mi za tu chvilku stihlo nalodit tolik mladejch.<br>No, tak koukám, že si je stejně budu muset pšepočítat sám. Ale abyste si nemysleli, že sem jen neludnej dědek, tak vám můžu poladit, jak se dostat k vodopádu a nezlomit si pši tom nohu.“",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "[😐 > 5] Zeptat se na cestu k vodopádu",
+      "goto": "card_G20",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "icon": "stopy",
+      "text": "Popřát hezký den a odejít",
+      "goto": "card_G21"
+    }
+  ]
+}

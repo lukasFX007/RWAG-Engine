@@ -1,0 +1,20 @@
+{
+  "id": "card_D04",
+  "cardCode": "D04",
+  "text": [
+    "Procházíte tábořištěm a rozhlížíte se kolem sebe. Hledáte někoho, kdo by byl ochotný se s vámi bavit. To neunikne pozornosti místního správce.",
+    "„Co tu chcete? Tady není veřejná zahrada. A jestli chcete přenocovat, zaplaťte předem.“<br>Zeptáte se ho na muže z portrétu a on odpoví:<br>„Možná sem ho tady viděl. Když mi pomůžete s prací, tak si i vzpomenu na podrobnosti.“"
+  ],
+  "choices": [
+    {
+      "icon": "priroda",
+      "text": "Úkol: Poskládejte u každého ohniště hromádku dříví",
+      "goto": "card_D09"
+    },
+    {
+      "icon": "stopy",
+      "text": "Spíše než pracovat, zkusit radši štěstí znovu u stráží",
+      "goto": "card_D10"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "card_B09",
+  "cardCode": "B09",
+  "text": [
+    "K dopisu je přiložena mapa, která by vás měla dovést na Nebákov.",
+    "Avšak pokud si kdykoliv nebudete vědět rady, můžete požádat o pomoc někoho z místních. Ale pozor, nemají tu rádi cizince, a proto za každou takovou pomoc ztratíte jednu kladnou reputaci.<br>(Pokud je vaše reputace záporná, pomoc využít nemůžete.)"
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Úkol: Prohlédněte si přiloženou mapu",
+      "goto": "card_B05"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vyrazit rovnou za dobrodružstvím",
+      "goto": "card_B04"
+    }
+  ]
+}

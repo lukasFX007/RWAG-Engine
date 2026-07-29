@@ -1,0 +1,23 @@
+{
+  "id": "card_A09",
+  "cardCode": "A09",
+  "text": "Výborně! Jste stateční a zároveň rozvážní. A toho si lidé cení. 😊<br>Budou před vámi i rozhodnutí, která vám nabídnou úkol. Úkoly nejsou napsané v rámečku, ale na svitku. Pokud si takové rozhodnutí vyberete a úkol přijmete, kartu si ponechte, dokud úkol nesplníte.<br>Případná odměna za úkol je vždy uvedena za šipkou (➤).<br>Pokud je odměnou za úkol další karta, můžete si ji přečíst až po jeho splnění.",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Zjistit více o úkolech",
+      "goto": "card_A12"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vyrazit rovnou do akce",
+      "goto": "card_A11"
+    }
+  ]
+}

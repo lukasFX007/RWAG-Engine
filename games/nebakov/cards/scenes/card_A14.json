@@ -1,0 +1,17 @@
+{
+  "id": "card_A14",
+  "cardCode": "A14",
+  "text": [
+    "A ještě jedna věc … díky, nebo snad kvůli vašim rozhodnutím se možná připravíte o část příběhu. Budiž vám to motivací k tomu, abyste se do dobrodružství pustili znovu a příště se rozhodli jinak.",
+    "Nyní si rozdělte role a potom už vzhůru za dobrodružstvím!<br>(Chcete-li připomenout, jak fungují role, podívejte se na kartu P03.)",
+    "👑 Audentes fortuna iuvat! 👑"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Balíček „A“ odložte. Vezměte si balíček „B“ a přečtěte B01.",
+      "goto": "card_B01"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

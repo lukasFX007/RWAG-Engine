@@ -1,0 +1,16 @@
+{
+  "id": "card_G01",
+  "cardCode": "G01",
+  "text": [
+    "Tachov je malá osada tvořená jen několika staveními rozmístěnými podél cesty. Až na bečení ovcí a cinkání jejich zvonců je tu ticho a klid. Jediný člověk široko daleko je muž, který vidlemi přehazuje hromadu sena. Je zabraný do práce a vypadá to, že si vás zatím nevšiml. Nebo jste mu prostě ukradení.",
+    "Možná by se toho dalo využít a trochu byste se tu mohli rozhlédnout a dříve, než ho oslovíte, zjistit, co se tu dnes ráno vlastně stalo.",
+    "Na kartě je dále uvedeno:<br>• 🔍 Úkol (volitelný): Podívejte se v okolí celé ohrady po něčem podezřelém."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Oslovit muže",
+      "goto": "card_G02"
+    }
+  ]
+}

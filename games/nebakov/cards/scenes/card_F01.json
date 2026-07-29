@@ -1,0 +1,15 @@
+{
+  "id": "card_F01",
+  "cardCode": "F01",
+  "text": [
+    "Hospodský: „Tak ukažte.“ Na chvilku se zamyslel a potom pokračoval: „No jo, někdo takovej tu asi byl včera. Ale zrovna se hrál turnaj v kostkách a byl tu nával. A to víte, nestíhám všechno sledovat. Některý hráči ze včera tu ještě dneska jsou. Zkuste se zeptat někoho z nich.“",
+    "Jak se tak rozhlížíte po lokále, těžko říct, kdo z hostů hraje kostky. Budete je muset obejít a zeptat se."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Úkol: Zjistěte, zda někdo z hostů hraje kostky",
+      "goto": "card_F02"
+    }
+  ]
+}

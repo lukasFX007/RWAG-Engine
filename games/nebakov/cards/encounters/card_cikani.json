@@ -1,0 +1,9 @@
+{
+  "id": "card_cikani",
+  "text": [
+    "Cikáni",
+    "„Podívejte! To jsou potulní muzikanti! A zvou vás na tancovačku! Zazpívejte si společně až dvě písně a nenechte nohy odpočinout. Přece je nechcete urazit.“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊 za 1 píseň<br>• Postih: 😡<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "card_G25",
+  "cardCode": "G25",
+  "text": "Jak jste tak procházeli lesem obklopeným skalami, kde není slyšet zpěv ptáků ani vidět sluneční světlo, padá na vás pochmurná nálada. Teprve teď jste si začali uvědomovat, co všechno se dnes stalo a že zatím nic nešlo podle plánu. Mysleli jste si, že jednoduše navštívíte Nebákov, popovídáte si s místními, společně si zahrajete kostky u žejdlíku piva a možná si tu dokonce najdete i pár přátel. Paní Machna se vám odmění a vy spokojeně odjedete domů.<br>Pravda, byli jste v hospodě a mohli si zahrát kostky, ale vzpomínky na to mají zvláštní pachuť. Mrtvolnou pachuť spáleného dřeva.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Balíček „G“ odložte. Vezměte si balíček „H“ a přečtěte H01.",
+      "goto": "card_H01"
+    }
+  ]
+}

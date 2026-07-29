@@ -1,0 +1,17 @@
+{
+  "id": "card_G05",
+  "cardCode": "G05",
+  "text": "V klidu jste pasáčkovi vysvětlili, že rozhodně nestojíte o problémy, a zdůraznili, že tu nejste od toho, abyste řešili něčí neshody. Řekli jste mu, že si jen chlapi v hospodě pustili pusu na špacír, když jste se tam trochu vyptávali na toho muže z portrétu, a ukázali ho i jemu.<br>Jarek nic nezapíral a potvrdil, že toho „chlapíka“ vyhnal. A ten že „utíkal směrem na západ“. Ale stejně vám na tom vyprávění něco nesedí. Snad by se vám nějak mohlo povést zjistit, jestli říká pravdu.",
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "[Našli jste krvavé skvrny] Říct mu to",
+      "goto": "card_G07"
+    },
+    {
+      "icon": "nuz",
+      "text": "Vyhrožovat",
+      "goto": "card_G06"
+    }
+  ]
+}

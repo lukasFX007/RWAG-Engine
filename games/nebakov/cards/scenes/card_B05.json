@@ -1,0 +1,20 @@
+{
+  "id": "card_B05",
+  "cardCode": "B05",
+  "text": [
+    "Rozložili jste mapu a snažíte se v ní zorientovat. Jsou v ní viditelně zakreslené důležité záchytné body. Takže i když to tu neznáte, s touhle mapou by se vám zde mohlo dobře cestovat. Hlavní pro vás je, že je tam vyznačená cesta na Nebákov. A ta je teď cíl vaší cesty.",
+    "Také vás zaujala značka pomníku kousek odsud. Můžete se jít podívat, co připomíná, nebo se vydat rovnou za dobrodružstvím."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Úkol: Dojděte k pomníku",
+      "goto": "card_B03"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vydat se rovnou za dobrodružstvím",
+      "goto": "card_B04"
+    }
+  ]
+}

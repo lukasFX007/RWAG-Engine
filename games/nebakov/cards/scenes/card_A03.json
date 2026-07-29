@@ -1,0 +1,23 @@
+{
+  "id": "card_A03",
+  "cardCode": "A03",
+  "text": [
+    "Jste zkušení dobrodruzi. A takové mají v místním kraji lidé rádi. Ihned si zvyšte reputaci! 😊😊",
+    "Nyní si každý z vás vylosujte svoji roli. Nezapomeňte, že jakmile se s rolemi všichni seznámíte, ihned se podle nich musíte chovat.",
+    "A teď už vzhůru na cestu!<br>👑 Audentes fortuna iuvat! 👑"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 2
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Balíček „A“ odložte. Vezměte si balíček „B“ a přečtěte B01.",
+      "goto": "card_B01"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

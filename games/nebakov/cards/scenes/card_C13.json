@@ -1,0 +1,17 @@
+{
+  "id": "card_C13",
+  "cardCode": "C13",
+  "text": "Konečně jste se trochu rozkoukali a rozdýchali se. Náhle se další část silně poškozeného zdiva začala hroutit ze skály a s hlučným šplouchnutím dopadla do rybníka.<br>Jste si jistí, že místo, kde stála věž, není to, co byste teď chtěli navštívit.<br>Zvuk padající věže doprovázelo zděšené volání lidí, kteří se hemží kolem nebákovského mlýna.",
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol: Dejte si něco ve mlýně",
+      "goto": "card_C18"
+    },
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte zpět k lípě",
+      "goto": "card_C19"
+    }
+  ]
+}

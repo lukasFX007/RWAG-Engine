@@ -1,0 +1,10 @@
+{
+  "id": "card_D12",
+  "cardCode": "D12",
+  "text": [
+    "◀ Strážný stojící vlevo mluví vždy pravdu.",
+    "▶ Strážný stojící vpravo je patologický lhář."
+  ],
+  "choices": [],
+  "todo": "Nápovědná karta pro dva hráče hrající stráže (viz D02), nikoli scéna s návazností."
+}

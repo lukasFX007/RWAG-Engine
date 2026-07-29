@@ -1,0 +1,21 @@
+{
+  "id": "card_E08",
+  "cardCode": "E08",
+  "text": [
+    "„To jsem rád, že vám u nás chutná. Hned vám to donesu, přátelé!“ 😊",
+    "Z jeho veselého výrazu usuzujete, že jste si konečně získali jeho přízeň. Na někoho platí úsměv a prosba, někdo holt slyší jenom cinkání peněz. Jakmile přijde, jste odhodlaní se ho zeptat, jestli tady neviděl muže z portrétu."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Událost: Obsluha vám něco přinese – balíček „E“ odložte, vezměte si balíček „F“ a přečtěte si kartu F01.",
+      "goto": "card_F01"
+    }
+  ]
+}

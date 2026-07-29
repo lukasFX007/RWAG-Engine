@@ -1,0 +1,12 @@
+{
+  "id": "card_C21",
+  "cardCode": "C21",
+  "text": "Běželi jste marně. Na skále, kde dříve stál Nebákov, je jen hromada rozvalin. Zbytky rozbořeného hradu sotva stojí na skalním masivu. Mezi kamením ční doutnající kusy dřeva a nad spáleništěm hrozivě krouží hejno krkavců.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Kartu C21 odložte a pokračujte čtením karty C13.",
+      "goto": "card_C13"
+    }
+  ]
+}

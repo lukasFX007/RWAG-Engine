@@ -1,0 +1,24 @@
+{
+  "id": "card_D01",
+  "cardCode": "D01",
+  "text": "Na okraji cesty, v místě, kde vede pěšina do lesa, stojí tři strážní.<br>Jejich velitel se vám postaví do cesty se slovy: „Stůjte! Dál nikdo nesmí. V Apoleně se ukrývají loupežníci od jičínského Řáholce. Kdokoliv by se tam ukázal, tomu hrozí nebezpečí. A naším úkolem je tomu zabránit.“",
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "[😊] Říct mu o portrétu tajemného muže",
+      "goto": "card_D07",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "icon": "stopy",
+      "text": "Odejít a zkusit štěstí v přilehlém tábořišti",
+      "goto": "card_D08"
+    }
+  ]
+}

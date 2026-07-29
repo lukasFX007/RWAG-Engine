@@ -1,0 +1,20 @@
+{
+  "id": "card_G04",
+  "cardCode": "G04",
+  "text": [
+    "Pasáček si vás pomalu prohlédl a nakonec řekl: „Možná. Záleží na tom, kdo se ptá.“",
+    "Představili jste se a vysvětlili, o co jde.<br>Pasáček pokračoval: „Jestli de jen o tohle, tak budiž. Vyhnal sem ho a utíkal na západ.“ Něco se vám na tom vyprávění nezdá. Snad by se nějak dalo zjistit, jestli říká pravdu."
+  ],
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "[Našli jste krvavé skvrny] Říct mu to",
+      "goto": "card_G07"
+    },
+    {
+      "icon": "nuz",
+      "text": "Vyhrožovat",
+      "goto": "card_G06"
+    }
+  ]
+}

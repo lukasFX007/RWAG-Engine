@@ -1,0 +1,17 @@
+{
+  "id": "card_H23",
+  "cardCode": "H23",
+  "text": "Písař si vás jednoho po druhém prohlédl a potom do lokálu zakřičel: „Znáte je někdo?“ Troskovičtí si vás prohlíželi a přitom se nechápavě koukali jeden na druhého. Vaším směrem se upřela také pozornost strážných, kteří doteď byli zády k vám. Něco si mezi sebou šuškali, potom vstali a vyrazili vaším směrem. Jeden z nich při tom říkal: „Zatýkáme vás za podezření ze spáchání dvou trestných činů. Buď s námi půjdete po dobrém, nebo použijeme násilí.“ Celá hospoda ztichla. Někteří lidé se raději koukali do svých žejdlíků.",
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "[😐] „To musí být omyl, jsme nevinní!“",
+      "goto": "card_H24"
+    },
+    {
+      "icon": "bublina",
+      "text": "[😡] „Přiznáváme se, odveďte nás.“",
+      "goto": "card_H26"
+    }
+  ]
+}

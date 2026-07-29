@@ -1,0 +1,12 @@
+{
+  "id": "card_H20",
+  "cardCode": "H20",
+  "text": "Nedokážete skrýt své zklamání. Po celodenním snažení jste znovu na začátku.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračujte kartou H22",
+      "goto": "card_H22"
+    }
+  ]
+}

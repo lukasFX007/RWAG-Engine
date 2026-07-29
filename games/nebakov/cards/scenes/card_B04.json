@@ -1,0 +1,21 @@
+{
+  "id": "card_B04",
+  "cardCode": "B04",
+  "text": [
+    "Ve stínu vysokého stromu postává starší pohublý muž v ošuntělých hadrech. V ruce drží hůl a přes rameno má tlumok se svitky.",
+    "Gestem naznačuje, ať přijdete blíž.",
+    "„Zdravím vás, dobří lidé. Žel, po delší době jsem byl donucen opustit svou jeskyni v Apoleně. Strávil jsem tam mnoho let. Studoval jsem byliny a trávil čas přípravou mastí a léčivých odvarů. Rozhodl jsem se, že se o své nabyté vědomosti budu dělit s ostatními. …“"
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Přijít blíž k němu",
+      "goto": "card_B07"
+    },
+    {
+      "icon": "stopy",
+      "text": "Ignorovat ho",
+      "goto": "card_B08"
+    }
+  ]
+}

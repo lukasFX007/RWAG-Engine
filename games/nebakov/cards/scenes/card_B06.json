@@ -1,0 +1,12 @@
+{
+  "id": "card_B06",
+  "text": "Teď, když mezi vámi není žádný pacifista, na jehož znechucený výraz byste se museli koukat a poslouchat jeho poznámky, můžete se pustit do ohledání místa. Dokud budete na tomto místě, postarejte se o to, aby se zde nenacházel pacifista. Nezapomeňte ho ale vzít s sebou, až odsud půjdete pryč a informovat ho o postupu. Ale v jeho zájmu možná vynechejte zbytečné detaily.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat v dobrodružství.",
+      "goto": "card_C01"
+    }
+  ],
+  "cardCode": "B06"
+}

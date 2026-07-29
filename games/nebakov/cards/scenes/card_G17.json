@@ -1,0 +1,16 @@
+{
+  "id": "card_G17",
+  "cardCode": "G17",
+  "text": [
+    "Z tohohle místa vás trochu mrazí. Na jedné straně zeď stromů, na druhé hradba skal. Slunce sem ani nepronikne a do toho ta vlezlá vlhkost. A navíc máte pocit, že vás někdo pozoruje. Nebo je to jen přelud?",
+    "Podle popisu od Jarka byste měli po téhle cestě dorazit na palouk s rozpadlým seníkem a pak se vydat podél koryta až k vodopádu.",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte na palouk se seníkem",
+      "goto": "card_G24"
+    }
+  ]
+}

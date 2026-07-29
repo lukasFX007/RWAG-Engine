@@ -1,0 +1,21 @@
+{
+  "id": "card_C27",
+  "cardCode": "C27",
+  "text": [
+    "Cítíte se bezradní. Snažili jste se přijít na to, kam se vás ten, teď už mrtvý, muž z Nebákova, budiž mu země lehká, asi snažil poslat. Ale vaše snažení bylo nejspíš marné. Po únavném plahočení a hledání toho správného místa jste se zastavili a odpočívali ve stínu u cesty.",
+    "Náhle se u vás zjevila ta dívka v černém, kterou jste již viděli dříve, a řekla: „Hlupáci, musíte do skal! Šel k Apoleně!“ 😡😡"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -2
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
+      "goto": "card_D01"
+    }
+  ]
+}

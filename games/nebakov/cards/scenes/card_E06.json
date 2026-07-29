@@ -1,0 +1,15 @@
+{
+  "id": "card_E06",
+  "cardCode": "E06",
+  "text": [
+    "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle.<br>Výraz hospodského se lehce změnil. Nasadil něco jako úsměv a řekl: „Tak přece víte, jak se chovat v hospodě. Běžte se posadit, hned vám to přinesu.“",
+    "Během chvíle byl zpět se vším, co jste si objednali."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Podmínka postupu: Jeden z vás dopije nebo dojí",
+      "goto": "card_E07"
+    }
+  ]
+}

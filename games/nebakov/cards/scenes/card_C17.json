@@ -1,0 +1,15 @@
+{
+  "id": "card_C17",
+  "cardCode": "C17",
+  "text": [
+    "Vrátili jste se ke stromu. Nelze ignorovat všudypřítomné bzučení much. Bezvládné tělo muže leží opřené o kmen lípy.<br>Pacifista proto pokračuje dalších 20 kroků a tam počká na ostatní.",
+    "Předpokládáte, že teď už nikomu nebude vadit, když se podíváte, co důležitého ten muž nesl v tašvici."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Prohlédnout si jeho tašvici",
+      "goto": "card_C14"
+    }
+  ]
+}

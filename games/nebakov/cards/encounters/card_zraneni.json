@@ -1,0 +1,10 @@
+{
+  "id": "card_zraneni",
+  "text": [
+    "Zranění",
+    "„Kdybys tolik nepovídal a dával pozor na cestu, nezakopl bys o kámen. Ale neboj, za chvíli to přejde.“",
+    "Ten, kdo naposledy něco řekl, si zranil pravou nohu a bolestí na ni nemůže našlapovat. Pohybovat se může pouze s pomocí hole nebo přátel.",
+    "Bolest poleví až na konci následujícího balíčku karet."
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

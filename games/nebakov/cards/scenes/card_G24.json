@@ -1,0 +1,15 @@
+{
+  "id": "card_G24",
+  "cardCode": "G24",
+  "text": [
+    "Došli jste na palouk s rozpadlým stavením. Chvíli vám trvalo najít v hluboké trávě pěšinu vedoucí k vodopádu. Očividně tudy dlouho nikdo nešel. Ale to vám dalo naději, že ten cizinec z Nebákova tam stále ještě je. Po chvíli jste konečně objevili téměř vyschlé koryto řeky, které vás dovedlo hloub do lesa a až k vodopádu.",
+    "Na kartě je dále uvedeno:<br>• 👑 Aktivita (volitelná): Cesta k vodopádu je opravdu dobrodružná, a proto tam chodit nemusíte… Ale můžete, pokud chcete umocnit svůj zážitek a získat reputaci ➤ 😊😊"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračujte kartou G25",
+      "goto": "card_G25"
+    }
+  ]
+}

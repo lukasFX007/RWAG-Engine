@@ -1,0 +1,28 @@
+{
+  "id": "card_C04",
+  "image": "lipa01.jpg",
+  "text": "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže muž náhle otevřel oči a chytil ho za zápěstí. Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá, zasípal.",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    },
+    {
+      "type": "toast",
+      "text": "Za váš čin jste ztratili 1 bod reputace."
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat na Nebákov.",
+      "goto": "card_C03"
+    },
+    {
+      "icon": "bublina",
+      "text": "Vydrž, pomůžeme ti.",
+      "goto": "card_C06"
+    }
+  ],
+  "cardCode": "C04"
+}

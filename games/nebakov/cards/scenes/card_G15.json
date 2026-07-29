@@ -1,0 +1,33 @@
+{
+  "id": "card_G15",
+  "cardCode": "G15",
+  "text": [
+    "Jarek: „A sakla! Toho sem se bál. Ještě požád mi nějaký ovečky chyběj. A to sem myslel, že už je mám všechny. Naštěstí už mám svýho pejska a ten mi je pomůže sehnat. Ale i tak vám děkuju za pomoc. 😊 Jo jo, se zvížatama sou holt stalosti.",
+    "Ale abyste nežekli, že sem jen stalej neludnej dědek, tak vám můžu poladit, jak se dostat k vodopádu a nezlomit si pši tom nohu.“"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "[😐 > 5] Zeptat se na cestu k vodopádu",
+      "goto": "card_G20",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "icon": "stopy",
+      "text": "Popřát hezký den a odejít",
+      "goto": "card_G21"
+    }
+  ]
+}

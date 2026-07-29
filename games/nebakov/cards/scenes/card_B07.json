@@ -1,0 +1,15 @@
+{
+  "id": "card_B07",
+  "cardCode": "B07",
+  "text": [
+    "„… ostatními. Už mám svá léta a můj čas se blíží. Prosím, vezměte si něco málo z mých znalostí. A máte-li dobrou pověst, klidně i víc.“",
+    "Na kartě je dále uvedeno:<br>• 🌿 Výhoda [😊]: Smíte si náhodně vybrat až 4 další, každou výměnou za 1 pozitivní reputaci."
+  ],
+  "choices": [
+    {
+      "icon": "priroda",
+      "text": "Zamíchejte karty B12 a náhodně si jednu vyberte",
+      "goto": "card_B10"
+    }
+  ]
+}

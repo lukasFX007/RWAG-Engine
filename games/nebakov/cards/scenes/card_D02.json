@@ -1,0 +1,15 @@
+{
+  "id": "card_D02",
+  "cardCode": "D02",
+  "text": [
+    "Oba strážní jsou na vlas stejní. Dívají se na vás stejným výrazem. Kdybyste nevěděli, že jsou skutečně dva, asi byste měli nutkání přestat s pitím. Tím spíš potom, co najednou stejným hlasem řeknou: „Tak se ptejte.“",
+    "Na kartě je dále uvedeno:<br>• 🧠 Aktivita (volitelná): Vymyslete otázku, díky které zjistíte, kam se vydat. Poté vyberte dva z vás, kteří budou hrát stráže. Ti si tajně přečtou kartu D12. Jednomu z nich poté tu otázku položte."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Kartu D02 odložte a pokračujte čtením karty D11.",
+      "goto": "card_D11"
+    }
+  ]
+}

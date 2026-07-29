@@ -1,0 +1,23 @@
+{
+  "id": "card_A10",
+  "cardCode": "A10",
+  "text": "To myslíte vážně? 😡 Je chválihodné, že jste stateční, ale i statečný hrdina musí umět naslouchat a učit se.<br>Budou před vámi i rozhodnutí, která vám nabídnou úkol. Úkoly nejsou napsané v rámečku, ale na svitku. Pokud si takové rozhodnutí vyberete a úkol přijmete, kartu si ponechte, dokud úkol nesplníte.<br>Případná odměna za úkol je vždy uvedena za šipkou (➤).<br>Pokud je odměnou za úkol další karta, můžete si ji přečíst až po jeho splnění.",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Zjistit více o úkolech",
+      "goto": "card_A12"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vyrazit rovnou do akce",
+      "goto": "card_A11"
+    }
+  ]
+}

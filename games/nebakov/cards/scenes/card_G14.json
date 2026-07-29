@@ -1,0 +1,17 @@
+{
+  "id": "card_G14",
+  "cardCode": "G14",
+  "text": "Jarek: „Tak to vypadá, že bude za chvíli všechno zase pši stalym. Mám píšťalku a díky ní mám zpátky i svýho pejska. Zaběhnul se někde ve skalách nad Vidlákem. Jmenuje se Flek. A nebojte, nekouše. Teď už jen abych měl všechny ovečky a můžu v klidu spát. Ty jabka, co mi sněd ten pobuda, už vem čelt. Tak co? Kolik ovcí jste napočítali?“",
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "40 a více",
+      "goto": "card_G16"
+    },
+    {
+      "icon": "mozek",
+      "text": "méně než 40",
+      "goto": "card_G15"
+    }
+  ]
+}

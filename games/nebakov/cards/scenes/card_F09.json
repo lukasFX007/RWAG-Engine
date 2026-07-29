@@ -1,0 +1,17 @@
+{
+  "id": "card_F09",
+  "cardCode": "F09",
+  "text": "Kostkář: „To se mi líbí! Vždycky mám větší motivaci, když je co ztratit. Doufám, že dneska bude Fortuna při mě!“",
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Událost: Výhra v kostkách",
+      "goto": "card_F07"
+    },
+    {
+      "icon": "lebka",
+      "text": "Událost: Prohra v kostkách",
+      "goto": "card_F10"
+    }
+  ]
+}

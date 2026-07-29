@@ -1,0 +1,18 @@
+{
+  "id": "card_A12",
+  "cardCode": "A12",
+  "text": [
+    "Úkoly budou tvořit velkou část vašeho dobrodružství. Je dobře, že se o ně zajímáte a chcete se něco naučit.",
+    "Úkoly nejsou běžné akce a vždy vyžadují vaši interakci s okolím.",
+    "Na jedné kartě mohou být až dva úkoly. Některé povinné, jiné pouze volitelné. Pokud se musíte rozhodnout, smíte si vybrat pouze jeden.",
+    "A až splníte vybraný povinný úkol z karty, vraťte ji do balíčku, pokud vám ovšem karta neříká něco jiného."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A13"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "card_hadankar_bratri",
+  "text": [
+    "Hádankář",
+    "„Potkali jste cizince, který má pro vás hádanku:",
+    "‚Jsou dva bratři, kteří se nikdy nepotkali. Nejí, nepijí, nechodí ven. Mnozí se za nimi vypravili, ale nikdy nedošli cíle. Ještě že Slunce je pravidelně navštěvuje. Znáte jejich jména?‘",
+    "Uhodnete správnou odpověď?“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O01, vpravo uprostřed a dole."
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "card_A07",
+  "cardCode": "A07",
+  "text": [
+    "Při dobrodružství narazíte i na symboly týkající se reputace. Tu můžete získat, ale i ztratit. A na základě vaší reputace s vámi někteří lidé jednají.<br>Podle toho, jestli reputaci získáte nebo ztratíte, si buď vezmete, nebo odevzdáte příslušnou reputační kartu. Všímejte si na kartách symbolů 😊 nebo 😡. Jejich význam je následující:<br>😊: +📜😊 nebo -📜😡<br>😡: +📜😡 nebo -📜😊",
+    "Nyní si reputaci zvyšte (😊). Příště se už řiďte symboly na kartách."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A08"
+    }
+  ]
+}

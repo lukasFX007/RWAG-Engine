@@ -1,0 +1,22 @@
+{
+  "id": "card_G26",
+  "cardCode": "G26",
+  "text": [
+    "Jste přesvědčení o tom, že jste šli přesně podle toho, jak vám to Jarek popsal. Ale po posedu a krmelci tu nejsou ani stopy. Tohle nejspíš nebude ta louka s lovištěm vysoké zvěře, o které se pasáček zmínil.<br>Kde se vzala, tu se vzala, šla kolem vás bába s nůší na zádech.",
+    "„Bloudíme? Bloudíme?“ řekla skřípavým hlasem. Pak píchla prstem do mapy se slovy: „Musíte sem. A příště dávejte pozor!“ 😡",
+    "Zvedli jste zrak od mapy, ale po bábě jako by se zem slehla…"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte na louku s lovištěm vysoké",
+      "goto": "card_G23"
+    }
+  ]
+}

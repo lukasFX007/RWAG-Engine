@@ -1,0 +1,21 @@
+{
+  "id": "card_A04",
+  "cardCode": "A04",
+  "text": [
+    "Ne vždy to bude tak snadné. Na kartách budou i rozhodnutí. A jednou provedené rozhodnutí nelze jednoduše vzít zpět!",
+    "Rozhodnutí poznáte podle značky mezi jednotlivými akcemi.<br>Většina rozhodnutí má následek, který je uvedený za šipkou (➤) u toho konkrétního rozhodnutí.",
+    "Co znamená symbol 📜 už víte díky předchozí kartě. Tak si to hned zkuste."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A05"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vyrazit rovnou do akce",
+      "goto": "card_A06"
+    }
+  ]
+}

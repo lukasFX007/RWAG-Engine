@@ -1,0 +1,17 @@
+{
+  "id": "card_D08",
+  "cardCode": "D08",
+  "text": "V tábořišti u Apoleny není zrovna živo. Jedno ohniště zrovna dohasíná a všeho všudy je tu jen pár lidí. Nejste si jistí, zda vám někdo z nich poradí.<br>Můžete ale také zkusit štěstí v blízkém křenovském šenku. Lidé si zpravidla rádi povídají u dobrého pití.",
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol: Sedněte si s někým na pivo a kus řeči",
+      "goto": "card_D03"
+    },
+    {
+      "icon": "lupa",
+      "text": "[😐/😊] Porozhlédnout se po tábořišti",
+      "goto": "card_D04"
+    }
+  ]
+}

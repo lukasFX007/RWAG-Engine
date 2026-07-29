@@ -1,0 +1,21 @@
+{
+  "id": "card_A13",
+  "cardCode": "A13",
+  "text": [
+    "Když bude na kartě značka ⏳, znamená to, že vás potkalo náhodné setkání. V takovém případě otočte vrchní kartu z balíčku „N“ a nahlas ji přečtěte. Vyhodnoťte ji dříve, než budete pokračovat v dobrodružství, pokud není uvedeno jinak.<br>Můžete také narazit na výrazy „událost“, „poslání“, „prokletí“ a jiné, ale s tím už si určitě poradíte.",
+    "Víc už toho teď vědět nepotřebujete."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "[😊] Pokračovat",
+      "goto": "card_A14"
+    },
+    {
+      "icon": "stopy",
+      "text": "[😐/😡] Pokračovat ➤ ⏳ a potom",
+      "goto": "card_A14"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

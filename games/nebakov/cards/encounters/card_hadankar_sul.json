@@ -1,0 +1,11 @@
+{
+  "id": "card_hadankar_sul",
+  "text": [
+    "Hádankář",
+    "„Potkali jste cizince, který má pro vás hádanku:",
+    "‚Každý mne jí, ale nikdo neloví, ani neseje. Nerostu na poli ani na stromech. Kvůli mému vzniku musí umřít moře, ale když já se dotknu vody, zhynu. Co jsem?‘",
+    "Uhodnete správnou odpověď?“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, vpravo nahoře."
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "card_C02",
+  "text": "Větší rudé skvrny naznačují, že má zranění na levé paži a na hrudi. Krev má také na obou rukou a stejně tak na obličeji. A mezi plavými vlasy má červenohnědé chuchvalce. Pravou nohu má složenou pod sebou. Nejspíš se chtěl jen na chvilku schovat do stínu a zmožen únavou se sesunul pod strom. Jen Bůh ví, co se tomu chudákovi stalo. Vaším očím neušla ani kožená tašvice, kterou křečovitě svírá v ruce.",
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Prohlédnout si jeho tašvici.",
+      "goto": "card_C04"
+    },
+    {
+      "icon": "lupa",
+      "text": "Prohlédnout si muže více zblízka.",
+      "goto": "card_C05"
+    }
+  ],
+  "cardCode": "C02"
+}

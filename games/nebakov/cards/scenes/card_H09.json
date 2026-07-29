@@ -1,0 +1,21 @@
+{
+  "id": "card_H09",
+  "cardCode": "H09",
+  "text": [
+    "Přišli jste na cestu, která vede podél rybníku.",
+    "Když se dáte doleva, dojdete do Troskovic. Místní písař by vám snad mohl pomoci rozluštit to tajemné písmo a říci vám, jakou zprávu ten záhadný cizinec z Nebákova nesl.",
+    "Když půjdete na druhou stranu, dojdete zpět nahoru do Tachova. Jarek by si možná zasloužil vědět, jak to s tím mužem dopadlo."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol: Dojděte k ohradě s ovcemi za Jarkem",
+      "goto": "card_H10"
+    },
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte do Troskovic",
+      "goto": "card_H15"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "card_H15",
+  "cardCode": "H15",
+  "text": [
+    "Přišlo vám, že cesta zpět trvala věčnost. A celou tu dobu se vaše myšlenky obracely k tomu mrtvému muži pod vodopádem. Přemítali jste, jestli jste mohli něco udělat jinak, aby to celé dopadlo lépe. Kdyby se tak dal vrátit čas…",
+    "Konečně jste dorazili do Troskovic, kde vaše dnešní dobrodružství začalo. Jak vám to místo ráno přišlo zvláštní a cizí, tak se vám zde už teď začíná docela líbit. Čím dál tím víc si všímáte krásy této krajiny a napadlo vás, že kdyby měl být ráj někde v krajině české, klidně by to mohlo být v těchto místech."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Kartu H15 odložte a pokračujte čtením karty H16.",
+      "goto": "card_H16"
+    }
+  ]
+}

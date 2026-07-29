@@ -1,0 +1,10 @@
+{
+  "id": "card_legenda",
+  "text": [
+    "Stručný přehled značení na kartách:",
+    "📜A29 ⇨ najděte a přečtěte kartu A29<br>⇨ rozhodnutí (= vyberte si jednu z možností)<br>[Sedíte] ⇨ podmínka uvedené akce<br>😊 ⇨ kladná reputace (= více než 0) / zvýšení reputace<br>😐 ⇨ žádná reputace (= 0 bodů)<br>😡 ⇨ špatná reputace (= méně než 0) / pokles reputace<br>⌛ ⇨ náhodné setkání (= vrchní karta z balíčku „N“)",
+    "Obecné označení charakteru akce:<br>🔍 průzkum, zvídavost<br>👣 cestování, postup<br>👑 šlechetnost, odvaha<br>🗡️ nátlak, násilí<br>🌿 příroda<br>🧠 znalosti"
+  ],
+  "choices": [],
+  "todo": "Referenční stránka (rub karty rolí), nikoli herní scéna. Obsah odpovídá legend.json. „📜A29“ je pouze ilustrativní příklad, nejde o skutečný odkaz na kartu."
+}

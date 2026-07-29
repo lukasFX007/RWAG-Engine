@@ -1,0 +1,22 @@
+{
+  "id": "card_C24",
+  "cardCode": "C24",
+  "text": "Dorazili jste na místo, o kterém se domníváte, že zde zjistíte víc o tom záhadném muži, o němž psala paní Machna a jehož portrét jste našli. Je na čase zjistit, zda byl váš úsudek správný.",
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "Pokud vás vaše rozhodnutí dovedlo do skalního města zvaného Apolena nebo do jeho blízkosti",
+      "goto": "card_C25"
+    },
+    {
+      "icon": "mozek",
+      "text": "Pokud jste došli do Troskovic do hospůdky, která nese název Apolena, nebo do její blízkosti",
+      "goto": "card_C26"
+    },
+    {
+      "icon": "mozek",
+      "text": "Pokud stojíte na nějakém jiném místě",
+      "goto": "card_C27"
+    }
+  ]
+}

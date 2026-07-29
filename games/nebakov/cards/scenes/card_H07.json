@@ -1,0 +1,15 @@
+{
+  "id": "card_H07",
+  "cardCode": "H07",
+  "text": [
+    "Shledali jste, že u vodopádu už toho moc nezmůžete. Nechcete se stát dalším chodem pro vlky. Vlci žijí ve smečce a máte strach, že ten, kterého jste potkali, nebyl jediný. Sice se vám ho povedlo odehnat, ale proti celé smečce hladových vlků byste těžko obstáli. A jejich vytí slyšíte všude kolem. A navíc, na to, abyste pochovali toho nebožtíka, nemáte lopatu. Jste si jistí, že od vodopádu jste odešli právě včas.",
+    "Je vám jasné, že ten, kdo tam ležel, byl muž, kterého jste hledali. Teď je vaše jediné vodítko svitek, který měl u sebe."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte na cestu u rybníka západně odsud",
+      "goto": "card_H09"
+    }
+  ]
+}

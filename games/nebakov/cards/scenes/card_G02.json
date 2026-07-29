@@ -1,0 +1,17 @@
+{
+  "id": "card_G02",
+  "cardCode": "G02",
+  "text": "Přišli jste až k plotu, chvíli muže pozorovali při práci a čekali, zda si vás sám všimne. Je vidět, že už má svůj věk, ale přesto je stále plný síly. Přemýšlíte, zda je to pasáček Jarek, o kterém se zmínil hospodský. Po chvíli si vás muž všiml, ale jen hlavou pokynul na pozdrav a pracuje dál.<br>Nejspíš ho budete muset oslovit sami.",
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„Zdař Bůh! Ty jsi Jarek?“",
+      "goto": "card_G04"
+    },
+    {
+      "icon": "bublina",
+      "text": "„Zdař Bůh! Prý tu bylo ráno živo.“",
+      "goto": "card_G03"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "card_C01",
+  "text": "Nic nenasvědčuje tomu, že by se zde nacházel někdo další a tak jste se rozhodli přijít blíž. Kolem nejsou žádné stopy zápasu a vypadá to, že sem ten člověk přišel sám. Zběžným pohledem vidíte, že se jedná o mladého muže. Je oblečený jen na lehko - boty, nohavice, košile a varkoč v barvě rodu Nebáků. Navíc je vyzbrojen pouze úzkou dýkou. Z toho usuzujete, že to není voják, ale spíše posel, nebo možná zvěd.",
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Prohlédnout si muže.",
+      "goto": "card_C02"
+    },
+    {
+      "icon": "stopy",
+      "text": "Pokračovat na Nebákov.",
+      "goto": "card_C03"
+    }
+  ],
+  "cardCode": "C01"
+}

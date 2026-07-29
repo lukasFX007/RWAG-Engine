@@ -1,0 +1,11 @@
+{
+  "id": "card_hadankar_ticho",
+  "text": [
+    "Hádankář",
+    "„Potkali jste cizince, který má pro vás hádanku:",
+    "‚Můžu být všude, ale jsem málokde. Každý mne zná a čas od času si mne přeje. Pokud mne přivoláte, ztratím se. Je totiž velice těžké mne udržet. Co jsem?‘",
+    "Uhodnete správnou odpověď?“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O03, uprostřed nahoře."
+  ],
+  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+}

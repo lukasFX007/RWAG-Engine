@@ -1,0 +1,17 @@
+{
+  "id": "card_D11",
+  "cardCode": "D11",
+  "text": "Doufáte, že jste správně vyhodnotili, kam se vydat. Odměřený pohled stráží vám jasně říká, že už víc nepoví. Mimo to se na vás zle kouká jejich velitel a gestem naznačuje, abyste pokračovali v cestě. A vy ho nechcete zbytečně provokovat.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte pod Trosky",
+      "goto": "card_D06"
+    },
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte do Troskovic",
+      "goto": "card_D05"
+    }
+  ]
+}

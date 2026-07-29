@@ -1,0 +1,21 @@
+{
+  "id": "card_C18",
+  "cardCode": "C18",
+  "text": [
+    "U mlýna pod Nebákovem panuje ponurá atmosféra, až z toho mrazí. Před mlýnem ženy ošetřují ty, kteří měli štěstí a přežili. Ze stodoly je slyšet nářek těch, kteří měli štěstí méně. A do sklepa pacholci odnášejí ty, kteří ho neměli vůbec. Pantáta vás obslouží, ale nadšený není. 😡 Pár peněz navíc by jeho mínění o vás určitě zlepšilo.",
+    "Na kartě je dále uvedeno:<br>• 👑 Úkol (volitelný): Nechte spropitné ➤ 😊"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Vraťte se zpět k tisícileté lípě",
+      "goto": "card_C17"
+    }
+  ]
+}

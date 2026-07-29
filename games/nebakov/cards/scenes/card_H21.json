@@ -1,0 +1,15 @@
+{
+  "id": "card_H21",
+  "cardCode": "H21",
+  "text": [
+    "Písař si vás jednoho po druhém prohlédl a potom do lokálu zakřičel: „Znáte je někdo?“ Někteří místní vás sice chválili, ale jiní si pod vousy brblali nehezká slova.<br>To písaře moc nepotěšilo. Podíval se na vás a řekl: „Nezlobte se, vzácní cizinci, ale právě jsem dostal královské pověření do Prahy. Je mi líto, ale nemůžu vám pomoci, neb mé myšlenky se nyní ubírají jiným směrem. Navštivte mě v mé pracovně po mém návratu. To vám snad už budu nápomocen. Do té doby jsem s Bohem.“",
+    "S tím se otočil zpět ke svému žejdlíku a přestal si vás všímat."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračujte kartou H20",
+      "goto": "card_H20"
+    }
+  ]
+}

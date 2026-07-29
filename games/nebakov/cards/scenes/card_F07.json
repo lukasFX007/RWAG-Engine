@@ -1,0 +1,20 @@
+{
+  "id": "card_F07",
+  "cardCode": "F07",
+  "text": [
+    "Kostkář: „Do psí díry! Tohle se nemělo stát. Chtěl jsem ženu vzít nazítří do Sobotky na jarmark. Teď mě akorát tak přerazí. Ale co už, včera jsem měl kliku, dneska ne. Takovej je život. Na to pivo ještě pár drobásků po kapsách najdu.“",
+    "Na jednu stranu je vám ho trochu líto. Na druhou stranu – hra je hra."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol (volitelný): Vraťte protihráči peníze",
+      "goto": "card_F05"
+    },
+    {
+      "icon": "stopy",
+      "text": "Se spokojeným výrazem z výhry teď odejít za hospodským",
+      "goto": "card_F04"
+    }
+  ]
+}

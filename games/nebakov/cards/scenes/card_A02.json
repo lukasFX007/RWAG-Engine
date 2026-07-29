@@ -1,0 +1,16 @@
+{
+  "id": "card_A02",
+  "cardCode": "A02",
+  "text": [
+    "Karty popisují, co se děje kolem vás – použijte svou představivost.",
+    "Ve spodní části karty mohou být v rámečcích napsané pokyny týkající se toho, co máte udělat. Pokud je na kartě uvedeno například „📜A04“, znamená to, že si máte vzít kartu 04 z balíčku „A“.<br>A zpravidla byste měli tu stávající ihned vrátit zpět do příslušného balíčku. Kdy si kartu naopak ponechat, se dozvíte dále.<br>A případné výjimky budou uvedené na konkrétní kartě.",
+    "Na kartě je dále uvedeno:<br>• Odložte do balíčku „A“ karty A01 a A02."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A04"
+    }
+  ]
+}

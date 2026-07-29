@@ -1,0 +1,15 @@
+{
+  "id": "card_H08",
+  "cardCode": "H08",
+  "text": [
+    "Když jste Jarkovi všechno řekli, zblednul. „Počkjte, snad si nemyslíte, že to je moje vina. Já ho nezabil! Oplavdu ne! Plosím, běžte se za něj pšimluvit ke smílčímu kšíži svatýho Jana z Nepomuk. Já zatím dojdu plo hlobníka do Sobotky. Jo, a tohle sem našel v chlívě. Muselo to bej jeho. Nechte si to, já stejně neumím číst.“",
+    "Podal vám srolovaný svitek. S tím se otočil a vyrazil na cestu."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Úkol: Dojděte ke kříži",
+      "goto": "card_H12"
+    }
+  ]
+}

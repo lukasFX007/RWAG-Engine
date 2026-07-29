@@ -1,0 +1,23 @@
+{
+  "id": "card_E04",
+  "cardCode": "E04",
+  "text": "„Tak vy jste mi nerozuměli? Řekl jsem snad dost jasně, že prodávám pití a jídlo! A to mě tady živí. Nedostávám peníze za to, že si tu povídám s každým, kdo jde kolem. Takže jestli si nic nedáte, tak běžte pryč!“ 😡",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„No dobře. Tak my teda odcházíme!“",
+      "goto": "card_E05"
+    },
+    {
+      "icon": "bublina",
+      "text": "„Dobře, omlouváme se, nestojíme o problémy. Přines pro každého pití a něco do žaludku!“",
+      "goto": "card_E06"
+    }
+  ]
+}

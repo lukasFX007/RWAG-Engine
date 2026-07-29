@@ -1,0 +1,17 @@
+{
+  "id": "card_G10",
+  "cardCode": "G10",
+  "text": "Jarek: „No jo, ten kámen sem po něm hodil. Ale minul sem. Oplavdu! Aspoň teda myslím… To víte, už sem stalej dědek a zlak mi neslouží tak jako džív. Hele, podívejte se, když budete mít kliku, bude si u vodopádu lízat lány a nebo dospávat kocovinu.“",
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Nabídnout Jarkovi pomoc",
+      "goto": "card_G18"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vydat se k vodopádu",
+      "goto": "card_G19"
+    }
+  ]
+}

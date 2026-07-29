@@ -1,0 +1,25 @@
+{
+  "id": "card_C05",
+  "image": "lipa02.jpg",
+  "text": "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat na Nebákov.",
+      "goto": "card_C03"
+    },
+    {
+      "icon": "bublina",
+      "text": "Vydrž, pomůžeme ti.",
+      "goto": "card_C06",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "cardCode": "C05"
+}

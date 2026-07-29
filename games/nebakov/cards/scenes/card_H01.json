@@ -1,0 +1,17 @@
+{
+  "id": "card_H01",
+  "cardCode": "H01",
+  "text": "Přicházíte k vodopádu a z toho, co tu vidíte, nemáte vůbec dobrý pocit. V proláklině od padající vody leží tělo muže v kápi. Máte hodně silné tušení, že je to ten, koho hledáte.<br>A aby toho nebylo málo, těla si ještě před vámi všiml vlk, který se už stihl pustit do díla. Naštěstí si vás zatím nevšiml.",
+  "choices": [
+    {
+      "icon": "nuz",
+      "text": "Pokusit se odehnat vlka",
+      "goto": "card_H04"
+    },
+    {
+      "icon": "stopy",
+      "text": "Raději odejít pryč",
+      "goto": "card_H05"
+    }
+  ]
+}

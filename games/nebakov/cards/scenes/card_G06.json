@@ -1,0 +1,26 @@
+{
+  "id": "card_G06",
+  "cardCode": "G06",
+  "text": [
+    "„Tak hele ty ovčáku! My víme, že jsi mu dal přes hubu. A máme na to svědky. Chceš nám pořád něco zapírat? Nebo bys to radši vysvětlil na rychtě v Troskovicích?“ 😡",
+    "Jarek: „Dobže, dobže. Vyžešíme to v klidu, jo? Pšiznávám se, dal sem mu jednu mezi oči. Klad mi jabka, měl sem si to nechat líbit? A chodit s tím na lychtu mi pšišlo jako ztláta času. A beztak by to zapšel.“"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„No a kde je teda teď?“",
+      "goto": "card_G08"
+    },
+    {
+      "icon": "bublina",
+      "text": "„Nevěříme ti ani slovo.“",
+      "goto": "card_G09"
+    }
+  ]
+}

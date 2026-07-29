@@ -1,0 +1,15 @@
+{
+  "id": "card_B12",
+  "cardCode": "B12",
+  "text": [
+    "Bylinné karty (v balíčku je jich šest, všechny nesou kód B12):",
+    "🌿 Kontryhel – Alchemilla<br>Pomůže ti od břichabolu. Máš-li běhání, nevolnost nebo větry, připrav sobě ve vodě odvar a popíjej jej čistý bez medu, a to ráno, v poledne i navečer.",
+    "🌿 Čekanka – Cichorium<br>Máš-li bolest v játrech a na ledvinách, připrav sobě odvar a ten přebytečnou žluč z těla vyplaví. Pomůže též se vředy v žaludku a uleví od otravy z požití jedu.",
+    "🌿 Zázvor – Zingiber<br>Z kořene zázvoru udělej sobě odvar, chceš-li se horkosti v sobě zbavit. Nebo ho požij samotný. Snad díky ohni, který v něm dříme, pomáhá také vyhnat z těla bolest.",
+    "🌿 Kopretina řimbaba – Leucanthemum<br>Horečku sníží i bolest utiší. Rozžvýkej a spolkni jeden list, nebo pět, když je bolest velká. Pomazání olejovým odvarem odpuzuje hmyz a hojí jeho kousnutí.",
+    "🌿 Heřmánek – Matricaria<br>Heřmánek je zázračný všelék. Na bolest, zranění, vředy, horečku i na uklidnění ducha při špatných snech. Sušený i čerstvý můžete povařit v oleji či vodě, nebo jen tak jísti.",
+    "🌿 Mák vlčí – Papaver rhoeas<br>Vyvař květ, stvol i listy a získáš nálev pro zklidnění těla i duše a vyhnání kašle z těla. Dej však pozor na čerstvou šťávu! Neb budeš vidět věci nevídané."
+  ],
+  "choices": [],
+  "todo": "Šest fyzických karet se stejným kódem B12 (předměty/znalosti do inventáře), nikoli scéna s návazností. Přiřazení textu „Pomůže ti od břichabolu…“ ke Kontryhelu je rekonstruované."
+}

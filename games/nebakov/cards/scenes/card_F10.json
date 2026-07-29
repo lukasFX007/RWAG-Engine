@@ -1,0 +1,15 @@
+{
+  "id": "card_F10",
+  "cardCode": "F10",
+  "text": [
+    "Kostkář: „Taková smůla! Ještě, že to nebylo o peníze! To jediné mě zachránilo. Tohle vám dám.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale jak vidno, nefunguje. Alespoň ne při hře v kostky. Snad vám přinese štěstí při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+    "Na kartě je dále uvedeno:<br>• Kartu F10 si ponechte."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Jít za hospodským",
+      "goto": "card_F04"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "card_H26",
+  "cardCode": "H26",
+  "text": [
+    "Strážní vám postupně začali svazovat ruce. „Za tohle nás velitel pochválí,“ řekl jeden. „Souhlas, kamaráde. A zejtra už si s nima kat poradí. Stejně je nechápu. Zůstanou po nich dvě mrtvoly a oni si jako páni nakráčej do hospody. Co čekali? Že je za to pochválíme?“ Potom vám na hlavy nasadili pytle a váš svět se ponořil do tmy…",
+    "Dokončili jste troskovické dobrodružství, ale za jakou cenu?<br>Nebylo by lepší, kdyby vás tu lidé měli rádi?<br>Možná to budete chtít zkusit znovu a zvolit jiná rozhodnutí."
+  ],
+  "choices": [
+    {
+      "icon": "svitek",
+      "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+      "goto": "card_P05"
+    }
+  ]
+}

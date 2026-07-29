@@ -1,0 +1,15 @@
+{
+  "id": "card_H24",
+  "cardCode": "H24",
+  "text": [
+    "Strážný: „Chcete nám tvrdit, že posel z Nebákova umřel u tý lípy sám od sebe? Někdo viděl, jak se motáte kolem. A že toho u vodopádu zakousli vlci? Chudák lovčí. Přiběhl sem celej bledej a vyprávěl nám, co tam viděl. A kdoví, co se vlastně doopravdy stalo na Nebákově. Co když v tom máte taky prsty. Měli ste si dávat větší pozor, protože lidi tady se zajímaj hlavně o druhý. Zvlášť, když sou tu cizí a strkaj nos do jejich záležitostí.“",
+    "Snažili jste se vysvětlit, jak to bylo. Snad díky tomu, že vaše pověst tu není vyloženě špatná, si vás strážní vyslechli. „O vaší vině zítra rozhodne rychtář,“ řekl ten druhý. „Noc ale strávíte u nás za mřížemi.“"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračujte kartou H25",
+      "goto": "card_H25"
+    }
+  ]
+}

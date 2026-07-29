@@ -1,0 +1,13 @@
+{
+  "id": "card_C12",
+  "cardCode": "C12",
+  "text": "Ještě než ten chudák vydechl naposledy, vám něco stihl sdělit. Společně teď zvažujete, co tím asi myslel. Má vás to snad nasměrovat správným směrem? Jak rádi byste mu teď položili spoustu otázek.<br>Bohužel vám toho už víc nepoví. A tak musíte pracovat s tím, co víte, rozhodnout se a vyrazit na cestu, pryč z tohohle smutného místa.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte k nebákovskému mlýnu",
+      "goto": "card_C15"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

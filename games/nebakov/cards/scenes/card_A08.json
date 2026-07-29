@@ -1,0 +1,21 @@
+{
+  "id": "card_A08",
+  "cardCode": "A08",
+  "text": [
+    "Některá rozhodnutí budou podmíněna. Pokud tomu tak bude, podmínka bude uvedena v hranatých závorkách.",
+    "Může se například týkat stavu vaší reputace. Význam je následující:<br>😊: kladná reputace (více než 0 bodů reputace)<br>😐: žádná reputace (0 bodů reputace)<br>😡: špatná reputace (méně než 0 bodů reputace)",
+    "Zda podmínku reputace splňujete, zjistíte sečtením reputačních karet."
+  ],
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Pokračovat ve výuce",
+      "goto": "card_A09"
+    },
+    {
+      "icon": "stopy",
+      "text": "Vyrazit rovnou do akce",
+      "goto": "card_A10"
+    }
+  ]
+}

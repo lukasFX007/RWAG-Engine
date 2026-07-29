@@ -1,0 +1,25 @@
+{
+  "id": "card_G11",
+  "cardCode": "G11",
+  "text": "Jarek: „No jo, ten kámen sem po něm hodil. Ale minul sem. Bohužel. Aspoň teda myslím… Holt už sem stalej dědek a zlak mi neslouží tak jako džív. Hele, co se stalo, stalo se. Já nevím, ploč bych se zlovna vám měl zpovídat. Najděte ho a zeptejte se ho sami.“",
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "[😐 > 2] Nabídnout Jarkovi pomoc",
+      "goto": "card_G18",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "icon": "stopy",
+      "text": "Vydat se k vodopádu",
+      "goto": "card_G19"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

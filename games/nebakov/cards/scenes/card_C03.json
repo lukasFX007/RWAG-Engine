@@ -1,0 +1,12 @@
+{
+  "id": "card_C03",
+  "text": "Po krátké rozvaze jste se rozhodli, že půjdete dál. Tomu člověku byste stejně už nejspíš nedokázali pomoct. A potom, co jste viděli v jakém je stavu, ještě více vnímáte naléhavost dopisu od paní MAchny. Kousek dál odsud na cestě vidíte kapky krve. Stopy vás tedy zajisté vedou dál, směrem k Nebákovské pevnosti. Začínáte se obávat, že před vámi je, mírně řečeno, zajímavé dobrodružství. Dojděte na místo, kde je les po obou stranách cesty a zpevněná cesta se mění v kamenitou.",
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračovat v dobrodružství.",
+      "goto": "card_C20"
+    }
+  ],
+  "cardCode": "C03"
+}

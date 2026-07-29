@@ -1,0 +1,17 @@
+{
+  "id": "card_E01",
+  "cardCode": "E01",
+  "text": "Přišli jste k hospůdce Apolena. Není tu zrovna nával. O zárubně dveří se opírá znuděný hospodský a hadrem odhání mouchy. Změří si vás pohledem a praví: „Pozdrav pánbůh. Čím posloužím, panstvo?“",
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„Pití pro každého a něco do žaludku!“",
+      "goto": "card_E03"
+    },
+    {
+      "icon": "bublina",
+      "text": "„Chceme jen radu. Neobjevil se tu tenhle člověk?“",
+      "goto": "card_E02"
+    }
+  ]
+}

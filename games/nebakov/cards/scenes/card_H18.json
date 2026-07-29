@@ -1,0 +1,15 @@
+{
+  "id": "card_H18",
+  "cardCode": "H18",
+  "text": [
+    "Písař si vás jednoho po druhém prohlédl a potom do lokálu zakřičel: „Znáte je někdo?“ Díky vaší dobré reputaci se na vás snesla jen samá chvála. Písař k vám natáhl ruku se slovy: „Tak ukažte, co to máte.“",
+    "Rozbalil svitek a začal ho polohlasem pročítat. Po chvíli začal vyprávět: „Je to napsané písmem zvaným abur. Jedná se o poněkud mladé písmo, a tak není divu, že ho nejste schopni přečíst. Zdá se, že se jedná o dopis určený nějakému panu Jaroslavovi z Kutné Hory. Potvrzuje, že na Nebákově je poklad nesmírné hodnoty, pro který by stálo za to srovnat tvrz se zemí, a také, že paní Machně hrozí nebezpečí v podobě lsti.“"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Pokračujte kartou H19",
+      "goto": "card_H19"
+    }
+  ]
+}

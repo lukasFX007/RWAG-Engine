@@ -1,0 +1,16 @@
+{
+  "id": "card_H03",
+  "cardCode": "H03",
+  "text": [
+    "Shledali jste, že u vodopádu už toho moc nezmůžete. Nechcete se stát dalším chodem pro vlky. Je vám jasné, že ten jeden, kterého jste potkali, nebyl jediný. Sice se vám ho povedlo odehnat, ale proti celé smečce hladových vlků byste těžko obstáli. A jejich vytí už slyšíte všude kolem. A navíc, na to, abyste pochovali toho nebožtíka, nemáte lopatu. Jste si jistí, že od vodopádu jste odešli právě včas.",
+    "Je vám jasné, že ten, kdo tam ležel, byl muž, kterého jste hledali. Pasáček Jarek by si určitě zasloužil vědět, jak to s ním dopadlo.",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Vraťte se zpět k ohradě s ovcemi",
+      "goto": "card_H08"
+    }
+  ]
+}

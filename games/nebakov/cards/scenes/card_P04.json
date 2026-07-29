@@ -1,0 +1,16 @@
+{
+  "id": "card_P04",
+  "cardCode": "P04",
+  "text": [
+    "Ve hře platí pouze pár základních pravidel:<br>• Nepoužívejte jiné mapy ani mobilní telefony. Vše, co potřebujete pro řešení situací, máte v rukou a hlavě.<br>• Nedívejte se na karty dříve, než k tomu budete vyzváni hrou.<br>• Buďte poctiví vůči hře i vůči sobě navzájem.<br>• Pokud chcete udělat ústupek, musí s tím souhlasit všichni.<br>• Ale hlavně se bavte a užijte si výlet!",
+    "Na kartě je dále uvedeno:<br>• Kartu P04 vraťte do pouzdra."
+  ],
+  "choices": [
+    {
+      "icon": "svitek",
+      "text": "Vezměte si balíček „A“ a přečtěte kartu A01.",
+      "goto": "card_A01"
+    }
+  ],
+  "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+}

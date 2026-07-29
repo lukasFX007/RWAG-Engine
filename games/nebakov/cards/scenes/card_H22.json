@@ -1,0 +1,15 @@
+{
+  "id": "card_H22",
+  "cardCode": "H22",
+  "text": [
+    "Nedokážete skrýt své zklamání. Nechápavě koukáte jeden na druhého a nechcete uvěřit tomu, že vše ztroskotalo jen kvůli tomu, že jste se snažili rychle pomoct místo toho, abyste byli vnímaví k okolí.<br>Shledali jste, že to zapijete v místní hospůdce, přenocujete v přilehlém tábořišti a ráno si seženete povoz, který vás odveze domů.",
+    "Dokončili jste troskovické dobrodružství, ale za jakou cenu?<br>Nebylo by lepší, kdyby vás tu lidé měli rádi?<br>Možná to budete chtít zkusit znovu a zvolit jiná rozhodnutí."
+  ],
+  "choices": [
+    {
+      "icon": "svitek",
+      "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+      "goto": "card_P05"
+    }
+  ]
+}

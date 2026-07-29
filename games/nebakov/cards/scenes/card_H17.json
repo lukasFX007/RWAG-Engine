@@ -1,0 +1,33 @@
+{
+  "id": "card_H17",
+  "cardCode": "H17",
+  "text": [
+    "Na to, jak tu bylo mrtvo, když jste se vyptávali na neznámého hosta, je tu teď znatelně živěji. Hostinský běhá od stolu ke stolu, aby stihl všechny obsloužit. Teď už byste mu i věřili, že má napilno.",
+    "Poznat mezi hosty písaře nebyl problém. Prozradilo ho, mírně řečeno, okázalé odění a velká cestovní truhla ležící u jeho nohou.",
+    "Čekání na povoz si krátil pitím piva a hrou v kostky, což je v tomto kraji očividně oblíbená kratochvíle. Počkali jste, až dohraje rundu, a poté ho oslovili."
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "[😐 > 6]",
+      "goto": "card_H18",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "icon": "stopy",
+      "text": "[😐 = 1-6]",
+      "goto": "card_H21"
+    },
+    {
+      "icon": "lebka",
+      "text": "[😐 < 1]",
+      "goto": "card_H23"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "card_F04",
+  "cardCode": "F04",
+  "text": [
+    "Hospodský: „To vám řek?“ Zamračil se. „No, možná sem mu pomoh ven. A vy se divíte? Byl vožralej jak zákon káže a neměl dost peněz na zaplacení útraty. Mával tady tim modrým šutrem a já nevěděl, jestli to není kradený. A s tím já nechci mít nic společnýho.“",
+    "Na kartě je dále uvedeno:<br>• 👑 Úkol (volitelný): Nechte spropitné alespoň ve výši desetiny útraty ➤ 😊"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Odejít pryč a poohlédnout se jinde",
+      "goto": "card_F11"
+    }
+  ]
+}

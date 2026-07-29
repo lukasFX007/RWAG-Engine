@@ -1,0 +1,15 @@
+{
+  "id": "card_F13",
+  "cardCode": "F13",
+  "text": [
+    "Váš další cíl je tedy jasný – najít Tachov a rozcestí u ohrady s ovcemi. A tam potom vyhledat pasáčka Jarka. Snad vám řekne, kam ten záhadný cizinec po potyčce s ním odešel, a možná i co je zač.",
+    "Škoda, že moc neznáte zdejší kraj. V mapě, kterou máte k dispozici, je více míst s ovcemi, ale žádný Tachov. Třeba se vám nějak povede najít to správné místo. A při nejhorším se zeptáte místních. Je lepší trocha ostudy, než tu bloudit až do setmění."
+  ],
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "Až budete rozhodnutí, že jste na správném místě",
+      "goto": "card_F14"
+    }
+  ]
+}

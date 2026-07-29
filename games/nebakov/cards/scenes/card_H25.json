@@ -1,0 +1,15 @@
+{
+  "id": "card_H25",
+  "cardCode": "H25",
+  "text": [
+    "Nemůžete uvěřit tomu, jak to celé dopadlo. Ráno rychtář jistě uzná vaši nevinu. A pokud ne, pošlete posla pro pomoc. Škoda, že v tu dobu už bude písař pryč a vy se budete muset vrátit domů s nepořízenou.<br>Strážní vám jednomu po druhém postupně svázali ruce. A ve chvíli, kdy vám na hlavy nasadili pytle, se váš svět ponořil do tmy…",
+    "Dokončili jste troskovické dobrodružství, ale za jakou cenu?<br>Nebylo by lepší, kdyby vás tu lidé měli rádi?<br>Možná to budete chtít zkusit znovu a zvolit jiná rozhodnutí."
+  ],
+  "choices": [
+    {
+      "icon": "svitek",
+      "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+      "goto": "card_P05"
+    }
+  ]
+}

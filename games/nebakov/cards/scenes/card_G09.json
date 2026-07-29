@@ -1,0 +1,24 @@
+{
+  "id": "card_G09",
+  "cardCode": "G09",
+  "text": "Jarek: „Tak si čeba tlhněte nohou! 😡 Žíkám, že dostal do nosu a utíkal plyč. Když sem ho viděl naposledy, stál tam na tom pažezu.“ Ukázal na pařez za druhou stranou ohrady. Vyprávěl to, jako by ho tam pořád viděl. „Hulákal a takhle mi hlozil pěstí.“ Zatnul ruku v pěst a pohrozil k pařezu. „Pak uklouznul, nebo co, a skutálel se dolů smělem k vodopádu a zmizel mi z očí. Díky Bohu.“",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "[Našli jste u pařezu zakrvácený žulový kámen] Říct mu o něm",
+      "goto": "card_G11"
+    },
+    {
+      "icon": "bublina",
+      "text": "„A poradil bys nám, kudy se dostat k tomu vodopádu?“",
+      "goto": "card_G12"
+    }
+  ],
+  "todo": "Rozdělení dvojice karet G10 / G11 mezi G08 (vlídná varianta) a G09 (nevlídná varianta) je rekonstruované – ověřte proti originálu."
+}

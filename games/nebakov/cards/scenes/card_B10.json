@@ -1,0 +1,16 @@
+{
+  "id": "card_B10",
+  "cardCode": "B10",
+  "text": [
+    "Vaše kroky by nyní ale už vážně měly vést na Nebákov. Správce hradiště vás zajisté očekává.",
+    "Na mapě je cesta vyznačená červenými směrovkami. Vede skrze Slatějov a do Ždáru, kde, jak známo, roste tisíciletá lípa. Ta je asi v půli cesty a mohla by vám snad poskytnout stín pro krátký odpočinek. Od lípy vás mapa vede dále k mlýnu a pak konečně na hrad.",
+    "Na kartě je dále uvedeno:<br>• ⏳ Událost: Dojdete na rozcestí „Svitačka“ ➤ ⏳"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte k tisícileté lípě",
+      "goto": "card_B11"
+    }
+  ]
+}

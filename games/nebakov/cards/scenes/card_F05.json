@@ -1,0 +1,21 @@
+{
+  "id": "card_F05",
+  "cardCode": "F05",
+  "text": [
+    "Kostkář: „Děkuju moc, přátelé! To až řeknu ženě, tak mi neuvěří. Cestou na jarmark o vás budu všem vyprávět! 😊 A za to, že jste takoví čestní, vám dám tohle.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale jak vidno, nefunguje. Alespoň ne při hře v kostky. Snad vám přinese štěstí při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+    "Na kartě je dále uvedeno:<br>• Kartu F05 si ponechte."
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Jít za hospodským",
+      "goto": "card_F04"
+    }
+  ]
+}

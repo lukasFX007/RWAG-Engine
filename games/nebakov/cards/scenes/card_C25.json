@@ -1,0 +1,15 @@
+{
+  "id": "card_C25",
+  "cardCode": "C25",
+  "text": [
+    "Po chvíli společného přemýšlení, radění a koukání do mapy jste vyhodnotili, že se vás ten, teď už mrtvý, muž z Nebákova, budiž mu země lehká, snažil poslat směrem k Apoleně, skalnímu městu ležícímu na východ od Troskovic. Nejste si však úplně jistí, zda je rozumné chodit do skal. Jednak na vás může spadnout zvětralý kámen a jednak kdoví, co se v místních jeskyních pohybuje za živly.<br>Zůstanete proto raději u vstupu a zkusíte se nejdříve zeptat v okolí.",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Nechoďte hlouběji do skalního města.<br>• 👣 Podmínka postupu: Vyhodnoťte náhodné setkání (⏳)."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Balíček „C“ odložte. Vezměte si balíček „D“ a přečtěte D01.",
+      "goto": "card_D01"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "card_H11",
+  "cardCode": "H11",
+  "text": [
+    "Neměli jste už co ztratit, a tak jste svitek rozvinuli, abyste si přečetli, co je uvnitř. Pečeť patřící Nebákům byla už stejně rozlomená. Těžko říct, zda ji rozlomil ten tajemný muž, nebo zvědavý pasáček. Bohužel jste zjistili, že je to napsané cizím písmem, které nikdo z vás nedokáže přečíst, natož aby rozuměl tomu, co je tam napsané. Snad by to dokázal troskovický písař.",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte do Troskovic",
+      "goto": "card_H15"
+    }
+  ]
+}

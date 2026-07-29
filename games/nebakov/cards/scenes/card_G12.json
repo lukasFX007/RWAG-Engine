@@ -1,0 +1,30 @@
+{
+  "id": "card_G12",
+  "cardCode": "G12",
+  "text": "Jarek: „Vám tak budu ladit. 😡 Nakláčíte si sem jak páni a ptáte se na věci, do ktelých vám nic není. Vůbec vás neznám a nevim, ploč se tu s váma vlastně bavím, když mám svojí pláce dost. Musíme pšeházet seno, abych měl dost žládla plo ovce na zimu. Pak nazbílat jabka, aby ty moje holky nebyly dneska o hladu. Pláce jak na kostele. Stačí, že mě láno zdlžel ten pobuda a teď ještě vy.“",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "[😐 > 3] Nabídnout Jarkovi pomoc",
+      "goto": "card_G18",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "icon": "stopy",
+      "text": "Vydat se k vodopádu",
+      "goto": "card_G19"
+    }
+  ]
+}

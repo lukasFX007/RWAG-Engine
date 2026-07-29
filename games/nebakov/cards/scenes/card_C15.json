@@ -1,0 +1,21 @@
+{
+  "id": "card_C15",
+  "cardCode": "C15",
+  "text": [
+    "Teď už je vám víc než jasné, odkud stoupá ten dým.<br>Na skále, kde stál dříve Nebákov, je jen hromada rozvalin. Mezi kamením ční doutnající kusy dřeva. Ten zvuk, který jste zaslechli, musel být padající kus věže hradu, jehož zbytky sotva stojí na skalním masivu. Nad spáleništěm hrozivě krouží hejno krkavců.",
+    "Všude kolem je cítit smrt. To není místo, které byste teď chtěli navštívit."
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Dojděte zpět k lípě",
+      "goto": "card_C17"
+    },
+    {
+      "icon": "koruna",
+      "text": "Úkol: Občerstvěte se ve mlýně",
+      "goto": "card_C18"
+    }
+  ],
+  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+}

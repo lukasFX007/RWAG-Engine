@@ -1,0 +1,20 @@
+{
+  "id": "card_G07",
+  "cardCode": "G07",
+  "text": [
+    "„Jarku, podívej se. Všude kolem jsou krvavé skvrny. Docela čerstvé. Umíme si dát jedna a jedna dohromady. Nebo nám chceš tvrdit, že jsi tam kuchal ovci? Možná ti vynadal a ty jsi ho praštil. Nic ti nevyčítáme. Nejsme drábové, jen hledáme toho chlapíka.“",
+    "Jarek: „Jo, jo. Pšiznám se, dal sem mu jednu mezi oči. Byl splostej a klad mi jabka, měl sem si to nechat líbit? Chodit s tím na lychtu mi pšišlo jako ztláta času. A beztak by to zapšel.“"
+  ],
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„No a kde je teda teď?“",
+      "goto": "card_G08"
+    },
+    {
+      "icon": "bublina",
+      "text": "„Nevěříme ti ani slovo.“",
+      "goto": "card_G09"
+    }
+  ]
+}

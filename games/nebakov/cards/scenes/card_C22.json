@@ -1,0 +1,15 @@
+{
+  "id": "card_C22",
+  "cardCode": "C22",
+  "text": [
+    "Rozhodnutí už padlo a nelze ho vzít zpět.<br>To, co cítíte, vidíte a slyšíte, vás dost vystrašilo.<br>Zatímco jste se rozmýšleli, co udělat, uslyšeli jste další rachocení a padání kamenů doprovázené hlasitým šplouchnutím. Následoval křik mnoha lidí. To jistě zbytky pevnosti spadly do rybníka.<br>Máte pocit, že nebákovským už stejně není pomoci.<br>Lidi s dobrou pověstí budou ale za takové rozhodnutí stíhat výčitky.",
+    "Na kartě je dále uvedeno:<br>• 💀 Prokletí [😊]: ➤ 😡😡"
+  ],
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Úkol: Vraťte se zpět k tisícileté lípě",
+      "goto": "card_C19"
+    }
+  ]
+}

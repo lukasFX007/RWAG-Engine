@@ -1,0 +1,17 @@
+{
+  "id": "card_E02",
+  "cardCode": "E02",
+  "text": "Hospodský roztáhne ruce a pomalu se prohlédne. Potom dá ruce v bok a řekne: „Vypadám snad jako vývěska? Nepřijde mi. Tohle je hospoda. Tady čepujeme pivo a podáváme jídlo. Buď si něco dejte, nebo mě nezdržujte. Mám práci.“",
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„Nerozčiluj se. Chceme jen vědět, jestli tu ten člověk byl.“",
+      "goto": "card_E04"
+    },
+    {
+      "icon": "bublina",
+      "text": "„Dobře. Přines pití pro každého a něco do žaludku!“",
+      "goto": "card_E03"
+    }
+  ]
+}

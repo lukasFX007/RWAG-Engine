@@ -1,0 +1,17 @@
+{
+  "id": "card_H06",
+  "cardCode": "H06",
+  "text": "Muž má sice ohlodanou ruku, ale to není smrtelné zranění. To jste našli až po sejmutí jeho kápě. Na čele má ránu, která vede od kořene nosu nahoru. Ten chudák nejspíš uklouzl na mokré skále a spadl hlavou přímo na kámen. Tělo už je vychladlé a kůže bez barvy, ale i tak není pochyb o tom, že je to ten, koho jste hledali.<br>Modrý kámen, který měl na krku, vypadá hodně poškozeně.",
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Prohlédnout si modrý kámen",
+      "goto": "card_H02"
+    },
+    {
+      "icon": "stopy",
+      "text": "Raději odejít pryč",
+      "goto": "card_H03"
+    }
+  ]
+}

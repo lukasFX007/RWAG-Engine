@@ -1,0 +1,17 @@
+{
+  "id": "card_G18",
+  "cardCode": "G18",
+  "text": "Jarek: „No, víte co. Jak tu láno ten pobuda kšičel, splašil mi moje ovečky a ty se lozutekly do lesa. Jedna byla až v Tloskovicích u tábožiště. Nejsem si úplně jistej, jestli už sem sehnal všechny. Můžete mi je pomoct spočítat? Já si teďka musím vyžezat píšťalku, ktelou sem někde ztlatil. A pasáček bez píšťalky, to je jako hlušeň bez hlušek, no nemám plavdu?“",
+  "choices": [
+    {
+      "icon": "mozek",
+      "text": "[Získali jste píšťalku] Odevzdat píšťalku",
+      "goto": "card_G13"
+    },
+    {
+      "icon": "priroda",
+      "text": "Úkol: Spočítejte ovce v ohradě",
+      "goto": "card_G14"
+    }
+  ]
+}

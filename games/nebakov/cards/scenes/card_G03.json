@@ -1,0 +1,30 @@
+{
+  "id": "card_G03",
+  "cardCode": "G03",
+  "text": "Pasáček si vás jednoho po druhém prohlédl dlouhým prozíravým pohledem. Zapíchnul vidle do země, zkřížil ruce a řekl:<br>„Žíkal kdo? Tady se toho napovídá. Já čeba slyšel, že se po klaji potuluje loupeživá tlupa. A vás sem tady v životě neviděl. Tak se sebelte a vypadněte. Nebo mám dojít plo lychtáže?“ 😡",
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "[😐 > 4] Uklidnit situaci",
+      "goto": "card_G05",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "icon": "nuz",
+      "text": "Vyhrožovat",
+      "goto": "card_G06"
+    }
+  ]
+}

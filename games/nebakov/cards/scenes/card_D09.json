@@ -1,0 +1,21 @@
+{
+  "id": "card_D09",
+  "cardCode": "D09",
+  "text": [
+    "„No to je krása!“ 😊 rozplývá se správce. „Jo, ten člověk tu byl. Je to pár dní. Viděl jsem ho přicházet támhle od Troskovic se strážnýma. Nebo abych to řekl přesně – cupital za nima jako pejsek a něco do nich hučel. Nocleh si nezaplatil, tak jsem se víc nestaral.“",
+    "Náhle k vám přistoupí velitel stráží a říká:<br>„Chlapi, je dobře, že pomáháte, ale je to k ničemu. Do Apoleny vás ani on nepustí, to by ho přišlo draho. Prostě tam nemůžete – nařízení shora. Tak už to sakra pochopte.“"
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ],
+  "choices": [
+    {
+      "icon": "koruna",
+      "text": "Říct mu, o co jde, a ukázat portrét muže",
+      "goto": "card_D07"
+    }
+  ]
+}

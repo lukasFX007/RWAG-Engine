@@ -1,0 +1,20 @@
+{
+  "id": "card_F02",
+  "cardCode": "F02",
+  "text": [
+    "Po chvíli hledání jste skutečně našli muže, který hraje kostky. Dokonce se s vámi dal ochotně do řeči.",
+    "Kostkář: „Jo, hrál jsem s ním včera kostky. Ten měl tolik upito, že by ho obehrál i bezrukej slepec! Bohužel vám víc říct nedokážu. Ale stavte se za hospodským, ten mu … ehm … pomohl ven. Jestli víte, co tím myslím. Ale než půjdete, nechcete si taky hodit?“"
+  ],
+  "choices": [
+    {
+      "icon": "bublina",
+      "text": "„Proč ne? Alespoň bude zábava.“",
+      "goto": "card_F03"
+    },
+    {
+      "icon": "stopy",
+      "text": "Jít rovnou za hospodským",
+      "goto": "card_F04"
+    }
+  ]
+}

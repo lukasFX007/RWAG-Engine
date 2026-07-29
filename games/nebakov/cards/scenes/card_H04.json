@@ -1,0 +1,17 @@
+{
+  "id": "card_H04",
+  "cardCode": "H04",
+  "text": "Stačilo začít křičet a mlátit o sebe klacky. Vlk vrčel a cenil zuby, ale nakonec utekl. Škoda, že váš hrdinský čin nikdo neocení.<br>Teď máte příležitost si tělo prohlédnout. Na druhou stranu je vám jasné, že takové tučné kořisti se vlk nevzdá tak snadno.",
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "[V okruhu 20 kroků od vás se nenachází žádný pacifista] Prohlédnout tělo",
+      "goto": "card_H06"
+    },
+    {
+      "icon": "stopy",
+      "text": "Raději odejít",
+      "goto": "card_H05"
+    }
+  ]
+}
