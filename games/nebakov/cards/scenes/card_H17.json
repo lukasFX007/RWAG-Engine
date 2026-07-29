@@ -22,12 +22,31 @@
     {
       "icon": "stopy",
       "text": "[😐 = 1-6]",
-      "goto": "card_H21"
+      "goto": "card_H21",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        },
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 6
+        }
+      ]
     },
     {
       "icon": "lebka",
       "text": "[😐 < 1]",
-      "goto": "card_H23"
+      "goto": "card_H23",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 0
+        }
+      ]
     }
   ]
 }

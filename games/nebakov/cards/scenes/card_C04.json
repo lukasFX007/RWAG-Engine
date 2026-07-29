@@ -20,8 +20,15 @@
     },
     {
       "icon": "bublina",
-      "text": "Vydrž, pomůžeme ti.",
-      "goto": "card_C06"
+      "text": "[😊] Vydrž, pomůžeme ti.",
+      "goto": "card_C06",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        }
+      ]
     }
   ],
   "cardCode": "C04"

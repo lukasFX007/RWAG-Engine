@@ -9,12 +9,26 @@
     {
       "icon": "stopy",
       "text": "[😊] Pokračovat",
-      "goto": "card_A14"
+      "goto": "card_A14",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        }
+      ]
     },
     {
       "icon": "stopy",
       "text": "[😐/😡] Pokračovat ➤ ⏳ a potom",
-      "goto": "card_A14"
+      "goto": "card_A14",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 0
+        }
+      ]
     }
   ],
   "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."

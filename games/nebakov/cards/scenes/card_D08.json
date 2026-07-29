@@ -17,7 +17,14 @@
     {
       "icon": "lupa",
       "text": "[😐/😊] Porozhlédnout se po tábořišti",
-      "goto": "card_D04"
+      "goto": "card_D04",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 0
+        }
+      ]
     }
   ]
 }

@@ -5,7 +5,7 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 ## Souhrn
 
 - scén: **146**, karet balíčku N: **19**
-- poznámek `todo`: **45**
+- poznámek `todo`: **46**
 - **zastavuje průchod hrou: 1**
 - dosažitelných scén bez východu: 2 (`card_B02`, `card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
@@ -101,7 +101,7 @@ Text popisuje zacházení s fyzickými kartami a v plně digitální hře nemá 
 - **P05** · `card_P05` · slide 5, 24, 25
   - Plně digitální verze: text je úklid fyzických karet po hře a je potřeba ho přepsat na závěrečnou obrazovku. Míří sem čtyři konce z balíčku H (H19, H22, H25, H26).
 
-## G. Vyžaduje rozhodnutí — 2
+## G. Vyžaduje rozhodnutí — 3
 
 Poznámka, na kterou nesedlo žádné pravidlo.
 
@@ -109,6 +109,8 @@ Poznámka, na kterou nesedlo žádné pravidlo.
   - Karta obsahuje pouze rámečky s podmínkami, samostatný narativní text na ní ve zdroji není.
 - **G23** · `card_G23` · slide 20
   - Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“.
+- **H23** · `card_H23` · slide 24, 25
+  - Hradla obou větví jsou odvozená z toho, že se doplňují: „[😡]“ pokrývá zápornou reputaci, takže „[😐]“ dostalo zbytek (0 a víc). Samotné 😐 znamená podle legendy přesně 0 – potvrďte, že tady jde o „ne špatnou“ reputaci, ne o přesnou nulu.
 
 ## Chybí mimo karty
 
