@@ -468,7 +468,7 @@ footer.foot p { margin:0 0 0.4rem; max-width:80ch; }
       <div class="fact"><dt>podmíněných voleb</dt><dd>10</dd></div>
       <div class="fact"><dt>uzlů bez východu</dt><dd>26</dd></div>
       <div class="fact"><dt>konvergencí <small>(&gt;1 vstup)</small></dt><dd>45</dd></div>
-      <div class="fact"><dt>cyklů</dt><dd>0 <small>DAG</small></dd></div>
+      <div class="fact"><dt>cyklů v <code>goto</code></dt><dd>0 <small>viz pozn. 3</small></dd></div>
       <div class="fact"><dt>mimo hlavní linku</dt><dd>24</dd></div>
     </dl>
   </header>
@@ -496,7 +496,7 @@ footer.foot p { margin:0 0 0.4rem; max-width:80ch; }
       <h3>Tři věci, které je třeba vědět před psaním enginu</h3>
       <p><strong>1. Skutečný vstup je <code>card_P01</code>, ne <code>startScene</code>.</strong> V <code>scenario.json</code> je <code>startScene: "scene_211"</code>, ale řetěz <code>card_P01 → … → card_A01 → … → card_B10</code> vede právě do <code>scene_211</code>. Aplikace tedy dnes startuje uprostřed příběhu a přeskakuje pravidla, rozdělení rolí i cestu do Troskovic. Od <code>card_P01</code> je dosažitelných 142 ze 166 scén.</p>
       <p><strong>2. Osm scén nemá id podle kódu karty.</strong> Karty B06, B11 a C01–C06 vznikly dřív a mají id <code>scene_206</code>, <code>scene_211</code>, <code>scene_301</code>–<code>scene_306</code>. <code>card_C03</code> neexistuje. Diagram proto u každého uzlu ukazuje kód i skutečné <code>id</code>.</p>
-      <p><strong>3. Graf je acyklický (DAG).</strong> Neexistuje žádná cesta, která by se vracela na už navštívenou kartu, takže engine nepotřebuje detekci smyček ani ochranu proti zacyklení. Zpětný přechod má jen <code>scene_999</code>, na kterou už ale nic nemíří.</p>
+      <p><strong>3. Graf <code>goto</code> je acyklický — ale kartu <em>lze</em> vidět dvakrát.</strong> Topologické řazení projde všech 166 scén, takže po hranách <code>goto</code> se na už navštívenou kartu vrátit nelze. Opakování ale zajišťují mechaniky, které v grafu vůbec nejsou, a engine je musí umět: (a) karta <code>card_N01</code> nařizuje „vždy když kartu z balíčku N vyhodnotíte, vraťte ji dospod balíčku“ — balíček 19 náhodných setkání se tedy recykluje a je to stav, ne hrana; (b) role <strong>Vzdělaný pedant</strong> má <code>return_on_choice</code> („1/hru můžete vzít zpět rozhodnutí“), což je vědomý návrat na předchozí kartu, takže engine potřebuje historii. Acykličnost navíc platí jen pro data, která existují: 46 scén nese <code>todo</code> (nezachycená návaznost) a balíček <strong>O</strong> (<code>O01</code>–<code>O03</code>, řešení hádanek) se v textech odkazuje, ale v <code>scenario.json</code> chybí. A <code>scene_999</code> míří zpět na <code>scene_206</code> — dnes je nedosažitelná, ale jakmile na ni cokoli ukáže, cyklus vznikne.</p>
     </div>
   </section>
 
@@ -626,7 +626,7 @@ footer.foot p { margin:0 0 0.4rem; max-width:80ch; }
 
   <footer class="foot">
     <p>Vygenerováno z <code>games/nebakov/scenario.json</code>. Rozvržení je automatické: vrstvení podle nejdelší cesty, průchozí uzly pro dlouhé hrany a čtyři barycentrické průchody pro omezení křížení. Popisky hran se rozmísťují tak, aby nekolidovaly s kartami ani mezi sebou.</p>
-    <p>Známé mezery v datech: chybí <code>events.json</code>, na který se <code>scenario.json</code> odkazuje; obrázek <code>lipa02.jpg</code> není v repu; 46 scén nese <code>todo</code> (chybějící návaznost ve zdrojové prezentaci).</p>
+    <p>Známé mezery v datech: chybí <code>events.json</code>, na který se <code>scenario.json</code> odkazuje; chybí celý balíček <strong>O</strong> (<code>O01</code>–<code>O03</code>, řešení hádanek balíčku N), i když na něj karty odkazují; obrázek <code>lipa02.jpg</code> není v repu; 46 scén nese <code>todo</code> (chybějící návaznost ve zdrojové prezentaci). Dokud tyto mezery trvají, je acykličnost vlastností dat, ne důkazem o hotové hře.</p>
   </footer>
 </div>
 
