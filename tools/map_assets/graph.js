@@ -474,7 +474,10 @@
     var need = packBands(bands, W);
 
     // if a band could not fit its labels, widen that row gap and lay out again
-    if (view.pass < 3) {
+    // Bands are grown one layout pass at a time; a dense deck can need several
+    // rounds before every label has room, so allow enough of them that the
+    // result does not depend on how the data happens to be shaped.
+    if (view.pass < 8) {
       var grew = false;
       Object.keys(need).forEach(function (key) {
         var lv = Number(key);
