@@ -53,6 +53,41 @@ test("uložení a obnovení rozehrané hry", () => {
   assert.equal(restored.canUndo, true);
 });
 
+test("probíhající úkol přežije uložení a obnovení", () => {
+  // The phone dies halfway to the lime tree: the group must come back to the
+  // task in progress, not to the card before it and not past it.
+  const scenario = {
+    gameId: "test",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        text: "rozcestí",
+        choices: [
+          {
+            text: "Úkol: Dojděte k lípě",
+            goto: "b",
+            quest: { id: "q_lipa", kind: "travel", text: "Dojděte k lípě", completedAt: "b" },
+          },
+        ],
+      },
+      { id: "b", text: "u lípy", ending: true, choices: [] },
+    ],
+  };
+  const storage = createStorage({ backend: memoryBackend() });
+  const engine = new Engine(scenario);
+  engine.choose(0);
+  storage.save("test", engine.state);
+
+  const restored = new Engine(scenario, { state: storage.load("test").state });
+  assert.equal(restored.card.id, "a", "cílová karta zůstává skrytá");
+  assert.equal(restored.pendingTask.questId, "q_lipa");
+  assert.equal(restored.choices()[0].available, false);
+
+  restored.confirmArrival();
+  assert.equal(restored.card.id, "b");
+});
+
 test("seznam uložených her nese metadata bez načtení celého stavu", () => {
   const storage = createStorage({ backend: memoryBackend() });
   const engine = new Engine(fixture());

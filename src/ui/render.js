@@ -79,19 +79,49 @@ function renderChoice(choice, onChoose) {
   return el("li", { class: "choice-item" }, button);
 }
 
-export function renderChoices(choices, onChoose) {
-  const list = el("ul", { class: "choices" });
+export function renderChoices(choices, onChoose, { blocked = false } = {}) {
+  const list = el("ul", { class: `choices${blocked ? " is-blocked" : ""}` });
   for (const choice of choices) list.append(renderChoice(choice, onChoose));
   return list;
 }
 
-export function renderCard(view, { onChoose, onUndo } = {}) {
+/* --------------------------------------------------------------- task panel */
+
+/**
+ * The task the group is out doing.
+ *
+ * This is the only way forward while a task is in progress, so it is the loudest
+ * thing on the card — and it says nothing about where the task leads, because the
+ * destination is what the walk is for.
+ */
+export function renderTaskPanel(task, { onConfirm, onCancel } = {}) {
+  return el("section", { class: "task", role: "group", "aria-label": "Probíhající úkol" },
+    el("p", { class: "task-eyebrow", text: "Probíhá úkol" }),
+    el("p", { class: "task-text" },
+      el("span", { class: "task-icon", "aria-hidden": "true", text: `${task.glyph} ` }),
+      task.text,
+      task.optional ? el("span", { class: "task-tag", text: " (nepovinný)" }) : null),
+    el("p", { class: "task-hint", text: task.hint }),
+    task.fulfilled
+      ? el("p", { class: "task-note", text: "Úkol je už označený jako splněný. Potvrďte ho, aby se odhalila další karta." })
+      : null,
+    el("div", { class: "task-actions" },
+      el("button", { type: "button", class: "btn btn-primary btn-wide", onclick: () => onConfirm?.() },
+        task.confirmLabel),
+      el("button", { type: "button", class: "btn btn-quiet", onclick: () => onCancel?.() },
+        task.cancelLabel),
+    ),
+  );
+}
+
+export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask } = {}) {
   const root = el("article", { class: "card", "aria-live": "polite" });
 
   root.append(el("div", { class: "card-head" },
     view.cardCode ? el("span", { class: "card-code", text: view.cardCode }) : null,
     view.ending ? el("span", { class: "badge badge-end", text: "závěr" }) : null,
     view.deadEnd ? el("span", { class: "badge badge-warn", text: "bez pokračování" }) : null,
+    view.taskInProgress ? el("span", { class: "badge badge-task", text: "úkol" }) : null,
   ));
 
   if (view.image) root.append(renderImage(view.image));
@@ -109,7 +139,14 @@ export function renderCard(view, { onChoose, onUndo } = {}) {
     ));
   }
 
-  if (view.choices.length) root.append(renderChoices(view.choices, onChoose));
+  if (view.task) {
+    root.append(renderTaskPanel(view.task, { onConfirm: onConfirmTask, onCancel: onCancelTask }));
+  }
+  // The choice a task came from is the panel above, so it is not listed twice.
+  const shown = view.choices.filter((choice) => !choice.inProgress);
+  if (shown.length) {
+    root.append(renderChoices(shown, onChoose, { blocked: view.taskInProgress }));
+  }
   return root;
 }
 
@@ -151,21 +188,32 @@ export function createStatusBar({ onUndo, onJournal, onMenu } = {}) {
 
 /* -------------------------------------------------------------------- journal */
 
-function questRow(quest, onComplete) {
-  return el("li", { class: `quest${quest.done ? " is-done" : ""}` },
+function questRow(quest, onAction) {
+  return el("li", { class: `quest${quest.done ? " is-done" : ""}${quest.pending ? " is-pending" : ""}` },
     el("span", { class: "quest-icon", "aria-hidden": "true", text: quest.done ? icon("fajfka") : quest.glyph }),
     el("div", { class: "quest-body" },
       el("span", { class: "quest-text", text: quest.text }),
       quest.optional ? el("span", { class: "quest-tag", text: "nepovinný" }) : null,
+      quest.pending ? el("span", { class: "quest-tag", text: "právě probíhá" }) : null,
     ),
-    !quest.done && onComplete
-      ? el("button", { type: "button", class: "btn btn-small", onclick: () => onComplete(quest.id) },
-          "Splnili jsme")
+    !quest.done && onAction
+      ? el("button", {
+          type: "button",
+          class: `btn btn-small${quest.pending ? " btn-primary" : ""}`,
+          onclick: () => onAction(quest),
+        }, quest.action)
       : null,
   );
 }
 
-export function renderJournal(journal, { onComplete } = {}) {
+/**
+ * @param {object} journal
+ * @param {object} handlers
+ * @param {(quest: object) => void} handlers.onAction  the row's button; the
+ *   controller decides between confirming the arrival and ticking a quest off,
+ *   because only the pending one may go through the engine's arrival.
+ */
+export function renderJournal(journal, { onAction } = {}) {
   const root = el("div", { class: "journal" });
   root.append(el("h2", { class: "sheet-title", text: "Deník úkolů" }));
 
@@ -176,7 +224,7 @@ export function renderJournal(journal, { onComplete } = {}) {
   if (journal.active.length) {
     root.append(el("h3", { class: "sheet-sub", text: `Aktivní (${journal.active.length})` }));
     const list = el("ul", { class: "quests" });
-    for (const quest of journal.active) list.append(questRow(quest, onComplete));
+    for (const quest of journal.active) list.append(questRow(quest, onAction));
     root.append(list);
   }
   if (journal.done.length) {

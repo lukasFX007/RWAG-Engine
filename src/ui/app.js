@@ -209,6 +209,8 @@ export function createApp({
     const card = renderCard(view, {
       onChoose: (index) => choose(index),
       onUndo: engine.canUndo ? () => undo() : null,
+      onConfirmTask: () => confirmTask(),
+      onCancelTask: () => cancelTask(),
     });
 
     if (engine.finished) {
@@ -247,6 +249,32 @@ export function createApp({
     drawGame();
   }
 
+  /**
+   * The players say they did the task, so the card behind it is revealed now.
+   * The position is passed through if there is one: the engine records whether
+   * the arrival was confirmed by hand or by GPS.
+   */
+  function confirmTask() {
+    if (!engine?.pendingTask) return;
+    try {
+      engine.confirmArrival({ position: geo.position });
+    } catch (err) {
+      messages.push([{ kind: "toast", text: err.message, glyph: "⚠️" }]);
+      return;
+    }
+    autosave();
+    drainMessages();
+    drawGame();
+  }
+
+  /** Turned back: the task is dropped and the group stays on the same card. */
+  function cancelTask() {
+    if (!engine?.cancelTask()) return;
+    autosave();
+    drainMessages();
+    drawGame();
+  }
+
   /* ------------------------------------------------------------------- sheets */
 
   function openSheet(kind, content) {
@@ -258,8 +286,17 @@ export function createApp({
   function openJournal() {
     if (!engine) return;
     openSheet("journal", renderJournal(journalView(engine), {
-      onComplete: (id) => {
-        engine.completeQuest(id);
+      onAction: (quest) => {
+        if (quest.pending) {
+          // The task in progress has to go through the engine's arrival.
+          // completeQuest would tick the quest off and leave the group on a card
+          // where every choice reports "probíhá úkol" — a dead end with a full
+          // journal. Closing the sheet also matters: the new card is behind it.
+          sheet.close();
+          confirmTask();
+          return;
+        }
+        engine.completeQuest(quest.id);
         autosave();
         drainMessages();
         statusBar.update(statusView(engine));

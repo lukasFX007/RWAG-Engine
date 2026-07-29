@@ -21,6 +21,7 @@ import {
   messageViews,
   scenarioListView,
   statusView,
+  taskView,
 } from "../src/ui/view.js";
 
 /* ------------------------------------------------------------ text formatting */
@@ -209,6 +210,168 @@ test("závěrečná karta není bez pokračování, je to konec", () => {
   assert.equal(view.finished, true);
 });
 
+/* ----------------------------------------------------------- probíhající úkol */
+
+function taskFixture(kind = "travel") {
+  return {
+    gameId: "test",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        cardCode: "A01",
+        text: "rozcestí",
+        choices: [
+          { icon: "stopy", text: "Jít dál", goto: "c" },
+          {
+            icon: "stopy",
+            text: "Úkol: Dojděte k tisícileté lípě",
+            goto: "b",
+            quest: { id: "q_lipa", kind, text: "Dojděte k tisícileté lípě", completedAt: "b" },
+          },
+        ],
+      },
+      { id: "b", cardCode: "B11", text: "u lípy", choices: [{ text: "dál", goto: "c" }] },
+      { id: "c", cardCode: "C01", text: "konec", ending: true, choices: [] },
+    ],
+  };
+}
+
+test("vzetí úkolu neodhalí cílovou kartu a nabídne panel", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+
+  const view = cardView(engine);
+  assert.equal(view.cardCode, "A01", "zůstáváme na stejné kartě");
+  assert.equal(view.taskInProgress, true);
+  assert.equal(view.task.text, "Dojděte k tisícileté lípě");
+  assert.equal(view.task.glyph, "👣");
+  assert.equal(view.task.confirmLabel, "Jsme na místě");
+  assert.equal(view.task.cancelLabel, "Zrušit úkol");
+  assert.match(view.task.hint, /odhalí/);
+});
+
+test("panel úkolu nesmí prozradit, kam úkol vede", () => {
+  // The card behind a task is the reward for walking there; leaking its id into
+  // the DOM would give it away in the page source.
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  const task = cardView(engine).task;
+  assert.equal("to" in task, false);
+  assert.equal(JSON.stringify(task).includes("B11"), false);
+});
+
+test("během úkolu nejde vzít žádná volba a je vidět proč", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  const { choices } = cardView(engine);
+
+  assert.equal(choices.length, 2);
+  for (const choice of choices) {
+    assert.equal(choice.available, false);
+    assert.equal(choice.reason, "probíhá úkol");
+    assert.equal(choice.lockLabel, "Zamčeno: probíhá úkol");
+  }
+});
+
+test("volba, ze které úkol vzešel, se pod panelem neopakuje", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  const { choices } = cardView(engine);
+
+  assert.equal(choices[1].inProgress, true, "tuhle volbu zastupuje panel");
+  assert.equal(choices[0].inProgress, false, "ostatní volby zůstávají vidět zamčené");
+
+  engine.cancelTask();
+  assert.equal(cardView(engine).choices[1].inProgress, false);
+});
+
+test("úkol typu deed se potvrzuje slovy „Splnili jsme“", () => {
+  const engine = new Engine(taskFixture("deed"));
+  engine.choose(1);
+  assert.equal(cardView(engine).task.confirmLabel, "Splnili jsme");
+});
+
+test("potvrzení příchodu odhalí kartu a odemkne volby", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  engine.confirmArrival();
+
+  const view = cardView(engine);
+  assert.equal(view.cardCode, "B11");
+  assert.equal(view.task, null);
+  assert.equal(view.taskInProgress, false);
+  assert.equal(view.choices[0].available, true);
+  assert.equal(journalView(engine).done[0].completedBy, "confirmed");
+});
+
+test("zrušení úkolu vrátí volby zpět", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  engine.cancelTask();
+
+  const view = cardView(engine);
+  assert.equal(view.cardCode, "A01");
+  assert.equal(view.task, null);
+  assert.equal(view.choices[0].available, true);
+  assert.equal(journalView(engine).empty, true, "nesplněný úkol se nezapočítá");
+});
+
+test("undo během úkolu úkol zahodí, undo po příchodu ho vrátí do běhu", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  assert.equal(statusView(engine).canUndo, true, "undo musí být dostupné i během úkolu");
+
+  engine.undo();
+  assert.equal(cardView(engine).task, null);
+  assert.equal(cardView(engine).choices[1].available, true);
+
+  engine.choose(1);
+  engine.confirmArrival();
+  assert.equal(cardView(engine).cardCode, "B11");
+
+  engine.undo();
+  const view = cardView(engine);
+  assert.equal(view.cardCode, "A01", "vracíme se k chůzi, ne k tomu, že jsme nevyšli");
+  assert.equal(view.taskInProgress, true);
+  assert.equal(view.task.text, "Dojděte k tisícileté lípě");
+});
+
+test("deník označí probíhající úkol a nabídne u něj příchod", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+
+  const journal = journalView(engine);
+  assert.equal(journal.pendingQuestId, "q_lipa");
+  assert.equal(journal.active.length, 1);
+  assert.equal(journal.active[0].pending, true);
+  assert.equal(journal.active[0].action, "Jsme na místě", "stejná formulace jako v panelu");
+});
+
+test("úkol splněný schopností role nechá panel stát, aby šlo pokračovat", () => {
+  // The Milovník přírody can tick a nature task off without the group arriving.
+  // The quest is then done while pendingTask still blocks every choice, so the
+  // panel has to stay and say so — otherwise the game is over for that group.
+  const engine = new Engine(taskFixture("nature"));
+  engine.choose(1);
+  engine.completeQuest("q_lipa");
+
+  const view = cardView(engine);
+  assert.equal(view.taskInProgress, true);
+  assert.equal(view.task.fulfilled, true);
+  assert.equal(view.choices[0].available, false);
+
+  engine.confirmArrival();
+  assert.equal(cardView(engine).cardCode, "B11", "potvrzení pořád odhalí kartu");
+});
+
+test("úkol potvrzený s polohou se zaznamená jako splněný podle polohy", () => {
+  const engine = new Engine(taskFixture());
+  engine.choose(1);
+  engine.confirmArrival({ position: { lat: 50.5, lon: 15.2, zones: [] } });
+  assert.equal(journalView(engine).done[0].completedBy, "position");
+});
+
 test("stavový pruh počítá reputaci, úkoly a možnost undo", () => {
   const engine = new Engine(fixture());
   let status = statusView(engine);
@@ -235,11 +398,15 @@ test("deník rozdělí aktivní a splněné úkoly", () => {
   assert.equal(journal.active[0].text, "Nasbírejte byliny");
   assert.equal(journal.active[0].done, false);
 
-  engine.completeQuest("q1");
+  engine.confirmArrival();
   journal = journalView(engine);
   assert.equal(journal.active.length, 0);
   assert.equal(journal.done.length, 1);
-  assert.equal(journal.done[0].completedBy, "manual");
+  assert.equal(journal.done[0].completedBy, "confirmed");
+});
+
+test("taskView bez probíhajícího úkolu je null", () => {
+  assert.equal(taskView(new Engine(fixture())), null);
 });
 
 test("závěrečná obrazovka sečte průchod", () => {

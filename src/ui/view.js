@@ -27,6 +27,41 @@ export function lockLabel(choice) {
   return "Zamčeno";
 }
 
+/**
+ * The task in progress.
+ *
+ * Deliberately does not carry `pendingTask.to`. The whole point of the model is
+ * that the card behind a task stays hidden until the players have done it, so the
+ * destination must not reach the DOM at all — not in a label, not in a data
+ * attribute.
+ */
+export function taskView(engine) {
+  const pending = engine.pendingTask;
+  if (!pending) return null;
+  const quest = pending.quest ?? {};
+  const kind = quest.kind ?? null;
+  const travel = kind === "travel";
+  return {
+    questId: pending.questId,
+    text: quest.text ?? "Probíhající úkol",
+    kind,
+    glyph: questIcon(kind),
+    optional: quest.optional === true,
+    /** a travel task ends by arriving somewhere; the others by doing something */
+    confirmLabel: travel ? "Jsme na místě" : "Splnili jsme",
+    cancelLabel: "Zrušit úkol",
+    hint: travel
+      ? "Další karta se odhalí, až na místo dojdete."
+      : "Další karta se odhalí, až úkol splníte.",
+    /**
+     * A role ability (Milovník přírody) can tick the quest off without the group
+     * confirming the arrival, which would otherwise leave them on a card with
+     * every choice locked. The panel stays up and says so.
+     */
+    fulfilled: quest.done === true,
+  };
+}
+
 function imageView(name, { knownImages = null, imageBase = "" } = {}) {
   if (!name) return null;
   // `knownImages` is optional: when the caller has no index of the image folder
@@ -36,7 +71,7 @@ function imageView(name, { knownImages = null, imageBase = "" } = {}) {
   return { name, src: `${imageBase}${name}`, available };
 }
 
-function choiceView(annotated, declared) {
+function choiceView(annotated, declared, { pendingChoiceIndex = null } = {}) {
   const quest = declared?.quest ?? null;
   // The cards print the task in the choice itself ("Úkol: Dojděte k pomníku"),
   // and the quest data was derived from exactly that wording — so repeating it
@@ -56,6 +91,12 @@ function choiceView(annotated, declared) {
     requirement: annotated.requirement,
     reason: annotated.reason,
     lockLabel: lockLabel(annotated),
+    /**
+     * This is the choice the group is out carrying out. The task panel above the
+     * choices already is this choice, in progress, so the renderer leaves the
+     * button out instead of repeating its label under a "probíhá úkol" lock.
+     */
+    inProgress: annotated.index === pendingChoiceIndex,
     quest: quest
       ? {
           id: quest.id,
@@ -79,9 +120,11 @@ export function cardView(engine, options = {}) {
   const { position = null, knownImages = null, imageBase = "" } = options;
 
   const declared = card.choices ?? [];
+  const pendingChoiceIndex = engine.pendingTask?.choiceIndex ?? null;
   const choices = engine
     .choices({ position })
-    .map((annotated) => choiceView(annotated, declared[annotated.index]));
+    .map((annotated) => choiceView(annotated, declared[annotated.index], { pendingChoiceIndex }));
+  const task = taskView(engine);
 
   return {
     id: card.id,
@@ -90,6 +133,9 @@ export function cardView(engine, options = {}) {
     plain: plainText(card.text),
     image: imageView(card.image, { knownImages, imageBase }),
     choices,
+    /** the task the group is out doing; while it is set, no choice can be taken */
+    task,
+    taskInProgress: Boolean(task),
     ending: card.ending === true,
     finished: engine.finished,
     /**
@@ -121,7 +167,8 @@ export function statusView(engine) {
   };
 }
 
-function questEntry(quest) {
+function questEntry(quest, { pendingQuestId = null } = {}) {
+  const pending = quest.id === pendingQuestId;
   return {
     id: quest.id,
     text: quest.text ?? quest.id,
@@ -129,18 +176,31 @@ function questEntry(quest) {
     glyph: questIcon(quest.kind),
     optional: quest.optional === true,
     done: quest.done === true,
-    /** "arrival" quests close themselves; "manual" ones the players confirm. */
+    /** "position"/"confirmed" close a task; "manual" is the journal or an ability */
     completedBy: quest.completedBy ?? null,
+    /** this is the task the group is out doing right now */
+    pending,
+    /**
+     * The pending task must be closed through the engine's arrival, not through
+     * completeQuest: ticking it off would mark the quest done and leave the group
+     * on a card where every choice reports "probíhá úkol". Same wording as the
+     * panel on the card, so the two places cannot be told apart.
+     */
+    action: pending
+      ? (quest.kind === "travel" ? "Jsme na místě" : "Splnili jsme")
+      : "Splnili jsme",
   };
 }
 
 /** The quest journal: what is open, what is done, and what can be ticked off. */
 export function journalView(engine) {
-  const active = engine.activeQuests.map(questEntry);
-  const done = engine.completedQuests.map(questEntry);
+  const pendingQuestId = engine.pendingTask?.questId ?? null;
+  const active = engine.activeQuests.map((q) => questEntry(q, { pendingQuestId }));
+  const done = engine.completedQuests.map((q) => questEntry(q, { pendingQuestId }));
   return {
     active,
     done,
+    pendingQuestId,
     empty: active.length === 0 && done.length === 0,
     emptyLabel: "Zatím jste na sebe žádný úkol nevzali.",
   };
