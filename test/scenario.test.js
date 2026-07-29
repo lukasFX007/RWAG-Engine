@@ -676,3 +676,30 @@ test("efekt volby se undo vrátí", () => {
   assert.equal(engine.state.reputation, 5, "reputace se vrátila na hodnotu před volbou");
   assert.equal(engine.card.id, "card_F14");
 });
+
+test("počet hráčů na kartě P01 souhlasí s metadaty scénáře", () => {
+  const p01 = scenario.scenes.find((s) => s.id === "card_P01");
+  const text = Array.isArray(p01.text) ? p01.text.join(" ") : p01.text;
+  const printed = /skupinu\s*(\d+)\s*[–-]\s*(\d+)\s*hráč/u.exec(text);
+
+  assert.ok(printed, "karta P01 musí uvádět rozsah hráčů");
+  assert.equal(Number(printed[1]), scenario.players_min,
+    `karta říká od ${printed[1]}, metadata players_min ${scenario.players_min}`);
+  assert.equal(Number(printed[2]), scenario.players_max,
+    `karta říká do ${printed[2]}, metadata players_max ${scenario.players_max}`);
+});
+
+test("rozsah hráčů se vejde do počtu rolí", () => {
+  assert.ok(scenario.players_max <= roles.length,
+    `players_max ${scenario.players_max} přesahuje ${roles.length} rolí, `
+    + "rozdání by muselo některou roli zdvojit");
+  assert.ok(scenario.players_min >= 1);
+  assert.ok(scenario.players_min <= scenario.players_max);
+});
+
+test("hra se rozdá i pro nejmenší povolený počet hráčů", () => {
+  const engine = fresh();
+  engine.dealRoles(scenario.players_min);
+  assert.equal(engine.players.length, scenario.players_min);
+  assert.equal(new Set(engine.players.map((p) => p.roleId)).size, scenario.players_min);
+});
