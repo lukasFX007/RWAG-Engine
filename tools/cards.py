@@ -128,18 +128,20 @@ def assemble():
 
 def cmd_build(args):
     scenario, events = assemble()
-    problems = validate(scenario, events)
-    if problems and not args.force:
-        for p in problems:
-            print("  " + p, file=sys.stderr)
-        raise SystemExit("build zastaven kvůli chybám (--force pro přepsání)")
+    errors, warnings = validate(scenario, events)
+    if errors and not args.force:
+        for e in errors:
+            print("  chyba: " + e, file=sys.stderr)
+        raise SystemExit("build zastaven (--force pro přepsání)")
     write_json(SCENARIO, scenario)
     if events is not None:
         write_json(EVENTS, events)
     print(f"build: {len(scenario['scenes'])} scén"
           + (f" + {len(events['cards'])} karet events" if events else ""))
-    for p in problems:
-        print("  varování: " + p)
+    for e in errors:
+        print("  chyba (přepsáno --force): " + e)
+    for w in warnings:
+        print("  varování: " + w)
     return 0
 
 
@@ -164,18 +166,25 @@ def cmd_check(args):
 # ---------------------------------------------------------------- validate
 
 def validate(scenario, events=None):
-    problems = []
+    """Structural checks.
+
+    Errors would corrupt a playthrough (a goto that leads nowhere, a cycle)
+    and block `build`. Warnings describe the state of the content — an
+    unfinished branch is a normal stage of authoring, not a broken file — so
+    they are reported and let through.
+    """
+    errors, warnings = [], []
     scenes = scenario.get("scenes", [])
     by_id = {}
     for s in scenes:
         if s["id"] in by_id:
-            problems.append(f"duplicitní id: {s['id']}")
+            errors.append(f"duplicitní id: {s['id']}")
         by_id[s["id"]] = s
 
     dup_codes = [c for c, n in Counter(
         s.get("cardCode") for s in scenes if s.get("cardCode")).items() if n > 1]
     if dup_codes:
-        problems.append(f"duplicitní cardCode: {sorted(dup_codes)}")
+        errors.append(f"duplicitní cardCode: {sorted(dup_codes)}")
 
     adj = defaultdict(list)
     for s in scenes:
@@ -184,13 +193,13 @@ def validate(scenario, events=None):
             if not tgt:
                 continue
             if tgt not in by_id:
-                problems.append(f"{s['id']}: goto míří na neexistující {tgt}")
+                errors.append(f"{s['id']}: goto míří na neexistující {tgt}")
             else:
                 adj[s["id"]].append(tgt)
 
     start = scenario.get("startScene")
     if start and start not in by_id:
-        problems.append(f"startScene={start} neexistuje")
+        errors.append(f"startScene={start} neexistuje")
 
     # reachability from startScene
     if start in by_id:
@@ -203,7 +212,7 @@ def validate(scenario, events=None):
             stack.extend(adj[n])
         unreached = sorted(set(by_id) - seen)
         if unreached:
-            problems.append(
+            warnings.append(
                 f"nedosažitelné ze startScene ({len(unreached)}): {unreached}")
 
     # cycles (Kahn)
@@ -223,7 +232,7 @@ def validate(scenario, events=None):
                 queue.append(v)
     if ordered != len(by_id):
         stuck = sorted(k for k, dv in indeg.items() if dv > 0)
-        problems.append(f"graf obsahuje cyklus, uzly: {stuck}")
+        errors.append(f"graf obsahuje cyklus, uzly: {stuck}")
 
     # reputation effect vs. its toast wording
     for s in scenes:
@@ -234,38 +243,38 @@ def validate(scenario, events=None):
             continue
         low = toast.lower()
         if (rep > 0 and "ztrat" in low) or (rep < 0 and "získal" in low):
-            problems.append(f"{s['id']}: reputation {rep:+d} vs. toast {toast!r}")
+            warnings.append(f"{s['id']}: reputation {rep:+d} vs. toast {toast!r}")
 
     # declared sidecar files
     for key in ("legend", "roleSet", "events"):
         name = scenario.get(key)
         if name and not os.path.exists(os.path.join(GAME_DIR, name)):
-            problems.append(f"{key}: {name} neexistuje")
+            errors.append(f"{key}: {name} neexistuje")
 
     if events is not None:
         ev_ids = [c["id"] for c in events.get("cards", [])]
         clash = sorted(set(ev_ids) & set(by_id))
         if clash:
-            problems.append(f"id je i ve scenes i v events: {clash}")
+            errors.append(f"id je i ve scenes i v events: {clash}")
         top = events.get("topCard")
         if top and top not in ev_ids:
-            problems.append(f"topCard={top} není v events")
+            errors.append(f"topCard={top} není v events")
 
-    return problems
+    return errors, warnings
 
 
 def cmd_validate(args):
     scenario = read_json(SCENARIO)
     events = read_json(EVENTS) if os.path.exists(EVENTS) else None
-    problems = validate(scenario, events)
-    if not problems:
-        print(f"validate: OK — {len(scenario['scenes'])} scén"
-              + (f", {len(events['cards'])} karet events" if events else ""))
-        return 0
-    print(f"validate: {len(problems)} nález(ů)", file=sys.stderr)
-    for p in problems:
-        print("  " + p, file=sys.stderr)
-    return 1
+    errors, warnings = validate(scenario, events)
+    print(f"validate: {len(scenario['scenes'])} scén"
+          + (f", {len(events['cards'])} karet events" if events else "")
+          + f" — {len(errors)} chyb, {len(warnings)} varování")
+    for e in errors:
+        print("  chyba: " + e, file=sys.stderr)
+    for w in warnings:
+        print("  varování: " + w)
+    return 1 if errors else 0
 
 
 def main():

@@ -2113,18 +2113,17 @@
       "id": "card_G20",
       "cardCode": "G20",
       "text": [
-        "Jarek: „Dobže, že si necháte poladit. Co já se tam nachodil, kdyš sem byl mlačí a vodíval si tam holky, hehe. No, teď už tam zajdu jen občas, natlhat vlaní oka na mazání na klouby… Každopádně, půjdete z kopce k Vidláku a potom doleva smělem na Želejov. Ke konci lybníka vedou dvě cesty do lesa. Vy půjdete až po tý dluhý. Je tam taková veliká skála, co jí žíkáme Pilíž. To by mohl bejt váš plvní záchytnej bod, že jste splávně. A ta cesta vás potom dovede až na palouk s lozpadlým seníkem. To bude váš dluhej záchytnej bod. Z palouku potom půjdete lovně podél kolyta až k vodopádu.“",
-        "Po chvíli čmárání vám mapu vrátil zpátky.",
+        "Jarek: „Dobže, že si necháte poladit. Co já se tam nachodil, kdyš sem byl mlačí. Vodíval sem si tam holky, hehe. Ale teď už tam zajdu jen občas, natlhat vlaní oka na mazání na klouby… Takže, běžte z kopce k Vidláku, potom doleva smělem na Želejov. No a skolo na konci lybníka je taková skála, Pilíž jí žíkáme. Za ní vede cesta do lesa. Pak je to tlochu složitý. Víte co? Půjčte mi tu mapu, já vám to zakleslím na dluhou stlanu.“",
+        "Po chvíli čmárání vám mapu vrátil zpátky. „Plvní záchytný bod je plo vás palouk s lozboženým seníkem.“",
         "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 03“."
       ],
       "choices": [
         {
           "icon": "stopy",
-          "text": "Úkol: Dojděte ke skále za odbočkou do lesa",
-          "goto": "card_G17"
+          "text": "Úkol: Dojděte na palouk se seníkem",
+          "goto": "card_G24"
         }
-      ],
-      "todo": "Ve zdroji jsou dvě revize karty G20. Použita je delší (➤ G17). Kratší revize (samostatný slide 1) končí úkolem „Dojděte na palouk se seníkem ➤ G24“ – rozhodněte, která verze je platná."
+      ]
     },
     {
       "id": "card_G21",
