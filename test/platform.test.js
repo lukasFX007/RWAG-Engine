@@ -10,6 +10,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { Engine } from "../src/core/engine.js";
+import { serialise } from "../src/core/state.js";
+import { abilitiesView, dealtRolesView, roleRulesView } from "../src/ui/view.js";
 import { createStorage, KEY_PREFIX, memoryBackend } from "../src/platform/storage.js";
 import {
   REFERENCED_ZONES,
@@ -86,6 +88,24 @@ test("probíhající úkol přežije uložení a obnovení", () => {
 
   restored.confirmArrival();
   assert.equal(restored.card.id, "b");
+});
+
+test("hra uložená před rolemi se obnoví a jen nemá co nabízet", () => {
+  // Saves written before roles were dealt have no `players` at all, so the role
+  // parts of the UI must treat the key as absent rather than trust the shape.
+  const storage = createStorage({ backend: memoryBackend() });
+  const engine = new Engine(fixture());
+  engine.choose(0);
+  const legacy = JSON.parse(serialise(engine.state));
+  delete legacy.players;
+  storage.save("test", legacy);
+
+  const restored = new Engine(fixture(), { state: storage.load("test").state });
+  assert.equal(restored.card.id, "b", "hra se obnoví");
+  assert.equal(abilitiesView(restored, []).empty, true);
+  assert.equal(abilitiesView(restored, []).dealt, false);
+  assert.deepEqual(dealtRolesView(restored, []), []);
+  assert.equal(roleRulesView(restored).empty, true);
 });
 
 test("seznam uložených her nese metadata bez načtení celého stavu", () => {

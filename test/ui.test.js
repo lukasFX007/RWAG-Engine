@@ -9,16 +9,22 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import fs from "node:fs";
+
 import { Engine } from "../src/core/engine.js";
 import { cardText, linesOf, paragraphsOf, plainText } from "../src/ui/text.js";
 import { icon, questIcon, reputationIcon, reputationIconName } from "../src/ui/icons.js";
 import {
+  abilitiesView,
   cardView,
+  dealtRolesView,
   durationLabel,
   endingView,
   journalView,
   lockLabel,
   messageViews,
+  playerBounds,
+  roleRulesView,
   scenarioListView,
   statusView,
   taskView,
@@ -455,4 +461,202 @@ test("zprávy z enginu se rozliší na toasty a připomínky rolí", () => {
   assert.equal(views[0].kind, "toast");
   assert.equal(views[1].kind, "reminder");
   assert.equal(views[1].source, "role");
+});
+
+/* ---------------------------------------------------------------------- roles */
+
+const NEBAKOV_ROLES = JSON.parse(
+  fs.readFileSync(new URL("../games/nebakov/roles.json", import.meta.url), "utf8"),
+).roles;
+
+/** The real roles against a small scenario, so the role UI is tested on real data. */
+function roleFixture() {
+  return {
+    gameId: "test",
+    startScene: "a",
+    players_min: 3,
+    players_max: 8,
+    scenes: [
+      {
+        id: "a",
+        cardCode: "A01",
+        text: "start",
+        choices: [
+          { icon: "stopy", text: "dál", goto: "b" },
+          {
+            icon: "priroda",
+            text: "Úkol: Nasbírejte byliny",
+            goto: "b",
+            quest: { id: "q_nat", kind: "nature", text: "Nasbírejte byliny", completedAt: "b" },
+          },
+        ],
+      },
+      { id: "b", cardCode: "B01", text: "dál", choices: [{ text: "konec", goto: "c" }] },
+      { id: "c", cardCode: "C01", text: "konec", ending: true, choices: [] },
+    ],
+  };
+}
+
+const roleEngine = (players = 4) => {
+  const engine = new Engine(roleFixture(), { roles: NEBAKOV_ROLES, seed: 7 });
+  if (players) engine.dealRoles(players);
+  return engine;
+};
+
+test("počet hráčů je omezený scénářem i počtem rolí", () => {
+  const bounds = playerBounds({ players_min: 3, players_max: 8 }, NEBAKOV_ROLES);
+  assert.equal(bounds.min, 3);
+  assert.equal(bounds.max, 8);
+  assert.equal(bounds.limitedByRoles, false);
+  assert.equal(bounds.limitNote, null);
+});
+
+test("scénář, který chce víc hráčů než má rolí, se zastropuje", () => {
+  // The engine refuses to deal more players than roles, so the picker must not
+  // offer such a number at all — and must say why.
+  const bounds = playerBounds({ players_min: 3, players_max: 12 }, NEBAKOV_ROLES.slice(0, 5));
+  assert.equal(bounds.max, 5);
+  assert.equal(bounds.limitedByRoles, true);
+  assert.match(bounds.limitNote, /jen 5/);
+});
+
+test("bez rolí se počet hráčů drží na minimu enginu", () => {
+  const bounds = playerBounds({}, []);
+  assert.equal(bounds.min, 3);
+  assert.equal(bounds.roleCount, 0);
+});
+
+test("rozdané role se dají přečíst jako karty hráčů", () => {
+  const engine = roleEngine(4);
+  const cards = dealtRolesView(engine, NEBAKOV_ROLES);
+
+  assert.equal(cards.length, 4);
+  assert.deepEqual(cards.map((c) => c.playerName), ["Hráč 1", "Hráč 2", "Hráč 3", "Hráč 4"]);
+  assert.equal(new Set(cards.map((c) => c.roleId)).size, 4, "každá role jen jednou");
+  for (const card of cards) {
+    assert.ok(card.roleName, "role musí mít jméno");
+    assert.ok(card.character.length > 0, "karta role má text charakteru");
+    assert.ok(card.entries.length > 0, "karta role má výhody i nevýhody");
+    for (const entry of card.entries) {
+      assert.ok(entry.text);
+      assert.ok(["advantage", "disadvantage"].includes(entry.sort));
+    }
+  }
+});
+
+test("jména hráčů se přenesou do karet rolí", () => {
+  const engine = new Engine(roleFixture(), { roles: NEBAKOV_ROLES, seed: 7 });
+  engine.dealRoles(3, { names: ["Anna", "", "Cyril"] });
+  const cards = dealtRolesView(engine, NEBAKOV_ROLES);
+  assert.deepEqual(cards.map((c) => c.playerName), ["Anna", "Hráč 2", "Cyril"]);
+});
+
+test("spouštěč role se ukáže jako popisek, ne jako závorka v textu", () => {
+  const engine = roleEngine(8);
+  const entries = dealtRolesView(engine, NEBAKOV_ROLES).flatMap((c) => c.entries);
+  const once = entries.filter((e) => e.trigger === "once");
+  assert.equal(once.length, 5, "pět schopností 1/hru");
+  for (const entry of once) assert.equal(entry.triggerLabel, "1× za hru");
+  assert.ok(entries.some((e) => e.triggerLabel === "vždy"));
+  assert.ok(entries.some((e) => e.triggerLabel === "následek"), "Pedantův následek");
+});
+
+test("podmínka na zónu se u role označí jako nevyhodnotitelná", () => {
+  const engine = roleEngine(8);
+  const conditional = dealtRolesView(engine, NEBAKOV_ROLES)
+    .flatMap((c) => c.entries)
+    .filter((e) => e.condition);
+
+  assert.ok(conditional.length >= 2, "Nenasyta a Lenoch mají podmínku na zónu");
+  for (const entry of conditional) {
+    assert.match(entry.conditionNote, /nejsou souřadnice zón/);
+  }
+});
+
+test("schopnosti 1/hru se nabídnou s hráčem, rolí a cenou", () => {
+  const engine = roleEngine(8);
+  const view = abilitiesView(engine, NEBAKOV_ROLES);
+
+  assert.equal(view.dealt, true);
+  assert.equal(view.empty, false);
+  assert.equal(view.list.length, 5, "pět schopností 1/hru");
+  assert.match(view.note, /nelze vzít zpět/);
+
+  const pedant = view.list.find((a) => a.type === "return_on_choice");
+  assert.ok(pedant, "Pedantova schopnost je v seznamu");
+  assert.ok(pedant.playerName);
+  assert.equal(pedant.roleName, "Vzdělaný pedant");
+  assert.equal(pedant.consequences.length, 1, "cena schopnosti se bere z dat role");
+  assert.match(pedant.consequences[0], /náhodné setkání/);
+
+  const slechtic = view.list.find((a) => a.type === "ignore_reputation_loss");
+  assert.deepEqual(slechtic.consequences, [], "ostatní role cenu nemají");
+});
+
+test("použitá schopnost ze seznamu zmizí", () => {
+  const engine = roleEngine(8);
+  const before = abilitiesView(engine, NEBAKOV_ROLES).list;
+  const target = before.find((a) => a.type === "ignore_reputation_loss");
+
+  engine.useAbility(target.playerId, target.type);
+  const after = abilitiesView(engine, NEBAKOV_ROLES).list;
+
+  assert.equal(after.length, before.length - 1);
+  assert.equal(after.some((a) => a.type === "ignore_reputation_loss"), false);
+});
+
+test("bez rozdaných rolí není co nabízet a řekne se to", () => {
+  // Games saved before roles existed restore with state.players empty.
+  const engine = new Engine(roleFixture(), { roles: NEBAKOV_ROLES, seed: 7 });
+  const view = abilitiesView(engine, NEBAKOV_ROLES);
+  assert.equal(view.dealt, false);
+  assert.equal(view.empty, true);
+  assert.match(view.emptyLabel, /nemá rozdané role/);
+  assert.equal(roleRulesView(engine).empty, true);
+});
+
+test("trvalá pravidla se seskupí po hráčích a přiznají, co aplikace nehlídá", () => {
+  const engine = roleEngine(8);
+  const view = roleRulesView(engine);
+
+  assert.equal(view.players.length, 8, "v přehledu je každý hráč, i bez trvalých pravidel");
+  assert.match(view.zonesNote, /chybí souřadnice/);
+
+  // The Vzdělaný pedant has only a once-per-game ability and its consequence, so
+  // his row has no standing rule and must say so rather than vanish.
+  const pedant = view.players.find((p) => p.roleName === "Vzdělaný pedant");
+  assert.ok(pedant, "Pedant nesmí z přehledu vypadnout");
+  assert.equal(pedant.rules.length, 0);
+  assert.match(pedant.noRulesLabel, /Žádné trvalé pravidlo/);
+
+  const rules = view.players.flatMap((p) => p.rules);
+  assert.ok(rules.length > 0);
+  assert.ok(rules.every((r) => ["app", "players", "unknown"].includes(r.enforcement)));
+
+  const zoned = rules.filter((r) => r.enforcement === "unknown");
+  assert.ok(zoned.length >= 2, "dvě pasiva jsou podmíněná zónou");
+  for (const rule of zoned) assert.match(rule.enforcementLabel, /nelze vyhodnotit/);
+
+  const own = rules.filter((r) => r.enforcement === "players");
+  assert.ok(own.length > 0, "roleplay pravidla si hlídají hráči");
+  for (const rule of own) assert.equal(rule.enforcementLabel, "hlídáte si sami");
+});
+
+test("schopnost Milovníka přírody úkol uzavře, ale panel zůstane", () => {
+  // nature_quest_done ticks the quest off without confirming the arrival, so the
+  // task panel has to stay up — otherwise the group is stuck behind locked choices.
+  const engine = new Engine(roleFixture(), { roles: NEBAKOV_ROLES, seed: 7 });
+  engine.dealRoles(8);
+  engine.choose(1);
+  assert.equal(cardView(engine).taskInProgress, true);
+
+  const ability = abilitiesView(engine, NEBAKOV_ROLES).list
+    .find((a) => a.type === "nature_quest_done");
+  engine.useAbility(ability.playerId, ability.type);
+
+  const view = cardView(engine);
+  assert.equal(view.taskInProgress, true, "panel musí zůstat");
+  assert.equal(view.task.fulfilled, true, "a přiznat, že úkol je splněný");
+  engine.confirmArrival();
+  assert.equal(cardView(engine).cardCode, "B01");
 });

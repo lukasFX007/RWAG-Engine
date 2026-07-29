@@ -326,32 +326,226 @@ export function renderPicker(list, { onPlay, onContinue, onDelete, storageNote, 
   return root;
 }
 
-/* ----------------------------------------------------------------------- menu */
+/* ------------------------------------------------------------------ game setup */
 
-function roleRow(role) {
-  const lines = [
-    ...(role.advantages ?? []).map((a) => ({ sign: icon("plus"), text: a.text })),
-    ...(role.disadvantages ?? []).map((d) => ({ sign: icon("minus"), text: d.text })),
-  ].filter((l) => l.text);
+/**
+ * How many are playing, and who they are.
+ *
+ * The count is a row of buttons rather than a number field: it is the first thing
+ * a group does, standing outside with one phone, and the bounds come from the
+ * scenario and the number of roles so an impossible number cannot be entered at
+ * all. Names are optional — the engine falls back to "Hráč 1".
+ */
+export function renderSetup(setup, { onCount, onName, onDeal, onCancel } = {}) {
+  const root = el("section", { class: "setup" });
+  root.append(
+    el("p", { class: "eyebrow", text: setup.scenarioName ?? "Nová hra" }),
+    el("h1", { class: "picker-title", text: "Kdo hraje?" }),
+    el("p", { class: "lede", text: "Vyberte počet hráčů. Každý dostane jednu roli — role se v průběhu hry nemění." }),
+  );
 
-  return el("details", { class: "role" },
-    el("summary", {},
-      el("span", { "aria-hidden": "true", text: `${icon("role")} ` }),
-      el("b", { text: role.name ?? role.id }),
-      role.description ? el("span", { class: "role-desc", text: `— ${role.description}` }) : null),
-    el("ul", { class: "role-lines" },
-      lines.map((line) => el("li", {},
-        el("span", { class: "role-sign", "aria-hidden": "true", text: line.sign }),
-        line.text))),
+  const counts = [];
+  for (let n = setup.min; n <= setup.max; n += 1) counts.push(n);
+  root.append(el("div", { class: "menu-row" },
+    el("span", { class: "menu-label", text: "Počet hráčů" }),
+    el("div", { class: "seg seg-wide" },
+      counts.map((n) => el("button", {
+        type: "button",
+        "aria-pressed": String(n === setup.count),
+        onclick: () => onCount?.(n),
+        text: String(n),
+      })))));
+
+  if (setup.limitNote) root.append(el("p", { class: "muted", text: setup.limitNote }));
+
+  root.append(el("h3", { class: "sheet-sub", text: "Jména (nepovinné)" }));
+  const names = el("div", { class: "name-fields" });
+  for (let i = 0; i < setup.count; i += 1) {
+    const input = el("input", {
+      type: "text",
+      class: "name-input",
+      value: setup.names[i] ?? "",
+      placeholder: `Hráč ${i + 1}`,
+      "aria-label": `Jméno hráče ${i + 1}`,
+      autocomplete: "off",
+      maxlength: "24",
+    });
+    input.addEventListener("input", () => onName?.(i, input.value));
+    names.append(input);
+  }
+  root.append(names);
+
+  if (setup.error) root.append(el("p", { class: "warn-note", text: setup.error }));
+
+  root.append(el("div", { class: "setup-actions" },
+    el("button", { type: "button", class: "btn btn-primary btn-wide", onclick: () => onDeal?.() },
+      "Rozdat role"),
+    onCancel ? el("button", { type: "button", class: "btn btn-quiet", onclick: onCancel }, "Zpět na výběr scénáře") : null,
+  ));
+  return root;
+}
+
+/* ------------------------------------------------------------------ role cards */
+
+function roleEntryRow(entry) {
+  return el("li", { class: `role-line role-${entry.sort}` },
+    el("span", { class: "role-sign", "aria-hidden": "true", text: entry.glyph }),
+    el("div", { class: "role-line-body" },
+      entry.triggerLabel ? el("span", { class: "role-trigger", text: entry.triggerLabel }) : null,
+      el("span", { text: entry.text }),
+      entry.conditionNote ? el("span", { class: "role-cond", text: entry.conditionNote }) : null,
+    ));
+}
+
+export function renderRoleCard(card) {
+  return el("article", { class: "role-card" },
+    el("div", { class: "role-card-head" },
+      el("span", { class: "role-player", text: card.playerName }),
+      el("span", { class: "role-name", text: card.roleName }),
+    ),
+    card.description ? el("p", { class: "role-desc", text: card.description }) : null,
+    card.character.length
+      ? el("div", { class: "role-character" },
+          card.character.map((lines) => el("p", {}, withBreaks(lines))))
+      : null,
+    card.entries.length ? el("ul", { class: "role-lines" }, card.entries.map(roleEntryRow)) : null,
   );
 }
+
+/** The screen between dealing and playing: everyone reads their own role. */
+export function renderRoleReveal(cards, { applied = [], onStart } = {}) {
+  const root = el("section", { class: "reveal" });
+  root.append(
+    el("p", { class: "eyebrow", text: "Rozdané role" }),
+    el("h1", { class: "picker-title", text: "Přečtěte si své role" }),
+    el("p", { class: "lede", text: "Podejte telefon dokola. Podle rolí se hraje od chvíle, kdy je znají všichni." }),
+  );
+  root.append(el("div", { class: "role-cards" }, cards.map(renderRoleCard)));
+
+  if (applied.length) {
+    root.append(el("h3", { class: "sheet-sub", text: "Hned se uplatnilo" }));
+    root.append(el("ul", { class: "role-lines" },
+      applied.map((line) => el("li", { class: "role-line" },
+        el("span", { class: "role-sign", "aria-hidden": "true", text: icon("plus") }),
+        el("span", { text: line.text ?? "" })))));
+  }
+
+  root.append(el("div", { class: "setup-actions" },
+    el("button", { type: "button", class: "btn btn-primary btn-wide", onclick: () => onStart?.() },
+      "Začít hrát")));
+  return root;
+}
+
+/* -------------------------------------------------------------------- abilities */
+
+/**
+ * Once-per-game abilities.
+ *
+ * Spending one cannot be taken back, so the button asks twice in place rather
+ * than firing on the first tap — a mis-tap in a pocket must not burn the group's
+ * only undo. The Pedant's price (an immediate encounter) is shown from the role
+ * data before the confirmation, not after.
+ */
+export function renderAbilities(view, { onUse } = {}) {
+  const root = el("div", { class: "abilities" });
+  root.append(el("h2", { class: "sheet-title", text: "Schopnosti rolí" }));
+  root.append(el("p", { class: "muted", text: view.note }));
+
+  if (view.empty) {
+    root.append(el("p", { class: "muted", text: view.emptyLabel }));
+    return root;
+  }
+
+  const list = el("ul", { class: "ability-list" });
+  for (const ability of view.list) {
+    const item = el("li", { class: "ability" });
+    const actions = el("div", { class: "ability-actions" });
+
+    const use = el("button", { type: "button", class: "btn btn-small" }, "Použít");
+    use.addEventListener("click", () => {
+      actions.replaceChildren(
+        el("span", { class: "ability-confirm", text: view.confirmPrompt }),
+        el("button", {
+          type: "button",
+          class: "btn btn-small btn-primary",
+          onclick: () => onUse?.(ability),
+        }, "Ano, použít"),
+        el("button", {
+          type: "button",
+          class: "btn btn-small btn-quiet",
+          onclick: () => actions.replaceChildren(use),
+        }, "Zpět"),
+      );
+    });
+    actions.append(use);
+
+    item.append(
+      el("div", { class: "ability-head" },
+        el("span", { class: "ability-icon", "aria-hidden": "true", text: ability.glyph }),
+        el("span", { class: "ability-player", text: ability.playerName }),
+        el("span", { class: "ability-role", text: ability.roleName }),
+      ),
+      el("p", { class: "ability-text", text: ability.text }),
+      ...ability.consequences.map((text) =>
+        el("p", { class: "ability-cost" },
+          el("span", { "aria-hidden": "true", text: `${icon("hodiny")} ` }),
+          text)),
+      actions,
+    );
+    list.append(item);
+  }
+  root.append(list);
+  return root;
+}
+
+/* ------------------------------------------------------------- standing rules */
+
+export function renderRoleRules(view, cards = []) {
+  const root = el("div", { class: "role-rules" });
+  root.append(el("h2", { class: "sheet-title", text: "Role a jejich pravidla" }));
+
+  if (view.empty) {
+    root.append(el("p", { class: "muted", text: view.emptyLabel }));
+    return root;
+  }
+
+  for (const player of view.players) {
+    root.append(el("div", { class: "role-rule-block" },
+      el("div", { class: "role-card-head" },
+        el("span", { class: "role-player", text: player.playerName }),
+        el("span", { class: "role-name", text: player.roleName }),
+      ),
+      player.rules.length
+        ? el("ul", { class: "role-lines" },
+            player.rules.map((rule) => el("li", { class: `role-line role-${rule.sort}` },
+              el("span", { class: "role-sign", "aria-hidden": "true", text: rule.glyph }),
+              el("div", { class: "role-line-body" },
+                el("span", { class: `role-enforce is-${rule.enforcement}`, text: rule.enforcementLabel }),
+                el("span", { text: rule.text }),
+              ))))
+        : el("p", { class: "muted", text: player.noRulesLabel }),
+    ));
+  }
+  root.append(el("p", { class: "muted", text: view.zonesNote }));
+
+  if (cards.length) {
+    root.append(el("h3", { class: "sheet-sub", text: "Celé karty rolí" }));
+    root.append(el("div", { class: "role-cards" }, cards.map(renderRoleCard)));
+  }
+  return root;
+}
+
+/* ----------------------------------------------------------------------- menu */
 
 export function renderMenu({
   theme,
   onTheme,
   geo,
   onGeoToggle,
-  roles = [],
+  abilityCount = 0,
+  hasRoles = false,
+  onAbilities,
+  onRoles,
   storageAvailable,
   onCatalogue,
   onDeleteSave,
@@ -389,9 +583,16 @@ export function renderMenu({
       el("p", { class: "muted", text: geo?.missingNote ?? "" }),
     )));
 
-  if (roles.length) {
-    root.append(el("h3", { class: "sheet-sub", text: "Role ve hře" }));
-    root.append(el("div", { class: "roles" }, roles.map(roleRow)));
+  root.append(el("h3", { class: "sheet-sub", text: "Role" }));
+  root.append(el("div", { class: "menu-actions" },
+    onAbilities
+      ? el("button", { type: "button", class: "btn", onclick: onAbilities },
+          `${icon("plus")} Schopnosti (${abilityCount})`)
+      : null,
+    onRoles ? el("button", { type: "button", class: "btn", onclick: onRoles }, `${icon("role")} Role a pravidla`) : null,
+  ));
+  if (!hasRoles) {
+    root.append(el("p", { class: "muted", text: "Tato rozehraná hra nemá rozdané role — začala před tím, než hra role rozdávala." }));
   }
 
   root.append(el("h3", { class: "sheet-sub", text: "Hra" }));

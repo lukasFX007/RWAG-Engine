@@ -1,14 +1,17 @@
 /**
  * The application controller.
  *
- * Owns the three screens (scenario catalogue, game, ending), the autosave and the
- * sheets (journal, menu, drawn event card). It is the only module that holds
- * mutable app state; view.js decides what is shown and render.js how.
+ * Owns the screens (catalogue, player setup, dealt roles, game, ending), the
+ * autosave and the sheets (journal, abilities, role rules, menu, drawn event
+ * card). It is the only module that holds mutable app state; view.js decides what
+ * is shown and render.js how.
  *
- * Two shapes here follow from the game being played on a walk:
+ * Three shapes here follow from the game being played on a walk:
  *  - the state is written after every single transition, because a phone dies or
  *    a browser tab is evicted mid-afternoon and the group must not lose the day;
- *  - the position is optional throughout. Nothing waits for a GPS fix.
+ *  - the position is optional throughout. Nothing waits for a GPS fix;
+ *  - nothing is saved until the roles are dealt, so a group that backs out of the
+ *    setup screen is not offered a half-built game to continue.
  */
 
 import { Engine } from "../core/engine.js";
@@ -18,21 +21,29 @@ import { accuracyLabel, createGeo } from "../platform/geo.js";
 import { clear, el, withBreaks } from "./dom.js";
 import { cardText } from "./text.js";
 import {
+  abilitiesView,
   cardView,
+  dealtRolesView,
   endingView,
   journalView,
   messageViews,
+  playerBounds,
+  roleRulesView,
   scenarioListView,
   statusView,
 } from "./view.js";
 import {
   createMessages,
   createStatusBar,
+  renderAbilities,
   renderCard,
   renderEnding,
   renderJournal,
   renderMenu,
   renderPicker,
+  renderRoleReveal,
+  renderRoleRules,
+  renderSetup,
 } from "./render.js";
 
 const THEME_KEY = "rwag:theme";
@@ -86,6 +97,10 @@ export function createApp({
   let catalogue = [];
   let game = null; // { entry, scenario, events, roles, imageBase }
   let engine = null;
+  /** the setup form's state, kept while the group fiddles with it */
+  const setup = { count: 0, names: [], error: null };
+  /** what the roles applied the moment they were dealt, from the engine's event */
+  let lastApplied = [];
   let theme = readTheme();
   applyTheme(theme);
 
@@ -121,6 +136,10 @@ export function createApp({
   async function showCatalogue() {
     engine = null;
     game = null;
+    setup.count = 0;
+    setup.names.length = 0;
+    setup.error = null;
+    lastApplied = [];
     statusBar.element.hidden = true;
     messages.clear();
 
@@ -174,15 +193,83 @@ export function createApp({
 
     engine.on((event) => {
       if (event.type === "encounter") showEncounter(event.card);
+      if (event.type === "rolesDealt") lastApplied = event.applied ?? [];
       if (event.type === "unknownEffects") {
         console.warn(`karta ${event.scene}: neznámé efekty`, event.types);
       }
     });
 
+    // A fresh game asks who is playing first: the roles are what make the
+    // reputation economy and the abilities mean anything, and card P03 hands them
+    // out before the group sets off. A restored game already has them — or, if it
+    // was saved before roles existed, plays on without them.
+    if (fresh && game.roles.length) {
+      showSetup();
+      return;
+    }
+
+    enterGame();
+  }
+
+  function enterGame() {
     statusBar.element.hidden = false;
     autosave();
     drainMessages();
     drawGame();
+  }
+
+  /* ------------------------------------------------------------- player setup */
+
+  function showSetup() {
+    statusBar.element.hidden = true;
+    const bounds = playerBounds(game.scenario, game.roles);
+    if (setup.count < bounds.min || setup.count > bounds.max) setup.count = bounds.min;
+    setup.names.length = setup.count;
+
+    screen.replaceChildren(renderSetup({
+      ...bounds,
+      count: setup.count,
+      names: setup.names,
+      error: setup.error,
+      scenarioName: game.entry?.name ?? game.scenario?.scenarioName ?? null,
+    }, {
+      onCount: (n) => {
+        setup.count = n;
+        setup.error = null;
+        showSetup();
+      },
+      onName: (index, value) => {
+        // no redraw: retyping the field would lose the caret
+        setup.names[index] = value;
+      },
+      onDeal: () => dealRoles(),
+      onCancel: () => showCatalogue(),
+    }));
+    window.scrollTo(0, 0);
+  }
+
+  function dealRoles() {
+    const names = setup.names.slice(0, setup.count).map((n) => (n ?? "").trim());
+    try {
+      engine.dealRoles(setup.count, { names });
+    } catch (err) {
+      // More players than roles is the one case the engine refuses; the picker
+      // should not have allowed it, so show what it said rather than swallow it.
+      setup.error = err.message;
+      showSetup();
+      return;
+    }
+    setup.error = null;
+    showRoles();
+  }
+
+  function showRoles() {
+    statusBar.element.hidden = true;
+    screen.replaceChildren(renderRoleReveal(dealtRolesView(engine, game.roles), {
+      applied: lastApplied,
+      onStart: () => enterGame(),
+    }));
+    window.scrollTo(0, 0);
   }
 
   function autosave() {
@@ -325,7 +412,10 @@ export function createApp({
         else geo.start();
         openMenu();
       },
-      roles: game?.roles ?? [],
+      hasRoles: (engine?.players?.length ?? 0) > 0,
+      abilityCount: engine?.players?.length ? engine.abilities.length : 0,
+      onAbilities: engine ? () => openAbilities() : null,
+      onRoles: engine ? () => openRoleRules() : null,
       storageAvailable: storage.available,
       onCatalogue: () => {
         sheet.close();
@@ -340,6 +430,51 @@ export function createApp({
         : null,
       version,
     }));
+  }
+
+  /**
+   * The once-per-game abilities.
+   *
+   * An ability changes the card underneath (the Pedant's undo moves the group, the
+   * Milovník přírody's closes a task), so the sheet is redrawn *and* the card
+   * behind it: leaving a stale card under an open sheet is how a group ends up
+   * acting on a screen that no longer matches the game.
+   */
+  function openAbilities() {
+    if (!engine) return;
+    openSheet("abilities", renderAbilities(abilitiesView(engine, game?.roles ?? []), {
+      onUse: (ability) => {
+        const kindBefore = sheetBody.dataset.kind;
+        try {
+          engine.useAbility(ability.playerId, ability.type);
+        } catch (err) {
+          messages.push([{ kind: "toast", text: err.message, glyph: "⚠️" }]);
+          return;
+        }
+        autosave();
+        drainMessages();
+        messages.push([{
+          kind: "toast",
+          glyph: ability.glyph,
+          text: `Schopnost použita: ${ability.playerName} (${ability.roleName}).`,
+        }]);
+        drawGame();
+        // The Pedant's ability pays with an immediate encounter, and that card
+        // takes over the sheet while useAbility runs. Closing here would hide it,
+        // so the sheet is only dismissed if it is still the ability list — and
+        // dismissed it must be, because every ability changes the card behind it.
+        if (sheetBody.dataset.kind === kindBefore) sheet.close();
+      },
+    }));
+  }
+
+  /** What each role obliges its player to do, all game. */
+  function openRoleRules() {
+    if (!engine) return;
+    openSheet("roles", renderRoleRules(
+      roleRulesView(engine),
+      dealtRolesView(engine, game?.roles ?? []),
+    ));
   }
 
   /** A card drawn from deck N interrupts the story, so it gets the sheet. */

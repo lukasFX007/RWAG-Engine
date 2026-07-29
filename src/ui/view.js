@@ -10,6 +10,7 @@
  * These functions read the engine; they never change it.
  */
 
+import { MIN_PLAYERS, consequencesOf } from "../core/roles.js";
 import { icon, questIcon, reputationIcon, reputationIconName, reputationWord } from "./icons.js";
 import { cardText, plainText } from "./text.js";
 
@@ -277,4 +278,181 @@ export function messageViews({ toasts = [], reminders = [] } = {}) {
       source: r.source ?? null,
     })),
   ].filter((m) => m.text);
+}
+
+/* ---------------------------------------------------------------------- roles */
+
+/**
+ * How many players the group may set up.
+ *
+ * Two limits meet here: what the scenario says it is written for, and how many
+ * roles exist. The engine refuses to deal more players than roles — each
+ * once-per-game ability is meant to exist once in the group — so the picker must
+ * not offer a number that would throw.
+ */
+export function playerBounds(scenario, roles = []) {
+  const roleCount = roles.length;
+  const declaredMin = scenario?.players_min ?? MIN_PLAYERS;
+  const declaredMax = scenario?.players_max ?? (roleCount || declaredMin);
+  // With fewer roles than the scenario asks for, the roles win: dealing the same
+  // role twice would put two copies of a once-per-game ability in the group.
+  const max = roleCount
+    ? Math.min(declaredMax, roleCount)
+    : Math.max(declaredMax, MIN_PLAYERS);
+  const min = Math.min(Math.max(MIN_PLAYERS, declaredMin), max);
+  return {
+    min,
+    max,
+    roleCount,
+    /** the scenario claims more players than it has roles for */
+    limitedByRoles: roleCount > 0 && declaredMax > roleCount,
+    limitNote: roleCount > 0 && declaredMax > roleCount
+      ? `Rolí je jen ${roleCount}, takže hru lze rozdat nejvýš pro ${roleCount} hráčů.`
+      : null,
+  };
+}
+
+const TRIGGER_LABELS = Object.freeze({
+  start: "na začátku",
+  once: "1× za hru",
+  always: "vždy",
+  consequence: "následek",
+});
+
+/**
+ * A single line of a role sheet.
+ *
+ * `condition` is the honest part: the two conditional passives (Nenasyta in pubs,
+ * Lenoch outside villages) reference GPS zones that have no coordinates anywhere
+ * in the game data, so the UI must not claim they apply or that they do not.
+ */
+function roleEntryView(entry, sort) {
+  const condition = entry.condition ?? null;
+  const zone = condition?.type === "gps_zone" ? condition.zone : null;
+  return {
+    sort,
+    glyph: icon(sort === "advantage" ? "plus" : "minus"),
+    text: entry.text ?? "",
+    trigger: entry.trigger ?? null,
+    triggerLabel: TRIGGER_LABELS[entry.trigger] ?? null,
+    effectType: entry.effects?.type ?? null,
+    condition,
+    conditionNote: zone
+      ? `Podmínku zóny „${zone}“ zatím nelze vyhodnotit — v datech hry nejsou souřadnice zón.`
+      : null,
+  };
+}
+
+/** One dealt role, as its player reads it out to the others. */
+export function roleCardView(player, role = {}) {
+  return {
+    playerId: player.playerId,
+    playerName: player.name ?? player.playerId,
+    roleId: player.roleId ?? role.id ?? null,
+    roleName: player.roleName ?? role.name ?? player.roleId,
+    description: role.description ?? null,
+    character: cardText(role.character),
+    entries: [
+      ...(role.advantages ?? []).map((e) => roleEntryView(e, "advantage")),
+      ...(role.disadvantages ?? []).map((e) => roleEntryView(e, "disadvantage")),
+    ],
+  };
+}
+
+/**
+ * The roles actually in play.
+ *
+ * Empty for a game saved before roles existed — such a state may not even have a
+ * `players` key, so every reader here treats it as absent rather than trusting
+ * the shape.
+ */
+export function dealtRolesView(engine, roles = []) {
+  return (engine.players ?? []).map((player) =>
+    roleCardView(player, roles.find((r) => r.id === player.roleId) ?? {}));
+}
+
+/**
+ * The once-per-game abilities still unspent.
+ *
+ * The Vzdělaný pedant's undo is paid for with an immediate encounter, and that
+ * price is a `consequence` entry on the role — it is read from the data rather
+ * than restated here, so the warning cannot drift from what the role says.
+ */
+export function abilitiesView(engine, roles = []) {
+  const dealt = (engine.players ?? []).length > 0;
+  // engine.abilities walks state.players, so it is only asked once we know there
+  // are some — an old save can restore without that key at all.
+  const list = (dealt ? engine.abilities : []).map((ability) => {
+    const role = roles.find((r) => r.id === ability.roleId);
+    const consequences = role ? consequencesOf(role).map((c) => c.text).filter(Boolean) : [];
+    return {
+      playerId: ability.playerId,
+      playerName: ability.playerName,
+      roleId: ability.roleId,
+      roleName: ability.roleName,
+      type: ability.type,
+      text: ability.text,
+      glyph: icon("plus"),
+      consequences,
+    };
+  });
+  return {
+    list,
+    dealt,
+    empty: list.length === 0,
+    emptyLabel: dealt
+      ? "Všechny schopnosti jsou vyčerpané."
+      : "Tato hra nemá rozdané role, takže není co použít.",
+    note: "Každou schopnost lze použít jen jednou za hru. Použití nelze vzít zpět.",
+    confirmPrompt: "Použít nevratně?",
+  };
+}
+
+/**
+ * Standing obligations, grouped per player — the role card in play.
+ *
+ * Built from the players rather than from the reminders, because a player can
+ * have none: the Vzdělaný pedant's entries are a once-per-game ability and its
+ * consequence, neither of which stands all game. Grouping the reminders alone
+ * would drop that player from the sheet entirely.
+ */
+export function roleRulesView(engine) {
+  const players = new Map(
+    (engine.players ?? []).map((player) => [player.playerId, {
+      playerId: player.playerId,
+      playerName: player.name ?? player.playerId,
+      roleName: player.roleName ?? player.roleId,
+      rules: [],
+      noRulesLabel: "Žádné trvalé pravidlo — role má jen schopnost na jedno použití.",
+    }]),
+  );
+
+  for (const reminder of players.size ? engine.roleReminders() : []) {
+    if (!players.has(reminder.playerId)) continue;
+    const zone = reminder.condition?.type === "gps_zone" ? reminder.condition.zone : null;
+    players.get(reminder.playerId).rules.push({
+      sort: reminder.sort,
+      glyph: icon(reminder.sort === "advantage" ? "plus" : "minus"),
+      text: reminder.text,
+      /**
+       * Three honest states: the app applies it, the players keep it themselves,
+       * or nobody can tell because the zone has no coordinates.
+       */
+      enforcement: zone ? "unknown" : reminder.enforceable ? "app" : "players",
+      enforcementLabel: zone
+        ? `zóna „${zone}“ — nelze vyhodnotit`
+        : reminder.enforceable
+          ? "hlídá aplikace"
+          : "hlídáte si sami",
+      zone,
+    });
+  }
+  const list = [...players.values()];
+  return {
+    players: list,
+    empty: list.length === 0,
+    emptyLabel: "Tato hra nemá rozdané role.",
+    zonesNote:
+      "Podmínky na zóny (hospody, mimo obce) nejde vyhodnotit — v datech hry chybí souřadnice.",
+  };
 }
