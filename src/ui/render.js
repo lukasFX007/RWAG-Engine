@@ -7,6 +7,7 @@
  * the only place that knows about state.
  */
 
+import { toEditorText } from "../platform/overrides.js";
 import { clear, el, withBreaks } from "./dom.js";
 import { icon } from "./icons.js";
 
@@ -38,7 +39,7 @@ function renderImage(image) {
   return figure;
 }
 
-function renderChoice(choice, onChoose) {
+function renderChoice(choice, onChoose, edit = null) {
   const parts = [
     el("span", { class: "choice-icon", "aria-hidden": "true", text: choice.glyph || "·" }),
     el("span", { class: "choice-body" },
@@ -76,12 +77,67 @@ function renderChoice(choice, onChoose) {
   }, parts);
 
   if (choice.locked && choice.lockLabel) button.title = choice.lockLabel;
-  return el("li", { class: "choice-item" }, button);
+
+  const item = el("li", { class: "choice-item" }, button);
+
+  // The edit button is a sibling, not a child: a button inside a button is
+  // invalid HTML, and tapping "edit" must never count as taking the choice.
+  if (edit) {
+    const editButton = el("button", {
+      type: "button",
+      class: `text-edit${choice.edited ? " is-edited" : ""}`,
+      "aria-label": `Upravit text volby ${choice.index + 1}`,
+      title: "Upravit text volby",
+      onclick: () => openChoiceEditor(item, button, choice, edit),
+    }, icon("psani"));
+    item.append(editButton);
+  }
+  return item;
 }
 
-export function renderChoices(choices, onChoose, { blocked = false } = {}) {
+/**
+ * Swap a choice for a textarea.
+ *
+ * Editing is local DOM state until it is saved; the controller only hears about a
+ * rewrite that the author confirmed, and cancelling puts the button back exactly
+ * as it was.
+ */
+function openChoiceEditor(item, button, choice, edit) {
+  const field = el("textarea", {
+    class: "text-editor",
+    rows: "3",
+    "aria-label": `Text volby ${choice.index + 1}`,
+  });
+  field.value = choice.text;
+
+  const restore = () => item.replaceChildren(...kept);
+  const kept = [...item.childNodes];
+
+  item.replaceChildren(el("div", { class: "editor" },
+    field,
+    el("p", { class: "editor-hint", text: "Přepisuje se jen text volby. Kam vede a co stojí, zůstává." }),
+    el("div", { class: "editor-actions" },
+      el("button", {
+        type: "button",
+        class: "btn btn-small btn-primary",
+        onclick: () => edit.onSaveChoice?.(choice.index, field.value),
+      }, "Uložit"),
+      el("button", { type: "button", class: "btn btn-small btn-quiet", onclick: restore }, "Zrušit"),
+      choice.edited
+        ? el("button", {
+            type: "button",
+            class: "btn btn-small btn-quiet",
+            onclick: () => edit.onRevertChoice?.(choice.index),
+          }, "Vrátit původní")
+        : null,
+    ),
+  ));
+  field.focus();
+}
+
+export function renderChoices(choices, onChoose, { blocked = false, edit = null } = {}) {
   const list = el("ul", { class: `choices${blocked ? " is-blocked" : ""}` });
-  for (const choice of choices) list.append(renderChoice(choice, onChoose));
+  for (const choice of choices) list.append(renderChoice(choice, onChoose, edit));
   return list;
 }
 
@@ -114,7 +170,55 @@ export function renderTaskPanel(task, { onConfirm, onCancel } = {}) {
   );
 }
 
-export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask } = {}) {
+/** The card's text, with an edit button when the author is in edit mode. */
+function renderCardText(view, edit) {
+  const block = el("div", { class: "card-text" });
+  for (const lines of view.paragraphs) block.append(el("p", {}, withBreaks(lines)));
+
+  if (!edit) return block;
+
+  const wrap = el("div", { class: "text-block" });
+  const editButton = el("button", {
+    type: "button",
+    class: `text-edit text-edit-card${view.edited.text ? " is-edited" : ""}`,
+    title: "Upravit text karty",
+    "aria-label": "Upravit text karty",
+    onclick: () => {
+      const field = el("textarea", { class: "text-editor", rows: "10", "aria-label": "Text karty" });
+      field.value = view.editorText;
+      const kept = [...wrap.childNodes];
+      wrap.replaceChildren(el("div", { class: "editor" },
+        field,
+        el("p", { class: "editor-hint", text: "Prázdný řádek dělí odstavce, <br> zalomí řádek uvnitř odstavce." }),
+        el("div", { class: "editor-actions" },
+          el("button", {
+            type: "button",
+            class: "btn btn-small btn-primary",
+            onclick: () => edit.onSaveText?.(field.value),
+          }, "Uložit"),
+          el("button", {
+            type: "button",
+            class: "btn btn-small btn-quiet",
+            onclick: () => wrap.replaceChildren(...kept),
+          }, "Zrušit"),
+          view.edited.text
+            ? el("button", {
+                type: "button",
+                class: "btn btn-small btn-quiet",
+                onclick: () => edit.onRevertText?.(),
+              }, "Vrátit původní")
+            : null,
+        ),
+      ));
+      field.focus();
+    },
+  }, icon("psani"));
+
+  wrap.append(block, editButton);
+  return wrap;
+}
+
+export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask, edit = null } = {}) {
   const root = el("article", { class: "card", "aria-live": "polite" });
 
   root.append(el("div", { class: "card-head" },
@@ -122,13 +226,12 @@ export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask
     view.ending ? el("span", { class: "badge badge-end", text: "závěr" }) : null,
     view.deadEnd ? el("span", { class: "badge badge-warn", text: "bez pokračování" }) : null,
     view.taskInProgress ? el("span", { class: "badge badge-task", text: "úkol" }) : null,
+    view.edited.any ? el("span", { class: "badge badge-edit", text: "upravený text" }) : null,
   ));
 
   if (view.image) root.append(renderImage(view.image));
 
-  const text = el("div", { class: "card-text" });
-  for (const lines of view.paragraphs) text.append(el("p", {}, withBreaks(lines)));
-  root.append(text);
+  root.append(renderCardText(view, edit));
 
   if (view.deadEnd) {
     root.append(el("div", { class: "notice" },
@@ -145,7 +248,7 @@ export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask
   // The choice a task came from is the panel above, so it is not listed twice.
   const shown = view.choices.filter((choice) => !choice.inProgress);
   if (shown.length) {
-    root.append(renderChoices(shown, onChoose, { blocked: view.taskInProgress }));
+    root.append(renderChoices(shown, onChoose, { blocked: view.taskInProgress, edit }));
   }
   return root;
 }
@@ -535,6 +638,123 @@ export function renderRoleRules(view, cards = []) {
   return root;
 }
 
+/* ------------------------------------------------------------- text overrides */
+
+/**
+ * The rewrites, and the only thing that makes them worth anything: getting them
+ * out of this browser.
+ *
+ * Copying to the clipboard fails often enough on a phone — no permission, no
+ * secure context, a browser that only allows it inside a user gesture it did not
+ * recognise — that the JSON is always also on screen to select by hand, and
+ * downloadable as a file.
+ */
+export function renderOverrides(view, {
+  onRevert,
+  onRevertAll,
+  onCopy,
+  onDownload,
+  onKeepMine,
+  onDiscardMine,
+  json = "",
+  status = null,
+} = {}) {
+  const root = el("div", { class: "overrides" });
+  root.append(el("h2", { class: "sheet-title", text: `Upravené texty (${view.count})` }));
+
+  if (view.empty) {
+    root.append(el("p", { class: "muted", text: view.emptyLabel }));
+    return root;
+  }
+  if (view.staleNote) root.append(el("p", { class: "warn-note", text: view.staleNote }));
+
+  const list = el("ul", { class: "override-list" });
+  for (const item of view.items) {
+    const row = el("li", { class: `override${item.stale ? " is-stale" : ""}` });
+    row.append(
+      el("div", { class: "override-head" },
+        el("span", { class: "card-code", text: item.cardCode }),
+        el("span", { class: "override-field", text: item.label }),
+        item.stale ? el("span", { class: "badge badge-warn", text: item.staleLabel }) : null,
+      ),
+      el("p", { class: "override-preview", text: item.preview }),
+    );
+
+    if (item.stale) {
+      // Both versions, side by side, and the author decides — nothing is dropped
+      // and nothing is silently overwritten.
+      row.append(
+        el("details", { class: "override-diff" },
+          el("summary", { text: "Porovnat obě verze" }),
+          el("p", { class: "override-label", text: "Váš text" }),
+          el("p", { class: "override-text", text: item.preview }),
+          el("p", { class: "override-label", text: "Text v datech teď" }),
+          el("p", { class: "override-text", text: item.currentPreview }),
+          el("p", { class: "override-label", text: "Text, ze kterého jste vycházeli" }),
+          el("p", { class: "override-text", text: item.basePreview }),
+        ),
+        el("div", { class: "override-actions" },
+          el("button", {
+            type: "button",
+            class: "btn btn-small btn-primary",
+            onclick: () => onKeepMine?.(item),
+          }, "Ponechat můj text"),
+          el("button", {
+            type: "button",
+            class: "btn btn-small btn-quiet",
+            onclick: () => onDiscardMine?.(item),
+          }, "Zahodit můj text"),
+        ),
+      );
+    } else {
+      row.append(el("div", { class: "override-actions" },
+        el("button", {
+          type: "button",
+          class: "btn btn-small btn-quiet",
+          onclick: () => onRevert?.(item),
+        }, "Vrátit původní")));
+    }
+    list.append(row);
+  }
+  root.append(list);
+
+  const revertAll = el("button", { type: "button", class: "btn btn-small btn-quiet" }, view.revertAllLabel);
+  const bulk = el("div", { class: "override-bulk" });
+  revertAll.addEventListener("click", () => {
+    bulk.replaceChildren(
+      el("span", { class: "ability-confirm", text: view.revertAllPrompt }),
+      el("button", { type: "button", class: "btn btn-small btn-primary", onclick: () => onRevertAll?.() }, "Ano, vrátit"),
+      el("button", { type: "button", class: "btn btn-small btn-quiet", onclick: () => bulk.replaceChildren(revertAll) }, "Zpět"),
+    );
+  });
+  bulk.append(revertAll);
+
+  root.append(el("h3", { class: "sheet-sub", text: "Export" }));
+  root.append(el("div", { class: "override-export" },
+    el("button", { type: "button", class: "btn btn-small btn-primary", onclick: () => onCopy?.() },
+      `${icon("kopirovat")} ${view.copyLabel}`),
+    el("button", { type: "button", class: "btn btn-small", onclick: () => onDownload?.() },
+      `${icon("disketa")} ${view.downloadLabel}`),
+    bulk,
+  ));
+  if (status) root.append(el("p", { class: "muted", text: status }));
+
+  const field = el("textarea", {
+    class: "text-editor override-json",
+    rows: "8",
+    readonly: true,
+    "aria-label": "JSON s úpravami",
+    onclick: (event) => event.currentTarget.select(),
+  });
+  field.value = json;
+  root.append(
+    el("details", { class: "override-diff" },
+      el("summary", { text: "Zobrazit JSON k ručnímu zkopírování" }),
+      field),
+  );
+  return root;
+}
+
 /* ----------------------------------------------------------------------- menu */
 
 export function renderMenu({
@@ -546,6 +766,9 @@ export function renderMenu({
   hasRoles = false,
   onAbilities,
   onRoles,
+  editMode = null,
+  onEditMode,
+  onOverrides,
   storageAvailable,
   onCatalogue,
   onDeleteSave,
@@ -593,6 +816,33 @@ export function renderMenu({
   ));
   if (!hasRoles) {
     root.append(el("p", { class: "muted", text: "Tato rozehraná hra nemá rozdané role — začala před tím, než hra role rozdávala." }));
+  }
+
+  if (editMode) {
+    root.append(el("h3", { class: "sheet-sub", text: "Texty" }));
+    root.append(el("div", { class: "menu-row" },
+      el("span", { class: "menu-label", text: editMode.label }),
+      el("div", { class: "menu-value" },
+        el("div", { class: "seg" },
+          el("button", {
+            type: "button",
+            "aria-pressed": String(!editMode.enabled),
+            disabled: !editMode.available,
+            onclick: () => onEditMode?.(false),
+          }, "Vypnuto"),
+          el("button", {
+            type: "button",
+            "aria-pressed": String(editMode.enabled),
+            disabled: !editMode.available,
+            onclick: () => onEditMode?.(true),
+          }, "Zapnuto")),
+        el("p", { class: "muted", text: editMode.hint }),
+        editMode.unavailableNote ? el("p", { class: "warn-note", text: editMode.unavailableNote }) : null,
+        onOverrides
+          ? el("button", { type: "button", class: "btn btn-small", onclick: onOverrides },
+              `${icon("psani")} Upravené texty (${editMode.count})`)
+          : null,
+      )));
   }
 
   root.append(el("h3", { class: "sheet-sub", text: "Hra" }));

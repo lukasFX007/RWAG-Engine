@@ -18,15 +18,27 @@ import { Engine } from "../core/engine.js";
 import { createLoader } from "../platform/data.js";
 import { createStorage } from "../platform/storage.js";
 import { accuracyLabel, createGeo } from "../platform/geo.js";
+import {
+  applyOverrides,
+  applyRecord,
+  createOverrides,
+  currentValue,
+  exportOverrides,
+  fromEditorText,
+  makeRecord,
+  matchShape,
+} from "../platform/overrides.js";
 import { clear, el, withBreaks } from "./dom.js";
 import { cardText } from "./text.js";
 import {
   abilitiesView,
   cardView,
   dealtRolesView,
+  editModeView,
   endingView,
   journalView,
   messageViews,
+  overridesView,
   playerBounds,
   roleRulesView,
   scenarioListView,
@@ -40,6 +52,7 @@ import {
   renderEnding,
   renderJournal,
   renderMenu,
+  renderOverrides,
   renderPicker,
   renderRoleReveal,
   renderRoleRules,
@@ -47,6 +60,7 @@ import {
 } from "./render.js";
 
 const THEME_KEY = "rwag:theme";
+const EDIT_MODE_KEY = "rwag:editmode";
 
 /** Does any choice on this card depend on where the players are standing? */
 function usesPosition(card) {
@@ -62,6 +76,7 @@ export function createApp({
   storage = createStorage(),
   loader = createLoader({ base }),
   geo = createGeo(),
+  overrides = createOverrides(),
 } = {}) {
   /* ---------------------------------------------------------------- skeleton */
 
@@ -102,6 +117,12 @@ export function createApp({
   /** what the roles applied the moment they were dealt, from the engine's event */
   let lastApplied = [];
   let theme = readTheme();
+  let editMode = readEditMode();
+  /** rewrites for the loaded scenario, and the ones whose original has moved on */
+  let records = [];
+  let staleRecords = [];
+  /** last thing the export sheet did, shown in it */
+  let overrideStatus = null;
   applyTheme(theme);
 
   geo.on(() => {
@@ -131,6 +152,25 @@ export function createApp({
     }
   }
 
+  function readEditMode() {
+    try {
+      return globalThis.localStorage?.getItem(EDIT_MODE_KEY) === "1";
+    } catch {
+      return false;
+    }
+  }
+
+  function setEditMode(enabled) {
+    editMode = Boolean(enabled) && overrides.available;
+    try {
+      globalThis.localStorage?.setItem(EDIT_MODE_KEY, editMode ? "1" : "0");
+    } catch {
+      /* the switch still works for this session */
+    }
+    drawGame();
+    openMenu();
+  }
+
   /* ---------------------------------------------------------------- catalogue */
 
   async function showCatalogue() {
@@ -140,6 +180,9 @@ export function createApp({
     setup.names.length = 0;
     setup.error = null;
     lastApplied = [];
+    records = [];
+    staleRecords = [];
+    overrideStatus = null;
     statusBar.element.hidden = true;
     messages.clear();
 
@@ -178,6 +221,22 @@ export function createApp({
     } catch (err) {
       screen.replaceChildren(el("p", { class: "warn-note", text: `Scénář se nepodařilo načíst: ${err.message}` }));
       return;
+    }
+
+    // The engine must never know about rewrites, so they are applied to the data
+    // between loading and constructing it. The pristine copy is kept because it is
+    // what the repository says: rewrites are based against it, drift is measured
+    // against it, and the export is checked against it.
+    game.pristine = structuredClone(game.scenario);
+    records = overrides.list(entry.id);
+    const overrideResult = applyOverrides(game.scenario, records);
+    staleRecords = overrideResult.stale;
+    if (staleRecords.length) {
+      messages.push([{
+        kind: "reminder",
+        glyph: "✏️",
+        text: `U ${staleRecords.length} upravených textů se změnil původní text. Najdete je v nabídce pod „Upravené texty“.`,
+      }]);
     }
 
     const saved = fresh ? null : storage.load(entry.id);
@@ -290,6 +349,7 @@ export function createApp({
     const view = cardView(engine, {
       position: geo.position,
       imageBase: game.imageBase,
+      records,
     });
     statusBar.update(statusView(engine));
 
@@ -298,6 +358,18 @@ export function createApp({
       onUndo: engine.canUndo ? () => undo() : null,
       onConfirmTask: () => confirmTask(),
       onCancelTask: () => cancelTask(),
+      // Edit mode adds buttons beside the texts and nothing else: the game stays
+      // fully playable while it is on.
+      edit: editMode
+        ? {
+            onSaveText: (value) => saveOverride({ field: "text", value: fromEditorText(value) }),
+            onSaveChoice: (index, value) =>
+              saveOverride({ field: "choice", index, value: String(value).trim() }),
+            onRevertText: () => revertOverride({ cardId: engine.card.id, field: "text" }),
+            onRevertChoice: (index) =>
+              revertOverride({ cardId: engine.card.id, field: "choice", index }),
+          }
+        : null,
     });
 
     if (engine.finished) {
@@ -416,6 +488,13 @@ export function createApp({
       abilityCount: engine?.players?.length ? engine.abilities.length : 0,
       onAbilities: engine ? () => openAbilities() : null,
       onRoles: engine ? () => openRoleRules() : null,
+      editMode: editModeView({
+        enabled: editMode,
+        available: overrides.available,
+        count: records.length,
+      }),
+      onEditMode: (enabled) => setEditMode(enabled),
+      onOverrides: game ? () => openOverrides() : null,
       storageAvailable: storage.available,
       onCatalogue: () => {
         sheet.close();
@@ -475,6 +554,164 @@ export function createApp({
       roleRulesView(engine),
       dealtRolesView(engine, game?.roles ?? []),
     ));
+  }
+
+  /* ---------------------------------------------------------- text overrides */
+
+  /**
+   * Store a rewrite and show it at once.
+   *
+   * The base is always the text as the repository has it, never the author's own
+   * previous rewrite of the same field — a second edit replaces the first, and it
+   * still has to be judged against the data when the next build lands.
+   */
+  function saveOverride({ field, index = null, value }) {
+    if (!engine || !game) return;
+    const cardId = engine.card.id;
+    const target = { cardId, field, index };
+    const base = currentValue(game.pristine, target);
+
+    const emptied = field === "text" ? value.length === 0 : value.length === 0;
+    if (emptied) {
+      // Blanking a card is far more likely a slip than an intention, and the
+      // renderer would show an empty card with no way to tell why.
+      messages.push([{ kind: "toast", glyph: "⚠️", text: "Text nesmí být prázdný." }]);
+      return;
+    }
+
+    const stored = field === "text" ? matchShape(base, value) : value;
+    const record = makeRecord({ cardId, field, index, value: stored, base });
+
+    if (!overrides.set(game.entry.id, record)) {
+      messages.push([{
+        kind: "toast",
+        glyph: "⚠️",
+        text: `Úpravu nešlo uložit: ${overrides.lastError ?? "úložiště není dostupné"}`,
+      }]);
+      return;
+    }
+    records = overrides.list(game.entry.id);
+    // applied against the live data, which the engine shares by reference, so the
+    // rewrite is on screen on the next redraw without touching the game state
+    applyRecord(game.scenario, record);
+    drawGame();
+  }
+
+  /** Put the repository's text back for one field. */
+  function revertOverride(target) {
+    if (!game) return;
+    overrides.remove(game.entry.id, target);
+    records = overrides.list(game.entry.id);
+    // restoring means copying the pristine text back over the live data
+    revertLive(target);
+    drawGame();
+    if (sheet.open && sheetBody.dataset.kind === "overrides") openOverrides();
+  }
+
+  function overrideExport() {
+    return exportOverrides({
+      scenarioId: game?.entry?.id ?? null,
+      records,
+      scenario: game?.pristine ?? null,
+      build: version,
+    });
+  }
+
+  function openOverrides() {
+    if (!game) return;
+    const view = overridesView(records, {
+      scenario: game.pristine,
+      scenarioId: game.entry.id,
+    });
+    const json = JSON.stringify(overrideExport(), null, 2);
+
+    openSheet("overrides", renderOverrides(view, {
+      json,
+      status: overrideStatus,
+      onRevert: (item) => revertOverride(item.record),
+      onRevertAll: () => {
+        overrides.clear(game.entry.id);
+        const dropped = records;
+        records = [];
+        for (const record of dropped) revertLive(record);
+        overrideStatus = "Všechny přepisy byly vráceny.";
+        drawGame();
+        openOverrides();
+      },
+      onCopy: () => copyExport(json),
+      onDownload: () => downloadExport(json),
+      // the author decided their text still stands: rebase it onto the current
+      // data so it applies again, instead of quietly losing the work
+      onKeepMine: (item) => {
+        const rebased = makeRecord({
+          cardId: item.cardId,
+          field: item.field,
+          index: item.index,
+          value: item.value,
+          base: item.current,
+        });
+        overrides.set(game.entry.id, rebased);
+        records = overrides.list(game.entry.id);
+        applyRecord(game.scenario, rebased);
+        overrideStatus = "Váš text se použil na nový originál.";
+        drawGame();
+        openOverrides();
+      },
+      onDiscardMine: (item) => {
+        overrides.remove(game.entry.id, item.record);
+        records = overrides.list(game.entry.id);
+        revertLive(item.record);
+        overrideStatus = "Přepis byl zahozen, platí text z dat.";
+        drawGame();
+        openOverrides();
+      },
+    }));
+  }
+
+  /** Copy the pristine text of one field back over the live data. */
+  function revertLive(record) {
+    const scene = game.scenario.scenes.find((s) => s.id === record.cardId);
+    const pristineScene = game.pristine.scenes.find((s) => s.id === record.cardId);
+    if (!scene || !pristineScene) return;
+    if (record.field === "text") {
+      scene.text = structuredClone(pristineScene.text);
+      return;
+    }
+    const choice = scene.choices?.[record.index];
+    const pristineChoice = pristineScene.choices?.[record.index];
+    if (!choice || !pristineChoice) return;
+    choice.text = pristineChoice.text;
+    if (choice.quest && pristineChoice.quest?.text) choice.quest.text = pristineChoice.quest.text;
+  }
+
+  async function copyExport(json) {
+    try {
+      await navigator.clipboard.writeText(json);
+      overrideStatus = "Zkopírováno do schránky.";
+    } catch {
+      // Clipboard access fails on plenty of phones; the JSON is on screen anyway.
+      overrideStatus = "Schránka není dostupná — rozbalte JSON níž a označte ho ručně.";
+    }
+    openOverrides();
+  }
+
+  function downloadExport(json) {
+    try {
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = el("a", {
+        href: url,
+        download: `rwag-upravy-${game.entry.id}-${new Date().toISOString().slice(0, 10)}.json`,
+      });
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      overrideStatus = "Soubor byl stažen.";
+    } catch (err) {
+      overrideStatus = `Stažení selhalo: ${err.message}`;
+    }
+    openOverrides();
   }
 
   /** A card drawn from deck N interrupts the story, so it gets the sheet. */

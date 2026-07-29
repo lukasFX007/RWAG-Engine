@@ -10,7 +10,7 @@
  * `../games/…`.
  */
 
-const VERSION = "rwag-v1";
+const VERSION = "rwag-v2";
 const CACHE = `${VERSION}`;
 
 /** Everything needed to start and finish a game with the radio off. */
@@ -34,9 +34,11 @@ const ASSETS = [
   "../src/ui/text.js",
   "../src/ui/icons.js",
   "../src/ui/dom.js",
+  "../src/core/roles.js",
   "../src/platform/data.js",
   "../src/platform/storage.js",
   "../src/platform/geo.js",
+  "../src/platform/overrides.js",
 
   "../games/scenarios.json",
   "../games/nebakov/scenario.json",

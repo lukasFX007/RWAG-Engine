@@ -42,6 +42,9 @@ export const ICONS = Object.freeze({
   info: "ℹ️",
   kostka: "🎲",
   zabrana: "🚧",
+  psani: "✏️",
+  disketa: "💾",
+  kopirovat: "📋",
 });
 
 /** @returns {string} the glyph, or "" when the name is unknown or missing. */

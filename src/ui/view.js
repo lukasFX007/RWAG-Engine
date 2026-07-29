@@ -11,6 +11,7 @@
  */
 
 import { MIN_PLAYERS, consequencesOf } from "../core/roles.js";
+import { currentValue, recordKey, sameText, toEditorText } from "../platform/overrides.js";
 import { icon, questIcon, reputationIcon, reputationIconName, reputationWord } from "./icons.js";
 import { cardText, plainText } from "./text.js";
 
@@ -72,7 +73,7 @@ function imageView(name, { knownImages = null, imageBase = "" } = {}) {
   return { name, src: `${imageBase}${name}`, available };
 }
 
-function choiceView(annotated, declared, { pendingChoiceIndex = null } = {}) {
+function choiceView(annotated, declared, { pendingChoiceIndex = null, editedChoices = [] } = {}) {
   const quest = declared?.quest ?? null;
   // The cards print the task in the choice itself ("Úkol: Dojděte k pomníku"),
   // and the quest data was derived from exactly that wording — so repeating it
@@ -98,6 +99,8 @@ function choiceView(annotated, declared, { pendingChoiceIndex = null } = {}) {
      * button out instead of repeating its label under a "probíhá úkol" lock.
      */
     inProgress: annotated.index === pendingChoiceIndex,
+    /** the author has rewritten this label locally */
+    edited: editedChoices.includes(annotated.index),
     quest: quest
       ? {
           id: quest.id,
@@ -118,13 +121,17 @@ function choiceView(annotated, declared, { pendingChoiceIndex = null } = {}) {
 export function cardView(engine, options = {}) {
   const card = engine.card;
   if (!card) return null;
-  const { position = null, knownImages = null, imageBase = "" } = options;
+  const { position = null, knownImages = null, imageBase = "", records = [] } = options;
 
   const declared = card.choices ?? [];
   const pendingChoiceIndex = engine.pendingTask?.choiceIndex ?? null;
+  const edited = editedFieldsOf(records, card.id);
   const choices = engine
     .choices({ position })
-    .map((annotated) => choiceView(annotated, declared[annotated.index], { pendingChoiceIndex }));
+    .map((annotated) => choiceView(annotated, declared[annotated.index], {
+      pendingChoiceIndex,
+      editedChoices: edited.choices,
+    }));
   const task = taskView(engine);
 
   return {
@@ -132,6 +139,14 @@ export function cardView(engine, options = {}) {
     cardCode: card.cardCode ?? null,
     paragraphs: cardText(card.text),
     plain: plainText(card.text),
+    /**
+     * The text as the data stores it. The editor works on this, not on
+     * `paragraphs`: those have already had their `<br>` split into lines, and
+     * saving them back would quietly delete every hard break on the card.
+     */
+    rawText: card.text ?? "",
+    editorText: toEditorText(card.text),
+    edited,
     image: imageView(card.image, { knownImages, imageBase }),
     choices,
     /** the task the group is out doing; while it is set, no choice can be taken */
@@ -454,5 +469,102 @@ export function roleRulesView(engine) {
     emptyLabel: "Tato hra nemá rozdané role.",
     zonesNote:
       "Podmínky na zóny (hospody, mimo obce) nejde vyhodnotit — v datech hry chybí souřadnice.",
+  };
+}
+
+/* ------------------------------------------------------------- text overrides */
+
+/** Which fields of one card the author has rewritten locally. */
+export function editedFieldsOf(records = [], cardId) {
+  const mine = records.filter((record) => record.cardId === cardId);
+  return {
+    text: mine.some((record) => record.field === "text"),
+    choices: mine.filter((record) => record.field === "choice").map((record) => record.index),
+    any: mine.length > 0,
+  };
+}
+
+const FIELD_LABELS = Object.freeze({
+  text: "Text karty",
+  choice: "Volba",
+});
+
+function preview(value, limit = 90) {
+  const text = toEditorText(value).replace(/\s+/g, " ").trim();
+  return text.length > limit ? `${text.slice(0, limit - 1)}…` : text;
+}
+
+/**
+ * The list of rewrites, for the export sheet.
+ *
+ * `scenario` here is the scenario as the repository has it — the copy taken before
+ * the rewrites were applied. Comparing against the applied copy would mark every
+ * rewrite as drifted, since the applied copy already contains the new text.
+ */
+export function overridesView(records = [], { scenario = null, scenarioId = null } = {}) {
+  const scenes = new Map((scenario?.scenes ?? []).map((scene) => [scene.id, scene]));
+
+  const items = records.map((record) => {
+    const scene = scenes.get(record.cardId) ?? null;
+    const current = scenario ? currentValue(scenario, record) : null;
+    const stale = scenario ? !sameText(current, record.base) : false;
+    return {
+      key: recordKey(record),
+      cardId: record.cardId,
+      cardCode: scene?.cardCode ?? record.cardId,
+      field: record.field,
+      index: record.index ?? null,
+      label: record.field === "choice"
+        ? `${FIELD_LABELS.choice} ${(record.index ?? 0) + 1}`
+        : FIELD_LABELS.text,
+      preview: preview(record.value),
+      value: record.value,
+      base: record.base,
+      /** what the data says now; differs from `base` only when it drifted */
+      current,
+      currentPreview: preview(current),
+      basePreview: preview(record.base),
+      at: record.at ?? null,
+      /**
+       * The repository text changed after this rewrite was made, so the rewrite is
+       * not applied and not exported until someone has looked at both.
+       */
+      stale,
+      staleLabel: "Původní text se změnil",
+      record,
+    };
+  });
+
+  const staleCount = items.filter((item) => item.stale).length;
+  return {
+    scenarioId,
+    items,
+    count: items.length,
+    staleCount,
+    empty: items.length === 0,
+    emptyLabel: "Zatím jste nic nepřepsali.",
+    staleNote: staleCount
+      ? `U ${staleCount} přepisů se změnil původní text. Dokud se nerozhodnete, nepoužijí se ani nevyexportují.`
+      : null,
+    copyLabel: "Zkopírovat pro Claude",
+    downloadLabel: "Stáhnout JSON",
+    revertAllLabel: "Vrátit všechny",
+    revertAllPrompt: "Vrátit všechny přepisy?",
+  };
+}
+
+/** The badge on a card whose text the author has rewritten. */
+export function editModeView({ enabled, available, count = 0 }) {
+  return {
+    enabled,
+    available,
+    count,
+    label: "Režim úprav",
+    hint: enabled
+      ? "U textu karty a u voleb je tlačítko úpravy. Přepisují se jen texty, nikdy postup hry."
+      : "Zapne tlačítka pro přepis textů přímo ve hře.",
+    unavailableNote: available
+      ? null
+      : "Bez úložiště prohlížeče by se přepisy neuložily, takže je režim úprav vypnutý.",
   };
 }

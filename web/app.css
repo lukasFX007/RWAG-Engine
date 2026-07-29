@@ -356,6 +356,82 @@ img, figure { max-width: 100%; }
 /* the choices are still readable — they are just not available yet */
 .choices.is-blocked { opacity: 0.72; }
 
+/* --------------------------------------------------- text edit mode */
+
+/* The edit affordance sits beside the text, quiet enough that a group playing
+   with the mode left on is not distracted by it. */
+.text-block { position: relative; display: flex; align-items: flex-start; gap: 0.4rem; }
+.text-block .card-text { flex: 1; min-width: 0; }
+
+.text-edit {
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  flex: none;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--r);
+  cursor: pointer;
+  opacity: 0.75;
+}
+.text-edit:hover, .text-edit:focus-visible { opacity: 1; }
+.text-edit.is-edited { border-style: solid; border-color: var(--accent); opacity: 1; }
+.choice-item { display: flex; align-items: stretch; gap: 0.4rem; }
+.choice-item .choice { flex: 1; min-width: 0; }
+.text-edit-card { align-self: flex-start; }
+
+.editor { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+.text-editor {
+  font: inherit;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.5;
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--r);
+  resize: vertical;
+}
+.editor-hint { margin: 0; font-size: 0.86rem; color: var(--ink-soft); }
+.editor-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.badge-edit { color: var(--cond); }
+
+/* ------------------------------------------------- override export */
+
+.override-list { list-style: none; margin: 0.75rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+.override {
+  background: var(--surface-2);
+  border: 1px solid var(--line-soft);
+  border-left: 4px solid var(--cond);
+  border-radius: var(--r);
+  padding: 0.6rem 0.7rem;
+}
+.override.is-stale { border-left-color: var(--warn); }
+.override-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.override-field { font-size: 0.9rem; color: var(--ink-soft); }
+.override-preview { margin: 0.35rem 0 0; overflow-wrap: anywhere; }
+.override-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.override-diff { margin-top: 0.5rem; }
+.override-diff > summary { cursor: pointer; min-height: 2.5rem; display: flex; align-items: center; color: var(--accent-ink); }
+.override-label {
+  margin: 0.4rem 0 0.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.override-text { margin: 0; overflow-wrap: anywhere; }
+.override-export { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+.override-bulk { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+.override-json { font-family: var(--font-mono); font-size: 0.78rem; }
+
 /* ---------------------------------------------------------- notices */
 
 .notice {
