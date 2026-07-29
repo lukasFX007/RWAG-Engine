@@ -7,78 +7,68 @@
   "roleSet": "roles.json",
   "players_min": 3,
   "players_max": 8,
-  "startScene": "scene_211",
+  "startScene": "card_P01",
   "scenes": [
     {
-      "id": "scene_206",
+      "id": "card_B06",
       "text": "Teď, když mezi vámi není žádný pacifista, na jehož znechucený výraz byste se museli koukat a poslouchat jeho poznámky, můžete se pustit do ohledání místa. Dokud budete na tomto místě, postarejte se o to, aby se zde nenacházel pacifista. Nezapomeňte ho ale vzít s sebou, až odsud půjdete pryč a informovat ho o postupu. Ale v jeho zájmu možná vynechejte zbytečné detaily.",
-      "effects": [
-        {
-          "type": "reputation",
-          "value": 1
-        },
-        {
-          "type": "toast",
-          "text": "Za váš čin jste ztratili 1 bod reputace."
-        }
-      ],
       "choices": [
         {
           "icon": "stopy",
           "text": "Pokračovat v dobrodružství.",
-          "goto": "scene_301"
+          "goto": "card_C01"
         }
       ],
       "cardCode": "B06"
     },
     {
-      "id": "scene_211",
+      "id": "card_B11",
       "text": "První čeho jste si z dálky všimli byla košatá koruna nádherné lípy. Jak jste přicházeli blíž, zmocňoval se vás pocit, že ve stínu toho stromu vidíte na zemi sedět člověka, opřeného o kmen. Teď už víte, že to nebyl pocit. Jakmile jste se dostali z přímého světla do stínu koruny, zrak se vám tomu šeru přizpůsobil. Je to skutečně člověk a oblečení má nasáklé krví. Takový pohled není nic příjemného pro pacifisty. Jestliže je nějaký s vámi ve skupině, znechuceně odchází směrem k Nebákovu. Zbytek skupiny zde zůstává.",
       "choices": [
         {
           "icon": "stopy",
           "text": "Pokračovat v dobrodružství.",
-          "goto": "scene_206"
+          "goto": "card_B06"
         }
       ],
       "cardCode": "B11"
     },
     {
-      "id": "scene_301",
+      "id": "card_C01",
       "text": "Nic nenasvědčuje tomu, že by se zde nacházel někdo další a tak jste se rozhodli přijít blíž. Kolem nejsou žádné stopy zápasu a vypadá to, že sem ten člověk přišel sám. Zběžným pohledem vidíte, že se jedná o mladého muže. Je oblečený jen na lehko - boty, nohavice, košile a varkoč v barvě rodu Nebáků. Navíc je vyzbrojen pouze úzkou dýkou. Z toho usuzujete, že to není voják, ale spíše posel, nebo možná zvěd.",
       "choices": [
         {
           "icon": "lupa",
           "text": "Prohlédnout si muže.",
-          "goto": "scene_302"
+          "goto": "card_C02"
         },
         {
           "icon": "stopy",
           "text": "Pokračovat na Nebákov.",
-          "goto": "scene_303"
+          "goto": "card_C03"
         }
       ],
       "cardCode": "C01"
     },
     {
-      "id": "scene_302",
+      "id": "card_C02",
       "text": "Větší rudé skvrny naznačují, že má zranění na levé paži a na hrudi. Krev má také na obou rukou a stejně tak na obličeji. A mezi plavými vlasy má červenohnědé chuchvalce. Pravou nohu má složenou pod sebou. Nejspíš se chtěl jen na chvilku schovat do stínu a zmožen únavou se sesunul pod strom. Jen Bůh ví, co se tomu chudákovi stalo. Vaším očím neušla ani kožená tašvice, kterou křečovitě svírá v ruce.",
       "choices": [
         {
           "icon": "lupa",
           "text": "Prohlédnout si jeho tašvici.",
-          "goto": "scene_304"
+          "goto": "card_C04"
         },
         {
           "icon": "lupa",
           "text": "Prohlédnout si muže více zblízka.",
-          "goto": "scene_305"
+          "goto": "card_C05"
         }
       ],
       "cardCode": "C02"
     },
     {
-      "id": "scene_303",
+      "id": "card_C03",
       "text": "Po krátké rozvaze jste se rozhodli, že půjdete dál. Tomu člověku byste stejně už nejspíš nedokázali pomoct. A potom, co jste viděli v jakém je stavu, ještě více vnímáte naléhavost dopisu od paní MAchny. Kousek dál odsud na cestě vidíte kapky krve. Stopy vás tedy zajisté vedou dál, směrem k Nebákovské pevnosti. Začínáte se obávat, že před vámi je, mírně řečeno, zajímavé dobrodružství. Dojděte na místo, kde je les po obou stranách cesty a zpevněná cesta se mění v kamenitou.",
       "choices": [
         {
@@ -90,7 +80,7 @@
       "cardCode": "C03"
     },
     {
-      "id": "scene_304",
+      "id": "card_C04",
       "image": "lipa01.jpg",
       "text": "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže muž náhle otevřel oči a chytil ho za zápěstí. Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá, zasípal.",
       "effects": [
@@ -107,30 +97,30 @@
         {
           "icon": "stopy",
           "text": "Pokračovat na Nebákov.",
-          "goto": "scene_303"
+          "goto": "card_C03"
         },
         {
           "icon": "bublina",
           "text": "Vydrž, pomůžeme ti.",
-          "goto": "scene_306"
+          "goto": "card_C06"
         }
       ],
       "cardCode": "C04"
     },
     {
-      "id": "scene_305",
+      "id": "card_C05",
       "image": "lipa02.jpg",
       "text": "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve.",
       "choices": [
         {
           "icon": "stopy",
           "text": "Pokračovat na Nebákov.",
-          "goto": "scene_303"
+          "goto": "card_C03"
         },
         {
           "icon": "bublina",
           "text": "Vydrž, pomůžeme ti.",
-          "goto": "scene_306",
+          "goto": "card_C06",
           "disableIf": [
             {
               "type": "reputation",
@@ -143,19 +133,9 @@
       "cardCode": "C05"
     },
     {
-      "id": "scene_306",
+      "id": "card_C06",
       "image": "lipa02.jpg",
       "text": "Mužova tvář se kroutí bolestí. Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete zbavit ho trápení jednou provždy?",
-      "effects": [
-        {
-          "type": "reputation",
-          "value": 1
-        },
-        {
-          "type": "toast",
-          "text": "Za váš čin jste získali 1 bod reputace!"
-        }
-      ],
       "choices": [
         {
           "icon": "mozek",
@@ -169,17 +149,6 @@
         }
       ],
       "cardCode": "C06"
-    },
-    {
-      "id": "scene_999",
-      "text": "Konec ukázky.",
-      "choices": [
-        {
-          "icon": "stopy",
-          "text": "Vrátit se na začátek.",
-          "goto": "scene_206"
-        }
-      ]
     },
     {
       "id": "card_intro_dopis",
@@ -729,7 +698,7 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte k tisícileté lípě",
-          "goto": "scene_211"
+          "goto": "card_B11"
         }
       ]
     },
@@ -2693,212 +2662,6 @@
           "goto": "card_P05"
         }
       ]
-    },
-    {
-      "id": "card_N01",
-      "cardCode": "N01",
-      "text": [
-        "Slečna s kosou",
-        "Kde se vzala, tu se vzala, stojí před vámi dívka celá v černém s kosou v ruce. Ačkoliv je bledá a kostnatá, na jejím vzhledu je cosi podmanivého. Promluvila k vám mrazivě chladným hlasem:",
-        "„Čas od času se potkáme. Včas vás upozorním na nečekané události. Třeba zrovna teď!“",
-        "Leknutím jste mrkli, a když jste otevřeli oči, už tam nebyla.",
-        "Na kartě je dále uvedeno:<br>• Tuto kartu založte dospod balíčku „N“ a otočte tu, co je teď navrchu. Vždy když kartu z balíčku „N“ vyhodnotíte, vraťte ji dospod balíčku „N“ a pokračujte v příběhu."
-      ],
-      "choices": [],
-      "todo": "Karta N01 leží navrchu balíčku „N“ – uvádí mechaniku náhodných setkání. Nemá návaznost."
-    },
-    {
-      "id": "card_smutne_zeny",
-      "text": [
-        "Smutné ženy",
-        "„Kvůli nedávným událostem bylo mnoho mužů odvedeno na frontu. Ženy a dívky, které tu zůstaly samy, jsou smutné. Potěšte některou z nich květinou z čerstvě natrhaného kvítí.“",
-        "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_zlodej",
-      "text": [
-        "Zloděj!",
-        "„Okradli vás. A ani jste si toho nevšimli, že? Nic si z toho nedělejte, to se prostě stává.“",
-        "Možná byste se měli vydat do Troskovic a ohlásit krádež. Nebo to nechte být, ale nemine vás postih.",
-        "Na kartě je dále uvedeno:<br>• Postih: 😡<br>• Odměna: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_potulny_kostkar",
-      "text": [
-        "Potulný kostkař!",
-        "„Starý kostkař vás vyzývá, abyste předvedli svoje štěstí. Musí vám jedním hodem na šesti kostkách padnout součet přesně 21. Ale máte na to jen sedm pokusů!“",
-        "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_cikani",
-      "text": [
-        "Cikáni",
-        "„Podívejte! To jsou potulní muzikanti! A zvou vás na tancovačku! Zazpívejte si společně až dvě písně a nenechte nohy odpočinout. Přece je nechcete urazit.“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊 za 1 píseň<br>• Postih: 😡<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_neporadek_po_najezdu",
-      "text": [
-        "Nepořádek po nájezdu",
-        "„Po posledním nájezdu loupežníků z řáholeckého lesa tady zůstal hrozný nepořádek. Přidejte alespoň trochu ruku k dílu. Odsud až k dalšímu zastavení uklízejte nepořádek podél cesty.“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_pomoc_v_nouzi",
-      "text": [
-        "Pomoc v nouzi",
-        "„V Turnově se naskytly nové pracovní příležitosti. Hodně čeledínů odtáhlo a nechalo místní hospodáře bez pomoci. Nabídněte někomu z místních pomoc. Udělejte, o co vás žádá, a získáte odměnu.“",
-        "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_lecka_kmen",
-      "text": [
-        "Léčka?!",
-        "„Na cestě před vámi leží kmen stromu. Takové věci se zpravidla nedějí náhodou. Možná bude lepší, když to vezmete přes les nebo louku, a nebo si prostě najdete jinou cestu. A nebo půjdete dál a pokusíte Fortunu.“",
-        "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚁⚂⚃⚄: 😡😡"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_zkazena_voda",
-      "text": [
-        "Zkažená voda",
-        "„Mezi místními se povídá, že v troskovické studni je zkažená voda. Pokud máte zásoby vody, ihned ji všechnu vylijte. Přece nechcete mít zdravotní problémy.“"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_zraneni",
-      "text": [
-        "Zranění",
-        "„Kdybys tolik nepovídal a dával pozor na cestu, nezakopl bys o kámen. Ale neboj, za chvíli to přejde.“",
-        "Ten, kdo naposledy něco řekl, si zranil pravou nohu a bolestí na ni nemůže našlapovat. Pohybovat se může pouze s pomocí hole nebo přátel.",
-        "Bolest poleví až na konci následujícího balíčku karet."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_N12",
-      "cardCode": "N12",
-      "text": [
-        "Střelecká výzva",
-        "„Lovčí od Věžáku vás vyzývá na duel. Nenechte se zahanbit!“",
-        "Vyberte jednoho z vás. Ten si určí libovolný strom a pokusí se třikrát trefit do jeho kmene ze vzdálenosti 50 stop. Může házet čím chce – kámen, šiška, větev … ale má na to jen 5 pokusů.",
-        "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: 😊<br>• Tuto událost vyhodnoťte, jakmile uvidíte vhodné místo.<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
-      ],
-      "choices": [],
-      "todo": "Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost."
-    },
-    {
-      "id": "card_chudina_v_nouzi",
-      "text": [
-        "Chudina v nouzi",
-        "„‚Přišlaaa bídaaa, mooor a hlaaad.‘ Ozvěna té písně se nese krajem. Pozvěte někoho z místních na jídlo nebo pití. Zajisté to ocení.“",
-        "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_hadankar_kraj",
-      "text": [
-        "Hádankář",
-        "„Potkali jste cizince, který má pro vás hádanku:",
-        "‚Mám města, ale žádné zlato. Mám domy, ale žádné lidi. Mám lesy, ale žádnou zvěř. Mám vodu, ale žádné ryby. Co jsem?‘",
-        "Uhodnete správnou odpověď?“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• (Nepočítá se to, pokud splníte úkol v rámci dobrodružství.)<br>• Řešení najdete na kartě O01, uprostřed."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_hadankar_sul",
-      "text": [
-        "Hádankář",
-        "„Potkali jste cizince, který má pro vás hádanku:",
-        "‚Každý mne jí, ale nikdo neloví, ani neseje. Nerostu na poli ani na stromech. Kvůli mému vzniku musí umřít moře, ale když já se dotknu vody, zhynu. Co jsem?‘",
-        "Uhodnete správnou odpověď?“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, vpravo nahoře."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_hadankar_ticho",
-      "text": [
-        "Hádankář",
-        "„Potkali jste cizince, který má pro vás hádanku:",
-        "‚Můžu být všude, ale jsem málokde. Každý mne zná a čas od času si mne přeje. Pokud mne přivoláte, ztratím se. Je totiž velice těžké mne udržet. Co jsem?‘",
-        "Uhodnete správnou odpověď?“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O03, uprostřed nahoře."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_lecka_zablesk",
-      "text": [
-        "Léčka?!",
-        "„V křoví u cesty před vámi se něco zablesklo. Nemůže to být zbraň potulného lapky? Možná bude lepší, když to vezmete přes les nebo louku, a nebo si prostě najdete jinou cestu. A nebo půjdete dál a pokusíte Fortunu.“",
-        "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚀⚁⚄⚅: 😡😡"
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_hadankar_jehla",
-      "text": [
-        "Hádankář",
-        "„Potkali jste ženu, která má pro vás hádanku:",
-        "‚Mám jedno oko, ale i tak nevidím. Ač jsem malá, pro spoustu lidí jsem důležitá. Spojím i to, co zničil čas. Zakrývám živé, zatímco sama jsem neživá a nahá. Co jsem?‘",
-        "Uhodnete správnou odpověď?“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, uprostřed."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_hadankar_bratri",
-      "text": [
-        "Hádankář",
-        "„Potkali jste cizince, který má pro vás hádanku:",
-        "‚Jsou dva bratři, kteří se nikdy nepotkali. Nejí, nepijí, nechodí ven. Mnozí se za nimi vypravili, ale nikdy nedošli cíle. Ještě že Slunce je pravidelně navštěvuje. Znáte jejich jména?‘",
-        "Uhodnete správnou odpověď?“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O01, vpravo uprostřed a dole."
-      ],
-      "choices": [],
-      "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
-    },
-    {
-      "id": "card_hadankar_neuplna",
-      "text": [
-        "Hádankář",
-        "„Potkali jste ženu, která má pro vás hádanku:",
-        "‚Kdybych byla živá, neunesla bych tolik jako teď. Uvnitř jsem sice dutá, ale často plná živo…‘“"
-      ],
-      "choices": [],
-      "todo": "POZOR: text této hádanky je ve zdrojové extrakci odříznutý (prezentace nebyla stažena celá). Doplňte celý text a řešení z originálu."
     }
   ]
 }
