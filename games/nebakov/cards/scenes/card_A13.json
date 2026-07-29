@@ -28,6 +28,12 @@
           "operator": ">",
           "value": 0
         }
+      ],
+      "effects": [
+        {
+          "type": "encounter",
+          "deck": "N"
+        }
       ]
     }
   ],

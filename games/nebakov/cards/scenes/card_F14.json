@@ -11,7 +11,21 @@
     {
       "icon": "lebka",
       "text": "Pokud stojíte na jiném místě ➤ ztrácíte 2 body reputace (😡😡), vyhodnoťte setkání (⏳) a máte nový úkol: Dojděte na rozcestí u ohrady s ovcemi – balíček „F“ odložte, vezměte si balíček „G“ a přečtěte si kartu G01.",
-      "goto": "card_G01"
+      "goto": "card_G01",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -2
+        },
+        {
+          "type": "toast",
+          "text": "Nejste na správném místě: ztrácíte 2 body reputace."
+        },
+        {
+          "type": "encounter",
+          "deck": "N"
+        }
+      ]
     }
   ],
   "todo": "Karta obsahuje pouze rámečky s podmínkami, samostatný narativní text na ní ve zdroji není."

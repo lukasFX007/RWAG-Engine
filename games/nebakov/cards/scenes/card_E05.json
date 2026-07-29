@@ -15,7 +15,14 @@
         "kind": "deed",
         "text": "Úkol [😐/😡]: Každý z vás si něco objedná",
         "completedAt": "card_E06"
-      }
+      },
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 0
+        }
+      ]
     },
     {
       "icon": "koruna",
@@ -26,7 +33,14 @@
         "kind": "deed",
         "text": "Úkol [😊]: Alespoň jeden z vás si něco objedná",
         "completedAt": "card_E06"
-      }
+      },
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        }
+      ]
     }
   ]
 }

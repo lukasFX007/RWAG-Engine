@@ -375,10 +375,12 @@ test("Šlechtic zruší jednu ztrátu reputace na reálné kartě", () => {
  * came to have each other's condition.
  */
 function printedGate(text) {
-  const bracket = /^\s*\[([^\]]*)\]/.exec(text ?? "");
+  // the bracket is usually first but not always — card_E05 writes
+  // "Úkol [😐/😡]: …", so take the first bracket that talks about reputation
+  const brackets = [...String(text ?? "").matchAll(/\[([^\]]*)\]/g)];
+  const bracket = brackets.find((m) => /[😊😐😡]/u.test(m[1]));
   if (!bracket) return null;
   const inside = bracket[1].trim();
-  if (!/[😊😐😡]/.test(inside)) return null;   // a bracket, but not about reputation
 
   const band = /😐\s*=\s*(-?\d+)\s*-\s*(-?\d+)/.exec(inside);
   if (band) return { min: Number(band[1]), max: Number(band[2]) };
@@ -567,4 +569,110 @@ test("záporná reputace zamkne i to nejmírnější hradlo", () => {
 
   engine.state.reputation = 0;
   assert.equal(engine.choices().find((c) => c.goto === "card_C06").available, true);
+});
+
+/* ------------------------------- effects printed on a choice vs in the data */
+
+/**
+ * A few cards hang the consequence on the route rather than on either card:
+ * "Pokračovat ➤ ⏳ a potom" owes a random encounter, and F14 charges two points
+ * of reputation for standing in the wrong place. Both alternatives on those cards
+ * lead to the same place, so the price can only live on the choice — and if it is
+ * missing there, bad standing simply costs nothing.
+ */
+function printedEffects(text) {
+  const gate = [...String(text ?? "").matchAll(/\[([^\]]*)\]/g)]
+    .find((m) => /[😊😐😡]/u.test(m[1]));
+  // strip the gate, whose faces are a condition rather than a consequence
+  const rest = gate
+    ? String(text).slice(0, gate.index) + String(text).slice(gate.index + gate[0].length)
+    : String(text ?? "");
+
+  const wanted = [];
+  if (rest.includes("⏳")) wanted.push("encounter");
+  const loss = (rest.match(/😡/gu) ?? []).length;
+  const gain = (rest.match(/[🙂😊]/gu) ?? []).length;
+  if (loss) wanted.push(`reputation:-${loss}`);
+  if (gain) wanted.push(`reputation:+${gain}`);
+  return wanted;
+}
+
+function storedEffects(choice) {
+  return (choice.effects ?? []).flatMap((effect) => {
+    if (effect.type === "encounter") return ["encounter"];
+    if (effect.type === "reputation") {
+      return [`reputation:${effect.value > 0 ? "+" : "-"}${Math.abs(effect.value)}`];
+    }
+    return [];
+  });
+}
+
+test("efekt vytištěný u volby je i v datech", () => {
+  const problems = [];
+  for (const scene of scenario.scenes) {
+    for (const [index, choice] of (scene.choices ?? []).entries()) {
+      const wanted = printedEffects(choice.text).sort();
+      const stored = storedEffects(choice).sort();
+      if (wanted.length === 0 && stored.length === 0) continue;
+      if (JSON.stringify(wanted) !== JSON.stringify(stored)) {
+        problems.push(`${scene.id}#${index}: text žádá [${wanted}], data mají [${stored}] `
+          + `— ⟨${choice.text.slice(0, 46)}⟩`);
+      }
+    }
+  }
+  assert.deepEqual(problems, [], problems.join("\n"));
+});
+
+test("volba se špatnou reputací na A13 zaplatí náhodným setkáním", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_A13";
+  engine.state.reputation = -1;
+
+  const encounters = [];
+  engine.on((e) => { if (e.type === "encounter") encounters.push(e.card.id); });
+
+  const list = engine.choices();
+  assert.equal(list[0].available, false, "[😊] větev musí být zamčená");
+  assert.equal(list[1].available, true, "[😐/😡] větev je ta pro špatnou reputaci");
+
+  engine.choose(1);
+  assert.equal(encounters.length, 1, "⏳ v textu volby musí vytáhnout kartu z balíčku N");
+  assert.equal(engine.card.id, "card_A14");
+});
+
+test("dobrá reputace na A13 žádné setkání nevyvolá", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_A13";
+  engine.state.reputation = 2;
+
+  const encounters = [];
+  engine.on((e) => { if (e.type === "encounter") encounters.push(e.card.id); });
+  engine.choose(0);
+  assert.equal(encounters.length, 0);
+  assert.equal(engine.card.id, "card_A14");
+});
+
+test("F14 účtuje za špatné místo dva body a setkání", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_F14";
+  engine.state.reputation = 5;
+
+  const encounters = [];
+  engine.on((e) => { if (e.type === "encounter") encounters.push(e.card.id); });
+  engine.choose(1);
+
+  assert.equal(engine.state.reputation, 3, "dva body dolů");
+  assert.equal(encounters.length, 1);
+});
+
+test("efekt volby se undo vrátí", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_F14";
+  engine.state.reputation = 5;
+  engine.choose(1);
+  assert.equal(engine.state.reputation, 3);
+
+  engine.undo();
+  assert.equal(engine.state.reputation, 5, "reputace se vrátila na hodnotu před volbou");
+  assert.equal(engine.card.id, "card_F14");
 });

@@ -178,9 +178,28 @@ export class Engine {
       at: new Date().toISOString(),
     });
 
+    this.#applyChoiceEffects(declared, from);
     this.#enter(choice.goto, { record: true });
     this.#emit({ type: "moved", from, to: choice.goto });
     return this.card;
+  }
+
+  /**
+   * Some cards attach the consequence to the route rather than to either end of
+   * it — "Pokračovat ➤ ⏳ a potom", or F14's "ztrácíte 2 body reputace (😡😡),
+   * vyhodnoťte setkání (⏳)". Both alternatives lead to the same card, so the
+   * price cannot live on the target: it belongs to the choice.
+   */
+  #applyChoiceEffects(declared, from) {
+    if (!declared?.effects?.length) return;
+    const { unknown } = apply(declared.effects, {
+      state: this.state,
+      source: from,
+      drawEncounter: (deckId) => this.drawEncounter(deckId),
+    });
+    if (unknown.length) {
+      this.#emit({ type: "unknownEffects", scene: from, types: unknown });
+    }
   }
 
   /** The task in progress, or null. */
