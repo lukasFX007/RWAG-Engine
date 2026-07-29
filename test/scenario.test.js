@@ -22,10 +22,32 @@ function fresh(options = {}) {
   return new Engine(scenario, { events, roles, seed: 1, ...options });
 }
 
-test("scénář se načte a začne na startScene", () => {
+test("scénář se načte a začne na kartě A01", () => {
   const engine = fresh();
   assert.equal(engine.card.id, scenario.startScene);
-  assert.equal(engine.card.id, "card_P01");
+  // The rules deck P is deliberately out of the flow: a digital game does not
+  // explain how to handle pouches, so play opens with the introduction deck.
+  assert.equal(engine.card.id, "card_A01");
+});
+
+test("karty pravidel P01–P04 jsou mimo hru, P05 zůstává koncem", () => {
+  const adjacency = new Map(scenario.scenes.map((s) => [
+    s.id, (s.choices ?? []).map((c) => c.goto).filter(Boolean),
+  ]));
+  const reached = new Set();
+  const stack = [scenario.startScene];
+  while (stack.length) {
+    const node = stack.pop();
+    if (reached.has(node)) continue;
+    reached.add(node);
+    stack.push(...(adjacency.get(node) ?? []));
+  }
+
+  for (const id of ["card_P01", "card_P02", "card_P03", "card_P04"]) {
+    assert.equal(reached.has(id), false, `${id} má být mimo hru`);
+  }
+  assert.equal(reached.has("card_P05"), true,
+    "P05 je závěrečná obrazovka, na kterou míří konce z balíčku H");
 });
 
 test("balíček N se rozdá a N01 leží navrchu", () => {

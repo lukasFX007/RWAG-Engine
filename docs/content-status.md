@@ -9,7 +9,7 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 - **zastavuje průchod hrou: 1**
 - dosažitelných scén bez východu: 2 (`card_B02`, `card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
-- nedosažitelných scén: 6 (`card_B12`, `card_C11`, `card_D12`, `card_G17`, `card_intro_dopis`, `card_legenda`)
+- nedosažitelných scén: 10 (`card_B12`, `card_C11`, `card_D12`, `card_G17`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_intro_dopis`, `card_legenda`)
 
 > Podstatné zjištění: velká většina poznámek `todo` **nejsou chybějící návaznosti**. Jsou to buď karty, které správně žádné pokračování nemají (předměty, osobní karty, náhodná setkání), nebo nejistota, na které kartě má text sedět. Hra je tedy prakticky průchozí a kritickou cestou k produkčnímu stavu je engine, ne dopisování obsahu.
 
@@ -81,10 +81,10 @@ Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hrani
 - **H14** · `card_H14` · slide 22, 23
   - Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu.
 - 4 karet se stejnou poznámkou:
-  - **P01** · `card_P01` · slide 5
-  - **P02** · `card_P02` · slide 5
-  - **P03** · `card_P03` · slide 5, 7
-  - **P04** · `card_P04` · slide 5
+  - **P01** · `card_P01` · slide 5 · nedosažitelná
+  - **P02** · `card_P02` · slide 5 · nedosažitelná
+  - **P03** · `card_P03` · slide 5, 7 · nedosažitelná
+  - **P04** · `card_P04` · slide 5 · nedosažitelná
   - Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu.
 
 ## E. Chybí obsah ve zdroji — 1
