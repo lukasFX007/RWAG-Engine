@@ -6,6 +6,8 @@
   "private": true,
   "scripts": {
     "test": "node --test \"test/**/*.test.js\"",
+    "serve": "python3 -m http.server 8000",
+    "icons": "python3 tools/make_icons.py",
     "data:build": "python3 tools/cards.py build",
     "data:check": "python3 tools/cards.py check && python3 tools/cards.py validate",
     "docs:map": "python3 tools/build_map.py && python3 tools/content_status.py"

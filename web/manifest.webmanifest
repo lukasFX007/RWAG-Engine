@@ -1,0 +1,33 @@
+{
+  "name": "RWAG — Chodící dobrodružství",
+  "short_name": "RWAG",
+  "description": "Chodící dobrodružné hry RWAG. Hraje se venku, telefon vás vede kartu po kartě.",
+  "lang": "cs",
+  "dir": "ltr",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#e6e0d0",
+  "theme_color": "#7a2e22",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
