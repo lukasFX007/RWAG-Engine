@@ -314,3 +314,122 @@ test("schopnost Milovníka přírody splní probíhající přírodní úkol", (
   assert.equal(engine.activeQuests.length, 0);
   assert.equal(engine.completedQuests[0].kind, "nature");
 });
+
+/* -------------------------------------------------------------------- roles */
+
+import { abilitiesOf, dealRoles, passivesOf } from "../src/core/roles.js";
+
+const ROLES = [
+  {
+    id: "tupec",
+    name: "Tupec",
+    advantages: [{ trigger: "once", effects: { type: "ignore_choice_condition" }, text: "[1/hru] …" }],
+    disadvantages: [{ trigger: "always", effects: { type: "roleplay_twice_answer" }, text: "[vždy] …" }],
+  },
+  {
+    id: "pacifista",
+    name: "Pacifista",
+    advantages: [{ trigger: "start", effects: { type: "reputation", value: 1 }, text: "[začátek] …" }],
+    disadvantages: [{ trigger: "always", effects: { type: "roleplay_cant_use_weapons" }, text: "[vždy] …" }],
+  },
+  {
+    id: "pedant",
+    name: "Vzdělaný pedant",
+    advantages: [{ trigger: "once", effects: { type: "return_on_choice" }, text: "[1/hru] …" }],
+    disadvantages: [{ trigger: "consequence", effects: { type: "encounter" }, text: "[následek] …" }],
+  },
+];
+
+function roleEngine(playerCount = 3) {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  engine.dealRoles(playerCount);
+  return engine;
+}
+
+test("role se rozdělí po jedné na hráče", () => {
+  const engine = roleEngine(3);
+  assert.equal(engine.players.length, 3);
+  const ids = engine.players.map((p) => p.roleId);
+  assert.equal(new Set(ids).size, 3, "žádná role nesmí být ve hře dvakrát");
+});
+
+test("víc hráčů než rolí je chyba, ne opakování role", () => {
+  const engine = new Engine(fixture(), { roles: ROLES });
+  assert.throws(() => engine.dealRoles(4), /víc rolí|víc než rolí/);
+});
+
+test("efekt se spouštěčem start se aplikuje při rozdání", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  const before = engine.state.reputation;
+  engine.dealRoles(3);
+  assert.equal(engine.state.reputation, before + 1, "Pacifista dává +1 na začátku");
+});
+
+test("schopnosti 1/hru se nabídnou a po utracení zmizí", () => {
+  const engine = roleEngine(3);
+  const offered = engine.abilities.map((a) => a.type);
+  assert.ok(offered.includes("ignore_choice_condition"));
+
+  const tupec = engine.players.find((p) => p.roleId === "tupec");
+  engine.useAbility(tupec.playerId, "ignore_choice_condition");
+  assert.equal(engine.abilities.some((a) => a.type === "ignore_choice_condition"), false);
+  assert.throws(() => engine.useAbility(tupec.playerId, "ignore_choice_condition"), /vyčerpaná/);
+});
+
+test("schopnost Tupce reálně odemkne zamčenou volbu", () => {
+  const engine = roleEngine(3);
+  const tupec = engine.players.find((p) => p.roleId === "tupec");
+  assert.equal(engine.choices()[1].available, false);
+
+  engine.useAbility(tupec.playerId, "ignore_choice_condition");
+  assert.equal(engine.choices()[1].available, true);
+});
+
+test("schopnost, kterou role nemá, nelze utratit", () => {
+  const engine = roleEngine(3);
+  const tupec = engine.players.find((p) => p.roleId === "tupec");
+  assert.throws(() => engine.useAbility(tupec.playerId, "return_on_choice"), /nemá schopnost/);
+});
+
+test("Pedant vezme rozhodnutí zpět a zaplatí za to setkáním", () => {
+  const engine = roleEngine(3);
+  engine.choose(0);
+  assert.equal(engine.card.id, "b");
+
+  const pedant = engine.players.find((p) => p.roleId === "pedant");
+  const seen = [];
+  engine.on((e) => seen.push(e.type));
+  engine.useAbility(pedant.playerId, "return_on_choice");
+
+  assert.equal(engine.card.id, "a", "rozhodnutí se vrátilo");
+  assert.ok(seen.includes("abilityUsed"));
+  const used = engine.state.players.find((p) => p.playerId === pedant.playerId);
+  assert.equal(used.usedOnce.return_on_choice, true);
+});
+
+test("pasivní pravidla se vrátí jako připomínky pro konkrétní hráče", () => {
+  const engine = roleEngine(3);
+  const list = engine.roleReminders();
+  // Tupec a Pacifista mají pravidlo se spouštěčem „always“; Pedantova nevýhoda
+  // je „consequence“, tedy cena za schopnost, ne trvalé pravidlo
+  assert.equal(list.length, 2);
+  assert.ok(list.every((r) => r.playerName && r.roleName && r.text));
+  assert.deepEqual(
+    list.map((r) => r.roleName).sort(),
+    ["Pacifista", "Tupec"],
+  );
+});
+
+test("rozdělení rolí je se stejným seedem stejné", () => {
+  const a = new Engine(fixture(), { roles: ROLES, seed: 11 });
+  const b = new Engine(fixture(), { roles: ROLES, seed: 11 });
+  a.dealRoles(3);
+  b.dealRoles(3);
+  assert.deepEqual(a.players.map((p) => p.roleId), b.players.map((p) => p.roleId));
+});
+
+test("klasifikace položek role podle spouštěče", () => {
+  assert.deepEqual(abilitiesOf(ROLES[0]).map((a) => a.type), ["ignore_choice_condition"]);
+  assert.deepEqual(passivesOf(ROLES[0]).map((a) => a.type), ["roleplay_twice_answer"]);
+  assert.deepEqual(abilitiesOf(ROLES[1]).map((a) => a.type), [], "start není 1/hru");
+});

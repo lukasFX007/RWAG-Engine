@@ -313,3 +313,76 @@ test("id úkolů jsou jedinečná", () => {
   }
   assert.equal(seen.size, 46);
 });
+
+/* ---------------------------------------------------- roles on the real data */
+
+test("reálné role se rozdělí a Pacifista dá +1 na začátku", () => {
+  const engine = fresh();
+  const before = engine.state.reputation;
+  engine.dealRoles(8); // the deck has exactly eight roles
+
+  assert.equal(engine.players.length, 8);
+  assert.equal(new Set(engine.players.map((p) => p.roleId)).size, 8);
+  assert.equal(engine.state.reputation, before + 1,
+    "Pacifista je vždy ve hře při osmi hráčích a dává +1");
+});
+
+test("devět hráčů odmítne, protože rolí je osm", () => {
+  const engine = fresh();
+  assert.throws(() => engine.dealRoles(9), /víc než rolí/);
+});
+
+test("každá položka rolí má spouštěč", () => {
+  const missing = [];
+  for (const role of roles) {
+    for (const key of ["advantages", "disadvantages"]) {
+      for (const entry of role[key] ?? []) {
+        if (!entry.trigger) missing.push(`${role.id}/${key}: ${entry.text?.slice(0, 40)}`);
+      }
+    }
+  }
+  assert.deepEqual(missing, [], missing.join("\n"));
+});
+
+test("schopnosti 1/hru odpovídají pěti rolím z pravidel", () => {
+  const engine = fresh();
+  engine.dealRoles(8);
+  const types = engine.abilities.map((a) => a.type).sort();
+  assert.deepEqual(types, [
+    "ignore_choice_condition",
+    "ignore_encounter",
+    "ignore_reputation_loss",
+    "nature_quest_done",
+    "return_on_choice",
+  ]);
+});
+
+test("Milovník přírody splní probíhající přírodní úkol reálné hry", () => {
+  const engine = fresh();
+  engine.dealRoles(8);
+  engine.state.currentScene = "card_G13"; // Úkol: Spočítejte ovce v ohradě
+  const index = engine.choices().findIndex((c) => c.goto === "card_G14");
+  engine.choose(index);
+  assert.equal(engine.activeQuests.length, 1);
+
+  const lover = engine.players.find((p) => p.roleId === "vegetarian");
+  engine.useAbility(lover.playerId, "nature_quest_done");
+  assert.equal(engine.activeQuests.length, 0, "úkol je splněný schopností");
+  assert.ok(engine.pendingTask, "příchod je ale potřeba pořád potvrdit");
+});
+
+test("Šlechtic zruší jednu ztrátu reputace na reálné kartě", () => {
+  const engine = fresh();
+  engine.dealRoles(8);
+  const noble = engine.players.find((p) => p.roleId === "slechtic");
+  engine.useAbility(noble.playerId, "ignore_reputation_loss");
+
+  const before = engine.state.reputation;
+  engine.state.currentScene = "card_C03";
+  // card_C04 applies reputation -1
+  engine.state.currentScene = "card_C02";
+  const toC04 = engine.choices().findIndex((c) => c.goto === "card_C04");
+  assert.ok(toC04 >= 0);
+  engine.choose(toC04);
+  assert.equal(engine.state.reputation, before, "ztráta byla ignorována");
+});

@@ -14,6 +14,13 @@
 import { apply, evaluateAll } from "./rules.js";
 import { createState, cloneState, visitCount } from "./state.js";
 import { draw, initDeck } from "./decks.js";
+import {
+  abilitiesOf,
+  applyStartEffects,
+  consequencesOf,
+  dealRoles,
+  passiveReminders,
+} from "./roles.js";
 
 export class Engine {
   /**
@@ -212,6 +219,95 @@ export class Engine {
     this.#enter(pending.to, { record: true });
     this.#emit({ type: "moved", from: pending.from, to: pending.to });
     return this.card;
+  }
+
+  /* ------------------------------------------------------------------- roles */
+
+  /**
+   * Hand out roles, one per player, and apply what they do at the start.
+   * Card P03 is where the game asks for this.
+   */
+  dealRoles(playerCount, { names = [] } = {}) {
+    if (!this.roles?.length) throw new Error("scénář nemá žádné role");
+    this.state.players = dealRoles(this.roles, playerCount, {
+      seed: this.state.seed,
+      cursor: this.state.rngCursor,
+      names,
+    });
+    this.state.rngCursor += 1;
+
+    const applied = applyStartEffects(this.state, this.roles);
+    this.#emit({ type: "rolesDealt", players: this.state.players, applied });
+    return this.state.players;
+  }
+
+  get players() {
+    return this.state.players;
+  }
+
+  /** Once-per-game abilities that nobody has spent yet. */
+  get abilities() {
+    return this.state.players.flatMap((player) => {
+      const role = this.roles.find((r) => r.id === player.roleId);
+      if (!role) return [];
+      return abilitiesOf(role)
+        .filter((ability) => ability.type && !player.usedOnce[ability.type])
+        .map((ability) => ({
+          playerId: player.playerId,
+          playerName: player.name,
+          roleId: role.id,
+          roleName: role.name,
+          type: ability.type,
+          text: ability.text,
+        }));
+    });
+  }
+
+  /**
+   * Spend a once-per-game ability. Its consequence, if the role has one, fires
+   * straight after — the Vzdělaný pedant pays for taking a decision back with an
+   * immediate encounter.
+   */
+  useAbility(playerId, type) {
+    const player = this.state.players.find((p) => p.playerId === playerId);
+    if (!player) throw new Error(`hráč ${playerId} není ve hře`);
+    if (player.usedOnce[type]) throw new Error(`schopnost ${type} je už vyčerpaná`);
+
+    const role = this.roles.find((r) => r.id === player.roleId);
+    const ability = abilitiesOf(role ?? {}).find((a) => a.type === type);
+    if (!ability) throw new Error(`role ${player.roleId} nemá schopnost ${type}`);
+
+    player.usedOnce[type] = true;
+    apply([ability.effect], {
+      state: this.state,
+      source: `role:${player.roleId}`,
+      drawEncounter: (deckId) => this.drawEncounter(deckId),
+    });
+
+    // return_on_choice arms an undo; carry it out here so the ability does
+    // something on its own rather than waiting for the UI to notice a flag
+    if (this.state.pendingUndo) this.undo();
+
+    const consequences = consequencesOf(role ?? {});
+    for (const consequence of consequences) {
+      if (!consequence.effect) continue;
+      apply([consequence.effect], {
+        state: this.state,
+        source: `role:${player.roleId}`,
+        drawEncounter: (deckId) => this.drawEncounter(deckId),
+      });
+    }
+
+    this.#emit({ type: "abilityUsed", playerId, ability: type, consequences });
+    return true;
+  }
+
+  /**
+   * Rules the players have to keep themselves, per player. Distinct from
+   * takeReminders(), which drains the queue of reminders raised by cards.
+   */
+  roleReminders() {
+    return passiveReminders(this.state, this.roles ?? []);
   }
 
   /** Change of mind before setting off: drop the task, stay where we are. */
