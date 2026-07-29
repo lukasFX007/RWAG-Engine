@@ -10,7 +10,8 @@
     "icons": "python3 tools/make_icons.py",
     "data:build": "python3 tools/cards.py build",
     "data:check": "python3 tools/cards.py check && python3 tools/cards.py validate",
-    "docs:map": "python3 tools/build_map.py && python3 tools/content_status.py"
+    "docs:map": "python3 tools/build_map.py && python3 tools/content_status.py",
+    "standalone": "python3 tools/build_standalone.py --scenario nebakov"
   },
   "engines": {
     "node": ">=20"
