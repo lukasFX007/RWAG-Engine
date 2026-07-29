@@ -86,6 +86,22 @@ export class Engine {
     if (!card) return [];
     const base = { state: this.state, engine: this, ...ctx };
 
+    // while a task is being carried out, nothing else can be taken — the group
+    // is on its way somewhere and has to arrive or turn back first
+    if (this.state.pendingTask) {
+      return (card.choices ?? []).map((choice, index) => ({
+        index,
+        icon: choice.icon ?? null,
+        text: choice.text ?? "",
+        goto: choice.goto ?? null,
+        available: false,
+        locked: true,
+        unlockedByAbility: false,
+        requirement: null,
+        reason: "probíhá úkol",
+      }));
+    }
+
     return (card.choices ?? []).map((choice, index) => {
       const { met, failures } = evaluateAll(choice.disableIf, base);
       const overridable = this.state.pendingIgnoreChoiceCondition === true;
@@ -132,19 +148,80 @@ export class Engine {
     const from = this.state.currentScene;
     const declared = (this.card.choices ?? [])[index];
 
+    // A task is not a move. Taking it commits the group to doing something out
+    // in the world; the card on the other side is revealed by confirmArrival().
+    if (declared?.quest) {
+      const quest = this.#startQuest(declared.quest, from);
+      this.state.pendingTask = {
+        questId: quest.id,
+        from,
+        to: choice.goto,
+        choiceIndex: index,
+      };
+      this.#emit({ type: "taskStarted", quest, to: choice.goto });
+      return this.card;
+    }
+
     this.state.history.push({
       from,
       choiceIndex: index,
       to: choice.goto,
       reputation: this.state.reputation,
-      startedQuest: declared?.quest?.id ?? null,
+      startedQuest: null,
       at: new Date().toISOString(),
     });
 
-    if (declared?.quest) this.#startQuest(declared.quest, from);
     this.#enter(choice.goto, { record: true });
     this.#emit({ type: "moved", from, to: choice.goto });
     return this.card;
+  }
+
+  /** The task in progress, or null. */
+  get pendingTask() {
+    const pending = this.state.pendingTask;
+    if (!pending) return null;
+    return { ...pending, quest: this.state.quests[pending.questId] ?? null };
+  }
+
+  /**
+   * The players say they did it: finish the task and reveal the card behind it.
+   * `ctx.position` is accepted so a scenario that gates a task on a GPS zone can
+   * refuse here — no zone coordinates exist yet, so nothing is refused today.
+   */
+  confirmArrival(ctx = {}) {
+    const pending = this.state.pendingTask;
+    if (!pending) throw new Error("žádný úkol neprobíhá");
+
+    const quest = this.state.quests[pending.questId];
+    if (quest && !quest.done) {
+      quest.done = true;
+      quest.completedBy = ctx.position ? "position" : "confirmed";
+      this.#emit({ type: "questDone", quest });
+    }
+
+    this.state.history.push({
+      from: pending.from,
+      choiceIndex: pending.choiceIndex,
+      to: pending.to,
+      reputation: this.state.reputation,
+      startedQuest: pending.questId,
+      at: new Date().toISOString(),
+    });
+    this.state.pendingTask = null;
+
+    this.#enter(pending.to, { record: true });
+    this.#emit({ type: "moved", from: pending.from, to: pending.to });
+    return this.card;
+  }
+
+  /** Change of mind before setting off: drop the task, stay where we are. */
+  cancelTask() {
+    const pending = this.state.pendingTask;
+    if (!pending) return false;
+    delete this.state.quests[pending.questId];
+    this.state.pendingTask = null;
+    this.#emit({ type: "taskCancelled", questId: pending.questId });
+    return true;
   }
 
   /**
@@ -152,6 +229,11 @@ export class Engine {
    * Reverts the card and the reputation recorded before that step.
    */
   undo() {
+    // an unfinished task is undone by dropping it, without spending a step
+    if (this.state.pendingTask) {
+      this.cancelTask();
+      return this.card;
+    }
     const last = this.state.history.pop();
     if (!last) return null;
     this.state.visited[last.to] = Math.max(0, (this.state.visited[last.to] ?? 1) - 1);
@@ -160,13 +242,18 @@ export class Engine {
     this.state.pendingUndo = false;
     this.state.finishedAt = null;
 
-    // a quest taken on by that decision was never taken on
-    if (last.startedQuest) delete this.state.quests[last.startedQuest];
-    // and one finished by arriving where we just came from is open again
-    for (const quest of Object.values(this.state.quests)) {
-      if (quest.completedAt === last.to && quest.completedBy === "arrival") {
+    // undoing the arrival puts the task back in progress rather than erasing it
+    if (last.startedQuest) {
+      const quest = this.state.quests[last.startedQuest];
+      if (quest) {
         quest.done = false;
         quest.completedBy = null;
+        this.state.pendingTask = {
+          questId: quest.id,
+          from: last.from,
+          to: last.to,
+          choiceIndex: last.choiceIndex,
+        };
       }
     }
 
@@ -175,7 +262,7 @@ export class Engine {
   }
 
   get canUndo() {
-    return this.state.history.length > 0;
+    return Boolean(this.state.pendingTask) || this.state.history.length > 0;
   }
 
   /** Draw the top card of an encounter deck and return the card object. */
@@ -244,17 +331,6 @@ export class Engine {
     return quest;
   }
 
-  /** Arriving at a card finishes every quest that named it as its endpoint. */
-  #settleQuests(sceneId) {
-    for (const quest of Object.values(this.state.quests)) {
-      if (!quest.done && quest.completedAt === sceneId) {
-        quest.done = true;
-        quest.completedBy = "arrival";
-        this.#emit({ type: "questDone", quest });
-      }
-    }
-  }
-
   /* ----------------------------------------------------------------- internal */
 
   #enter(sceneId, { record }) {
@@ -263,7 +339,6 @@ export class Engine {
 
     this.state.currentScene = sceneId;
     this.state.visited[sceneId] = visitCount(this.state, sceneId) + 1;
-    this.#settleQuests(sceneId);
 
     const { unknown } = apply(scene.effects, {
       state: this.state,

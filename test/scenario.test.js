@@ -98,6 +98,8 @@ function walkAll(unknownSink = new Set()) {
       });
       try {
         branch.choose(choice.index);
+        // a task does not move the group; carrying it out does
+        if (branch.pendingTask) branch.confirmArrival();
       } catch (err) {
         errors.push(`${engine.card.id}#${choice.index}: ${err.message}`);
         continue;
@@ -240,7 +242,7 @@ test("každá role deklaruje jen efekty, které engine zná", async () => {
   assert.deepEqual([...missing], [], `role používají neimplementované efekty: ${[...missing]}`);
 });
 
-test("úkoly reálného scénáře se zakládají a splňují průchodem", () => {
+test("úkol reálného scénáře drží cílovou kartu skrytou, dokud ho hráči nesplní", () => {
   const engine = fresh();
   // card_B10 sets the task "Dojděte k tisícileté lípě" and leads to card_B11
   engine.state.currentScene = "card_B10";
@@ -248,9 +250,24 @@ test("úkoly reálného scénáře se zakládají a splňují průchodem", () =>
   assert.ok(index >= 0);
 
   engine.choose(index);
-  const done = engine.completedQuests.map((q) => q.text);
-  assert.ok(done.some((t) => t.includes("tisícileté lípě")),
-    `splněné úkoly: ${done.join(" | ")}`);
+  assert.equal(engine.card.id, "card_B10", "karta B11 se nesmí odhalit hned");
+  assert.equal(engine.activeQuests.length, 1);
+  assert.match(engine.pendingTask.quest.text, /tisícileté lípě/);
+
+  engine.confirmArrival();
+  assert.equal(engine.card.id, "card_B11");
+  assert.equal(engine.completedQuests.length, 1);
+});
+
+test("deník ukáže probíhající úkol, takže „Splnili jsme“ má co splnit", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_G13"; // Úkol: Spočítejte ovce v ohradě (příroda)
+  const index = engine.choices().findIndex((c) => c.goto === "card_G14");
+  assert.ok(index >= 0);
+
+  engine.choose(index);
+  assert.equal(engine.activeQuests.length, 1, "úkol musí být v deníku jako aktivní");
+  assert.equal(engine.activeQuests[0].kind, "nature");
 });
 
 test("všechny úkolové volby mají anotaci a platný cíl", () => {

@@ -27,6 +27,15 @@ export function createState({ scenarioId, startScene, players = [], seed = 1 } =
     /** entries pushed on every transition, used by undo */
     history: [],
 
+    /**
+     * A task taken on but not yet done, e.g. "Úkol: Dojděte k tisícileté lípě".
+     * The card it leads to stays hidden until the players confirm they did it —
+     * walking there is the game, so revealing the destination on the tap would
+     * both spoil it and skip it.
+     * { questId, from, to, choiceIndex }
+     */
+    pendingTask: null,
+
     reputation: 0,
     /** quest id -> { id, text, sceneId, done } */
     quests: {},

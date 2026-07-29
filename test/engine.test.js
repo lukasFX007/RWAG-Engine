@@ -222,45 +222,79 @@ function questFixture() {
   };
 }
 
-test("úkol se založí volbou a splní příchodem na cíl", () => {
-  const engine = new Engine(questFixture());
-  assert.equal(engine.activeQuests.length, 0);
-
-  engine.choose(0);
-  assert.equal(engine.completedQuests.length, 1);
-  const [quest] = engine.completedQuests;
-  assert.equal(quest.id, "q1");
-  assert.equal(quest.completedBy, "arrival");
-  assert.equal(quest.startedAt, "a");
-});
-
-test("úkol s cílem jinde zůstane rozehraný", () => {
-  const engine = new Engine(questFixture());
-  engine.choose(1);
-  assert.equal(engine.activeQuests.length, 1);
-  assert.equal(engine.activeQuests[0].kind, "nature");
-});
-
-test("schopnost Milovníka přírody splní rozehraný přírodní úkol", () => {
-  const engine = new Engine(questFixture());
-  engine.choose(1);
-  assert.equal(engine.activeQuests.length, 1);
-
-  const { apply } = ruleModule;
-  apply([{ type: "nature_quest_done" }], { state: engine.state, source: "role" });
-
-  assert.equal(engine.activeQuests.length, 0);
-  assert.equal(engine.completedQuests[0].kind, "nature");
-});
-
-test("undo vrátí i úkol, který rozhodnutí založilo", () => {
+test("úkol neodhalí cílovou kartu, dokud ho hráči nesplní", () => {
   const engine = new Engine(questFixture());
   engine.choose(0);
-  assert.equal(Object.keys(engine.state.quests).length, 1);
+
+  assert.equal(engine.card.id, "a", "zůstáváme na kartě, chůze je součást hry");
+  assert.equal(engine.activeQuests.length, 1);
+  assert.equal(engine.pendingTask.quest.text, "Dojděte k lípě");
+  assert.equal(engine.pendingTask.to, "b");
+});
+
+test("během úkolu nelze vzít jinou volbu", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  const list = engine.choices();
+  assert.ok(list.every((c) => !c.available));
+  assert.equal(list[1].reason, "probíhá úkol");
+  assert.throws(() => engine.choose(1), /zamčená|probíhá úkol/);
+});
+
+test("potvrzení splnění úkol uzavře a odhalí kartu", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  engine.confirmArrival();
+
+  assert.equal(engine.card.id, "b");
+  assert.equal(engine.activeQuests.length, 0);
+  assert.equal(engine.completedQuests[0].completedBy, "confirmed");
+  assert.equal(engine.pendingTask, null);
+});
+
+test("potvrzení s polohou se zaznamená jako ověřené polohou", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  engine.confirmArrival({ position: { lat: 50, lon: 15, zones: [] } });
+  assert.equal(engine.completedQuests[0].completedBy, "position");
+});
+
+test("potvrzení bez rozehraného úkolu je chyba", () => {
+  const engine = new Engine(questFixture());
+  assert.throws(() => engine.confirmArrival(), /žádný úkol/);
+});
+
+test("rozmyšlený úkol lze zrušit a zůstat na místě", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  assert.equal(engine.cancelTask(), true);
+
+  assert.equal(engine.card.id, "a");
+  assert.equal(Object.keys(engine.state.quests).length, 0);
+  assert.equal(engine.choices()[0].available, true, "volby jsou zas dostupné");
+});
+
+test("undo během úkolu úkol zahodí, aniž by spotřebovalo krok", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  assert.equal(engine.canUndo, true);
 
   engine.undo();
   assert.equal(Object.keys(engine.state.quests).length, 0, "úkol se nikdy nezadal");
   assert.equal(engine.card.id, "a");
+  assert.equal(engine.state.history.length, 0);
+});
+
+test("undo po splnění úkol vrátí do rozehraného stavu", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  engine.confirmArrival();
+  assert.equal(engine.card.id, "b");
+
+  engine.undo();
+  assert.equal(engine.card.id, "a", "jsme zpátky před cílem");
+  assert.equal(engine.activeQuests.length, 1, "úkol zas probíhá");
+  assert.ok(engine.pendingTask, "a je znovu rozehraný");
 });
 
 test("ručně splněný úkol nelze splnit dvakrát", () => {
@@ -269,4 +303,14 @@ test("ručně splněný úkol nelze splnit dvakrát", () => {
   const id = engine.activeQuests[0].id;
   assert.equal(engine.completeQuest(id), true);
   assert.equal(engine.completeQuest(id), false);
+});
+
+test("schopnost Milovníka přírody splní probíhající přírodní úkol", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(1);
+  assert.equal(engine.activeQuests[0].kind, "nature");
+
+  ruleModule.apply([{ type: "nature_quest_done" }], { state: engine.state, source: "role" });
+  assert.equal(engine.activeQuests.length, 0);
+  assert.equal(engine.completedQuests[0].kind, "nature");
 });
