@@ -9,7 +9,13 @@
     {
       "icon": "lupa",
       "text": "Úkol: Prohlédněte si přiloženou mapu",
-      "goto": "card_B05"
+      "goto": "card_B05",
+      "quest": {
+        "id": "q_B09_0",
+        "kind": "inspect",
+        "text": "Prohlédněte si přiloženou mapu",
+        "completedAt": "card_B05"
+      }
     },
     {
       "icon": "stopy",

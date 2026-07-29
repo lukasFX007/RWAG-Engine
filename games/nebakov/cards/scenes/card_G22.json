@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
-      "goto": "card_G24"
+      "goto": "card_G24",
+      "quest": {
+        "id": "q_G22_0",
+        "kind": "travel",
+        "text": "Vraťte se na palouk s rozpadlým stavením",
+        "completedAt": "card_G24"
+      }
     }
   ]
 }

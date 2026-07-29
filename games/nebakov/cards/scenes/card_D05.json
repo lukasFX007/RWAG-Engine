@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
-      "goto": "card_E01"
+      "goto": "card_E01",
+      "quest": {
+        "id": "q_D05_0",
+        "kind": "travel",
+        "text": "Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
+        "completedAt": "card_E01"
+      }
     }
   ]
 }

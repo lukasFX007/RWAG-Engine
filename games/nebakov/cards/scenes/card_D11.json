@@ -6,12 +6,24 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte pod Trosky",
-      "goto": "card_D06"
+      "goto": "card_D06",
+      "quest": {
+        "id": "q_D11_0",
+        "kind": "travel",
+        "text": "Dojděte pod Trosky",
+        "completedAt": "card_D06"
+      }
     },
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte do Troskovic",
-      "goto": "card_D05"
+      "goto": "card_D05",
+      "quest": {
+        "id": "q_D11_1",
+        "kind": "travel",
+        "text": "Dojděte do Troskovic",
+        "completedAt": "card_D05"
+      }
     }
   ]
 }

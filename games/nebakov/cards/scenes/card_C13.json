@@ -6,12 +6,24 @@
     {
       "icon": "koruna",
       "text": "Úkol: Dejte si něco ve mlýně",
-      "goto": "card_C18"
+      "goto": "card_C18",
+      "quest": {
+        "id": "q_C13_0",
+        "kind": "deed",
+        "text": "Dejte si něco ve mlýně",
+        "completedAt": "card_C18"
+      }
     },
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte zpět k lípě",
-      "goto": "card_C19"
+      "goto": "card_C19",
+      "quest": {
+        "id": "q_C13_1",
+        "kind": "travel",
+        "text": "Dojděte zpět k lípě",
+        "completedAt": "card_C19"
+      }
     }
   ]
 }

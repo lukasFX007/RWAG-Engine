@@ -16,7 +16,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte na louku s lovištěm vysoké",
-      "goto": "card_G23"
+      "goto": "card_G23",
+      "quest": {
+        "id": "q_G26_0",
+        "kind": "travel",
+        "text": "Dojděte na louku s lovištěm vysoké",
+        "completedAt": "card_G23"
+      }
     }
   ]
 }

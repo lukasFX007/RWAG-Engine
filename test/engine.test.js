@@ -4,6 +4,7 @@ import test from "node:test";
 import { Engine } from "../src/core/engine.js";
 import { createState, deserialise, serialise } from "../src/core/state.js";
 import { draw, initDeck, timesDrawn } from "../src/core/decks.js";
+import * as ruleModule from "../src/core/rules.js";
 
 /** Small hand-built scenario, so behaviour is checked against something readable. */
 function fixture() {
@@ -188,4 +189,84 @@ test("stejný seed dává stejné míchání", () => {
   const other = createState({ seed: 8 });
   initDeck(other, { deckId: "N", cardIds: ids });
   assert.notDeepEqual(other.decks.N.order, one.decks.N.order);
+});
+
+/* ------------------------------------------------------------------- quests */
+
+function questFixture() {
+  return {
+    gameId: "test",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        text: "start",
+        choices: [
+          {
+            icon: "stopy",
+            text: "Úkol: Dojděte k lípě",
+            goto: "b",
+            quest: { id: "q1", kind: "travel", text: "Dojděte k lípě", completedAt: "b" },
+          },
+          {
+            icon: "priroda",
+            text: "Úkol: Nasbírejte byliny",
+            goto: "c",
+            quest: { id: "q2", kind: "nature", text: "Nasbírejte byliny", completedAt: "zz" },
+          },
+        ],
+      },
+      { id: "b", text: "u lípy", ending: true, choices: [] },
+      { id: "c", text: "les", ending: true, choices: [] },
+    ],
+  };
+}
+
+test("úkol se založí volbou a splní příchodem na cíl", () => {
+  const engine = new Engine(questFixture());
+  assert.equal(engine.activeQuests.length, 0);
+
+  engine.choose(0);
+  assert.equal(engine.completedQuests.length, 1);
+  const [quest] = engine.completedQuests;
+  assert.equal(quest.id, "q1");
+  assert.equal(quest.completedBy, "arrival");
+  assert.equal(quest.startedAt, "a");
+});
+
+test("úkol s cílem jinde zůstane rozehraný", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(1);
+  assert.equal(engine.activeQuests.length, 1);
+  assert.equal(engine.activeQuests[0].kind, "nature");
+});
+
+test("schopnost Milovníka přírody splní rozehraný přírodní úkol", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(1);
+  assert.equal(engine.activeQuests.length, 1);
+
+  const { apply } = ruleModule;
+  apply([{ type: "nature_quest_done" }], { state: engine.state, source: "role" });
+
+  assert.equal(engine.activeQuests.length, 0);
+  assert.equal(engine.completedQuests[0].kind, "nature");
+});
+
+test("undo vrátí i úkol, který rozhodnutí založilo", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(0);
+  assert.equal(Object.keys(engine.state.quests).length, 1);
+
+  engine.undo();
+  assert.equal(Object.keys(engine.state.quests).length, 0, "úkol se nikdy nezadal");
+  assert.equal(engine.card.id, "a");
+});
+
+test("ručně splněný úkol nelze splnit dvakrát", () => {
+  const engine = new Engine(questFixture());
+  engine.choose(1);
+  const id = engine.activeQuests[0].id;
+  assert.equal(engine.completeQuest(id), true);
+  assert.equal(engine.completeQuest(id), false);
 });

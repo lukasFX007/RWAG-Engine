@@ -10,12 +10,24 @@
     {
       "icon": "koruna",
       "text": "Úkol: Dojděte k ohradě s ovcemi za Jarkem",
-      "goto": "card_H10"
+      "goto": "card_H10",
+      "quest": {
+        "id": "q_H09_0",
+        "kind": "deed",
+        "text": "Dojděte k ohradě s ovcemi za Jarkem",
+        "completedAt": "card_H10"
+      }
     },
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte do Troskovic",
-      "goto": "card_H15"
+      "goto": "card_H15",
+      "quest": {
+        "id": "q_H09_1",
+        "kind": "travel",
+        "text": "Dojděte do Troskovic",
+        "completedAt": "card_H15"
+      }
     }
   ]
 }

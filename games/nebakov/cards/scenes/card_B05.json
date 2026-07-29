@@ -9,7 +9,13 @@
     {
       "icon": "lupa",
       "text": "Úkol: Dojděte k pomníku",
-      "goto": "card_B03"
+      "goto": "card_B03",
+      "quest": {
+        "id": "q_B05_0",
+        "kind": "inspect",
+        "text": "Dojděte k pomníku",
+        "completedAt": "card_B03"
+      }
     },
     {
       "icon": "stopy",

@@ -15,7 +15,13 @@
     {
       "icon": "priroda",
       "text": "Úkol: Sežeňte něco na bolest a vraťte se ke stromu",
-      "goto": "card_C09"
+      "goto": "card_C09",
+      "quest": {
+        "id": "q_C07_0",
+        "kind": "nature",
+        "text": "Sežeňte něco na bolest a vraťte se ke stromu",
+        "completedAt": "card_C09"
+      }
     },
     {
       "icon": "nuz",

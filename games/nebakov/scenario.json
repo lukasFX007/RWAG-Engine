@@ -554,7 +554,13 @@
         {
           "icon": "lupa",
           "text": "Úkol: Přečtěte si zvací dopis",
-          "goto": "card_B09"
+          "goto": "card_B09",
+          "quest": {
+            "id": "q_B01_0",
+            "kind": "inspect",
+            "text": "Přečtěte si zvací dopis",
+            "completedAt": "card_B09"
+          }
         }
       ]
     },
@@ -586,7 +592,14 @@
         {
           "icon": "koruna",
           "text": "Úkol (volitelný): Držte minutu ticha za padlé",
-          "goto": "card_B02"
+          "goto": "card_B02",
+          "quest": {
+            "id": "q_B03_0",
+            "kind": "deed",
+            "text": "Držte minutu ticha za padlé",
+            "completedAt": "card_B02",
+            "optional": true
+          }
         },
         {
           "icon": "stopy",
@@ -627,7 +640,13 @@
         {
           "icon": "lupa",
           "text": "Úkol: Dojděte k pomníku",
-          "goto": "card_B03"
+          "goto": "card_B03",
+          "quest": {
+            "id": "q_B05_0",
+            "kind": "inspect",
+            "text": "Dojděte k pomníku",
+            "completedAt": "card_B03"
+          }
         },
         {
           "icon": "stopy",
@@ -678,7 +697,13 @@
         {
           "icon": "lupa",
           "text": "Úkol: Prohlédněte si přiloženou mapu",
-          "goto": "card_B05"
+          "goto": "card_B05",
+          "quest": {
+            "id": "q_B09_0",
+            "kind": "inspect",
+            "text": "Prohlédněte si přiloženou mapu",
+            "completedAt": "card_B05"
+          }
         },
         {
           "icon": "stopy",
@@ -699,7 +724,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte k tisícileté lípě",
-          "goto": "card_B11"
+          "goto": "card_B11",
+          "quest": {
+            "id": "q_B10_0",
+            "kind": "travel",
+            "text": "Dojděte k tisícileté lípě",
+            "completedAt": "card_B11"
+          }
         }
       ]
     },
@@ -735,7 +766,13 @@
         {
           "icon": "priroda",
           "text": "Úkol: Sežeňte něco na bolest a vraťte se ke stromu",
-          "goto": "card_C09"
+          "goto": "card_C09",
+          "quest": {
+            "id": "q_C07_0",
+            "kind": "nature",
+            "text": "Sežeňte něco na bolest a vraťte se ke stromu",
+            "completedAt": "card_C09"
+          }
         },
         {
           "icon": "nuz",
@@ -756,7 +793,13 @@
         {
           "icon": "koruna",
           "text": "Úkol: Určete jednoho z vás, kdo to udělá",
-          "goto": "card_C10"
+          "goto": "card_C10",
+          "quest": {
+            "id": "q_C08_0",
+            "kind": "deed",
+            "text": "Určete jednoho z vás, kdo to udělá",
+            "completedAt": "card_C10"
+          }
         }
       ]
     },
@@ -812,7 +855,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte k nebákovskému mlýnu",
-          "goto": "card_C15"
+          "goto": "card_C15",
+          "quest": {
+            "id": "q_C12_0",
+            "kind": "travel",
+            "text": "Dojděte k nebákovskému mlýnu",
+            "completedAt": "card_C15"
+          }
         }
       ],
       "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
@@ -825,12 +874,24 @@
         {
           "icon": "koruna",
           "text": "Úkol: Dejte si něco ve mlýně",
-          "goto": "card_C18"
+          "goto": "card_C18",
+          "quest": {
+            "id": "q_C13_0",
+            "kind": "deed",
+            "text": "Dejte si něco ve mlýně",
+            "completedAt": "card_C18"
+          }
         },
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte zpět k lípě",
-          "goto": "card_C19"
+          "goto": "card_C19",
+          "quest": {
+            "id": "q_C13_1",
+            "kind": "travel",
+            "text": "Dojděte zpět k lípě",
+            "completedAt": "card_C19"
+          }
         }
       ]
     },
@@ -857,12 +918,24 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte zpět k lípě",
-          "goto": "card_C17"
+          "goto": "card_C17",
+          "quest": {
+            "id": "q_C15_0",
+            "kind": "travel",
+            "text": "Dojděte zpět k lípě",
+            "completedAt": "card_C17"
+          }
         },
         {
           "icon": "koruna",
           "text": "Úkol: Občerstvěte se ve mlýně",
-          "goto": "card_C18"
+          "goto": "card_C18",
+          "quest": {
+            "id": "q_C15_1",
+            "kind": "deed",
+            "text": "Občerstvěte se ve mlýně",
+            "completedAt": "card_C18"
+          }
         }
       ],
       "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
@@ -914,7 +987,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se zpět k tisícileté lípě",
-          "goto": "card_C17"
+          "goto": "card_C17",
+          "quest": {
+            "id": "q_C18_0",
+            "kind": "travel",
+            "text": "Vraťte se zpět k tisícileté lípě",
+            "completedAt": "card_C17"
+          }
         }
       ]
     },
@@ -984,7 +1063,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se zpět k tisícileté lípě",
-          "goto": "card_C19"
+          "goto": "card_C19",
+          "quest": {
+            "id": "q_C22_0",
+            "kind": "travel",
+            "text": "Vraťte se zpět k tisícileté lípě",
+            "completedAt": "card_C19"
+          }
         }
       ]
     },
@@ -999,7 +1084,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Doběhněte k nebákovskému mlýnu!",
-          "goto": "card_C21"
+          "goto": "card_C21",
+          "quest": {
+            "id": "q_C23_0",
+            "kind": "travel",
+            "text": "Doběhněte k nebákovskému mlýnu!",
+            "completedAt": "card_C21"
+          }
         }
       ]
     },
@@ -1072,7 +1163,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
-          "goto": "card_D01"
+          "goto": "card_D01",
+          "quest": {
+            "id": "q_C27_0",
+            "kind": "travel",
+            "text": "Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
+            "completedAt": "card_D01"
+          }
         }
       ]
     },
@@ -1126,7 +1223,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se ke vstupu do Apoleny",
-          "goto": "card_D07"
+          "goto": "card_D07",
+          "quest": {
+            "id": "q_D03_0",
+            "kind": "travel",
+            "text": "Vraťte se ke vstupu do Apoleny",
+            "completedAt": "card_D07"
+          }
         }
       ]
     },
@@ -1141,7 +1244,13 @@
         {
           "icon": "priroda",
           "text": "Úkol: Poskládejte u každého ohniště hromádku dříví",
-          "goto": "card_D09"
+          "goto": "card_D09",
+          "quest": {
+            "id": "q_D04_0",
+            "kind": "nature",
+            "text": "Poskládejte u každého ohniště hromádku dříví",
+            "completedAt": "card_D09"
+          }
         },
         {
           "icon": "stopy",
@@ -1161,7 +1270,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
-          "goto": "card_E01"
+          "goto": "card_E01",
+          "quest": {
+            "id": "q_D05_0",
+            "kind": "travel",
+            "text": "Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
+            "completedAt": "card_E01"
+          }
         }
       ]
     },
@@ -1182,7 +1297,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
-          "goto": "card_E01"
+          "goto": "card_E01",
+          "quest": {
+            "id": "q_D06_0",
+            "kind": "travel",
+            "text": "Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
+            "completedAt": "card_E01"
+          }
         }
       ]
     },
@@ -1209,7 +1330,13 @@
         {
           "icon": "koruna",
           "text": "Úkol: Sedněte si s někým na pivo a kus řeči",
-          "goto": "card_D03"
+          "goto": "card_D03",
+          "quest": {
+            "id": "q_D08_0",
+            "kind": "deed",
+            "text": "Sedněte si s někým na pivo a kus řeči",
+            "completedAt": "card_D03"
+          }
         },
         {
           "icon": "lupa",
@@ -1269,12 +1396,24 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte pod Trosky",
-          "goto": "card_D06"
+          "goto": "card_D06",
+          "quest": {
+            "id": "q_D11_0",
+            "kind": "travel",
+            "text": "Dojděte pod Trosky",
+            "completedAt": "card_D06"
+          }
         },
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte do Troskovic",
-          "goto": "card_D05"
+          "goto": "card_D05",
+          "quest": {
+            "id": "q_D11_1",
+            "kind": "travel",
+            "text": "Dojděte do Troskovic",
+            "completedAt": "card_D05"
+          }
         }
       ]
     },
@@ -1377,12 +1516,24 @@
         {
           "icon": "koruna",
           "text": "Úkol [😐/😡]: Každý z vás si něco objedná",
-          "goto": "card_E06"
+          "goto": "card_E06",
+          "quest": {
+            "id": "q_E05_0",
+            "kind": "deed",
+            "text": "Úkol [😐/😡]: Každý z vás si něco objedná",
+            "completedAt": "card_E06"
+          }
         },
         {
           "icon": "koruna",
           "text": "Úkol [😊]: Alespoň jeden z vás si něco objedná",
-          "goto": "card_E06"
+          "goto": "card_E06",
+          "quest": {
+            "id": "q_E05_1",
+            "kind": "deed",
+            "text": "Úkol [😊]: Alespoň jeden z vás si něco objedná",
+            "completedAt": "card_E06"
+          }
         }
       ]
     },
@@ -1457,7 +1608,13 @@
         {
           "icon": "lupa",
           "text": "Úkol: Zjistěte, zda někdo z hostů hraje kostky",
-          "goto": "card_F02"
+          "goto": "card_F02",
+          "quest": {
+            "id": "q_F01_0",
+            "kind": "inspect",
+            "text": "Zjistěte, zda někdo z hostů hraje kostky",
+            "completedAt": "card_F02"
+          }
         }
       ]
     },
@@ -1569,7 +1726,14 @@
         {
           "icon": "koruna",
           "text": "Úkol (volitelný): Vraťte protihráči peníze",
-          "goto": "card_F05"
+          "goto": "card_F05",
+          "quest": {
+            "id": "q_F07_0",
+            "kind": "deed",
+            "text": "Vraťte protihráči peníze",
+            "completedAt": "card_F05",
+            "optional": true
+          }
         },
         {
           "icon": "stopy",
@@ -1980,7 +2144,13 @@
         {
           "icon": "priroda",
           "text": "Úkol: Spočítejte ovce v ohradě",
-          "goto": "card_G14"
+          "goto": "card_G14",
+          "quest": {
+            "id": "q_G13_0",
+            "kind": "nature",
+            "text": "Spočítejte ovce v ohradě",
+            "completedAt": "card_G14"
+          }
         }
       ]
     },
@@ -2076,7 +2246,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte na palouk se seníkem",
-          "goto": "card_G24"
+          "goto": "card_G24",
+          "quest": {
+            "id": "q_G17_0",
+            "kind": "travel",
+            "text": "Dojděte na palouk se seníkem",
+            "completedAt": "card_G24"
+          }
         }
       ]
     },
@@ -2093,7 +2269,13 @@
         {
           "icon": "priroda",
           "text": "Úkol: Spočítejte ovce v ohradě",
-          "goto": "card_G14"
+          "goto": "card_G14",
+          "quest": {
+            "id": "q_G18_1",
+            "kind": "nature",
+            "text": "Spočítejte ovce v ohradě",
+            "completedAt": "card_G14"
+          }
         }
       ]
     },
@@ -2108,7 +2290,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte na louku s lovištěm vysoké",
-          "goto": "card_G22"
+          "goto": "card_G22",
+          "quest": {
+            "id": "q_G19_0",
+            "kind": "travel",
+            "text": "Dojděte na louku s lovištěm vysoké",
+            "completedAt": "card_G22"
+          }
         }
       ]
     },
@@ -2124,7 +2312,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte na palouk se seníkem",
-          "goto": "card_G24"
+          "goto": "card_G24",
+          "quest": {
+            "id": "q_G20_0",
+            "kind": "travel",
+            "text": "Dojděte na palouk se seníkem",
+            "completedAt": "card_G24"
+          }
         }
       ]
     },
@@ -2160,7 +2354,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
-          "goto": "card_G24"
+          "goto": "card_G24",
+          "quest": {
+            "id": "q_G22_0",
+            "kind": "travel",
+            "text": "Vraťte se na palouk s rozpadlým stavením",
+            "completedAt": "card_G24"
+          }
         }
       ]
     },
@@ -2175,7 +2375,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
-          "goto": "card_G24"
+          "goto": "card_G24",
+          "quest": {
+            "id": "q_G23_0",
+            "kind": "travel",
+            "text": "Vraťte se na palouk s rozpadlým stavením",
+            "completedAt": "card_G24"
+          }
         }
       ],
       "todo": "Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“."
@@ -2225,7 +2431,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte na louku s lovištěm vysoké",
-          "goto": "card_G23"
+          "goto": "card_G23",
+          "quest": {
+            "id": "q_G26_0",
+            "kind": "travel",
+            "text": "Dojděte na louku s lovištěm vysoké",
+            "completedAt": "card_G23"
+          }
         }
       ]
     },
@@ -2270,7 +2482,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se zpět k ohradě s ovcemi",
-          "goto": "card_H08"
+          "goto": "card_H08",
+          "quest": {
+            "id": "q_H03_0",
+            "kind": "travel",
+            "text": "Vraťte se zpět k ohradě s ovcemi",
+            "completedAt": "card_H08"
+          }
         }
       ]
     },
@@ -2303,7 +2521,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Vraťte se k ohradě s ovcemi",
-          "goto": "card_H08"
+          "goto": "card_H08",
+          "quest": {
+            "id": "q_H05_0",
+            "kind": "travel",
+            "text": "Vraťte se k ohradě s ovcemi",
+            "completedAt": "card_H08"
+          }
         }
       ]
     },
@@ -2335,7 +2559,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte na cestu u rybníka západně odsud",
-          "goto": "card_H09"
+          "goto": "card_H09",
+          "quest": {
+            "id": "q_H07_0",
+            "kind": "travel",
+            "text": "Dojděte na cestu u rybníka západně odsud",
+            "completedAt": "card_H09"
+          }
         }
       ]
     },
@@ -2350,7 +2580,13 @@
         {
           "icon": "koruna",
           "text": "Úkol: Dojděte ke kříži",
-          "goto": "card_H12"
+          "goto": "card_H12",
+          "quest": {
+            "id": "q_H08_0",
+            "kind": "deed",
+            "text": "Dojděte ke kříži",
+            "completedAt": "card_H12"
+          }
         }
       ]
     },
@@ -2366,12 +2602,24 @@
         {
           "icon": "koruna",
           "text": "Úkol: Dojděte k ohradě s ovcemi za Jarkem",
-          "goto": "card_H10"
+          "goto": "card_H10",
+          "quest": {
+            "id": "q_H09_0",
+            "kind": "deed",
+            "text": "Dojděte k ohradě s ovcemi za Jarkem",
+            "completedAt": "card_H10"
+          }
         },
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte do Troskovic",
-          "goto": "card_H15"
+          "goto": "card_H15",
+          "quest": {
+            "id": "q_H09_1",
+            "kind": "travel",
+            "text": "Dojděte do Troskovic",
+            "completedAt": "card_H15"
+          }
         }
       ]
     },
@@ -2386,7 +2634,13 @@
         {
           "icon": "koruna",
           "text": "Úkol: Dojděte ke kříži",
-          "goto": "card_H12"
+          "goto": "card_H12",
+          "quest": {
+            "id": "q_H10_0",
+            "kind": "deed",
+            "text": "Dojděte ke kříži",
+            "completedAt": "card_H12"
+          }
         },
         {
           "icon": "lupa",
@@ -2406,7 +2660,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte do Troskovic",
-          "goto": "card_H15"
+          "goto": "card_H15",
+          "quest": {
+            "id": "q_H11_0",
+            "kind": "travel",
+            "text": "Dojděte do Troskovic",
+            "completedAt": "card_H15"
+          }
         }
       ]
     },
@@ -2444,7 +2704,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte do Troskovic",
-          "goto": "card_H15"
+          "goto": "card_H15",
+          "quest": {
+            "id": "q_H13_0",
+            "kind": "travel",
+            "text": "Dojděte do Troskovic",
+            "completedAt": "card_H15"
+          }
         }
       ]
     },
@@ -2460,7 +2726,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte do Troskovic",
-          "goto": "card_H15"
+          "goto": "card_H15",
+          "quest": {
+            "id": "q_H14_0",
+            "kind": "travel",
+            "text": "Dojděte do Troskovic",
+            "completedAt": "card_H15"
+          }
         }
       ],
       "todo": "Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu."
@@ -2491,7 +2763,13 @@
         {
           "icon": "stopy",
           "text": "Úkol: Dojděte k hospůdce Apolena",
-          "goto": "card_H17"
+          "goto": "card_H17",
+          "quest": {
+            "id": "q_H16_0",
+            "kind": "travel",
+            "text": "Dojděte k hospůdce Apolena",
+            "completedAt": "card_H17"
+          }
         }
       ]
     },

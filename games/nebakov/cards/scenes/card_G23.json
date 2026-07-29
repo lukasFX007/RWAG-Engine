@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
-      "goto": "card_G24"
+      "goto": "card_G24",
+      "quest": {
+        "id": "q_G23_0",
+        "kind": "travel",
+        "text": "Vraťte se na palouk s rozpadlým stavením",
+        "completedAt": "card_G24"
+      }
     }
   ],
   "todo": "Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“."

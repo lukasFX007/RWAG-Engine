@@ -6,7 +6,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte k nebákovskému mlýnu",
-      "goto": "card_C15"
+      "goto": "card_C15",
+      "quest": {
+        "id": "q_C12_0",
+        "kind": "travel",
+        "text": "Dojděte k nebákovskému mlýnu",
+        "completedAt": "card_C15"
+      }
     }
   ],
   "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."

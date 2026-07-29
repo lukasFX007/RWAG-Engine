@@ -10,7 +10,13 @@
     {
       "icon": "lupa",
       "text": "Úkol: Přečtěte si zvací dopis",
-      "goto": "card_B09"
+      "goto": "card_B09",
+      "quest": {
+        "id": "q_B01_0",
+        "kind": "inspect",
+        "text": "Přečtěte si zvací dopis",
+        "completedAt": "card_B09"
+      }
     }
   ]
 }

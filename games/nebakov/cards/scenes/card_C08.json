@@ -10,7 +10,13 @@
     {
       "icon": "koruna",
       "text": "Úkol: Určete jednoho z vás, kdo to udělá",
-      "goto": "card_C10"
+      "goto": "card_C10",
+      "quest": {
+        "id": "q_C08_0",
+        "kind": "deed",
+        "text": "Určete jednoho z vás, kdo to udělá",
+        "completedAt": "card_C10"
+      }
     }
   ]
 }

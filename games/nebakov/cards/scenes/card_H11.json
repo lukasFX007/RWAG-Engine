@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte do Troskovic",
-      "goto": "card_H15"
+      "goto": "card_H15",
+      "quest": {
+        "id": "q_H11_0",
+        "kind": "travel",
+        "text": "Dojděte do Troskovic",
+        "completedAt": "card_H15"
+      }
     }
   ]
 }

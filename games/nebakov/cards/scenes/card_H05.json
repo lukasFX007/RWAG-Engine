@@ -10,7 +10,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Vraťte se k ohradě s ovcemi",
-      "goto": "card_H08"
+      "goto": "card_H08",
+      "quest": {
+        "id": "q_H05_0",
+        "kind": "travel",
+        "text": "Vraťte se k ohradě s ovcemi",
+        "completedAt": "card_H08"
+      }
     }
   ]
 }

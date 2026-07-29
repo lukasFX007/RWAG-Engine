@@ -6,7 +6,13 @@
     {
       "icon": "koruna",
       "text": "Úkol: Sedněte si s někým na pivo a kus řeči",
-      "goto": "card_D03"
+      "goto": "card_D03",
+      "quest": {
+        "id": "q_D08_0",
+        "kind": "deed",
+        "text": "Sedněte si s někým na pivo a kus řeči",
+        "completedAt": "card_D03"
+      }
     },
     {
       "icon": "lupa",

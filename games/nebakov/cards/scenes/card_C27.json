@@ -15,7 +15,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
-      "goto": "card_D01"
+      "goto": "card_D01",
+      "quest": {
+        "id": "q_C27_0",
+        "kind": "travel",
+        "text": "Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
+        "completedAt": "card_D01"
+      }
     }
   ]
 }

@@ -9,12 +9,24 @@
     {
       "icon": "koruna",
       "text": "Úkol [😐/😡]: Každý z vás si něco objedná",
-      "goto": "card_E06"
+      "goto": "card_E06",
+      "quest": {
+        "id": "q_E05_0",
+        "kind": "deed",
+        "text": "Úkol [😐/😡]: Každý z vás si něco objedná",
+        "completedAt": "card_E06"
+      }
     },
     {
       "icon": "koruna",
       "text": "Úkol [😊]: Alespoň jeden z vás si něco objedná",
-      "goto": "card_E06"
+      "goto": "card_E06",
+      "quest": {
+        "id": "q_E05_1",
+        "kind": "deed",
+        "text": "Úkol [😊]: Alespoň jeden z vás si něco objedná",
+        "completedAt": "card_E06"
+      }
     }
   ]
 }

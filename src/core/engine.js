@@ -130,13 +130,18 @@ export class Engine {
     }
 
     const from = this.state.currentScene;
+    const declared = (this.card.choices ?? [])[index];
+
     this.state.history.push({
       from,
       choiceIndex: index,
       to: choice.goto,
       reputation: this.state.reputation,
+      startedQuest: declared?.quest?.id ?? null,
       at: new Date().toISOString(),
     });
+
+    if (declared?.quest) this.#startQuest(declared.quest, from);
     this.#enter(choice.goto, { record: true });
     this.#emit({ type: "moved", from, to: choice.goto });
     return this.card;
@@ -154,6 +159,17 @@ export class Engine {
     this.state.reputation = last.reputation;
     this.state.pendingUndo = false;
     this.state.finishedAt = null;
+
+    // a quest taken on by that decision was never taken on
+    if (last.startedQuest) delete this.state.quests[last.startedQuest];
+    // and one finished by arriving where we just came from is open again
+    for (const quest of Object.values(this.state.quests)) {
+      if (quest.completedAt === last.to && quest.completedBy === "arrival") {
+        quest.done = false;
+        quest.completedBy = null;
+      }
+    }
+
     this.#emit({ type: "undone", to: last.from });
     return this.card;
   }
@@ -189,6 +205,56 @@ export class Engine {
     return out;
   }
 
+  /* ------------------------------------------------------------------ quests */
+
+  /** Quests taken on but not yet finished, in the order they were taken. */
+  get activeQuests() {
+    return Object.values(this.state.quests).filter((q) => !q.done);
+  }
+
+  get completedQuests() {
+    return Object.values(this.state.quests).filter((q) => q.done);
+  }
+
+  /**
+   * Finish a quest by hand. Used by the Milovník přírody's once-per-game
+   * ability and by the UI when players confirm they did something the app
+   * cannot observe.
+   */
+  completeQuest(questId) {
+    const quest = this.state.quests[questId];
+    if (!quest || quest.done) return false;
+    quest.done = true;
+    quest.completedBy = "manual";
+    this.#emit({ type: "questDone", quest });
+    return true;
+  }
+
+  #startQuest(declared, fromScene) {
+    const existing = this.state.quests[declared.id];
+    if (existing && !existing.done) return existing;
+    const quest = {
+      ...declared,
+      startedAt: fromScene,
+      done: false,
+      completedBy: null,
+    };
+    this.state.quests[quest.id] = quest;
+    this.#emit({ type: "questStarted", quest });
+    return quest;
+  }
+
+  /** Arriving at a card finishes every quest that named it as its endpoint. */
+  #settleQuests(sceneId) {
+    for (const quest of Object.values(this.state.quests)) {
+      if (!quest.done && quest.completedAt === sceneId) {
+        quest.done = true;
+        quest.completedBy = "arrival";
+        this.#emit({ type: "questDone", quest });
+      }
+    }
+  }
+
   /* ----------------------------------------------------------------- internal */
 
   #enter(sceneId, { record }) {
@@ -197,6 +263,7 @@ export class Engine {
 
     this.state.currentScene = sceneId;
     this.state.visited[sceneId] = visitCount(this.state, sceneId) + 1;
+    this.#settleQuests(sceneId);
 
     const { unknown } = apply(scene.effects, {
       state: this.state,

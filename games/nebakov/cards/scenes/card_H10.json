@@ -9,7 +9,13 @@
     {
       "icon": "koruna",
       "text": "Úkol: Dojděte ke kříži",
-      "goto": "card_H12"
+      "goto": "card_H12",
+      "quest": {
+        "id": "q_H10_0",
+        "kind": "deed",
+        "text": "Dojděte ke kříži",
+        "completedAt": "card_H12"
+      }
     },
     {
       "icon": "lupa",

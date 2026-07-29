@@ -11,7 +11,13 @@
     {
       "icon": "priroda",
       "text": "Úkol: Spočítejte ovce v ohradě",
-      "goto": "card_G14"
+      "goto": "card_G14",
+      "quest": {
+        "id": "q_G18_1",
+        "kind": "nature",
+        "text": "Spočítejte ovce v ohradě",
+        "completedAt": "card_G14"
+      }
     }
   ]
 }

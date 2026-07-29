@@ -9,7 +9,13 @@
     {
       "icon": "lupa",
       "text": "Úkol: Zjistěte, zda někdo z hostů hraje kostky",
-      "goto": "card_F02"
+      "goto": "card_F02",
+      "quest": {
+        "id": "q_F01_0",
+        "kind": "inspect",
+        "text": "Zjistěte, zda někdo z hostů hraje kostky",
+        "completedAt": "card_F02"
+      }
     }
   ]
 }

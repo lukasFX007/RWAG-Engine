@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte na cestu u rybníka západně odsud",
-      "goto": "card_H09"
+      "goto": "card_H09",
+      "quest": {
+        "id": "q_H07_0",
+        "kind": "travel",
+        "text": "Dojděte na cestu u rybníka západně odsud",
+        "completedAt": "card_H09"
+      }
     }
   ]
 }

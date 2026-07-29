@@ -9,7 +9,13 @@
     {
       "icon": "priroda",
       "text": "Úkol: Poskládejte u každého ohniště hromádku dříví",
-      "goto": "card_D09"
+      "goto": "card_D09",
+      "quest": {
+        "id": "q_D04_0",
+        "kind": "nature",
+        "text": "Poskládejte u každého ohniště hromádku dříví",
+        "completedAt": "card_D09"
+      }
     },
     {
       "icon": "stopy",

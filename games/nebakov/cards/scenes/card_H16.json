@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte k hospůdce Apolena",
-      "goto": "card_H17"
+      "goto": "card_H17",
+      "quest": {
+        "id": "q_H16_0",
+        "kind": "travel",
+        "text": "Dojděte k hospůdce Apolena",
+        "completedAt": "card_H17"
+      }
     }
   ]
 }

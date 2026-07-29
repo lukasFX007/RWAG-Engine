@@ -34,27 +34,23 @@ test("balíček N se rozdá a N01 leží navrchu", () => {
   assert.equal(engine.state.decks.N.order[0], events.topCard);
 });
 
-test("žádná karta nedeklaruje efekt, který engine neumí", () => {
-  const engine = fresh();
+test("žádná karta nedeklaruje efekt, který engine neumí", async () => {
+  // two ways round it: the walk covers every reachable card as it is played,
+  // and the declared types are checked against the registry so unreachable
+  // cards are covered too
   const unknown = new Set();
-  engine.on((e) => {
-    if (e.type === "unknownEffects") e.types.forEach((t) => unknown.add(t));
-  });
-
-  // enter every scene directly rather than walking, to cover them all
-  for (const scene of scenario.scenes) {
-    const probe = fresh();
-    probe.on((e) => {
-      if (e.type === "unknownEffects") e.types.forEach((t) => unknown.add(t));
-    });
-    probe.state.currentScene = scene.id;
-    // re-apply the scene's effects through the engine's own path
-    const enter = Object.getOwnPropertyNames(Object.getPrototypeOf(probe));
-    assert.ok(enter.includes("choose"), "engine musí mít choose()");
-  }
-  // effects are applied on entry; walk instead, which is what actually happens
   walkAll(unknown);
-  assert.deepEqual([...unknown], [], `neimplementované efekty: ${[...unknown].join(", ")}`);
+  assert.deepEqual([...unknown], [],
+    `neimplementované efekty na projité cestě: ${[...unknown].join(", ")}`);
+
+  const { effects } = await import("../src/core/rules.js");
+  const missing = new Set();
+  for (const scene of [...scenario.scenes, ...events.cards]) {
+    for (const effect of scene.effects ?? []) {
+      if (!effects.has(effect.type)) missing.add(`${scene.id}: ${effect.type}`);
+    }
+  }
+  assert.deepEqual([...missing], [], `neimplementované efekty v datech: ${[...missing]}`);
 });
 
 /** Depth-first walk taking every available choice, collecting problems. */
@@ -242,4 +238,61 @@ test("každá role deklaruje jen efekty, které engine zná", async () => {
     }
   }
   assert.deepEqual([...missing], [], `role používají neimplementované efekty: ${[...missing]}`);
+});
+
+test("úkoly reálného scénáře se zakládají a splňují průchodem", () => {
+  const engine = fresh();
+  // card_B10 sets the task "Dojděte k tisícileté lípě" and leads to card_B11
+  engine.state.currentScene = "card_B10";
+  const index = engine.choices().findIndex((c) => c.goto === "card_B11");
+  assert.ok(index >= 0);
+
+  engine.choose(index);
+  const done = engine.completedQuests.map((q) => q.text);
+  assert.ok(done.some((t) => t.includes("tisícileté lípě")),
+    `splněné úkoly: ${done.join(" | ")}`);
+});
+
+test("všechny úkolové volby mají anotaci a platný cíl", () => {
+  const problems = [];
+  for (const scene of scenario.scenes) {
+    for (const [index, choice] of (scene.choices ?? []).entries()) {
+      const isTask = (choice.text ?? "").startsWith("Úkol");
+      if (isTask && !choice.quest) {
+        problems.push(`${scene.id}#${index}: úkolová volba bez anotace quest`);
+      }
+      if (choice.quest) {
+        if (choice.quest.completedAt !== choice.goto) {
+          problems.push(`${scene.id}#${index}: quest.completedAt ≠ goto`);
+        }
+        if (!scenario.scenes.some((s) => s.id === choice.quest.completedAt)) {
+          problems.push(`${scene.id}#${index}: quest míří na neexistující kartu`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(problems, [], problems.join("\n"));
+});
+
+test("v datech jsou čtyři přírodní úkoly, které schopnost roli umí splnit", () => {
+  const nature = [];
+  for (const scene of scenario.scenes) {
+    for (const choice of scene.choices ?? []) {
+      if (choice.quest?.kind === "nature") nature.push(choice.quest.id);
+    }
+  }
+  assert.equal(nature.length, 4, `přírodní úkoly: ${nature.join(", ")}`);
+});
+
+test("id úkolů jsou jedinečná", () => {
+  const seen = new Map();
+  for (const scene of scenario.scenes) {
+    for (const choice of scene.choices ?? []) {
+      const id = choice.quest?.id;
+      if (!id) continue;
+      assert.equal(seen.has(id), false, `duplicitní id úkolu ${id} (${seen.get(id)} a ${scene.id})`);
+      seen.set(id, scene.id);
+    }
+  }
+  assert.equal(seen.size, 46);
 });

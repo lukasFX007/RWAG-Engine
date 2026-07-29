@@ -9,7 +9,14 @@
     {
       "icon": "koruna",
       "text": "Úkol (volitelný): Držte minutu ticha za padlé",
-      "goto": "card_B02"
+      "goto": "card_B02",
+      "quest": {
+        "id": "q_B03_0",
+        "kind": "deed",
+        "text": "Držte minutu ticha za padlé",
+        "completedAt": "card_B02",
+        "optional": true
+      }
     },
     {
       "icon": "stopy",

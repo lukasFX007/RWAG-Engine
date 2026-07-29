@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Vraťte se ke vstupu do Apoleny",
-      "goto": "card_D07"
+      "goto": "card_D07",
+      "quest": {
+        "id": "q_D03_0",
+        "kind": "travel",
+        "text": "Vraťte se ke vstupu do Apoleny",
+        "completedAt": "card_D07"
+      }
     }
   ]
 }

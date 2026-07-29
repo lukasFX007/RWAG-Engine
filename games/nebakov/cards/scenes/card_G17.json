@@ -10,7 +10,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte na palouk se seníkem",
-      "goto": "card_G24"
+      "goto": "card_G24",
+      "quest": {
+        "id": "q_G17_0",
+        "kind": "travel",
+        "text": "Dojděte na palouk se seníkem",
+        "completedAt": "card_G24"
+      }
     }
   ]
 }

@@ -15,7 +15,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Vraťte se zpět k tisícileté lípě",
-      "goto": "card_C17"
+      "goto": "card_C17",
+      "quest": {
+        "id": "q_C18_0",
+        "kind": "travel",
+        "text": "Vraťte se zpět k tisícileté lípě",
+        "completedAt": "card_C17"
+      }
     }
   ]
 }

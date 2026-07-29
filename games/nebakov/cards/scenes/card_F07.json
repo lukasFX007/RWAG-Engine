@@ -9,7 +9,14 @@
     {
       "icon": "koruna",
       "text": "Úkol (volitelný): Vraťte protihráči peníze",
-      "goto": "card_F05"
+      "goto": "card_F05",
+      "quest": {
+        "id": "q_F07_0",
+        "kind": "deed",
+        "text": "Vraťte protihráči peníze",
+        "completedAt": "card_F05",
+        "optional": true
+      }
     },
     {
       "icon": "stopy",

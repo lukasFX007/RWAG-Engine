@@ -9,12 +9,24 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte zpět k lípě",
-      "goto": "card_C17"
+      "goto": "card_C17",
+      "quest": {
+        "id": "q_C15_0",
+        "kind": "travel",
+        "text": "Dojděte zpět k lípě",
+        "completedAt": "card_C17"
+      }
     },
     {
       "icon": "koruna",
       "text": "Úkol: Občerstvěte se ve mlýně",
-      "goto": "card_C18"
+      "goto": "card_C18",
+      "quest": {
+        "id": "q_C15_1",
+        "kind": "deed",
+        "text": "Občerstvěte se ve mlýně",
+        "completedAt": "card_C18"
+      }
     }
   ],
   "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."

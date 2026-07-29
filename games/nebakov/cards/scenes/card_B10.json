@@ -10,7 +10,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Dojděte k tisícileté lípě",
-      "goto": "card_B11"
+      "goto": "card_B11",
+      "quest": {
+        "id": "q_B10_0",
+        "kind": "travel",
+        "text": "Dojděte k tisícileté lípě",
+        "completedAt": "card_B11"
+      }
     }
   ]
 }

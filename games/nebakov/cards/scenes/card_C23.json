@@ -9,7 +9,13 @@
     {
       "icon": "stopy",
       "text": "Úkol: Doběhněte k nebákovskému mlýnu!",
-      "goto": "card_C21"
+      "goto": "card_C21",
+      "quest": {
+        "id": "q_C23_0",
+        "kind": "travel",
+        "text": "Doběhněte k nebákovskému mlýnu!",
+        "completedAt": "card_C21"
+      }
     }
   ]
 }
