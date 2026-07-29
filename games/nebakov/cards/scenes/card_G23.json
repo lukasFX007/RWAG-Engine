@@ -8,9 +8,9 @@
   "choices": [
     {
       "icon": "stopy",
-      "text": "Úkol: Dojděte na palouk se seníkem",
+      "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
       "goto": "card_G24"
     }
   ],
-  "todo": "Na slidu není k této kartě samostatný narativní text; text scény je proto pouze pomocný. Doplní autor scénáře."
+  "todo": "Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“."
 }

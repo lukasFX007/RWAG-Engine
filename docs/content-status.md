@@ -20,13 +20,6 @@ Dosažitelná scéna bez východu, u které východ chybět nemá. Tohle je jedi
 - **B02** · `card_B02` · slide 7, 8
   - Na kartě nebyl ve zdroji nalezen explicitní odkaz na další kartu (pravděpodobně se pokračuje zpět na B03/B04) – doplní autor scénáře.
 
-## B. Chybí návaznost, doplní autor — 1
-
-Karta má pokračovat, ale odkaz ve zdroji není. Pokud je karta zároveň v kategorii A, je uvedená tam.
-
-- **G23** · `card_G23` · slide 20
-  - Na slidu není k této kartě samostatný narativní text; text scény je proto pouze pomocný. Doplní autor scénáře.
-
 ## C. Není to scéna — potřebuje datový model — 23
 
 Karty, které správně nemají žádné „goto“: předměty do inventáře, osobní karty, nápovědy pro konkrétního hráče, náhodná setkání, referenční listy. Nechybí u nich obsah, chybí jim v enginu odpovídající pojem.
@@ -108,12 +101,14 @@ Text popisuje zacházení s fyzickými kartami a v plně digitální hře nemá 
 - **P05** · `card_P05` · slide 5, 24, 25
   - Plně digitální verze: text je úklid fyzických karet po hře a je potřeba ho přepsat na závěrečnou obrazovku. Míří sem čtyři konce z balíčku H (H19, H22, H25, H26).
 
-## G. Vyžaduje rozhodnutí — 1
+## G. Vyžaduje rozhodnutí — 2
 
 Poznámka, na kterou nesedlo žádné pravidlo.
 
 - **F14** · `card_F14` · slide 17, 18
   - Karta obsahuje pouze rámečky s podmínkami, samostatný narativní text na ní ve zdroji není.
+- **G23** · `card_G23` · slide 20
+  - Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“.
 
 ## Chybí mimo karty
 
