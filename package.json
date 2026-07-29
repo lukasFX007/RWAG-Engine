@@ -1,0 +1,16 @@
+{
+  "name": "rwag-engine",
+  "version": "0.1.0",
+  "description": "Engine for RWAG walking adventure games",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\"",
+    "data:build": "python3 tools/cards.py build",
+    "data:check": "python3 tools/cards.py check && python3 tools/cards.py validate",
+    "docs:map": "python3 tools/build_map.py && python3 tools/content_status.py"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

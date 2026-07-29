@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Engine tests
+        run: npm test
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # the bundles are generated from the per-card files, so a commit that
+      # changes one without the other has to fail here rather than ship
+      - name: Per-card files match the bundles
+        run: python3 tools/cards.py check
+
+      - name: Scenario data is structurally sound
+        run: python3 tools/cards.py validate

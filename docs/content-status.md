@@ -7,9 +7,9 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 - scén: **146**, karet balíčku N: **19**
 - poznámek `todo`: **45**
 - **zastavuje průchod hrou: 1**
-- dosažitelných scén bez východu: 3 (`card_B02`, `card_C11`, `card_P05`)
+- dosažitelných scén bez východu: 2 (`card_B02`, `card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
-- nedosažitelných scén: 5 (`card_B12`, `card_D12`, `card_G17`, `card_intro_dopis`, `card_legenda`)
+- nedosažitelných scén: 6 (`card_B12`, `card_C11`, `card_D12`, `card_G17`, `card_intro_dopis`, `card_legenda`)
 
 > Podstatné zjištění: velká většina poznámek `todo` **nejsou chybějící návaznosti**. Jsou to buď karty, které správně žádné pokračování nemají (předměty, osobní karty, náhodná setkání), nebo nejistota, na které kartě má text sedět. Hra je tedy prakticky průchozí a kritickou cestou k produkčnímu stavu je engine, ne dopisování obsahu.
 
@@ -26,7 +26,7 @@ Karty, které správně nemají žádné „goto“: předměty do inventáře, 
 
 - **B12** · `card_B12` · slide 8, 9 · nedosažitelná
   - Šest fyzických karet se stejným kódem B12 (předměty/znalosti do inventáře), nikoli scéna s návazností. Přiřazení textu „Pomůže ti od břichabolu…“ ke Kontryhelu je rekonstruované.
-- **C11** · `card_C11` · slide 11
+- **C11** · `card_C11` · slide 11 · nedosažitelná
   - Osobní karta klatby (ponechává si ji jeden hráč), nikoli scéna s návazností.
 - **D12** · `card_D12` · slide 13, 15 · nedosažitelná
   - Nápovědná karta pro dva hráče hrající stráže (viz D02), nikoli scéna s návazností.
