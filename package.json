@@ -11,6 +11,7 @@
     "data:build": "python3 tools/cards.py build",
     "data:check": "python3 tools/cards.py check && python3 tools/cards.py validate",
     "docs:map": "python3 tools/build_map.py && python3 tools/content_status.py",
+    "docs:questions": "python3 tools/build_questionnaire.py",
     "standalone": "python3 tools/build_standalone.py --scenario nebakov"
   },
   "engines": {
