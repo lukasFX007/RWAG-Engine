@@ -170,7 +170,7 @@ def gather_data(scenario_ids):
     return catalogue, files, sorted(set(missing_images))
 
 
-def build(out_path, scenario_ids, version):
+def build(out_path, scenario_ids, version, fragment=False):
     paths = collect(ENTRY)
     modules = [(p, strip_module(read(p))) for p in paths]
     check_collisions(modules)
@@ -218,28 +218,27 @@ globalThis.rwag = app;
 app.start();
 '''
 
-    html = f'''<!DOCTYPE html>
-<html lang="cs">
-<head>
-<meta charset="utf-8">
+    head = """<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tajemství Nebákova — chodící dobrodružství</title>
 <meta name="theme-color" content="#7a2e22" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#100e0a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#100e0a" media="(prefers-color-scheme: dark)">"""
+
+    body = f"""<div id="app"></div>
+<noscript><p style="padding:1rem">Hra potřebuje JavaScript. Zapněte ho prosím v nastavení prohlížeče.</p></noscript>
 <style>
 {css}
 </style>
-</head>
-<body>
-<div id="app"></div>
-<noscript><p style="padding:1rem">Hra potřebuje JavaScript. Zapněte ho prosím v nastavení prohlížeče.</p></noscript>
 <script>
 {bundle}
 {boot}
-</script>
-</body>
-</html>
-'''
+</script>"""
+
+    if fragment:
+        # a hosted page supplies its own document skeleton, so emit only content
+        html = f"<title>Tajemství Nebákova — chodící dobrodružství</title>\n{body}\n"
+    else:
+        html = f"<!DOCTYPE html>\n<html lang=\"cs\">\n<head>\n{head}\n</head>\n<body>\n{body}\n</body>\n</html>\n"
 
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as fh:
@@ -265,13 +264,15 @@ def main():
     ap.add_argument("--scenario", action="append", default=None,
                     help="omezit na daná id scénářů (lze zadat opakovaně)")
     ap.add_argument("--version", default="0.1.0-standalone")
+    ap.add_argument("--fragment", action="store_true",
+                    help="bez <!doctype>/<html> obálky, pro hostovanou stránku")
     args = ap.parse_args()
 
     for path in (ENTRY, CSS, CATALOGUE):
         if not os.path.exists(path):
             print(f"chyba: {path} neexistuje (spusť z korene repozitáře)", file=sys.stderr)
             return 2
-    return build(args.out, set(args.scenario or []), args.version)
+    return build(args.out, set(args.scenario or []), args.version, args.fragment)
 
 
 if __name__ == "__main__":
