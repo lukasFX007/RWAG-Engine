@@ -2,20 +2,19 @@
   "id": "card_G22",
   "cardCode": "G22",
   "text": [
-    "Cesta tu končí a vy se proto radíte, kudy dál. Váš rozhovor vyplašil srnku, která se tu pásla. Náhle k vám rázným krokem přišel lovčí a už z dálky na vás volal: „To snad nemyslíte vážně?! Nemůžete se bavit potišej? Vyplašili jste mi večeři! Ale když už jste tady, pomůžete mi alespoň zabít čas. A pak se hezky vraťte zpět, odkud jste přišli.“",
-    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Vyhodnoťte 📜N12. Pro získání odměny za úspěch musí výzvu splnit dva členové výpravy.<br>• (V tuto chvíli nelze využít schopnosti rolí.)"
+    "Jarkův popis cesty nebyl zrovna podrobný, ale i přesto se vám nějakým způsobem podařilo jít podle toho, jak vám cestu popsal. Nebo alespoň doufáte, že jste šli správně. Teď je na čase zjistit, zda vás váš úsudek dovedl na správné místo.",
+    "Loviště se pozná podle toho, že je na něm krmelec a místo, kam dávají lovčí návnadu pro zvěř. A v blízkosti také určitě musí stát posed. Podle toho poznáte, že jste na správném místě."
   ],
   "choices": [
     {
-      "icon": "stopy",
-      "text": "Úkol: Vraťte se na palouk s rozpadlým stavením",
-      "goto": "card_G24",
-      "quest": {
-        "id": "q_G22_0",
-        "kind": "travel",
-        "text": "Vraťte se na palouk s rozpadlým stavením",
-        "completedAt": "card_G24"
-      }
+      "icon": "mozek",
+      "text": "[Vidíte posed i krmelec] Jste na lovišti",
+      "goto": "card_G23"
+    },
+    {
+      "icon": "lebka",
+      "text": "[Nevidíte krmelec ani posed] Zabloudili jste",
+      "goto": "card_G26"
     }
   ]
 }

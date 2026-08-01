@@ -16,11 +16,6 @@
       "icon": "lupa",
       "text": "Prohlédnout si svitek",
       "goto": "card_H13"
-    },
-    {
-      "icon": "stopy",
-      "text": "Vydejte se rovnou za písařem do Troskovic",
-      "goto": "card_H14"
     }
   ]
 }

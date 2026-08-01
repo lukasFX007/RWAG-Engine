@@ -1,9 +1,10 @@
 {
-  "id": "card_lecka_kmen",
+  "id": "card_N08",
   "text": [
     "Léčka?!",
     "„Na cestě před vámi leží kmen stromu. Takové věci se zpravidla nedějí náhodou. Možná bude lepší, když to vezmete přes les nebo louku, a nebo si prostě najdete jinou cestu. A nebo půjdete dál a pokusíte Fortunu.“",
     "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚁⚂⚃⚄: 😡😡"
   ],
-  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+  "cardCode": "N08",
+  "slug": "lecka_kmen"
 }

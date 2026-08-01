@@ -5,7 +5,19 @@
     {
       "icon": "stopy",
       "text": "Pokračovat v dobrodružství.",
-      "goto": "card_C01"
+      "goto": "card_C01",
+      "effects": [
+        {
+          "type": "encounter",
+          "deck": "N",
+          "when": [
+            {
+              "type": "has_item",
+              "item": "kletba_b08"
+            }
+          ]
+        }
+      ]
     }
   ],
   "cardCode": "B06"

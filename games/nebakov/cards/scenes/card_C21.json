@@ -1,12 +1,37 @@
 {
   "id": "card_C21",
   "cardCode": "C21",
-  "text": "Běželi jste marně. Na skále, kde dříve stál Nebákov, je jen hromada rozvalin. Zbytky rozbořeného hradu sotva stojí na skalním masivu. Mezi kamením ční doutnající kusy dřeva a nad spáleništěm hrozivě krouží hejno krkavců.",
+  "text": [
+    "Běželi jste marně.",
+    "Na skále, kde dříve stál Nebákov, je jen hromada rozvalin. Zbytky rozbořeného hradu sotva stojí na skalním masivu. Mezi kamením ční doutnající kusy dřeva a nad spáleništěm hrozivě krouží hejno krkavců.",
+    "Na kartě je dále uvedeno:<br>• 💀 Následek: Ten, kdo dorazil poslední, si sám vyhodnotí setkání (⏳).<br>• NEBO 💀 Následek: Celá skupina ztrácí reputaci (😡😡)."
+  ],
   "choices": [
     {
-      "icon": "stopy",
-      "text": "Kartu C21 odložte a pokračujte čtením karty C13.",
-      "goto": "card_C13"
+      "icon": "lebka",
+      "text": "Následek: Ten, kdo dorazil poslední, si sám vyhodnotí setkání (⏳)",
+      "goto": "card_C13",
+      "effects": [
+        {
+          "type": "encounter",
+          "deck": "N"
+        }
+      ]
+    },
+    {
+      "icon": "lebka",
+      "text": "Následek: Celá skupina ztrácí reputaci (😡😡)",
+      "goto": "card_C13",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -2
+        },
+        {
+          "type": "toast",
+          "text": "Ztrácíte 2 body reputace."
+        }
+      ]
     }
   ]
 }

@@ -16,7 +16,15 @@
         "text": "Držte minutu ticha za padlé",
         "completedAt": "card_B02",
         "optional": true
-      }
+      },
+      "disableIf": [
+        {
+          "type": "visited",
+          "scene": "card_B02",
+          "negate": true
+        }
+      ],
+      "note": "Splněný volitelný úkol se už nenabízí – karta B03 zbude jen jako cesta na B04."
     },
     {
       "icon": "stopy",

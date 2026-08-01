@@ -12,6 +12,13 @@
       "value": 1
     }
   ],
-  "choices": [],
-  "todo": "Na kartě nebyl ve zdroji nalezen explicitní odkaz na další kartu (pravděpodobně se pokračuje zpět na B03/B04) – doplní autor scénáře."
+  "choices": [
+    {
+      "icon": "stopy",
+      "text": "Vrátit se k pomníku a pokračovat",
+      "goto": "card_B03",
+      "revisit": true,
+      "note": "Návrat na B03; úkol, který sem vedl, se tam už podruhé nenabídne."
+    }
+  ]
 }

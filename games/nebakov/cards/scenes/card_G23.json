@@ -2,8 +2,8 @@
   "id": "card_G23",
   "cardCode": "G23",
   "text": [
-    "Jste na lovišti vysoké zvěře.",
-    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: vyhodnoťte setkání (⏳)."
+    "Cesta tu končí a vy se proto radíte, kudy dál. Váš rozhovor vyplašil srnku, která se tu pásla. Náhle k vám rázným krokem přišel lovčí a už z dálky na vás volal: „To snad nemyslíte vážně?! Nemůžete se bavit potišej? Vyplašili jste mi večeři! Ale když už jste tady, pomůžete mi alespoň zabít čas. A pak se hezky vraťte zpět, odkud jste přišli.“",
+    "Na kartě je dále uvedeno:<br>• 👣 Podmínka postupu: Vyhodnoťte 📜N12. Pro získání odměny za úspěch musí výzvu splnit dva členové výpravy.<br>• (V tuto chvíli nelze využít schopnosti rolí.)"
   ],
   "choices": [
     {
@@ -17,6 +17,5 @@
         "completedAt": "card_G24"
       }
     }
-  ],
-  "todo": "Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“."
+  ]
 }

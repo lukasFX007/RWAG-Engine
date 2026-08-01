@@ -7,6 +7,27 @@
   ],
   "choices": [
     {
+      "icon": "koruna",
+      "text": "Aktivita (volitelná): Dojít až k vodopádu (😊😊)",
+      "goto": "card_G25",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 2
+        },
+        {
+          "type": "toast",
+          "text": "Cesta k vodopádu stála za to. Získáváte 2 body reputace."
+        }
+      ],
+      "quest": {
+        "id": "q_G24_0",
+        "kind": "travel",
+        "text": "Dojděte k vodopádu",
+        "completedAt": "card_G25"
+      }
+    },
+    {
       "icon": "stopy",
       "text": "Pokračujte kartou G25",
       "goto": "card_G25"

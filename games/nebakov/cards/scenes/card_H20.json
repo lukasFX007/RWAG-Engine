@@ -1,12 +1,17 @@
 {
   "id": "card_H20",
   "cardCode": "H20",
-  "text": "Nedokážete skrýt své zklamání. Po celodenním snažení jste znovu na začátku.",
+  "text": [
+    "Zdá se, že vaše další dobrodružství bude pokračovat někde v Kutné Hoře. Nejdřív ale bude nutné oznámit paní Machně výsledek vašeho pátrání a také, jak to dopadlo s jejím sídlem.",
+    "Shledali jste, že teď je čas občerstvit se v místní hospůdce, přenocovat v přilehlém tábořišti a ráno si sehnat povoz, který vás odveze domů.",
+    "Úspěšně jste dokončili troskovické dobrodružství a dokázali si zachovat kladnou reputaci. To je velice chvályhodné!<br>Ale možná ho budete chtít zažít znovu a zkusit jiná rozhodnutí."
+  ],
   "choices": [
     {
-      "icon": "stopy",
-      "text": "Pokračujte kartou H22",
-      "goto": "card_H22"
+      "icon": "svitek",
+      "text": "Nyní se prosím řiďte pokyny na kartě P05.",
+      "goto": "card_P05"
     }
-  ]
+  ],
+  "todo": "Konec hry (Q22b): H20, H22, H25 a H26 jsou čtyři závěry příběhu a všechny ústí do P05, což je závěrečná obrazovka. Míří sem H19 (dobrá reputace)."
 }

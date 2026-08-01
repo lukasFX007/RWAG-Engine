@@ -12,5 +12,33 @@
       "goto": "card_B10"
     }
   ],
-  "todo": "Přiřazení textu prokletí ke kartě B08 je rekonstruované – ověřte proti originálu."
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -2,
+      "when": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "type": "toast",
+      "text": "Prokletí: trest za to, že jste neškodného starce ani nepozdravili. Ztrácíte 2 body reputace.",
+      "when": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "item": "kletba_b08",
+      "name": "Prokletí z karty B08"
+    }
+  ]
 }

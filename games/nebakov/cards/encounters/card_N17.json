@@ -1,0 +1,21 @@
+{
+  "id": "card_N17",
+  "text": [
+    "Hádankář",
+    "„Potkali jste ženu, která má pro vás hádanku:",
+    "‚Kdybych byla živá, neunesla bych tolik jako teď. Uvnitř jsem sice dutá, ale často plná života a mnohdy i dobrého jídla. Ačkoliv jsem obtěžkána, neklesám dolů. Co jsem?‘",
+    "Uhodnete správnou odpověď?“"
+  ],
+  "cardCode": "N17",
+  "slug": "hadankar_neuplna",
+  "answer": {
+    "text": "Loď",
+    "printedOn": "O04"
+  },
+  "reward": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ]
+}

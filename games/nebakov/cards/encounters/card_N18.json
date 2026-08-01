@@ -1,0 +1,21 @@
+{
+  "id": "card_N18",
+  "cardCode": "N18",
+  "slug": "hadankar_stin",
+  "text": [
+    "Hádankář",
+    "„Potkali jste cizince, který má pro vás hádanku:",
+    "‚Každý mne má, ať už živý nebo ne. Člověk i zvíře. Květina i strom. Skála i Měsíc. Točím se za vším jako Slunce. Můžeš se mě na čas zbavit, ale vždy se k tobě vrátím. Co jsem?‘",
+    "Uhodnete správnou odpověď?“"
+  ],
+  "answer": {
+    "text": "Stín",
+    "printedOn": null
+  },
+  "reward": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ]
+}

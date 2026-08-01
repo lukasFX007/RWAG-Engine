@@ -1,5 +1,5 @@
 {
-  "id": "card_hadankar_kraj",
+  "id": "card_N14",
   "text": [
     "Hádankář",
     "„Potkali jste cizince, který má pro vás hádanku:",
@@ -7,5 +7,16 @@
     "Uhodnete správnou odpověď?“",
     "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• (Nepočítá se to, pokud splníte úkol v rámci dobrodružství.)<br>• Řešení najdete na kartě O01, uprostřed."
   ],
-  "todo": "Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje."
+  "cardCode": "N14",
+  "slug": "hadankar_kraj",
+  "answer": {
+    "text": "Mapa",
+    "printedOn": "O01"
+  },
+  "reward": [
+    {
+      "type": "reputation",
+      "value": 1
+    }
+  ]
 }

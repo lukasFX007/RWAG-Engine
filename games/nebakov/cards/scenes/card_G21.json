@@ -2,20 +2,19 @@
   "id": "card_G21",
   "cardCode": "G21",
   "text": [
-    "Jarkův popis cesty nebyl zrovna podrobný, ale i přesto se vám nějakým způsobem podařilo jít podle toho, jak vám cestu popsal. Nebo alespoň doufáte, že jste šli správně. Teď je na čase zjistit, zda vás váš úsudek dovedl na správné místo.",
-    "Loviště se pozná podle toho, že je na něm krmelec a místo, kam dávají lovčí návnadu pro zvěř. A v blízkosti také určitě musí stát posed. Podle toho poznáte, že jste na správném místě."
+    "Jarek: „Dobže, že si necháte poladit. Co já se tam nachodil, kdyš sem byl mlačí a vodíval si tam holkyh, hehe. No, teď už tam zajdu jen občas, natlhat vlaní oka na mazání na klouby… Každopádně, půjdete z kopce k Vidláku a potom doleva smělem na Želejov. Ke konci lybníka vedou dvě cesty do lesa. Vy půjdete až po tý dluhý. Je tam taková veliká skála, co jí žíkáme Pilíž. To by mohl bejt váš plvní záchytnej bod, že jste splávně. A ta cesta vás potom dovede až na palouk s lozpadlým seníkem. To bude váš dluhej záchytnej bod. Z palouku potom půjdete lovně podél kolyta až k vodopádu.“"
   ],
   "choices": [
     {
-      "icon": "mozek",
-      "text": "[Vidíte posed i krmelec] Jste na lovišti",
-      "goto": "card_G23"
-    },
-    {
-      "icon": "lebka",
-      "text": "[Nevidíte krmelec ani posed] Zabloudili jste",
-      "goto": "card_G26"
+      "icon": "stopy",
+      "text": "Úkol: Dojděte ke skále za odbočkou do lesa",
+      "goto": "card_G17",
+      "quest": {
+        "id": "q_G21_0",
+        "kind": "travel",
+        "text": "Dojděte ke skále za odbočkou do lesa",
+        "completedAt": "card_G17"
+      }
     }
-  ],
-  "todo": "Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu."
+  ]
 }

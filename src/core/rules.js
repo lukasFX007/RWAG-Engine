@@ -126,6 +126,56 @@ registerCondition("quest_done", (condition, { state }) => {
   };
 });
 
+/* ----------------------------------------------------------------- predicates */
+
+/**
+ * Plain "does this hold right now" checks, for effects that only fire under a
+ * condition — B08's curse costs two reputation, but only to a group whose
+ * reputation is above three.
+ *
+ * Deliberately a separate registry from `conditions`. There, a matching
+ * condition LOCKS a choice, so `{reputation < 1}` means "closed below one".
+ * Here the same JSON has to mean "true below one". One registry serving both
+ * would make identical data read as its own opposite depending on which field
+ * it sat in, which is exactly the kind of mistake that does not show up until
+ * someone plays the card.
+ */
+export const predicates = new Map();
+
+export function registerPredicate(type, fn) {
+  predicates.set(type, fn);
+}
+
+/** @returns {boolean} unknown predicates are false, never a silent pass */
+export function holds(predicate, ctx) {
+  const fn = predicates.get(predicate.type);
+  return fn ? fn(predicate, ctx) === true : false;
+}
+
+export function holdsAll(list, ctx) {
+  return (list ?? []).every((predicate) => holds(predicate, ctx));
+}
+
+registerPredicate("reputation", (predicate, { state }) => {
+  const op = OPERATORS[predicate.operator];
+  return op ? op(state.reputation, predicate.value) : false;
+});
+
+registerPredicate("visited", (predicate, { state }) => {
+  const count = state.visited[predicate.scene] ?? 0;
+  return predicate.negate ? count === 0 : count > 0;
+});
+
+registerPredicate("has_item", (predicate, { state }) => {
+  const owned = (state.inventory[predicate.item]?.count ?? 0) > 0;
+  return predicate.negate ? !owned : owned;
+});
+
+registerPredicate("quest_done", (predicate, { state }) => {
+  const done = state.quests[predicate.quest]?.done === true;
+  return predicate.negate ? !done : done;
+});
+
 /* -------------------------------------------------------------------- effects */
 
 export const effects = new Map();
@@ -153,15 +203,21 @@ for (const [type, text] of Object.entries(REMINDER_EFFECTS)) {
 
 export function apply(list, ctx) {
   const unknown = [];
+  const skipped = [];
   for (const effect of list ?? []) {
     const fn = effects.get(effect.type);
     if (!fn) {
       unknown.push(effect.type);
       continue;
     }
+    // `when` gates the effect itself, not the choice that carries it
+    if (effect.when && !holdsAll(effect.when, ctx)) {
+      skipped.push(effect.type);
+      continue;
+    }
     fn(effect, ctx);
   }
-  return { unknown };
+  return { unknown, skipped };
 }
 
 registerEffect("reputation", (effect, { state }) => {

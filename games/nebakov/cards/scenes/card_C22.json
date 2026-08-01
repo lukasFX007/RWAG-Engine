@@ -17,5 +17,29 @@
         "completedAt": "card_C19"
       }
     }
+  ],
+  "effects": [
+    {
+      "type": "reputation",
+      "value": -2,
+      "when": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "type": "toast",
+      "text": "Prokletí: lidé s dobrou pověstí je stíhají výčitky. Ztrácíte 2 body reputace.",
+      "when": [
+        {
+          "type": "reputation",
+          "operator": ">",
+          "value": -2
+        }
+      ]
+    }
   ]
 }

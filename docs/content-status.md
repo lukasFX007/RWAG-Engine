@@ -4,23 +4,16 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 
 ## Souhrn
 
-- scén: **146**, karet balíčku N: **19**
-- poznámek `todo`: **46**
-- **zastavuje průchod hrou: 1**
-- dosažitelných scén bez východu: 2 (`card_B02`, `card_P05`)
+- scén: **146**, karet balíčku N: **20**
+- poznámek `todo`: **25**
+- **zastavuje průchod hrou: 0**
+- dosažitelných scén bez východu: 1 (`card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
-- nedosažitelných scén: 10 (`card_B12`, `card_C11`, `card_D12`, `card_G17`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_intro_dopis`, `card_legenda`)
+- nedosažitelných scén: 9 (`card_B12`, `card_C11`, `card_D12`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_intro_dopis`, `card_legenda`)
 
 > Podstatné zjištění: velká většina poznámek `todo` **nejsou chybějící návaznosti**. Jsou to buď karty, které správně žádné pokračování nemají (předměty, osobní karty, náhodná setkání), nebo nejistota, na které kartě má text sedět. Hra je tedy prakticky průchozí a kritickou cestou k produkčnímu stavu je engine, ne dopisování obsahu.
 
-## A. Zastavuje průchod hrou — 1
-
-Dosažitelná scéna bez východu, u které východ chybět nemá. Tohle je jediná kategorie, která brání dohrát hru.
-
-- **B02** · `card_B02` · slide 7, 8
-  - Na kartě nebyl ve zdroji nalezen explicitní odkaz na další kartu (pravděpodobně se pokračuje zpět na B03/B04) – doplní autor scénáře.
-
-## C. Není to scéna — potřebuje datový model — 23
+## C. Není to scéna — potřebuje datový model — 7
 
 Karty, které správně nemají žádné „goto“: předměty do inventáře, osobní karty, nápovědy pro konkrétního hráče, náhodná setkání, referenční listy. Nechybí u nich obsah, chybí jim v enginu odpovídající pojem.
 
@@ -34,48 +27,23 @@ Karty, které správně nemají žádné „goto“: předměty do inventáře, 
   - Karta N01 leží navrchu balíčku „N“ – uvádí mechaniku náhodných setkání. Nemá návaznost.
 - **N12** · `card_N12` · slide 20, 27 · balíček N
   - Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost.
-- 16 karet se stejnou poznámkou:
-  - **card_chudina_v_nouzi** · `card_chudina_v_nouzi` · balíček N
-  - **card_cikani** · `card_cikani` · balíček N
-  - **card_hadankar_bratri** · `card_hadankar_bratri` · balíček N
-  - **card_hadankar_jehla** · `card_hadankar_jehla` · balíček N
-  - **card_hadankar_kraj** · `card_hadankar_kraj` · balíček N
-  - **card_hadankar_sul** · `card_hadankar_sul` · balíček N
-  - **card_hadankar_ticho** · `card_hadankar_ticho` · balíček N
-  - **card_lecka_kmen** · `card_lecka_kmen` · balíček N
-  - **card_lecka_zablesk** · `card_lecka_zablesk` · balíček N
-  - **card_neporadek_po_najezdu** · `card_neporadek_po_najezdu` · balíček N
-  - **card_pomoc_v_nouzi** · `card_pomoc_v_nouzi` · balíček N
-  - **card_potulny_kostkar** · `card_potulny_kostkar` · balíček N
-  - **card_smutne_zeny** · `card_smutne_zeny` · balíček N
-  - **card_zkazena_voda** · `card_zkazena_voda` · balíček N
-  - **card_zlodej** · `card_zlodej` · balíček N
-  - **card_zraneni** · `card_zraneni` · balíček N
-  - Karta balíčku „N“ (náhodné setkání) – ve zdroji nemá odkaz na další kartu; vyhodnocuje se na místě. Kódy N02–N11 a N13–N16 nelze ze zdroje jednoznačně přiřadit ke konkrétním textům, proto je použit slug. Zvaž přesun do samostatného events.json, na který scenario.json už odkazuje.
 - **card_intro_dopis** · `card_intro_dopis` · nedosažitelná
   - Zvací dopis je fyzická příloha v obálce; ve hře se čte na kartě B09. Návaznost není na dopise uvedena.
 - **card_legenda** · `card_legenda` · nedosažitelná
   - Referenční stránka (rub karty rolí), nikoli herní scéna. Obsah odpovídá legend.json. „📜A29“ je pouze ilustrativní příklad, nejde o skutečný odkaz na kartu.
 
-## D. Ověřit přiřazení textu ke kartě — 17
+## D. Ověřit přiřazení textu ke kartě — 12
 
 Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hranice. Hra se hraje, ale text může sedět na jiné kartě, než má. Nutná kontrola proti originálu.
 
-- 9 karet se stejnou poznámkou:
+- 6 karet se stejnou poznámkou:
   - **A03** · `card_A03` · slide 6
   - **A12** · `card_A12` · slide 7
   - **A13** · `card_A13` · slide 7
   - **A14** · `card_A14` · slide 7
-  - **C12** · `card_C12` · slide 11
   - **C15** · `card_C15` · slide 11
   - **G11** · `card_G11` · slide 19
-  - **G21** · `card_G21` · slide 19, 20, 21
-  - **H19** · `card_H19` · slide 24
   - Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu.
-- **B08** · `card_B08` · slide 8
-  - Přiřazení textu prokletí ke kartě B08 je rekonstruované – ověřte proti originálu.
-- **C19** · `card_C19` · slide 11, 12, 13
-  - Dva rámečky „Následek“ (⏳ / 😡😡) jsou ve zdroji vysázené mezi kartami C19 a C21 – jejich přiřazení právě ke C19 je rekonstruované, ověřte proti originálu.
 - **G09** · `card_G09` · slide 18, 19
   - Rozdělení dvojice karet G10 / G11 mezi G08 (vlídná varianta) a G09 (nevlídná varianta) je rekonstruované – ověřte proti originálu.
 - **H14** · `card_H14` · slide 22, 23
@@ -87,13 +55,6 @@ Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hrani
   - **P04** · `card_P04` · slide 5 · nedosažitelná
   - Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu.
 
-## E. Chybí obsah ve zdroji — 1
-
-Zdrojová prezentace nebyla stažená celá.
-
-- **card_hadankar_neuplna** · `card_hadankar_neuplna` · balíček N
-  - POZOR: text této hádanky je ve zdrojové extrakci odříznutý (prezentace nebyla stažena celá). Doplňte celý text a řešení z originálu.
-
 ## F. Přepsat pro digitální verzi — 1
 
 Text popisuje zacházení s fyzickými kartami a v plně digitální hře nemá smysl.
@@ -101,14 +62,18 @@ Text popisuje zacházení s fyzickými kartami a v plně digitální hře nemá 
 - **P05** · `card_P05` · slide 5, 24, 25
   - Plně digitální verze: text je úklid fyzických karet po hře a je potřeba ho přepsat na závěrečnou obrazovku. Míří sem čtyři konce z balíčku H (H19, H22, H25, H26).
 
-## G. Vyžaduje rozhodnutí — 3
+## G. Vyžaduje rozhodnutí — 5
 
 Poznámka, na kterou nesedlo žádné pravidlo.
 
+- **C12** · `card_C12` · slide 11
+  - Text karty potvrzen autorem (Q15a). Původně sem byl přiřazen text „Ještě než ten chudák vydechl naposledy…“, který podle autora patří na C16 – jenže C16 už nese jiný text. Kam přesně patří, ověřuje druhý dotazník.
 - **F14** · `card_F14` · slide 17, 18
   - Karta obsahuje pouze rámečky s podmínkami, samostatný narativní text na ní ve zdroji není.
-- **G23** · `card_G23` · slide 20
-  - Úkol i cíl jsou potvrzené autorem. Zbývá dvojí: podmínka postupu je zatím jen text v kartě a potřebuje datový model (úkol se má odemknout až po jejím splnění), a je třeba potvrdit, která podmínka to je – na slidu 20 je vedle sebe vysázená obecná „vyhodnoťte setkání (⏳)“ i konkrétní „Vyhodnoťte 📜N12; pro odměnu musí výzvu splnit dva členové výpravy“.
+- **H20** · `card_H20` · slide 24
+  - Konec hry (Q22b): H20, H22, H25 a H26 jsou čtyři závěry příběhu a všechny ústí do P05, což je závěrečná obrazovka. Míří sem H19 (dobrá reputace).
+- **H21** · `card_H21` · slide 24
+  - Cíl volby odvozený: autor potvrdil (Q22b), že konce jsou H20, H22, H25 a H26, a text „Nedokážete skrýt své zklamání…“ patří podle Q22a na H19. Karta H20, na kterou tahle volba mířila, tím přestala být mezikrokem a stala se kladným koncem – ten na větev, kde písař odmítl pomoci, nesedí. H22 je jediný konec, který zbývá. Potvrdit v druhém dotazníku.
 - **H23** · `card_H23` · slide 24, 25
   - Hradla obou větví jsou odvozená z toho, že se doplňují: „[😡]“ pokrývá zápornou reputaci, takže „[😐]“ dostalo zbytek (0 a víc). Samotné 😐 znamená podle legendy přesně 0 – potvrďte, že tady jde o „ne špatnou“ reputaci, ne o přesnou nulu.
 

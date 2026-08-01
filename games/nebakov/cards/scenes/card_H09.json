@@ -20,14 +20,8 @@
     },
     {
       "icon": "stopy",
-      "text": "Úkol: Dojděte do Troskovic",
-      "goto": "card_H15",
-      "quest": {
-        "id": "q_H09_1",
-        "kind": "travel",
-        "text": "Dojděte do Troskovic",
-        "completedAt": "card_H15"
-      }
+      "text": "Vydejte se rovnou za písařem do Troskovic",
+      "goto": "card_H14"
     }
   ]
 }

@@ -30,7 +30,8 @@ test("scénář se načte a začne na kartě A01", () => {
   assert.equal(engine.card.id, "card_A01");
 });
 
-test("karty pravidel P01–P04 jsou mimo hru, P05 zůstává koncem", () => {
+/** Every card the graph can lead to, ignoring gates — reachability, not routes. */
+function reachableScenes() {
   const adjacency = new Map(scenario.scenes.map((s) => [
     s.id, (s.choices ?? []).map((c) => c.goto).filter(Boolean),
   ]));
@@ -42,7 +43,11 @@ test("karty pravidel P01–P04 jsou mimo hru, P05 zůstává koncem", () => {
     reached.add(node);
     stack.push(...(adjacency.get(node) ?? []));
   }
+  return reached;
+}
 
+test("karty pravidel P01–P04 jsou mimo hru, P05 zůstává koncem", () => {
+  const reached = reachableScenes();
   for (const id of ["card_P01", "card_P02", "card_P03", "card_P04"]) {
     assert.equal(reached.has(id), false, `${id} má být mimo hru`);
   }
@@ -144,10 +149,7 @@ function walkAll(unknownSink = new Set()) {
  * asserts every entry is still a dead end — so the list cannot quietly rot once
  * the card is fixed.
  */
-const KNOWN_DEAD_ENDS = new Set([
-  // card B02 has no onward link in the source deck; the author has to supply it
-  "card_B02",
-]);
+const KNOWN_DEAD_ENDS = new Set([]);
 
 test("celý graf lze projít bez neznámé slepé uličky a bez chyby", () => {
   const { errors, endings, visitedEdges } = walkAll();
@@ -176,6 +178,109 @@ test("hra dojde do konce označeného ending", () => {
     assert.equal(scene.ending, true, `${id} ukončuje hru, ale nemá ending: true`);
   }
   assert.ok(endings.has("card_P05"), "card_P05 má být dosažitelný konec");
+});
+
+/* ------------------------------------------ what the author confirmed in v1 */
+
+test("minuta ticha u pomníku se dá splnit jen jednou", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_B03";
+
+  const silence = engine.choices().findIndex((c) => c.goto === "card_B02");
+  assert.ok(silence >= 0, "z B03 musí vést volitelný úkol na B02");
+  assert.equal(engine.choices()[silence].available, true);
+
+  engine.choose(silence);
+  engine.confirmArrival();
+  assert.equal(engine.card.id, "card_B02");
+  assert.equal(engine.state.reputation, 1);
+
+  // B02 is the one place in the game that leads back where it came from, so the
+  // task that got there has to close behind it or the loop never ends
+  const back = engine.choices().findIndex((c) => c.goto === "card_B03");
+  assert.ok(back >= 0, "B02 se musí vracet na B03");
+  engine.choose(back);
+
+  assert.equal(engine.card.id, "card_B03");
+  const again = engine.choices().find((c) => c.goto === "card_B02");
+  assert.equal(again.available, false, "splněný úkol se nesmí nabízet podruhé");
+  assert.ok(engine.choices().some((c) => c.goto === "card_B04" && c.available));
+});
+
+/** Walk B04 -> B08, the card that ignores the herbalist, so its effects run. */
+function ignoreHerbalist(engine) {
+  engine.state.currentScene = "card_B04";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_B08"));
+  return engine;
+}
+
+test("prokletí na B08 zaplatí jen skupina, která má co ztratit", () => {
+  const proud = fresh();
+  proud.state.reputation = 5;
+  ignoreHerbalist(proud);
+  assert.equal(proud.state.reputation, 3, "reputace nad 3 stojí prokletí 2 body");
+
+  const humble = fresh();
+  humble.state.reputation = 2;
+  ignoreHerbalist(humble);
+  assert.equal(humble.state.reputation, 2, "pod hranicí se nesmí strhnout nic");
+});
+
+test("hrozba z B08 dožene skupinu na konci balíčku B", () => {
+  const cursed = ignoreHerbalist(fresh());
+  assert.ok(cursed.state.inventory.kletba_b08, "B08 má prokletí uložit");
+
+  const drawn = [];
+  cursed.on((event) => event.type === "encounter" && drawn.push(event.card.id));
+  cursed.state.currentScene = "card_B06";
+  cursed.choose(cursed.choices().findIndex((c) => c.goto === "card_C01"));
+  assert.equal(drawn.length, 1, "odložení balíčku B má vyvolat setkání");
+
+  const clean = fresh();
+  const none = [];
+  clean.on((event) => event.type === "encounter" && none.push(event.card.id));
+  clean.state.currentScene = "card_B06";
+  clean.choose(clean.choices().findIndex((c) => c.goto === "card_C01"));
+  assert.equal(none.length, 0, "bez prokletí se nic tahat nemá");
+});
+
+test("na skálu G17 se dá dojít a lovčí čeká na G23", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_G21";
+  engine.choose(0);
+  engine.confirmArrival();
+  assert.equal(engine.card.id, "card_G17");
+
+  const huntsman = scenario.scenes.find((s) => s.id === "card_G23");
+  assert.match(huntsman.text.join(" "), /lovčí/);
+  assert.match(huntsman.text.join(" "), /N12/, "podmínka postupu je konkrétně N12");
+});
+
+test("každá hádanka balíčku N zná svoje řešení", () => {
+  const riddles = events.cards.filter((c) => c.slug?.startsWith("hadankar"));
+  assert.equal(riddles.length, 7, "autor potvrdil sedm hádanek");
+  for (const riddle of riddles) {
+    assert.ok(riddle.answer?.text, `${riddle.id} nemá řešení`);
+    assert.ok(riddle.text.join(" ").includes("Co jsem?")
+      || riddle.text.join(" ").includes("jejich jména?"),
+      `${riddle.id} nemá dokončené zadání`);
+  }
+});
+
+test("balíček N má dvacet karet s kódy N01 až N20", () => {
+  const codes = events.cards.map((c) => c.cardCode).sort();
+  const expected = Array.from({ length: 20 }, (_, i) => `N${String(i + 1).padStart(2, "0")}`);
+  assert.deepEqual(codes, expected);
+});
+
+test("hra má čtyři závěry z balíčku H a všechny ústí do P05", () => {
+  const reached = reachableScenes();
+  for (const id of ["card_H20", "card_H22", "card_H25", "card_H26"]) {
+    assert.ok(reached.has(id), `${id} má být dosažitelný závěr`);
+    const scene = scenario.scenes.find((s) => s.id === id);
+    assert.deepEqual((scene.choices ?? []).map((c) => c.goto), ["card_P05"],
+      `${id} má vést na závěrečnou obrazovku P05`);
+  }
 });
 
 test("trasa pomoci umírajícímu dává +1, ne +2", () => {
@@ -621,6 +726,10 @@ function printedEffects(text) {
 
 function storedEffects(choice) {
   return (choice.effects ?? []).flatMap((effect) => {
+    // A conditional effect is not printed on the choice that fires it: B06 owes
+    // an encounter only to a group carrying B08's curse, and it is B08 that says
+    // so. Matching those against this card's text would always fail.
+    if (effect.when) return [];
     if (effect.type === "encounter") return ["encounter"];
     if (effect.type === "reputation") {
       return [`reputation:${effect.value > 0 ? "+" : "-"}${Math.abs(effect.value)}`];

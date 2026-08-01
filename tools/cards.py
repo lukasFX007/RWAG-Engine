@@ -187,6 +187,12 @@ def validate(scenario, events=None):
         errors.append(f"duplicitní cardCode: {sorted(dup_codes)}")
 
     adj = defaultdict(list)
+    # Edges a card declares as a return to somewhere already seen. B03's optional
+    # minute of silence leads to B02 and B02 leads back — a loop the players walk
+    # exactly once, because arriving at B02 locks the task that led there. The
+    # cycle check below would otherwise report the whole rest of the game, so the
+    # edge is excluded from it and kept for reachability.
+    returns = defaultdict(list)
     for s in scenes:
         for c in s.get("choices") or []:
             tgt = c.get("goto")
@@ -194,8 +200,14 @@ def validate(scenario, events=None):
                 continue
             if tgt not in by_id:
                 errors.append(f"{s['id']}: goto míří na neexistující {tgt}")
+            elif c.get("revisit"):
+                returns[s["id"]].append(tgt)
             else:
                 adj[s["id"]].append(tgt)
+
+    reach = defaultdict(list)
+    for node in set(adj) | set(returns):
+        reach[node] = adj[node] + returns[node]
 
     start = scenario.get("startScene")
     if start and start not in by_id:
@@ -209,7 +221,7 @@ def validate(scenario, events=None):
             if n in seen:
                 continue
             seen.add(n)
-            stack.extend(adj[n])
+            stack.extend(reach[n])
         unreached = sorted(set(by_id) - seen)
         if unreached:
             warnings.append(

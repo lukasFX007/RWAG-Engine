@@ -8,8 +8,9 @@
   "choices": [
     {
       "icon": "stopy",
-      "text": "Pokračujte kartou H20",
-      "goto": "card_H20"
+      "text": "Pokračujte kartou H22",
+      "goto": "card_H22"
     }
-  ]
+  ],
+  "todo": "Cíl volby odvozený: autor potvrdil (Q22b), že konce jsou H20, H22, H25 a H26, a text „Nedokážete skrýt své zklamání…“ patří podle Q22a na H19. Karta H20, na kterou tahle volba mířila, tím přestala být mezikrokem a stala se kladným koncem – ten na větev, kde písař odmítl pomoci, nesedí. H22 je jediný konec, který zbývá. Potvrdit v druhém dotazníku."
 }

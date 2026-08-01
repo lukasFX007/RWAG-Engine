@@ -3,8 +3,7 @@
   "cardCode": "C19",
   "text": [
     "Vrátili jste se ke stromu. Pacifista pokračuje dalších 20 kroků a tam počká na zbytek skupiny.",
-    "Muž je bledý a nedýchá. Přišli jste pozdě, teď už mu nikdo nepomůže. Škoda. 😡 Tašvice leží vedle jeho bezvládné ruky. Ten chudák ještě stihl prsty od krve napsat na kořen stromu: „A p o L“.",
-    "Na kartě je dále uvedeno:<br>• 💀 Následek: Ten, kdo dorazil poslední, si sám vyhodnotí setkání (⏳).<br>• 💀 Následek: Celá skupina ztrácí reputaci (😡😡)."
+    "Muž je bledý a nedýchá. Přišli jste pozdě, teď už mu nikdo nepomůže. Škoda. 😡 Tašvice leží vedle jeho bezvládné ruky. Ten chudák ještě stihl prsty od krve napsat na kořen stromu: „A p o L“."
   ],
   "effects": [
     {
@@ -18,6 +17,5 @@
       "text": "Prohlédnout si jeho tašvici",
       "goto": "card_C14"
     }
-  ],
-  "todo": "Dva rámečky „Následek“ (⏳ / 😡😡) jsou ve zdroji vysázené mezi kartami C19 a C21 – jejich přiřazení právě ke C19 je rekonstruované, ověřte proti originálu."
+  ]
 }
