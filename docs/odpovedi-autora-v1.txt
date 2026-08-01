@@ -1,0 +1,329 @@
+Odpovědi k dotazníku — Tajemství Nebákova
+verze dotazníku: 1 · vyplněno: 2026-08-01
+
+[Q01] karta B02 — kam pokračovat po minutě ticha u pomníku?
+Po splnění úkolu držet minutu ticha zbyde na kartě B03 možnost "pokračovat na B04". Úkol držet minutu ticha je volitelný a odměna za něj je zisk reputace z karty B02.
+
+[Q01-poznamka] poznámka — karta B02 — kam pokračovat po minutě ticha u pomníku?
+Na kartě A11 je napsáno "Jakmile splníte vybraný povinný úkol z karty, vraťte ji do balíčku, pokud vám ovšem karta neříká něco jiného." Toto je volitelný (nepovinný) úkol, takže jeho splnění nezpůsobí vrácení karty B03, ani karta neříká nic jiného.
+
+[Q02a] „Mám města, ale žádné zlato. Mám domy, ale žádné lidi. Mám lesy, ale žádnou zvěř. Mám vodu, ale žádné ryby. Co jsem?“  (O01, uprostřed)
+Mapa
+
+[Q02b] „Každý mne jí, ale nikdo neloví, ani neseje. Nerostu na poli ani na stromech. Kvůli mému vzniku musí umřít moře, ale když já se dotknu vody, zhynu. Co jsem?“ (O02, vpravo nahoře)
+Sůl
+
+[Q02c] „Můžu být všude, ale jsem málokde. Každý mne zná a čas od času si mne přeje. Pokud mne přivoláte, ztratím se. Je totiž velice těžké mne udržet. Co jsem?“ (O03, uprostřed nahoře)
+Ticho
+
+[Q02d] „Mám jedno oko, ale i tak nevidím. Ač jsem malá, pro spoustu lidí jsem důležitá. Spojím i to, co zničil čas. Zakrývám živé, zatímco sama jsem neživá a nahá. Co jsem?“  (O02, uprostřed)
+Jehla
+
+[Q02e] „Jsou dva bratři, kteří se nikdy nepotkali. Nejí, nepijí, nechodí ven. Mnozí se za nimi vypravili, ale nikdy nedošli cíle. Ještě že Slunce je pravidelně navštěvuje. Znáte jejich jména?“  (O01, vpravo uprostřed a dole)
+Východ a západ
+
+[Q02f] je na kartách O01–O03 něco jiného než řešení hádanek (pokyny, obrázky, další informace)? A existuje karta O04? V přehledu kódů se objevuje, na slidech ne.
+Na kartu O04 odkazuje jedna hádanka z dotazu Q03.
+
+[Q03a] celý text hádanky
+‘Kdybych byla živá, neunesla bych tolik jako teď. Uvnitř jsem sice dutá, ale často plná života a mnohdy i dobrého jídla. Ačkoliv jsem obtěžkána, neklesám dolů. Co jsem?’
+
+[Q03b] řešení
+Loď
+
+[Q03c] odměna (😊? něco jiného?)
+😊 je odměna za všechny hádanky.
+
+[Q04] jedna karta balíčku „N“ chybí úplně
+Je tam ještě jedna hádanka na kartě N18: ‘Každý mne má, ať už živý nebo ne. Člověk i zvíře. Květina i strom. Skála i Měsíc. Točím se za vším jako Slunce. Můžeš se mě na čas zbavit, ale vždy se k tobě vrátím. Co jsem?’ Odpověď je Stín. Ve hře je celkem 7 hádanek.
+
+[Q05-1] Chudina v nouzi — „Přišlaaa bídaaa, mooor a hlaaad.“
+N13
+
+[Q05-2] Cikáni — potulní muzikanti, tancovačka
+N05
+
+[Q05-3] Hádankář — „Mám města, ale žádné zlato…“ (kraj/mapa)
+N14
+
+[Q05-4] Hádankář — „Každý mne jí, ale nikdo neloví…“ (sůl)
+N15
+
+[Q05-5] Hádankář — „Můžu být všude, ale jsem málokde…“ (ticho)
+N16
+
+[Q05-6] Hádankář — „Mám jedno oko, ale i tak nevidím…“ (jehla)
+N19
+
+[Q05-7] Hádankář — „Jsou dva bratři, kteří se nikdy nepotkali…“
+N20
+
+[Q05-8] Hádankář — „Kdybych byla živá, neunesla bych tolik…“ (nedokončená, viz Q03)
+N17
+
+[Q05-9] Léčka?! — kmen stromu na cestě
+N08
+
+[Q05-10] Léčka?! — něco se zablesklo v křoví
+N10
+
+[Q05-11] Nepořádek po nájezdu — uklidit po loupežnících z Řáholce
+N06
+
+[Q05-12] Pomoc v nouzi — čeledíni odtáhli do Turnova
+N07
+
+[Q05-13] Potulný kostkař! — hod na šesti kostkách
+N04
+
+[Q05-14] Smutné ženy — muži odvedeni na frontu
+N03
+
+[Q05-15] Zkažená voda — troskovická studna
+N11
+
+[Q05-16] Zloděj! — „Okradli vás.“
+N02
+
+[Q05-17] Zranění — zakopnutí o kámen, bolavá noha
+N09
+
+[Q06a] co je na kartě REP+
+jásající dav a hodnota reputace +1
+
+[Q06b] co je na kartě REP−
+naštvaný dava hodnota reputace -1
+
+[Q06c] má reputace ve hře nějaký strop nebo dno (nejvýš X, nejméně Y)? Kolik má skupina reputace na začátku hry?
+strop není, na začátku hry má skupina 0 reputace, může ale ihned získat díky roli pacifista
+
+[Q07] obrázek `lipa02.jpg`
+obrázků mám více, dodám později všechny najednou
+
+[Q08a] které konkrétní hospody / místa s jídlem se tím myslí? (Stačí názvy nebo „hospoda v Troskovicích, hostinec u …“, souřadnice si dohledám.)
+v oblasti hry jsou tyto podniky, u kterých se bude počítat výhoda:
+Hospůdka Apolena
+Křenovský šenk
+Restaurace Nebákov
+Restaurace Trosky
+Občerstvení Vidlák
+Občerstvení Keltské opidum Semín
+
+[Q08b] co znamená „mimo obce“? Které obce jsou v okruhu hry?
+To je složitejší. Protože v okruhu hry je dnes jen obec Troskovice. Ale obvod na mapách neodpovídá cedulím začátek a konec obce. Navíc je tu víc "osad", které se dají považovat za obce, zvlášť když je to stylizované do středověku, kdy to bylo úplně jinak.  Takže tady bych to nechal otevřené s tím, že později doplníme "střed" místa a rádius a to stanoví, co počítat za obec. Hra potom zobrazí "nacházíte se v obci Tachov" například.
+
+[Q08c] má aplikace polohu skutečně kontrolovat z GPS, nebo to má být na hráčích (tlačítko „jsme u hospody“)? a) kontrolovat z GPS  b) nechat na hráčích  c) obojí — GPS s možností přepsat
+představa: pokud hráči kliknou na "splněno", hra vyhodnotí a pokud nebudou v místě GPS + okruh 25 metrů třeba, tak hra řekne něco ve smyslu "podle GPS sensoru ve vašem telefonu nejste na tomto místě, přesto si přejete pokračovat?" Volba - ano, jsme tu, nebo ne, jdeme tam. Když budou lidi hrát karetní variantu hry, taky to bude na poctivosti lidí. Když budou lidi hrát karetní variantu hry, taky to bude na poctivosti lidí.
+
+[Q09a] co je v každé ze tří obálek?
+obálka 1 - dopis
+obálka 2 - mapa č. 1
+obálka 3 - mapa č. 2
+obálka 4 - mapa č. 3
+
+[Q09b] co je na mapách (kolik jich je, co zobrazují) a co přesně je zakreslené na „Mapě 03“, kterou Jarek na kartě G20 domaluje?
+Mapa 1 zobrazuje jen šipkami cestu z troskovic na nebákov a jen nezbytnou část celé mapy.
+Mapa 2 zachycuje celou oblast, ale chybí tam označení obce Tachov, aby hráči museli později "tápat".
+Mapa 3 je detail z tachova od ohrady k vodopádu s vyznačenou cestou šipkami.
+
+[Q09c] v plně digitální verzi mapy nemůžou být papírové. Co s nimi? a) obrázek mapy v aplikaci  b) živá mapa s polohou  c) mapu vypustit a cestu popsat slovy  d) jinak
+V aplikaci budou digitální mapy. Mám je zpracované a můžu poté poskytnou. Představa - ve hře bude inventář - v základu tam bude dopis a mapa, později přibyde mapa 2 (od lípy), mapa 3 (od Jarka), stránky herbáře (aktuálně karty B12, odměna z karty B07), píšťalka (od kostkáře z hospůdky Apolena), zakrvácený kámen (od ohrady s ovcemi)
+
+[Q10a] sedí texty na A03, A12, A13, A14?
+A03 sedí, A12 sedí, A13 sedí, A14 sedí
+
+[Q10b] je správně, že balíček A končí buď na A03, nebo na A14, podle toho, jestli si hráči nechali vysvětlit pravidla?
+Ano to je správně. Pokud někdo už pravidla zná, přeskakuje "tutoriál".
+
+[Q11] karta A13 — směr podmínky
+a) správně
+
+[Q12] karta H23 — co znamená samotné `[😐]`
+a) ano, [😐] = reputace přesně 0 a [😡] = reputace záporná, protože se na tuto kartu dostanu s nižší než 1 a potom se to ještě může zhoršit pokud je nižší než 0.
+
+[Q13a] sedí text i oba rámečky prokletí na B08?
+ano
+
+[Q13b] „Prokletí [😐 > 3]: ➤ 😡😡“ — kdy přesně se to spustí? Ihned při přečtení karty, pokud má skupina reputaci nad 3? Nebo někdy později?
+Ano, pokud má reputaci nad 3. Je to vlastně trest za to, že skupina s dobrou reputací odmítla pozdravit očividně neškodného starého muže.
+
+[Q14a] sedí popis „Pomůže ti od břichabolu. Máš-li běhání, nevolnost nebo větry…“ ke Kontryheli? (Přiřazení popisů k bylinám jsem rekonstruoval.)
+Ano
+
+[Q14b] „až 4 další, každou výměnou za 1 pozitivní reputaci“ — znamená to, že skupina za každou další bylinu ztratí 1 bod reputace? Nebo že si smí vzít další jen ten, kdo má reputaci kladnou, a nic neplatí?
+Skupina za každou další bylinu ztratí 1 bod reputace.
+
+[Q14c] bere si bylinu jeden hráč (osobně), nebo celá skupina do společného inventáře?
+Celá skupina do společného inventáře
+
+[Q14d] má bylina ve hře nějaký mechanický efekt (dá se někde použít), nebo je to jen příběhová ozdoba?
+Je to pomoc pro úkol, kdy můžou pomoci muži u lípy od bolesti, aby věděli, jaká bylina se hodí na bolest.
+
+[Q15a] sedí texty na C12, C15 a C21?
+C12 nesedí, má být: Severovýchodní vítr k vám donesl zápach spáleného dřeva. Podívali jste se tím směrem. Z místa, kde nejspíš leží Nebákov vidíte přes stromy stoupat dým. Možná, že se rozhodnete tam vůbec nechodit. Náhle jste směrem od tamtud uslyšeli
+burácení kamenů, jako když se rozpadá puklá skála.
+🔍 Prohlédnou si mužovu tašvici ➤ 📜C14
+NEBO 👣 Úkol: Dojděte k nebákovskému mlýnu ➤ 📜C15
+Ještě než ten chudák vydechl naposledy, je C16
+C15 sedí
+C21 sedí
+
+[Q15b] mají C15 a C21 opravdu skoro totožný text?
+Ano, jen k nim vedou jiné cesty a tudíž je z nich jiný výsledek.
+
+[Q16a] patří oba rámečky na C19? (Nebo některý na C21?)
+C21 je Běželi jste marně. Na skále, kde dříve stál Nebákov je jen hromada rozvalin. Zbytky rozbořeného hradu sotva stojí na skalním masivu. Mezi kamením ční doutnající kusy dřeva a nad spáleništěm hrozivě krouží hejno krkavců.
+💀 Následek: Ten kdo dorazil poslední si sám vyhodnotí setkání (⏳).
+NEBO
+💀 Následek: Celá skupina ztrácí reputaci (😡😡)
+Kartu C21 odlože a pokračujte čtením karty C13.
+
+C19 je Vrátili jste se ke stromu. Pacifista pokračuje dalších 20 kroků a tam počká na zbytek skupiny.
+Muž je bledý a nedýchá. Přišli jste pozdě, teď už mu nikdo nepomůže. Škoda. 😡 Tašvice leží vedle jeho bezvládné ruky. Ten chudák ještě stihl prsty od krve napsat na kořen stromu: A P O L (červenou barvou).
+🔍 Prohlédnou si jeho tašvici ➤ 📜C14
+
+[Q16b] kolik bodů reputace se na C19 ubírá? V textu je nejdřív 😡 uprostřed vyprávění („Škoda. 😡“) a potom rámeček „ztrácí reputaci (😡😡)“. Je to celkem −2 (jen ten rámeček, 😡 v textu je jeho ohlášení), nebo −3 (obojí se počítá)? Teď mám v datech −1, což je špatně v každém případě.
+Je to karta C21 a je tam NEBO. Takže buď si poslední sám vyhodnotí setkání NEBO celá skupina ztrácí 2 body reputace
+
+[Q16c] obecně: „😊😊“ a „😡😡“ znamenají vždy dva body? (Na A03 to tak beru: 😊😊 = +2. Na C27 taky: 😡😡 = −2.)
+Ano
+
+[Q17a] je to spárované správně (G08→G10, G09→G11)?
+ano
+
+[Q17b] na G10 nemá „Nabídnout Jarkovi pomoc“ žádnou podmínku, na G11 má [😐 > 2]. V prezentaci se u téže volby objevují obě čísla — [😐 > 2] i [😐 > 3]. Které je správné a na které kartě?
+Z G10 bez podmínky, z karty G11 😐 > 2, z karty G12 😐 > 3; ano, všechny vedou ke G18, ale důležité je, jak se člověk dostane na G10, G11, G12 - jaké chování a reputaci měl předtím.
+
+[Q18] karta G17 — jak se na ni dá dostat
+b) G21
+
+[Q18-poznamka] poznámka — karta G17 — jak se na ni dá dostat
+text G21 je: Jarek: “Dobže, že si necháte poladit. Co já se tam nachodil, kdyš sem byl mlačí a vodíval si tam holkyh, hehe. No, teď už tam zajdu jen občas, natlhat vlaní oka na mazání na klouby… Každopádně, půjdete z kopce k Vidláku a potom doleva smělem na Želejov. Ke konci lybníka vedou dvě cesty do lesa. Vy půjdete až po tý dluhý. Je tam taková veliká skála, co jí žíkáme Pilíž. To by mohl bejt váš plvní záchytnej bod, že jste splávně. A ta cesta vás potom dovede až na palouk s lozpadlým seníkem. To bude váš dluhej záchytnej bod. Z palouku potom půjdete lovně podél kolyta až k vodopádu.”
+👣 Úkol: Dojděte ke skále za odbočkou do lesa ➤ 📜G17
+
+G20:
+Jarek: “Dobže, že si necháte poladit. Co já se tam nachodil, kdyš sem byl mlačí. Vodíval sem si tam holky, hehe. Ale teď už tam zajdu jen občas, natlhat vlaní oka na mazání na klouby… Takže, běžte z kopce k Vidláku. potom doleva smělem na Želejov. No a skolo na konci lybníka je taková skála, Pilíž jí žíkáme. Za ní vede cesta do lesa. Pak je to tlochu složitý. Víte co? Půjčte mi tu mapu, já vám to zakleslím na dluhou stlanu.” Po chvíli čmárání vám mapu vrátil zpátky.  “Plvní záchytný bod je plo vás palouk s lozboženým seníkem.”
+🔎 Vezměte si mapu v obálce označené “Mapa 03”
+👣 Úkol: Dojděte na palouk se seníkem ➤ 📜G24
+
+[Q19] karta G23 — podmínka postupu na lovišti
+b) u G23 je konkrétní podmínka - 👣 Podmínka postupu: Vyhodnoťte 📜N12. Pro získání odměny za úspěch musí výzvu splnit dva členové výpravy.
+(V tuto chvíli  nelze využít schopnosti rolí.)
+
+[Q19-poznamka] poznámka — karta G23 — podmínka postupu na lovišti
+G23: Cesta tu končí a vy se proto radíte, kudy dál. Váš rozhovor vyplašil srnku, která se tu pásla. Náhle k vám rázným krokem přišel lovčí a už z dálky na vás volal: “To snad nemyslíte vážně?! Nemůžete se bavit potišej? Vyplašili jste mi večeři! Ale když už jste tady, pomůžete mi alespoň zabít čas. A pak se hezky vraťte zpět, odkud jste přišli.”
+👣 Podmínka postupu: Vyhodnoťte 📜N12. Pro získání odměny za úspěch musí výzvu splnit dva členové výpravy.
+(V tuto chvíli  nelze využít schopnosti rolí.)
+👣 Úkol: Vraťte se na palouk s rozpadlým stavením ➤ 📜G24
+
+[Q20] sedí tento text na G21?
+Ne, toto je karta G22. Karta G21 - viz otázka Q18.
+
+[Q21] karta H14 — návaznost z H12
+Špatný předpoklad.
+H12:
+Došli jste ke křížku, zasvěcenému svatému Janu z Nepomuk, který ochraňuje zpovědní tajemství. Cestou jste zvažovali, zda se zde rovnou nevyzpovídat a říct vše o cizinci, Jarkovi a jeho možné vině na smrti toho muže. Dospěli jste k závěru, že snad bude lepší, když to necháte být a zůstane to jen mezi Jarkem a Bohem. Možná, kdybyste tu byli sami. U pomníku jste však potkali u ženu z Želejova. Dali jste se s ní do řeči a ona velice ocenila to, že jste se šli za nebožtíka přimluvit u Pána. 😊
+JArkova žádost je splněna a duše toho muže v bezpečí, teď si v klidu můžete prohlédnou svitek.
+🔍 Prohlédnou si svitek ➤ 📜H13
+
+[Q21-poznamka] poznámka — karta H14 — návaznost z H12
+Popisovaná volba je na kartě H09:
+Přišli jste na cestu, která vede podél rybníku.
+
+Když se dáte doleva, dojdete do Troskovic. Místní písař by vám snad mohl pomoci rozluštit to tajemné písmo a říci vám, jakou zprávu ten záhadný cizinec z nebákova nesl.
+
+Když půjdete na druhou stranu, dojdete zpět nahoru do Tachova. Jarek by si možná zasloužil vědět, jak to s tím mužem dopadlo.
+👑 Úkol:
+Dojďte k ohradě s ovcemi za Jarkem ➤ 📜H10
+NEBO
+👣 Vydejte se rovnou za písařem do troskovic
+    ➤ 📜H14
+
+[Q22a] sedí text na H19?
+Ano, karta H19 je:
+“Dokonce se mu prý podařilo dostat do přízně zlosynů, kteří za tou lstí stojí. Bojí se však, že za chvíli jeho klam prohlédnou a tak žádá o pomoc a ochranu. A to jak pro sebe, tak pro tvrz samotnou. Na závěr dopisu uvádí, že se toho času bude ukrývat ve skalním městě zvaném Apolena, kde mu místní poustevník nabídl přístřeší ve své jeskyni. Bohužel tím jeho dopis končí. Pokud chcete vědět více, nejspíš budete muset do Kutné Hory a najít pana Jaroslava.” S těmito slovy vám podal dopis zpět do ruky.
+Nedokážete skrýt své zklamání. Po celodenním snažení jste znovu na začátku.
+Pokračujte kartou H20
+H20:
+Zdá se, že vaše další dobrodružství bude pokračovat někde v Kutné Hoře. Nejdřív ale bude nutné oznámit paní Machně výsledek vašeho pátrání a také, jak to dopadlo s jejím sídlem.
+Shledali jste, že teď je čas občerstvit se v místní hospůdce, přenocovat v přilehlém tábořišti a ráno si sehnat povoz, který vás odveze domů.
+
+Úspěšně jste dokončili troskovické dobrodružství a dokázali si zachovat kladnou reputaci. To je velice chvályhodné!
+Ale možná ho budete chtít zažít znovu a zkusit jiná rozhodnutí.
+
+[Q22b] čtyři konce (H19, H22, H25, H26) — jsou to opravdu jen tyhle čtyři, nebo jich je víc?
+Konce jsou 4 - H20, H22, H25, H26
+
+[Q23a] je správně, že F14 nemá vlastní příběhový text, jen ty dva rámečky?
+Ano, to je správně.
+
+[Q23b] druhá volba posílá taky na G01 (jen s pokutou). Je to tak?
+Ano
+
+[Q24] je rozdělení textu mezi P01–P05 správné?
+Ano
+
+[Q25] karty P01–P05 v digitální hře
+a)
+
+[Q26] kostky a fyzické výzvy
+d) bude na výběr - "hodit kostkou v aplikaci" nebo  "hodíme sami". Pokud hráči vyberou, že hodí sami, bude tam okno kam hráči zadají výsledek.
+
+[Q27] karty pro jednoho hráče
+C11 - pro začátek a)
+D12 - pro začátek a) s tím, že bude volba, že už mají 2 hráči telefonu v ruce a může se zobrazit text
+B12 - to jsou karty pro všechny do inventáře (stránky herbáře) - viz otázka Q14
+B09 - pro všechny do inventáře
+
+[Q27-poznamka] poznámka — karty pro jednoho hráče
+Vize do budoucna - každý bude moci mít svůj telefon a podle role se mu zobrazí co je potřeba - například bonus, postih reputace, klatba, atd... 
+Takže pak to bude fungovat tak, že jeden hráč založí hru (ta bude mít svoje unikátní id), zadá počet hráčů a počká, až se všichni ostatní připojí do "lobby" (pošle pak třeba odkaz, nebo nahlásí id), až budou všichni hráči přihlášení, rozhodí se role. Pro případ, že někdo nebude mít telefon, bude mít "zakladatel" hry možnost u hráče zadat tuto skutečnost a hra tak na něj nebude čekat. Hráč, který se bude chtít připojit buď klikne na odkaz nebo po dotázání zadá id hry.
+Takže hru povede jeden hráč (zakladatel) a ostatní budou vidět inventář (takže mapu), stav reputace, role (svoji  i ostatních), jednotlivé scény (vyjma D12) ale nebudou moci klikat na volby. Zakladatel bude moci tuto "schopnost" klikat na volby předat někomu z hráčů, ale tím o i sám přijde.
+Podle role se bude měnit co hráči uvidí. Například pacifista v případě, že opustí místo, kde nemá být a nebude tam se skupinou uvidí místo scény - "opustil jsi místo a čekáš na ostatní" nebo tak něco. Ostatní zase uvidí "nemůžete pokračovat, dokud je s vámi pacifista" a jemu zase "nemůžeš se na to koukat, musíš se vzdálit" a až bude dostatečně daleko, objeví se "opustil jsi místo...". Opět bude ale zase možnost volby pro ostatní "ano, už je pryč" s dotazem, zda je tomu skutečně tak, pokud by GPS poloha neodpovídala skutečnosti. Aby se předešlo tomu, že hra bude nehratelná kvůli technickým problémům.
+Analfabet pro změnu neuvidí text, ale pouze změť písmem (nebo dizlekticky rozházený text) a obrázky.
+
+[Q28] schopnosti rolí, které se nedají naprogramovat
+Je to v pořádku. Ohledně analfabeta - viz otázka Q27. Role Analfabet je:
+Analfabet
+
+👤 Jsi člověk  pocházející z prostých poměrů a vzdělání se ti nikdy nedostalo. Sotva ovládáš svůj rodný jazyk, natož potom nějaký cizí. Jsi však zvídavý a když tě zaujme nějaký nápis, ptáš se ostatních, co to je.
+⊕︀ [vždy]: Nemušíš nechávat spropitné.
+⊝ [vždy]: Neumíš číst ani počítat.
+
+Samotný analfabet ji ale uvidí takto:
+Analfabet
+
+👤 Jsi čvoljek opchájezící sporsýtch pomjerů a vdzěnálí se ti nidky nedosalto. Stova ováldáš svůj rodný jazik, notaž potom někají cizí. Jsi vašk zídvavý a kydž tě zajume někajý npáis, ptáš se osatntích, co to je.
+⊕︀ [vždy]: Nemušíš nechávat spropitné.
+⊝ [vždy]: Neumíš číst ani počítat.
+Což už simuluje to, že neumí číst. A dále viz Q27
+
+[Q29a] mají se role rozdávat náhodně, nebo si je hráči mají moct vybrat?
+Dal bych tam volby:
+- Při hraní použít role, s poznámkou, že je to silně doporučeno pro lepší zážitek (někdo třeba bude chtít hráč bez rolí).
+- Použít náhodně vybrané role, s poznámkou, že pro první hru je to doporučené.
+- Vybrat role vlastní, s poznámkou, že pokud už hru hráli, a chtějí si buď zkusit jinou roli nebo naopak opět hrát za tu, co už znají.
+
+[Q29b] jsou všechny role kompletní? Každá má teď jednu výhodu a jednu nevýhodu. Chybí u některé něco?
+Ne, jsou kompletní. Případně možná nějaké role doplním, pro lepší rehratelnost.
+
+[Q30a] kolik to má dát? (😊😊 = +2?)
+Ano, +2
+
+[Q30b] jak má hráč potvrdit, že tam skutečně došel? a) tlačítko „byli jsme u vodopádu“ (na čestné slovo) b) podle GPS c) jinak
+Podle GPS, viz Q08c - pokud hráči kliknou na "splněno", hra vyhodnotí a pokud nebudou v místě GPS + okruh 25 metrů třeba, tak hra řekne něco ve smyslu "podle GPS sensoru ve vašem telefonu nejste na tomto místě, přesto si přejete pokračovat?" Volba - ano, jsme tu, nebo ne, jdeme tam. Když budou lidi hrát karetní variantu hry, taky to bude na poctivosti lidí.
+
+[Q31a] B08: „Prokletí [😐 > 3] ➤ 😡😡“ se spustí kdy? a) ihned při přečtení karty, pokud je reputace nad 3 b) až ve chvíli, kdy skupina odloží balíček „B“ c) jinak
+První prokletí ihned (-2 rep), druhé prokletí (náhodné setkání) až na konci balíčku B - před novou scénou se zobrazí scéna s náhodným setkáním.
+
+[Q31b] B08: „Jakmile odložíte balíček B ➤ ⏳“ — v digitální hře žádné balíčky nejsou. Kterou kartou začíná to, co bylo „odložení balíčku B“? (Přechod na C01?)
+Poslední karta z balíčku B je B06, tam je poté pokyn "Balíček “B” odložte. Vezměte si balíček “C” a přečtěte C01." A je to u lípy, ve chvíli, kdy odejde pacifista.
+
+[Q31c] C22: „Prokletí [😊] ➤ 😡😡“ se spustí kdy?
+Ihned.
+
+[Q31d] obecně: „prokletí“ je jednorázový následek, nebo něco, co skupinu drží, dokud se nesplní nějaká podmínka? (Na B08 stojí „Ponechte si tuto kartu, dokud toto prokletí nepomine.“ — což zní na to druhé.)
+Pokud není uvedeno jinak, tak se spustí hned. Druhé prokletí na B08 je vlastně "hrozba" náhodného setkání, která pomine na konci balíčku B. Ale třeba klatba na hráče, který nemůže mluvit, dokud si nedá panáka bude trvat, dokud ten člověk nepotvrdí "dal jsem si panáka" - bude mít stále na očích ještě nad vykreslenou scénou "klatba - nemůžeš mluvit!" A pod tím tlačítko "dal jsem si panáka"
+
+[Q32] co vám na hře v aplikaci nesedí, co chybí, nebo co bylo v papírové verzi jinak, než jsem to popsal?
+Poprosím o podobný dotazník, který bude obsahovat všechny karty a texty. Někde jsem našel rozpor mezi realitou a tím, co bylo načteno (naspíš kvůli přesahům polí apod.). Projdu to a ověřím, případně opravím a doplním co chybí.
