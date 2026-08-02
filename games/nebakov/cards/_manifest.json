@@ -9,7 +9,8 @@
     "roleSet": "roles.json",
     "players_min": 3,
     "players_max": 8,
-    "startScene": "card_A01"
+    "startScene": "card_A01",
+    "items": "items.json"
   },
   "sceneOrder": [
     "card_B06",

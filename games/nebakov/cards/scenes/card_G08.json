@@ -9,7 +9,13 @@
     {
       "icon": "mozek",
       "text": "[Našli jste u pařezu zakrvácený žulový kámen] Říct mu o něm",
-      "goto": "card_G10"
+      "goto": "card_G10",
+      "effects": [
+        {
+          "type": "item",
+          "item": "zakrvaceny_kamen"
+        }
+      ]
     },
     {
       "icon": "bublina",

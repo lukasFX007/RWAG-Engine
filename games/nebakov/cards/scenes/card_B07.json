@@ -8,8 +8,52 @@
   "choices": [
     {
       "icon": "priroda",
-      "text": "Zamíchejte karty B12 a náhodně si jednu vyberte",
+      "text": "Výhoda [😊]: Vzít si další bylinu výměnou za 1 reputaci (😡)",
+      "goto": "card_B07",
+      "revisit": true,
+      "note": "Opakovatelné, až čtyři další (Q14b). Balíček má šest bylin, jedna je od bylinkáře zdarma.",
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        },
+        {
+          "type": "pool_count",
+          "pool": "byliny",
+          "operator": ">=",
+          "value": 5
+        }
+      ],
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        },
+        {
+          "type": "draw_item",
+          "pool": "byliny"
+        }
+      ]
+    },
+    {
+      "icon": "lupa",
+      "text": "Pokračovat v dobrodružství",
       "goto": "card_B10"
+    }
+  ],
+  "effects": [
+    {
+      "type": "draw_item",
+      "pool": "byliny",
+      "when": [
+        {
+          "type": "pool_count",
+          "pool": "byliny",
+          "operator": "==",
+          "value": 0
+        }
+      ]
     }
   ]
 }

@@ -178,6 +178,7 @@ export function statusView(engine) {
     activeQuests: active,
     completedQuests: done,
     questSummary: `${done} splněno · ${active} aktivní`,
+    carrying: (engine.inventory ?? []).length,
     canUndo: engine.canUndo,
     cardCode: engine.card?.cardCode ?? null,
   };
@@ -222,6 +223,44 @@ export function journalView(engine) {
   };
 }
 
+/**
+ * What the group carries, grouped so the maps do not get lost among six herbs.
+ *
+ * The printed game keeps these as physical cards in a pouch, and the players can
+ * fan them out. On a phone that has to be a list someone can scan while walking,
+ * so the things that answer "where do we go now" come first.
+ */
+export function inventoryView(engine) {
+  const held = engine.inventory ?? [];
+  const groups = [
+    { id: "kletby", title: "Co na vás leží", items: [] },
+    { id: "mapy", title: "Mapy a dopis", items: [] },
+    { id: "predmety", title: "Předměty", items: [] },
+    { id: "byliny", title: "Stránky herbáře", items: [] },
+  ];
+  for (const item of held) {
+    // a curse is carried the same way in the data and read very differently by
+    // the people carrying it, so it goes first and on its own
+    const target = item.kind === "curse" ? groups[0]
+      : item.pool === "byliny" ? groups[3]
+      : (item.icon === "pin" || item.icon === "svitek") ? groups[1]
+      : groups[2];
+    target.items.push({
+      id: item.id,
+      name: item.name,
+      glyph: item.icon ?? "batoh",
+      text: item.text ?? null,
+      count: item.count > 1 ? item.count : null,
+    });
+  }
+  return {
+    groups: groups.filter((group) => group.items.length),
+    total: held.length,
+    empty: held.length === 0,
+    emptyLabel: "Zatím nic nenesete.",
+  };
+}
+
 /** The closing screen. The card's own text is still shown above this summary. */
 export function endingView(engine) {
   const status = statusView(engine);
@@ -238,6 +277,60 @@ export function endingView(engine) {
     finishedAt: engine.state.finishedAt ?? null,
     duration: durationLabel(engine.state.startedAt, engine.state.finishedAt),
   };
+}
+
+/**
+ * The walk, as a text file someone can read on a train home.
+ *
+ * Written for the field test: eight hours and a dozen kilometres produce more
+ * than anyone remembers accurately, and "the app felt wrong somewhere after the
+ * mill" is not something a bug can be found from. Every step carries its card,
+ * the time, the reputation it left behind and the position the device had, so a
+ * complaint can be traced to a card and a place.
+ */
+export function trailText(engine, { scenarioName = "", version = "" } = {}) {
+  const cardCode = (id) => engine.scenes.get(id)?.cardCode ?? id;
+  const started = engine.state.startedAt;
+  const lines = [
+    `Průchod hrou — ${scenarioName || engine.scenario?.scenarioName || "?"}`,
+    `začátek: ${started ?? "?"}`,
+    `konec: ${engine.state.finishedAt ?? "hra ještě běží"}`,
+    `doba: ${durationLabel(started, engine.state.finishedAt ?? new Date().toISOString()) ?? "?"}`,
+    `hráči: ${engine.state.players.map((p) => `${p.name} (${p.roleId})`).join(", ") || "bez rolí"}`,
+    `reputace na konci: ${engine.state.reputation}`,
+    version ? `verze: ${version}` : null,
+    "",
+    "KROKY",
+  ].filter((line) => line !== null);
+
+  const clock = (iso) => (iso ? String(iso).slice(11, 19) : "--:--:--");
+  for (const [index, step] of engine.state.history.entries()) {
+    const place = step.at_lat != null
+      ? ` @ ${step.at_lat.toFixed(5)},${step.at_lon.toFixed(5)}`
+      : "";
+    const quest = step.startedQuest ? ` [úkol ${step.startedQuest}]` : "";
+    lines.push(`${String(index + 1).padStart(3)}. ${clock(step.at)}  `
+      + `${cardCode(step.from)} → ${cardCode(step.to)}  rep ${step.reputation}${quest}${place}`);
+  }
+  if (engine.state.history.length === 0) lines.push("  (zatím žádný krok)");
+
+  const drawn = engine.state.decks?.N?.drawn ?? [];
+  lines.push("", `NÁHODNÁ SETKÁNÍ (${drawn.length})`);
+  lines.push(drawn.length ? "  " + drawn.map((id) => cardCode(id)).join(", ") : "  žádné");
+
+  const carried = engine.inventory ?? [];
+  lines.push("", `INVENTÁŘ (${carried.length})`);
+  lines.push(carried.length ? carried.map((i) => `  ${i.name}`).join("\n") : "  prázdný");
+
+  const quests = Object.values(engine.state.quests);
+  lines.push("", `ÚKOLY (${quests.filter((q) => q.done).length}/${quests.length})`);
+  for (const quest of quests) {
+    lines.push(`  ${quest.done ? "[x]" : "[ ]"} ${quest.text ?? quest.id}`
+      + (quest.completedBy ? ` — ${quest.completedBy}` : ""));
+  }
+  if (!quests.length) lines.push("  žádné");
+
+  return lines.join("\n") + "\n";
 }
 
 /** "7 h 12 min" — the game is a day out, so hours are the useful unit. */

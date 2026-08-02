@@ -14,6 +14,7 @@
 import { apply, lockState } from "./rules.js";
 import { createState, cloneState, visitCount } from "./state.js";
 import { draw, initDeck } from "./decks.js";
+import { NO_ITEMS, createCatalogue, give, inventoryOf } from "./items.js";
 import {
   abilitiesOf,
   applyStartEffects,
@@ -28,12 +29,16 @@ export class Engine {
    * @param {object} [options]
    * @param {object} [options.events]  parsed events.json (deck N)
    * @param {object[]} [options.roles]
+   * @param {object} [options.items]   parsed items.json
    * @param {object} [options.state]   restore instead of starting fresh
    */
-  constructor(scenario, { events = null, roles = [], state = null, players = [], seed = 1 } = {}) {
+  constructor(scenario, {
+    events = null, roles = [], items = null, state = null, players = [], seed = 1,
+  } = {}) {
     this.scenario = scenario;
     this.events = events;
     this.roles = roles;
+    this.items = items ? createCatalogue(items) : NO_ITEMS;
 
     this.scenes = new Map(scenario.scenes.map((s) => [s.id, s]));
     this.eventCards = new Map((events?.cards ?? []).map((c) => [c.id, c]));
@@ -47,6 +52,9 @@ export class Engine {
 
     if (!state) {
       this.state.startedAt = new Date().toISOString();
+      // The envelope is open before the first card: the letter and the first map
+      // are what the group sets out with.
+      for (const item of this.items.starting()) give(this.state, this.items, item.id);
       this.#enter(scenario.startScene, { record: false });
       if (this.events) {
         initDeck(this.state, {
@@ -91,7 +99,7 @@ export class Engine {
   choices(ctx = {}) {
     const card = this.card;
     if (!card) return [];
-    const base = { state: this.state, engine: this, ...ctx };
+    const base = { state: this.state, engine: this, items: this.items, ...ctx };
 
     // while a task is being carried out, nothing else can be taken — the group
     // is on its way somewhere and has to arrive or turn back first
@@ -176,6 +184,10 @@ export class Engine {
       reputation: this.state.reputation,
       startedQuest: null,
       at: new Date().toISOString(),
+      // where the group actually was, when the device knows — this is the part
+      // of the record that cannot be reconstructed afterwards
+      at_lat: ctx.position?.lat ?? null,
+      at_lon: ctx.position?.lon ?? null,
     });
 
     this.#applyChoiceEffects(declared, from);
@@ -195,6 +207,7 @@ export class Engine {
     const { unknown } = apply(declared.effects, {
       state: this.state,
       source: from,
+      items: this.items,
       drawEncounter: (deckId) => this.drawEncounter(deckId),
     });
     if (unknown.length) {
@@ -232,6 +245,8 @@ export class Engine {
       reputation: this.state.reputation,
       startedQuest: pending.questId,
       at: new Date().toISOString(),
+      at_lat: ctx.position?.lat ?? null,
+      at_lon: ctx.position?.lon ?? null,
     });
     this.state.pendingTask = null;
 
@@ -300,6 +315,7 @@ export class Engine {
     apply([ability.effect], {
       state: this.state,
       source: `role:${player.roleId}`,
+      items: this.items,
       drawEncounter: (deckId) => this.drawEncounter(deckId),
     });
 
@@ -313,6 +329,7 @@ export class Engine {
       apply([consequence.effect], {
         state: this.state,
         source: `role:${player.roleId}`,
+        items: this.items,
         drawEncounter: (deckId) => this.drawEncounter(deckId),
       });
     }
@@ -388,10 +405,17 @@ export class Engine {
     if (!cardId) return null;
     const card = this.eventCards.get(cardId) ?? null;
     if (card) {
-      apply(card.effects, { state: this.state, source: card.id, drawEncounter: () => {} });
+      apply(card.effects, {
+        state: this.state, source: card.id, items: this.items, drawEncounter: () => {},
+      });
       this.#emit({ type: "encounter", card });
     }
     return card;
+  }
+
+  /** Everything the group carries, with names and descriptions from items.json. */
+  get inventory() {
+    return inventoryOf(this.state, this.items);
   }
 
   /** Messages queued for the UI; reading them clears the queue. */
@@ -458,6 +482,7 @@ export class Engine {
     const { unknown } = apply(scene.effects, {
       state: this.state,
       source: sceneId,
+      items: this.items,
       drawEncounter: (deckId) => this.drawEncounter(deckId),
     });
     if (unknown.length) {

@@ -18,5 +18,11 @@
         "completedAt": "card_G24"
       }
     }
+  ],
+  "effects": [
+    {
+      "type": "item",
+      "item": "mapa03"
+    }
   ]
 }

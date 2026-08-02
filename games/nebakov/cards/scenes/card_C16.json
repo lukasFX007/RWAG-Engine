@@ -11,5 +11,11 @@
       "text": "Až budete rozhodnutí, že jste na správném místě",
       "goto": "card_C24"
     }
+  ],
+  "effects": [
+    {
+      "type": "item",
+      "item": "mapa02"
+    }
   ]
 }

@@ -95,6 +95,14 @@
       "pool": "byliny",
       "card": "card_B12",
       "text": "Vyvař květ, stvol i listy a získáš nálev pro zklidnění těla i duše a vyhnání kašle z těla. Dej však pozor na čerstvou šťávu! Neb budeš vidět věci nevídané."
+    },
+    {
+      "id": "kletba_b08",
+      "name": "Prokletí od bylinkáře",
+      "icon": "lebka",
+      "kind": "curse",
+      "card": "card_B08",
+      "text": "Než odejdete od lípy, potká vás náhodné setkání. Prokletí pomine s koncem balíčku „B“."
     }
   ]
 }

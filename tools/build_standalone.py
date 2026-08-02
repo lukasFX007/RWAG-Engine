@@ -145,7 +145,8 @@ def gather_data(scenario_ids):
         scenario = json.loads(read(path))
         folder = os.path.dirname(path)
 
-        for name in (scenario.get("events"), scenario.get("roleSet"), scenario.get("legend")):
+        for name in (scenario.get("events"), scenario.get("roleSet"),
+                     scenario.get("legend"), scenario.get("items")):
             if not name:
                 continue
             companion = os.path.join(folder, name)

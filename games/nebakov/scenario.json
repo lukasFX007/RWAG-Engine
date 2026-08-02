@@ -8,6 +8,7 @@
   "players_min": 3,
   "players_max": 8,
   "startScene": "card_A01",
+  "items": "items.json",
   "scenes": [
     {
       "id": "card_B06",
@@ -718,8 +719,52 @@
       "choices": [
         {
           "icon": "priroda",
-          "text": "Zamíchejte karty B12 a náhodně si jednu vyberte",
+          "text": "Výhoda [😊]: Vzít si další bylinu výměnou za 1 reputaci (😡)",
+          "goto": "card_B07",
+          "revisit": true,
+          "note": "Opakovatelné, až čtyři další (Q14b). Balíček má šest bylin, jedna je od bylinkáře zdarma.",
+          "disableIf": [
+            {
+              "type": "reputation",
+              "operator": "<",
+              "value": 1
+            },
+            {
+              "type": "pool_count",
+              "pool": "byliny",
+              "operator": ">=",
+              "value": 5
+            }
+          ],
+          "effects": [
+            {
+              "type": "reputation",
+              "value": -1
+            },
+            {
+              "type": "draw_item",
+              "pool": "byliny"
+            }
+          ]
+        },
+        {
+          "icon": "lupa",
+          "text": "Pokračovat v dobrodružství",
           "goto": "card_B10"
+        }
+      ],
+      "effects": [
+        {
+          "type": "draw_item",
+          "pool": "byliny",
+          "when": [
+            {
+              "type": "pool_count",
+              "pool": "byliny",
+              "operator": "==",
+              "value": 0
+            }
+          ]
         }
       ]
     },
@@ -1041,6 +1086,12 @@
           "icon": "mozek",
           "text": "Až budete rozhodnutí, že jste na správném místě",
           "goto": "card_C24"
+        }
+      ],
+      "effects": [
+        {
+          "type": "item",
+          "item": "mapa02"
         }
       ]
     },
@@ -1841,6 +1892,10 @@
         {
           "type": "reputation",
           "value": 1
+        },
+        {
+          "type": "item",
+          "item": "pistalka"
         }
       ],
       "choices": [
@@ -1862,6 +1917,10 @@
         {
           "type": "reputation",
           "value": 1
+        },
+        {
+          "type": "item",
+          "item": "pistalka"
         }
       ],
       "choices": [
@@ -1945,6 +2004,12 @@
           "icon": "stopy",
           "text": "Jít za hospodským",
           "goto": "card_F04"
+        }
+      ],
+      "effects": [
+        {
+          "type": "item",
+          "item": "pistalka"
         }
       ]
     },
@@ -2192,7 +2257,13 @@
         {
           "icon": "mozek",
           "text": "[Našli jste u pařezu zakrvácený žulový kámen] Říct mu o něm",
-          "goto": "card_G10"
+          "goto": "card_G10",
+          "effects": [
+            {
+              "type": "item",
+              "item": "zakrvaceny_kamen"
+            }
+          ]
         },
         {
           "icon": "bublina",
@@ -2215,7 +2286,13 @@
         {
           "icon": "mozek",
           "text": "[Našli jste u pařezu zakrvácený žulový kámen] Říct mu o něm",
-          "goto": "card_G11"
+          "goto": "card_G11",
+          "effects": [
+            {
+              "type": "item",
+              "item": "zakrvaceny_kamen"
+            }
+          ]
         },
         {
           "icon": "bublina",
@@ -2309,6 +2386,12 @@
         {
           "type": "reputation",
           "value": 1
+        },
+        {
+          "type": "item",
+          "item": "pistalka",
+          "count": -1,
+          "announce": false
         }
       ],
       "choices": [
@@ -2435,7 +2518,14 @@
         {
           "icon": "mozek",
           "text": "[Získali jste píšťalku] Odevzdat píšťalku",
-          "goto": "card_G13"
+          "goto": "card_G13",
+          "disableIf": [
+            {
+              "type": "has_item",
+              "item": "pistalka",
+              "negate": true
+            }
+          ]
         },
         {
           "icon": "priroda",
@@ -2490,6 +2580,12 @@
             "text": "Dojděte na palouk se seníkem",
             "completedAt": "card_G24"
           }
+        }
+      ],
+      "effects": [
+        {
+          "type": "item",
+          "item": "mapa03"
         }
       ]
     },

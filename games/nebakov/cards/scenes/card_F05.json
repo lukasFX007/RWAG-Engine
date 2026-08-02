@@ -9,6 +9,10 @@
     {
       "type": "reputation",
       "value": 1
+    },
+    {
+      "type": "item",
+      "item": "pistalka"
     }
   ],
   "choices": [

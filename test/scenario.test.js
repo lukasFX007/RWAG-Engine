@@ -12,6 +12,7 @@ import { readFileSync } from "node:fs";
 
 import { Engine } from "../src/core/engine.js";
 import { deckSize, timesDrawn } from "../src/core/decks.js";
+import { trailText } from "../src/ui/view.js";
 
 const read = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url), "utf8"));
 const scenario = read("../games/nebakov/scenario.json");
@@ -833,4 +834,95 @@ test("hra se rozdá i pro nejmenší povolený počet hráčů", () => {
   engine.dealRoles(scenario.players_min);
   assert.equal(engine.players.length, scenario.players_min);
   assert.equal(new Set(engine.players.map((p) => p.roleId)).size, scenario.players_min);
+});
+
+/* ------------------------------------------------------------ what we carry */
+
+const items = read("../games/nebakov/items.json");
+
+function withItems(options = {}) {
+  return new Engine(scenario, { events, roles, items, seed: 1, ...options });
+}
+
+test("skupina vyráží s dopisem a první mapou", () => {
+  const engine = withItems();
+  assert.deepEqual(engine.inventory.map((i) => i.id).sort(), ["dopis", "mapa01"]);
+});
+
+test("bylinkář dá jednu bylinu zdarma a další za reputaci", () => {
+  const engine = withItems();
+  engine.state.reputation = 3;
+  engine.state.currentScene = "card_B04";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_B07"));
+  assert.equal(engine.card.id, "card_B07");
+
+  const herbs = () => engine.inventory.filter((i) => i.pool === "byliny");
+  assert.equal(herbs().length, 1, "jedna bylina je od bylinkáře zdarma");
+
+  const buy = () => engine.choices().findIndex((c) => c.goto === "card_B07");
+  engine.choose(buy());
+  assert.equal(herbs().length, 2, "druhá bylina stojí reputaci");
+  assert.equal(engine.state.reputation, 2);
+  assert.equal(herbs()[0].id !== herbs()[1].id, true, "šest bylin je šest různých stránek");
+
+  // reputation runs out before the pool does
+  engine.choose(buy());
+  engine.choose(buy());
+  assert.equal(engine.state.reputation, 0);
+  assert.equal(engine.choices()[buy()].available, false, "bez reputace není čím platit");
+
+  engine.state.reputation = 9;
+  engine.choose(buy());
+  assert.equal(herbs().length, 5);
+  assert.equal(engine.choices()[buy()].available, false, "víc než pět bylin karta nedovolí");
+});
+
+test("píšťalku nelze odevzdat, dokud ji skupina nemá", () => {
+  const engine = withItems();
+  engine.state.currentScene = "card_G18";
+  const handOver = engine.choices().findIndex((c) => c.goto === "card_G13");
+  assert.equal(engine.choices()[handOver].available, false);
+  assert.match(engine.choices()[handOver].requirement, /píšťalk|pistalka/);
+
+  engine.state.currentScene = "card_F04";
+  const other = withItems();
+  other.state.currentScene = "card_F05";
+  // entering F05 is what hands the whistle over, so walk in rather than jump
+  other.state.currentScene = "card_F03";
+  const toF05 = other.choices().findIndex((c) => c.goto === "card_F05");
+  if (toF05 >= 0) {
+    other.choose(toF05);
+    assert.ok(other.inventory.some((i) => i.id === "pistalka"), "F05 dává píšťalku");
+  }
+});
+
+test("mapy přibývají tam, kde je karta předává", () => {
+  const engine = withItems();
+  const has = (id) => engine.inventory.some((i) => i.id === id);
+
+  assert.equal(has("mapa02"), false);
+  engine.state.currentScene = "card_C14";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_C16"));
+  assert.equal(has("mapa02"), true, "C16 vydává mapu 2");
+
+  assert.equal(has("mapa03"), false);
+  engine.state.currentScene = "card_G16";
+  engine.state.reputation = 9;
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_G20"));
+  assert.equal(has("mapa03"), true, "G20 vydává mapu 3");
+});
+
+test("log průchodu zaznamená karty, reputaci i polohu", () => {
+  const engine = withItems();
+  engine.state.currentScene = "card_B04";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_B08"),
+    { position: { lat: 50.5123, lon: 15.2456, zones: [] } });
+
+  const log = trailText(engine, { scenarioName: "Test", version: "x" });
+  assert.match(log, /Průchod hrou — Test/);
+  assert.match(log, /B04 → B08/);
+  assert.match(log, /50\.51230,15\.24560/);
+  // the letter, the first map, and the curse B08 leaves behind
+  assert.match(log, /INVENTÁŘ \(3\)/);
+  assert.match(log, /Prokletí od bylinkáře/);
 });

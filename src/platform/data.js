@@ -2,8 +2,8 @@
  * Loading scenario data.
  *
  * The catalogue in `games/scenarios.json` gives a path per scenario, and each
- * `scenario.json` names its own companions (`events`, `roleSet`, `legend`)
- * relative to its own folder. Resolving that is this module's whole job, kept
+ * `scenario.json` names its own companions (`events`, `roleSet`, `legend`,
+ * `items`) relative to its own folder. Resolving that is this module's whole job, kept
  * away from the UI so a test can hand it a fake `fetch`.
  *
  * `base` exists because the app is served from `web/` while the data lives at the
@@ -49,10 +49,11 @@ export function createLoader({ fetch: fetchImpl = globalThis.fetch, base = "" } 
       }
     };
 
-    const [events, roles, legend] = await Promise.all([
+    const [events, roles, legend, items] = await Promise.all([
       optional(scenario.events),
       optional(scenario.roleSet),
       optional(scenario.legend),
+      optional(scenario.items),
     ]);
 
     return {
@@ -61,6 +62,7 @@ export function createLoader({ fetch: fetchImpl = globalThis.fetch, base = "" } 
       events,
       roles: roles?.roles ?? [],
       legend: legend ?? null,
+      items: items ?? null,
       dir,
       /** where card `image` names resolve, for the renderer */
       imageBase: `${base}${dir}images/`,

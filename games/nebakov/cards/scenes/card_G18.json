@@ -6,7 +6,14 @@
     {
       "icon": "mozek",
       "text": "[Získali jste píšťalku] Odevzdat píšťalku",
-      "goto": "card_G13"
+      "goto": "card_G13",
+      "disableIf": [
+        {
+          "type": "has_item",
+          "item": "pistalka",
+          "negate": true
+        }
+      ]
     },
     {
       "icon": "priroda",

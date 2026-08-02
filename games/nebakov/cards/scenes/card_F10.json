@@ -11,5 +11,11 @@
       "text": "Jít za hospodským",
       "goto": "card_F04"
     }
+  ],
+  "effects": [
+    {
+      "type": "item",
+      "item": "pistalka"
+    }
   ]
 }

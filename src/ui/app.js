@@ -36,7 +36,9 @@ import {
   dealtRolesView,
   editModeView,
   endingView,
+  inventoryView,
   journalView,
+  trailText,
   messageViews,
   overridesView,
   playerBounds,
@@ -50,6 +52,7 @@ import {
   renderAbilities,
   renderCard,
   renderEnding,
+  renderInventory,
   renderJournal,
   renderMenu,
   renderOverrides,
@@ -101,6 +104,7 @@ export function createApp({
   const statusBar = createStatusBar({
     onUndo: () => undo(),
     onJournal: () => openJournal(),
+    onInventory: () => openInventory(),
     onMenu: () => openMenu(),
   });
   statusBar.element.hidden = true;
@@ -243,6 +247,7 @@ export function createApp({
     engine = new Engine(game.scenario, {
       events: game.events,
       roles: game.roles,
+      items: game.items,
       state: saved?.state ?? null,
       // A fresh seed per game so the event deck is not shuffled the same way
       // twice; it is stored in the state, so a restored game keeps dealing the
@@ -464,6 +469,11 @@ export function createApp({
     }));
   }
 
+  function openInventory() {
+    if (!engine) return;
+    openSheet("inventory", renderInventory(inventoryView(engine)));
+  }
+
   function openMenu() {
     openSheet("menu", renderMenu({
       theme,
@@ -496,6 +506,7 @@ export function createApp({
       onEditMode: (enabled) => setEditMode(enabled),
       onOverrides: game ? () => openOverrides() : null,
       storageAvailable: storage.available,
+      onTrail: engine ? () => downloadTrail() : null,
       onCatalogue: () => {
         sheet.close();
         showCatalogue();
@@ -693,6 +704,29 @@ export function createApp({
       overrideStatus = "Schránka není dostupná — rozbalte JSON níž a označte ho ručně.";
     }
     openOverrides();
+  }
+
+  /**
+   * The walk as a text file. Eight hours on foot produce more than anyone
+   * remembers, so the field test needs the record, not the recollection.
+   */
+  function downloadTrail() {
+    const text = trailText(engine, { scenarioName: game?.entry?.name ?? "", version });
+    const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
+    try {
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = el("a", { href: url, download: `rwag-pruchod-${stamp}.txt` });
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      engine.state.toasts.push({ text: "Log průchodu byl stažen." });
+    } catch (err) {
+      engine.state.toasts.push({ text: `Stažení logu selhalo: ${err.message}` });
+    }
+    sheet.close();
+    drainMessages();
   }
 
   function downloadExport(json) {

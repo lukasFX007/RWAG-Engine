@@ -51,11 +51,11 @@ export function ownedFromPool(state, catalogue, poolId) {
   return catalogue.poolItems(poolId).filter((id) => owned(state, id));
 }
 
-export function give(state, catalogue, itemId, count = 1) {
+export function give(state, catalogue, itemId, count = 1, fallbackName = null) {
   const known = catalogue.get(itemId);
   const entry = state.inventory[itemId] ?? {
     id: itemId,
-    name: known?.name ?? itemId,
+    name: known?.name ?? fallbackName ?? itemId,
     count: 0,
   };
   entry.count += count;

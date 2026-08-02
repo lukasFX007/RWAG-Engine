@@ -23,20 +23,20 @@ Běží souběžně, nic z toho neblokuje proud B kromě označených míst.
 
 ---
 
-## Fáze 1 — Inventář a předměty
+## Fáze 1 — Inventář a předměty ✅
 
 Nejdřív, protože bez map se v terénu nehraje.
 
-- [ ] Datový model předmětu (`games/nebakov/items.json`)
-- [ ] Získávání: dopis + mapa 1 na startu, mapa 2 na C16, mapa 3 na G20
-- [ ] Herbář: náhodná bylina z B12 na B07, až 4 další za −1 reputace každá
-- [ ] Píšťalka z F05/F06/F10, zakrvácený kámen u ohrady (G08/G09)
-- [ ] Podmínka `has_item` na volbě G18 („Odevzdat píšťalku“)
-- [ ] Obrazovka inventáře v UI + vstup z menu
-- [ ] Export logu průchodu — bez něj je zpětná vazba z terénu jen dojmy
+- [x] Datový model předmětu (`games/nebakov/items.json`)
+- [x] Získávání: dopis + mapa 1 na startu, mapa 2 na C16, mapa 3 na G20
+- [x] Herbář: náhodná bylina z B12 na B07, až 4 další za −1 reputace každá
+- [x] Píšťalka z F05/F06/F10, zakrvácený kámen u ohrady (G08/G09)
+- [x] Podmínka `has_item` na volbě G18 („Odevzdat píšťalku“)
+- [x] Obrazovka inventáře v UI + vstup z horní lišty (bližší než menu)
+- [x] Export logu průchodu — bez něj je zpětná vazba z terénu jen dojmy
 
-*Hotovo, když:* projdu hru a v každém okamžiku vidím, co skupina nese, a mapa
-je dostupná na dvě klepnutí.
+*Hotovo:* batoh je v horní liště vedle reputace, ukazuje počet a otevře se
+jedním klepnutím. Skupina vyráží s dopisem a první mapou.
 
 ## Fáze 2 — Podmínky postupu
 
@@ -76,9 +76,12 @@ Podle Q08c a Q30b. `geo.js` je hotová a prázdná, chybí souřadnice.
 - [ ] Volba „hodí aplikace“ / „hodíme sami“ s okénkem na výsledek
 - [ ] Léčky v balíčku N a Potulný kostkař
 
-## Fáze 7 — Úklid dluhu
+## Fáze 7 — Úklid dluhu ✅
 
-- [ ] Sjednotit sémantiku podmínek: v `disableIf` znamená splněná podmínka
+Předsunuto před zbytek: přidávat inventář na tu dvojznačnost by ji rozšířilo
+z jednoho místa na dvacet.
+
+- [x] Sjednotit sémantiku podmínek: v `disableIf` znamená splněná podmínka
       „zamčeno“, u efektů (`when`) „provést“. Ve starším rejstříku se to míchá —
       `reputation` se obrací, `visited`/`has_item` ne. Dnes to drží jen proto,
       že se `visited` v `disableIf` používá jednou.

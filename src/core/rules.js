@@ -12,6 +12,8 @@
  * else. That is a deliberate limit, not a gap.
  */
 
+import { NO_ITEMS, drawFromPool, give, ownedFromPool } from "./items.js";
+
 /* ------------------------------------------------------------------ conditions */
 
 /**
@@ -147,6 +149,16 @@ registerCondition("has_item", (condition, { state }) => {
   };
 });
 
+registerCondition("pool_count", (condition, { state, items }) => {
+  const op = OPERATORS[condition.operator];
+  const held = items ? ownedFromPool(state, items, condition.pool).length : 0;
+  return {
+    holds: op ? op(held, condition.value) : false,
+    reason: `z balíčku „${condition.pool}“ máte ${held}`,
+    requirement: null,
+  };
+});
+
 registerCondition("quest_done", (condition, { state }) => {
   const done = state.quests[condition.quest]?.done === true;
   return {
@@ -213,10 +225,25 @@ registerEffect("toast", (effect, { state }) => {
   state.toasts.push({ text: effect.text });
 });
 
-registerEffect("item", (effect, { state }) => {
-  const entry = state.inventory[effect.item] ?? { id: effect.item, name: effect.name ?? effect.item, count: 0 };
-  entry.count += effect.count ?? 1;
-  state.inventory[effect.item] = entry;
+registerEffect("item", (effect, { state, items }) => {
+  const entry = give(state, items ?? NO_ITEMS, effect.item, effect.count ?? 1, effect.name);
+  // silent for bookkeeping items, such as the curse B08 leaves behind
+  if (effect.announce !== false) {
+    state.toasts.push({ text: `Do inventáře: ${entry.name}` });
+  }
+});
+
+/**
+ * One card, six pages of a herbarium: the herbalist on B07 hands over a random
+ * one, and sells up to four more for a point of reputation each. The card data
+ * cannot name which page comes up, so it names the pool.
+ */
+registerEffect("draw_item", (effect, { state, items }) => {
+  if (!items) return;
+  const drawn = drawFromPool(state, items, effect.pool);
+  state.toasts.push({
+    text: drawn ? `Získáváte: ${drawn.name}` : "Už máte všechno, co se dalo získat.",
+  });
 });
 
 registerEffect("quest", (effect, { state, source }) => {

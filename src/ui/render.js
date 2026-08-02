@@ -255,7 +255,7 @@ export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask
 
 /* ---------------------------------------------------------------- status bar */
 
-export function createStatusBar({ onUndo, onJournal, onMenu } = {}) {
+export function createStatusBar({ onUndo, onJournal, onInventory, onMenu } = {}) {
   const repIcon = el("span", { class: "rep-icon", "aria-hidden": "true" });
   const repValue = el("span", { class: "rep-value" });
   const rep = el("div", { class: "rep", role: "status" }, repIcon, repValue);
@@ -263,6 +263,10 @@ export function createStatusBar({ onUndo, onJournal, onMenu } = {}) {
   const journalCount = el("span", { class: "tbtn-label" });
   const journalBtn = el("button", { type: "button", class: "tbtn", onclick: () => onJournal?.() },
     el("span", { "aria-hidden": "true", text: icon("svitek") }), journalCount);
+
+  const bagCount = el("span", { class: "tbtn-label" });
+  const bagBtn = el("button", { type: "button", class: "tbtn", onclick: () => onInventory?.() },
+    el("span", { "aria-hidden": "true", text: icon("batoh") }), bagCount);
 
   const undoBtn = el("button", { type: "button", class: "tbtn", onclick: () => onUndo?.() },
     el("span", { "aria-hidden": "true", text: icon("zpet") }),
@@ -272,7 +276,7 @@ export function createStatusBar({ onUndo, onJournal, onMenu } = {}) {
     el("span", { "aria-hidden": "true", text: icon("menu") }));
 
   const element = el("header", { class: "topbar" },
-    el("div", { class: "topbar-inner" }, menuBtn, rep, journalBtn, undoBtn));
+    el("div", { class: "topbar-inner" }, menuBtn, rep, bagBtn, journalBtn, undoBtn));
 
   function update(status) {
     repIcon.textContent = status.reputationIcon;
@@ -282,6 +286,9 @@ export function createStatusBar({ onUndo, onJournal, onMenu } = {}) {
 
     journalCount.textContent = `${status.completedQuests}/${status.completedQuests + status.activeQuests}`;
     journalBtn.setAttribute("aria-label", `Deník úkolů — ${status.questSummary}`);
+
+    bagCount.textContent = String(status.carrying ?? 0);
+    bagBtn.setAttribute("aria-label", `Co neseme — ${status.carrying ?? 0} věcí`);
 
     undoBtn.disabled = !status.canUndo;
   }
@@ -334,6 +341,34 @@ export function renderJournal(journal, { onAction } = {}) {
     root.append(el("h3", { class: "sheet-sub", text: `Splněné (${journal.done.length})` }));
     const list = el("ul", { class: "quests" });
     for (const quest of journal.done) list.append(questRow(quest, null));
+    root.append(list);
+  }
+  return root;
+}
+
+/* ------------------------------------------------------------------ inventory */
+
+export function renderInventory(inventory) {
+  const root = el("div", { class: "inventory" });
+  root.append(el("h2", { class: "sheet-title", text: "Co neseme" }));
+
+  if (inventory.empty) {
+    root.append(el("p", { class: "muted", text: inventory.emptyLabel }));
+    return root;
+  }
+
+  for (const group of inventory.groups) {
+    root.append(el("h3", { class: "sheet-sub", text: `${group.title} (${group.items.length})` }));
+    const list = el("ul", { class: "items" });
+    for (const item of group.items) {
+      list.append(el("li", { class: "item" },
+        el("span", { class: "item-icon", "aria-hidden": "true", text: icon(item.glyph) }),
+        el("div", { class: "item-body" },
+          el("span", { class: "item-name", text: item.name }),
+          item.count ? el("span", { class: "quest-tag", text: `${item.count}×` }) : null,
+          item.text ? el("p", { class: "item-text", text: item.text }) : null,
+        )));
+    }
     root.append(list);
   }
   return root;
@@ -770,6 +805,7 @@ export function renderMenu({
   onEditMode,
   onOverrides,
   storageAvailable,
+  onTrail,
   onCatalogue,
   onDeleteSave,
   version,
@@ -847,6 +883,10 @@ export function renderMenu({
 
   root.append(el("h3", { class: "sheet-sub", text: "Hra" }));
   root.append(el("div", { class: "menu-actions" },
+    onTrail
+      ? el("button", { type: "button", class: "btn", onclick: onTrail },
+          `${icon("disketa")} Stáhnout log průchodu`)
+      : null,
     onCatalogue ? el("button", { type: "button", class: "btn", onclick: onCatalogue }, "Výběr scénáře") : null,
     onDeleteSave ? el("button", { type: "button", class: "btn btn-quiet", onclick: onDeleteSave }, "Smazat rozehranou hru") : null,
   ));
