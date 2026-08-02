@@ -15,6 +15,14 @@ import { apply, lockState } from "./rules.js";
 import { createState, cloneState, visitCount } from "./state.js";
 import { draw, initDeck, makeRng } from "./decks.js";
 import { NO_ITEMS, createCatalogue, give, inventoryOf } from "./items.js";
+import { formatDistance, haversine } from "./distance.js";
+
+/**
+ * How close counts as "here", when a task names a place and nothing else says.
+ * The author asked for about 25 m (Q08c); a phone under trees is routinely worse
+ * than that, which is exactly why the check asks rather than refuses.
+ */
+export const DEFAULT_ARRIVAL_RADIUS_M = 25;
 import {
   abilitiesOf,
   applyStartEffects,
@@ -263,6 +271,18 @@ export class Engine {
     const pending = this.state.pendingTask;
     if (!pending) throw new Error("žádný úkol neprobíhá");
 
+    const check = this.arrivalCheck(ctx);
+    if (check && !check.here && !ctx.override) {
+      // Not a refusal, a question. The author's rule (Q08c) is that the group is
+      // asked and may insist: the sensor is wrong often enough, and a game that
+      // cannot be played because a phone is confused is worse than one that
+      // trusts people.
+      const error = new Error(check.message);
+      error.code = "not_at_place";
+      error.check = check;
+      throw error;
+    }
+
     const quest = this.state.quests[pending.questId];
     if (quest && !quest.done) {
       quest.done = true;
@@ -285,6 +305,36 @@ export class Engine {
     this.#enter(pending.to, { record: true });
     this.#emit({ type: "moved", from: pending.from, to: pending.to });
     return this.card;
+  }
+
+  /**
+   * Whether the group is where the pending task said to go.
+   *
+   * Returns null when there is nothing to check — no task, no coordinates on it,
+   * or no position from the device — because all three mean the same thing in
+   * practice: take their word for it.
+   */
+  arrivalCheck({ position = null } = {}) {
+    const pending = this.state.pendingTask;
+    if (!pending || !position) return null;
+    const quest = this.state.quests[pending.questId];
+    const place = quest?.at ?? null;
+    if (!place || !Number.isFinite(place.lat) || !Number.isFinite(place.lon)) return null;
+
+    const radius = place.radius ?? DEFAULT_ARRIVAL_RADIUS_M;
+    const distance = haversine({ lat: position.lat, lon: position.lon }, place);
+    const here = distance <= radius;
+    return {
+      here,
+      distance: Math.round(distance),
+      radius,
+      accuracy: position.accuracy ?? null,
+      place: place.name ?? quest?.text ?? null,
+      message: here
+        ? "Jste na místě."
+        : `Podle GPS jste ${formatDistance(distance)} od místa`
+          + `${place.name ? ` „${place.name}“` : ""}. Přesto pokračovat?`,
+    };
   }
 
   /* ------------------------------------------------------------------- roles */

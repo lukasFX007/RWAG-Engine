@@ -467,17 +467,53 @@ export function createApp({
    * The position is passed through if there is one: the engine records whether
    * the arrival was confirmed by hand or by GPS.
    */
-  function confirmTask() {
+  /**
+   * The group says they arrived.
+   *
+   * When the task names a place and the phone disagrees, the app asks instead of
+   * refusing (Q08c). A sensor under a rock face is wrong often enough that
+   * refusing would make the game unplayable in exactly the places it is set.
+   */
+  function confirmTask({ override = false } = {}) {
     if (!engine?.pendingTask) return;
     try {
-      engine.confirmArrival({ position: geo.position });
+      engine.confirmArrival({ position: geo.position, override });
     } catch (err) {
+      if (err.code === "not_at_place") {
+        askAboutPlace(err.check);
+        return;
+      }
       messages.push([{ kind: "toast", text: err.message, glyph: "⚠️" }]);
       return;
     }
     autosave();
     drainMessages();
     drawGame();
+  }
+
+  function askAboutPlace(check) {
+    openSheet("place", el("div", { class: "place-check" },
+      el("h2", { class: "sheet-title", text: "Jste na správném místě?" }),
+      el("p", { text: check.message }),
+      el("p", { class: "muted", text:
+        `Vzdálenost podle GPS: ${check.distance} m, místo se počítá do ${check.radius} m`
+        + (check.accuracy ? ` (přesnost signálu ±${Math.round(check.accuracy)} m)` : "") }),
+      el("div", { class: "menu-actions" },
+        el("button", {
+          type: "button",
+          class: "btn btn-primary btn-wide",
+          onclick: () => {
+            sheet.close();
+            confirmTask({ override: true });
+          },
+        }, "Ano, jsme tu"),
+        el("button", {
+          type: "button",
+          class: "btn btn-wide",
+          onclick: () => sheet.close(),
+        }, "Ne, jdeme tam"),
+      ),
+    ));
   }
 
   /** Turned back: the task is dropped and the group stays on the same card. */

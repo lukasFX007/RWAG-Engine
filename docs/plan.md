@@ -18,7 +18,7 @@ Běží souběžně, nic z toho neblokuje proud B kromě označených míst.
 
 - [ ] **A1** · Vyplněná `kontrola-karet.html` — 166 karet ke kontrole proti tištěné hře
 - [ ] **A2** · Digitální mapy 1–3 a chybějící obrázky karet (`lipa02.jpg` a další)
-- [ ] **A3** · Souřadnice: body cestovních úkolů (hospody si dohledám sám) → blokuje Fázi 5
+- [ ] **A3** · Souřadnice — seznam je připravený v `docs/mista-k-doplneni.md`
 - [ ] **A4** · Schválení přepsaných pravidel P01–P05 (návrh je hotový a v aplikaci)
 
 ---
@@ -73,14 +73,21 @@ telefon, druhé, když ho vrací. Mezi nimi je text na obrazovce, mimo ně není
 dá porovnat a nic se neztratilo. Znění nových pravidel jsem napsal sám — je
 v druhém dotazníku ke kontrole.
 
-## Fáze 5 — GPS s možností přepsat
+## Fáze 5 — GPS s možností přepsat — mechanismus ✅, souřadnice ⏳
 
-Podle Q08c a Q30b. `geo.js` je hotová a prázdná, chybí souřadnice.
+Podle Q08c a Q30b. Mechanismus je hotový, chybí čísla.
 
-- [ ] Zóny hospod: Apolena, Křenovský šenk, Nebákov, Trosky, Vidlák, Semín
-- [ ] Body cestovních úkolů → **čeká na A3**
-- [ ] „Splněno“ ověří polohu do ~25 m; když nesedí, zeptá se a nechá pokračovat
-- [ ] Zóna „mimo obec“ pro Lenocha — autor ji zatím nechal otevřenou
+- [x] „Jsme na místě“ ověří polohu do 25 m; když nesedí, zeptá se
+      („Podle GPS jste 340 m od místa. Přesto pokračovat?“) a nechá si odporovat
+- [x] Splnění podle polohy se v deníku i v logu odliší od splnění na slovo
+- [x] Seznam míst k doplnění: `docs/mista-k-doplneni.md` (`npm run docs:places`)
+- [ ] Zóny hospod: Apolena, Křenovský šenk, Nebákov, Trosky, Vidlák, Semín → **A3**
+- [ ] Souřadnice 27 cestovních úkolů → **A3**
+- [ ] Zóna „mimo obec“ pro Lenocha — autor ji zatím nechal otevřenou → **A3**
+
+*Stav:* dokud souřadnice nejsou, hra se hraje na čestné slovo přesně jako dřív —
+tlačítko odhalí kartu a nikdo se na nic neptá. Jakmile se doplní, kontrola se
+zapne sama, kartu po kartě.
 
 ## Fáze 6 — Vyhodnocení setkání a kostky ✅
 

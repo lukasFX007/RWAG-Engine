@@ -18,6 +18,13 @@
  * `{ id, name, lat, lon, radius }` in metres.
  */
 
+// The engine measures distances too — a task that names a place asks how far the
+// group is — so the geometry lives in the core and is re-exported here, where the
+// zone code and the tests have always looked for it.
+import { formatDistance, haversine } from "../core/distance.js";
+
+export { formatDistance, haversine };
+
 /** Zone ids the role data refers to. Coordinates are not in the data. */
 export const REFERENCED_ZONES = Object.freeze(["pubs", "no_village"]);
 
@@ -28,24 +35,6 @@ export const ZONES_MISSING_NOTE =
   "Souřadnice zón (pubs, no_village) nejsou v datech hry. " +
   "Podmínky na zónu proto zůstávají nesplněné a u volby se zobrazí jako požadavek.";
 
-const EARTH_RADIUS_M = 6371008.8;
-
-const toRad = (deg) => (deg * Math.PI) / 180;
-
-/**
- * Great-circle distance in metres. Haversine is accurate enough at walking
- * scale and needs no projection or dependency.
- */
-export function haversine(a, b) {
-  if (!a || !b) return Number.POSITIVE_INFINITY;
-  const dLat = toRad(b.lat - a.lat);
-  const dLon = toRad(b.lon - a.lon);
-  const lat1 = toRad(a.lat);
-  const lat2 = toRad(b.lat);
-  const h =
-    Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-  return 2 * EARTH_RADIUS_M * Math.asin(Math.min(1, Math.sqrt(h)));
-}
 
 /**
  * Which zones a point is inside. With no zones defined this is always `[]`,

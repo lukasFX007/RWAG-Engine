@@ -505,3 +505,75 @@ test("neznámá podmínka zamyká volbu, ale nespouští efekt", () => {
   ruleModule.apply(scenario.scenes[1].effects, { state: forced.state, source: "b" });
   assert.equal(forced.state.reputation, 0, "neznámá podmínka nesmí efekt spustit");
 });
+
+/* ------------------------------------------------- arriving somewhere (Fáze 5) */
+
+/** A task that names a place, so the arrival can be checked against a position. */
+function placedFixture() {
+  return {
+    gameId: "t",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        text: "",
+        choices: [{
+          text: "Úkol: Dojděte k lípě",
+          goto: "b",
+          quest: {
+            id: "q1",
+            kind: "travel",
+            text: "Dojděte k lípě",
+            at: { lat: 50.5486, lon: 15.2331, radius: 25, name: "tisíciletá lípa" },
+          },
+        }],
+      },
+      { id: "b", text: "", ending: true, choices: [] },
+    ],
+  };
+}
+
+const AT_TREE = { lat: 50.5486, lon: 15.2331, accuracy: 8, zones: [] };
+const FAR_AWAY = { lat: 50.5600, lon: 15.2500, accuracy: 8, zones: [] };
+
+test("bez polohy a bez souřadnic se skupině věří na slovo", () => {
+  const plain = new Engine(fixture());
+  plain.state.currentScene = "a";
+
+  const placed = new Engine(placedFixture());
+  placed.choose(0);
+  // no position at all: nothing to check against
+  assert.equal(placed.arrivalCheck({}), null);
+  placed.confirmArrival();
+  assert.equal(placed.card.id, "b");
+});
+
+test("když GPS říká, že tam nejste, hra se zeptá a nechá si odporovat", () => {
+  const engine = new Engine(placedFixture());
+  engine.choose(0);
+
+  const check = engine.arrivalCheck({ position: FAR_AWAY });
+  assert.equal(check.here, false);
+  assert.ok(check.distance > 25, `vzdálenost ${check.distance} m`);
+  assert.match(check.message, /Podle GPS jste/);
+  assert.match(check.message, /tisíciletá lípa/);
+
+  const refused = () => engine.confirmArrival({ position: FAR_AWAY });
+  assert.throws(refused, (err) => err.code === "not_at_place");
+  assert.equal(engine.card.id, "a", "karta se nesmí odhalit");
+  assert.ok(engine.pendingTask, "úkol pořád probíhá");
+
+  // the group insists, which is the author's rule: the app asks, it does not refuse
+  engine.confirmArrival({ position: FAR_AWAY, override: true });
+  assert.equal(engine.card.id, "b");
+});
+
+test("na místě se potvrzení nikoho na nic neptá", () => {
+  const engine = new Engine(placedFixture());
+  engine.choose(0);
+  assert.equal(engine.arrivalCheck({ position: AT_TREE }).here, true);
+  engine.confirmArrival({ position: AT_TREE });
+  assert.equal(engine.card.id, "b");
+  const quest = engine.completedQuests[0];
+  assert.equal(quest.completedBy, "position", "splněno podle polohy, ne na slovo");
+});
