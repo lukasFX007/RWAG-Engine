@@ -8,6 +8,7 @@
 
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 
 import { Engine } from "../src/core/engine.js";
 import { serialise } from "../src/core/state.js";
@@ -336,4 +337,49 @@ test("scénář bez příloh se načte, chybějící příloha není chyba", asy
 test("chybějící cesta ke scénáři se ohlásí česky", async () => {
   const loader = createLoader({ fetch: async () => ({ ok: true, json: async () => ({}) }) });
   await assert.rejects(() => loader.loadGame({ id: "x" }), /nemá cestu k datům/);
+});
+
+/* ------------------------------------------------- zones from the game data */
+
+const zoneData = JSON.parse(
+  readFileSync(new URL("../games/nebakov/zones.json", import.meta.url), "utf8"));
+
+test("hospody z dat se poznají podle polohy", () => {
+  const pubs = zoneData.zones.filter((z) => z.id === "pubs");
+  assert.ok(pubs.length >= 2, `hospod v datech je ${pubs.length}`);
+
+  for (const pub of pubs) {
+    assert.ok(Number.isFinite(pub.lat) && Number.isFinite(pub.lon), `${pub.name} bez souřadnic`);
+    // in the doorway
+    assert.deepEqual(zonesAt({ lat: pub.lat, lon: pub.lon }, zoneData.zones), ["pubs"],
+      `${pub.name} se nepozná ani na svých vlastních souřadnicích`);
+  }
+
+  // Apolena and the Křenovský šenk are about 300 m apart, so standing at one
+  // must not count as standing at the other with a 60 m radius
+  const [apolena, krenov] = pubs;
+  const gap = haversine(apolena, krenov);
+  assert.ok(gap > apolena.radius + krenov.radius,
+    `zóny se překrývají: ${Math.round(gap)} m mezi nimi`);
+
+  // a field two kilometres north is not a pub
+  assert.deepEqual(zonesAt({ lat: apolena.lat + 0.02, lon: apolena.lon }, zoneData.zones), []);
+});
+
+test("zóny dorazí se scénářem, ne při vytvoření modulu", () => {
+  const geo = createGeo({ geolocation: null, zones: [] });
+  assert.deepEqual(geo.zones, []);
+  assert.match(geo.missingNote, /nejsou v datech/);
+
+  geo.setZones(zoneData.zones, zoneData.pending);
+  assert.equal(geo.zones.length, zoneData.zones.length);
+  assert.match(geo.missingNote, /Zón v datech: 2/);
+  assert.match(geo.missingNote, /Chybí 5/);
+});
+
+test("čekající zóny zůstávají bez souřadnic, ne s vymyšlenými", () => {
+  for (const zone of zoneData.pending ?? []) {
+    assert.equal(zone.lat, undefined, `${zone.name} má souřadnice a přitom čeká`);
+    assert.ok(zone.name, "čekající zóna musí mít alespoň jméno");
+  }
 });

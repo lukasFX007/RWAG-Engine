@@ -9,6 +9,7 @@
   "players_max": 8,
   "startScene": "card_A01",
   "items": "items.json",
+  "zones": "zones.json",
   "scenes": [
     {
       "id": "card_B06",

@@ -22,7 +22,7 @@ Běží souběžně, nic z toho neblokuje proud B kromě označených míst.
 
 - [ ] **A1** · Vyplněná `kontrola-karet.html` — 166 karet ke kontrole proti tištěné hře
 - [ ] **A2** · Digitální mapy 1–3 a chybějící obrázky karet (`lipa02.jpg` a další)
-- [ ] **A3** · Souřadnice — seznam je připravený v `docs/mista-k-doplneni.md`
+- [ ] **A3** · Souřadnice — 2 z 6 hospod hotové, seznam se sám aktualizuje v `docs/mista-k-doplneni.md`
 - [ ] **A4** · Schválení přepsaných pravidel P01–P05 (návrh je hotový a v aplikaci)
 
 ---
@@ -85,7 +85,7 @@ Podle Q08c a Q30b. Mechanismus je hotový, chybí čísla.
       („Podle GPS jste 340 m od místa. Přesto pokračovat?“) a nechá si odporovat
 - [x] Splnění podle polohy se v deníku i v logu odliší od splnění na slovo
 - [x] Seznam míst k doplnění: `docs/mista-k-doplneni.md` (`npm run docs:places`)
-- [ ] Zóny hospod: Apolena, Křenovský šenk, Nebákov, Trosky, Vidlák, Semín → **A3**
+- [x] Zóny hospod: **Apolena a Křenovský šenk hotové** (od autora), zbývají Nebákov, Trosky, Vidlák, Semín → **A3**
 - [ ] Souřadnice 27 cestovních úkolů → **A3**
 - [ ] Zóna „mimo obec“ pro Lenocha — autor ji zatím nechal otevřenou → **A3**
 

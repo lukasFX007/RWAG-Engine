@@ -22,21 +22,18 @@ from collections import defaultdict
 
 GAME = os.path.join("games", "nebakov")
 
-# Q08a: the six places the Nenasyta's advantage and the Lenoch's disadvantage
-# hang on. Names as the author wrote them; coordinates still to come.
-PUBS = [
-    "Hospůdka Apolena",
-    "Křenovský šenk",
-    "Restaurace Nebákov",
-    "Restaurace Trosky",
-    "Občerstvení Vidlák",
-    "Občerstvení Keltské opidum Semín",
-]
-
 
 def read(name):
     with open(os.path.join(GAME, name), encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def zones():
+    """What zones.json already holds, and what it is still waiting for."""
+    if not os.path.exists(os.path.join(GAME, "zones.json")):
+        return [], []
+    data = read("zones.json")
+    return data.get("zones", []), data.get("pending", [])
 
 
 def collect(scenario):
@@ -64,11 +61,12 @@ def report(scenario, out):
     travel = [q for v in by_deck.values() for q in v if q["kind"] == "travel"]
     placed = [q for q in travel if q["at"]]
 
+    have, waiting = zones()
     lines = [
         "# Místa k doplnění",
         "",
         f"Úkolů celkem **{total}**, z toho cestovních **{len(travel)}**. "
-        f"Souřadnice má **{len(placed)}**.",
+        f"Souřadnice má **{len(placed)}**. Zón v datech: **{len(have)}**.",
         "",
         "Bez souřadnic se hra hraje na čestné slovo: tlačítko „Jsme na místě“ "
         "prostě odhalí další kartu. Se souřadnicemi se hra zeptá, když je skupina "
@@ -87,8 +85,15 @@ def report(scenario, out):
         "| Místo | Souřadnice | Rádius |",
         "|---|---|---|",
     ]
-    for pub in PUBS:
-        lines.append(f"| {pub} | | |")
+    for zone in have:
+        if zone.get("id") != "pubs":
+            continue
+        lines.append(f"| {zone.get('name')} | {zone['lat']}, {zone['lon']} ✅ "
+                     f"| {zone.get('radius', 25)} m |")
+    for zone in waiting:
+        if zone.get("id") != "pubs":
+            continue
+        lines.append(f"| {zone.get('name')} | | |")
 
     lines += [
         "",
@@ -100,7 +105,13 @@ def report(scenario, out):
         "",
         "| Obec / osada | Střed | Rádius |",
         "|---|---|---|",
-        "| Troskovice | | |",
+    ]
+    for zone in have + waiting:
+        if zone.get("id") != "no_village":
+            continue
+        coords = f"{zone['lat']}, {zone['lon']} ✅" if zone.get("lat") else ""
+        lines.append(f"| {zone.get('name')} | {coords} | {zone.get('radius', '')} |")
+    lines += [
         "| Tachov | | |",
         "| | | |",
         "",
@@ -117,10 +128,10 @@ def report(scenario, out):
             continue
         lines += [f"### Balíček {deck}", "", "| Karta | Úkol | Souřadnice |", "|---|---|---|"]
         for row in rows:
-            have = ""
+            coords = ""
             if row["at"]:
-                have = f"{row['at'].get('lat')}, {row['at'].get('lon')} ✅"
-            lines.append(f"| {row['card']} | {row['text']} | {have} |")
+                coords = f"{row['at'].get('lat')}, {row['at'].get('lon')} ✅"
+            lines.append(f"| {row['card']} | {row['text']} | {coords} |")
         lines.append("")
 
     other = [q for v in by_deck.values() for q in v if q["kind"] != "travel"]

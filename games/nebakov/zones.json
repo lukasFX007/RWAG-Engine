@@ -1,0 +1,33 @@
+{
+  "note": "Zóny, na kterých visí schopnosti rolí. Nenasyta má v zóně „pubs“ +1 k reputaci, Lenoch mimo zónu „no_village“ −1. Souřadnice jsou obsah hry, ne nastavení aplikace, proto jsou tady a ne v src/platform/geo.js.",
+  "radiusNote": "Rádius u hospod je 60 m — karta říká „v hospodách a jejich okolí“, což je víc než dveře a méně než vesnice. Je to můj odhad, klidně přepište.",
+  "zones": [
+    {
+      "id": "pubs",
+      "name": "Hospůdka Apolena",
+      "lat": 50.5101141,
+      "lon": 15.225715,
+      "radius": 60,
+      "source": "autor"
+    },
+    {
+      "id": "pubs",
+      "name": "Křenovský šenk",
+      "lat": 50.5075111,
+      "lon": 15.2268738,
+      "radius": 60,
+      "source": "autor"
+    }
+  ],
+  "pending": [
+    { "id": "pubs", "name": "Restaurace Nebákov" },
+    { "id": "pubs", "name": "Restaurace Trosky" },
+    { "id": "pubs", "name": "Občerstvení Vidlák" },
+    { "id": "pubs", "name": "Občerstvení Keltské opidum Semín" },
+    {
+      "id": "no_village",
+      "name": "Troskovice",
+      "note": "Autor nechal otevřené, co se má počítat za obec (Q08b). Dokud tu nic není, Lenochova nevýhoda se nevyhodnocuje."
+    }
+  ]
+}

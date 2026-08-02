@@ -35,6 +35,15 @@ export const ZONES_MISSING_NOTE =
   "Souřadnice zón (pubs, no_village) nejsou v datech hry. " +
   "Podmínky na zónu proto zůstávají nesplněné a u volby se zobrazí jako požadavek.";
 
+/** What to say once some of the zones exist and some do not. */
+export function zoneNote(zones, pending = []) {
+  if (!zones?.length) return ZONES_MISSING_NOTE;
+  const ids = [...new Set(zones.map((z) => z.id))].join(", ");
+  const missing = pending.length ? ` Chybí ${pending.length} (${
+    [...new Set(pending.map((z) => z.name ?? z.id))].join(", ")}).` : "";
+  return `Zón v datech: ${zones.length} (${ids}).${missing}`;
+}
+
 
 /**
  * Which zones a point is inside. With no zones defined this is always `[]`,
@@ -82,6 +91,8 @@ export function createGeo({ geolocation = globalThis.navigator?.geolocation, zon
   let watchId = null;
   let last = null;
   let error = null;
+  let list = zones ?? [];
+  let pending = [];
   const listeners = new Set();
 
   const supported = Boolean(geolocation?.watchPosition);
@@ -94,7 +105,7 @@ export function createGeo({ geolocation = globalThis.navigator?.geolocation, zon
     if (!supported || watchId !== null) return supported;
     watchId = geolocation.watchPosition(
       (pos) => {
-        last = positionContext(pos.coords, { zones, at: new Date(pos.timestamp).toISOString() });
+        last = positionContext(pos.coords, { zones: list, at: new Date(pos.timestamp).toISOString() });
         error = null;
         emit();
       },
@@ -116,10 +127,26 @@ export function createGeo({ geolocation = globalThis.navigator?.geolocation, zon
 
   return {
     supported,
-    /** zones known to the engine right now — empty until they are authored */
-    zones,
+    /** zones known right now — the game's, once a scenario has been loaded */
+    get zones() {
+      return list;
+    },
+    /**
+     * A scenario brings its own coordinates, and it is loaded after this module
+     * is created, so the list is replaced rather than fixed at construction.
+     * The last known position is re-resolved: the group has not moved, but what
+     * is known about where they are standing just changed.
+     */
+    setZones(next, stillMissing = []) {
+      list = next ?? [];
+      pending = stillMissing ?? [];
+      if (last) last = positionContext(last, { zones: list, at: last.at });
+      emit();
+    },
     referencedZones: REFERENCED_ZONES,
-    missingNote: ZONES_MISSING_NOTE,
+    get missingNote() {
+      return zoneNote(list, pending);
+    },
     start,
     stop,
     on(fn) {

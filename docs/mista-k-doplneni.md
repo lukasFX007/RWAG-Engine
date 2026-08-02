@@ -1,6 +1,6 @@
 # Místa k doplnění
 
-Úkolů celkem **46**, z toho cestovních **27**. Souřadnice má **0**.
+Úkolů celkem **46**, z toho cestovních **27**. Souřadnice má **0**. Zón v datech: **2**.
 
 Bez souřadnic se hra hraje na čestné slovo: tlačítko „Jsme na místě“ prostě odhalí další kartu. Se souřadnicemi se hra zeptá, když je skupina podle GPS jinde — a nechá si odporovat, protože signál pod skalami je často mimo (Q08c).
 
@@ -14,8 +14,8 @@ Kvůli Nenasytovi (+1 v hospodách) a Lenochovi (−1 mimo obce).
 
 | Místo | Souřadnice | Rádius |
 |---|---|---|
-| Hospůdka Apolena | | |
-| Křenovský šenk | | |
+| Hospůdka Apolena | 50.5101141, 15.225715 ✅ | 60 m |
+| Křenovský šenk | 50.5075111, 15.2268738 ✅ | 60 m |
 | Restaurace Nebákov | | |
 | Restaurace Trosky | | |
 | Občerstvení Vidlák | | |
@@ -27,7 +27,7 @@ Autor to nechal otevřené (Q08b): v okruhu hry je dnes jen Troskovice, ale osad
 
 | Obec / osada | Střed | Rádius |
 |---|---|---|
-| Troskovice | | |
+| Troskovice |  |  |
 | Tachov | | |
 | | | |
 

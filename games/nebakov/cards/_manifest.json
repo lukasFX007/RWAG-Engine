@@ -10,7 +10,8 @@
     "players_min": 3,
     "players_max": 8,
     "startScene": "card_A01",
-    "items": "items.json"
+    "items": "items.json",
+    "zones": "zones.json"
   },
   "sceneOrder": [
     "card_B06",

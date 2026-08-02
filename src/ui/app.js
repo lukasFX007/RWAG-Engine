@@ -251,6 +251,10 @@ export function createApp({
       }]);
     }
 
+    // the scenario carries its own coordinates; without them zone conditions
+    // stay unmet, which is the honest answer rather than a guess
+    geo.setZones(game.zones, game.zonesPending);
+
     const saved = fresh ? null : storage.load(entry.id);
     engine = new Engine(game.scenario, {
       events: game.events,
