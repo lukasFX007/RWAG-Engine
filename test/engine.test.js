@@ -433,3 +433,75 @@ test("klasifikace položek role podle spouštěče", () => {
   assert.deepEqual(passivesOf(ROLES[0]).map((a) => a.type), ["roleplay_twice_answer"]);
   assert.deepEqual(abilitiesOf(ROLES[1]).map((a) => a.type), [], "start není 1/hru");
 });
+
+/* --------------------------------------------- one registry, one meaning */
+
+/**
+ * A condition answers "is this true now". `disableIf` shuts a choice when it is
+ * true; `when` fires an effect when it is true. These pin that down, because an
+ * earlier version inverted inside one handler and not the others, and the two
+ * readings agree on every gate in the game except the ones that matter.
+ */
+test("disableIf zavírá volbu, když podmínka platí", () => {
+  const scenario = {
+    gameId: "t",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        text: "",
+        choices: [
+          { text: "jen chudým", goto: "b", disableIf: [{ type: "reputation", operator: ">", value: 2 }] },
+          { text: "jen s mapou", goto: "b", disableIf: [{ type: "has_item", item: "mapa", negate: true }] },
+          { text: "jen bez mapy", goto: "b", disableIf: [{ type: "has_item", item: "mapa" }] },
+        ],
+      },
+      { id: "b", text: "", ending: true, choices: [] },
+    ],
+  };
+
+  const poor = new Engine(scenario);
+  assert.equal(poor.choices()[0].available, true, "reputace 0 není nad 2");
+  assert.equal(poor.choices()[1].available, false, "bez mapy je volba na mapu zavřená");
+  assert.equal(poor.choices()[2].available, true);
+
+  const rich = new Engine(scenario);
+  rich.state.reputation = 5;
+  rich.state.inventory.mapa = { id: "mapa", name: "mapa", count: 1 };
+  assert.equal(rich.choices()[0].available, false, "reputace 5 je nad 2, volba se zavírá");
+  assert.equal(rich.choices()[1].available, true);
+  assert.equal(rich.choices()[2].available, false);
+});
+
+test("neznámá podmínka zamyká volbu, ale nespouští efekt", () => {
+  const scenario = {
+    gameId: "t",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        text: "",
+        choices: [{ text: "?", goto: "b", disableIf: [{ type: "vymyslena" }] }],
+      },
+      {
+        id: "b",
+        text: "",
+        ending: true,
+        effects: [{ type: "reputation", value: -3, when: [{ type: "vymyslena" }] }],
+        choices: [],
+      },
+    ],
+  };
+  const engine = new Engine(scenario);
+  const [choice] = engine.choices();
+  assert.equal(choice.available, false, "neznámá podmínka nesmí bránu otevřít");
+  assert.match(choice.reason, /neznámý typ podmínky/);
+
+  // and the other way round: the same unknown condition must not charge anything
+  engine.state.currentScene = "a";
+  engine.state.reputation = 0;
+  const forced = new Engine(scenario, { state: engine.state });
+  forced.state.currentScene = "b";
+  ruleModule.apply(scenario.scenes[1].effects, { state: forced.state, source: "b" });
+  assert.equal(forced.state.reputation, 0, "neznámá podmínka nesmí efekt spustit");
+});

@@ -216,7 +216,13 @@ test("podmínka na zónu zůstane nesplněná a řekne, co by bylo potřeba", ()
         id: "a",
         text: "start",
         choices: [
-          { text: "do hospody", goto: "b", disableIf: [{ type: "gps_zone", zone: "pubs" }] },
+          // `disableIf` closes a choice when the condition is true, so "you have
+          // to be there" is the negated form: shut while NOT in the zone
+          {
+            text: "do hospody",
+            goto: "b",
+            disableIf: [{ type: "gps_zone", zone: "pubs", negate: true }],
+          },
         ],
       },
       { id: "b", text: "cíl", ending: true, choices: [] },

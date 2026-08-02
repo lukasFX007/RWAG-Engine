@@ -11,7 +11,7 @@
  * choices with a requirement string rather than hiding them.
  */
 
-import { apply, evaluateAll } from "./rules.js";
+import { apply, lockState } from "./rules.js";
 import { createState, cloneState, visitCount } from "./state.js";
 import { draw, initDeck } from "./decks.js";
 import {
@@ -110,19 +110,19 @@ export class Engine {
     }
 
     return (card.choices ?? []).map((choice, index) => {
-      const { met, failures } = evaluateAll(choice.disableIf, base);
+      const { locked, reasons, requirements } = lockState(choice.disableIf, base);
       const overridable = this.state.pendingIgnoreChoiceCondition === true;
       return {
         index,
         icon: choice.icon ?? null,
         text: choice.text ?? "",
         goto: choice.goto ?? null,
-        available: met || overridable,
-        locked: !met,
-        unlockedByAbility: !met && overridable,
+        available: !locked || overridable,
+        locked,
+        unlockedByAbility: locked && overridable,
         /** what the players would need, phrased for them */
-        requirement: failures.map((f) => f.requirement).filter(Boolean).join(" a ") || null,
-        reason: failures.map((f) => f.reason).filter(Boolean).join("; ") || null,
+        requirement: requirements.join(" a ") || null,
+        reason: reasons.join("; ") || null,
       };
     });
   }

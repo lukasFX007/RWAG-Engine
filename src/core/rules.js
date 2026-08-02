@@ -14,35 +14,70 @@
 
 /* ------------------------------------------------------------------ conditions */
 
+/**
+ * One registry, one meaning: a condition answers "is this true right now".
+ *
+ * It is used from two places that want opposite things from that answer.
+ * `disableIf` on a choice LOCKS it when a condition is true; `when` on an effect
+ * FIRES it when a condition is true. Writing the handlers to answer the question
+ * rather than the consequence is what lets the same JSON mean the same thing in
+ * both fields — an earlier version inverted inside the `reputation` handler and
+ * not inside the others, which held together only because each type happened to
+ * be used in one place.
+ *
+ * The unknown case differs, and deliberately: an unrecognised condition locks a
+ * choice (never open a gate the author meant to close) and suppresses an effect
+ * (never charge a price the author meant to condition). Both are the cautious
+ * direction; they just point opposite ways.
+ */
 export const conditions = new Map();
 
 export function registerCondition(type, fn) {
   conditions.set(type, fn);
 }
 
-/**
- * @returns {{ met: boolean, reason: string|null, requirement: string|null }}
- */
+/** @returns {{known: boolean, holds: boolean, reason: string|null, requirement: string|null}} */
 export function evaluate(condition, ctx) {
   const fn = conditions.get(condition.type);
   if (!fn) {
-    // An unknown condition must not silently pass — that would unlock a choice
-    // the author meant to gate.
     return {
-      met: false,
+      known: false,
+      holds: false,
       reason: `neznámý typ podmínky: ${condition.type}`,
       requirement: null,
     };
   }
-  return fn(condition, ctx);
+  return { known: true, ...fn(condition, ctx) };
 }
 
-export function evaluateAll(list, ctx) {
-  const results = (list ?? []).map((c) => evaluate(c, ctx));
-  return {
-    met: results.every((r) => r.met),
-    failures: results.filter((r) => !r.met),
-  };
+/** True when the condition is true. Unknown types are not true. */
+export function holds(condition, ctx) {
+  return evaluate(condition, ctx).holds === true;
+}
+
+export function holdsAll(list, ctx) {
+  return (list ?? []).every((condition) => holds(condition, ctx));
+}
+
+/**
+ * Whether a choice's `disableIf` closes it, and how to say so.
+ * @returns {{locked: boolean, reasons: string[], requirements: string[]}}
+ */
+export function lockState(list, ctx) {
+  const reasons = [];
+  const requirements = [];
+  let locked = false;
+
+  for (const condition of list ?? []) {
+    const result = evaluate(condition, ctx);
+    // an unknown condition is treated as closing the gate
+    if (!result.known || result.holds) {
+      locked = true;
+      if (result.reason) reasons.push(result.reason);
+      if (result.requirement) requirements.push(result.requirement);
+    }
+  }
+  return { locked, reasons, requirements };
 }
 
 const OPERATORS = {
@@ -54,7 +89,7 @@ const OPERATORS = {
   "!=": (a, b) => a !== b,
 };
 
-/** Wording of what the player must reach for the choice to open. */
+/** Wording of what the players would need for a choice locked by this to open. */
 function repRequirement(operator, value) {
   switch (operator) {
     case "<": return `reputace ${value} nebo více`;
@@ -70,110 +105,55 @@ function repRequirement(operator, value) {
 registerCondition("reputation", (condition, { state }) => {
   const op = OPERATORS[condition.operator];
   if (!op) {
-    return { met: false, reason: `neznámý operátor: ${condition.operator}`, requirement: null };
+    return { holds: false, reason: `neznámý operátor: ${condition.operator}`, requirement: null };
   }
-  // `disableIf` states when a choice is LOCKED, so the condition matching means
-  // the choice is unavailable.
-  const locked = op(state.reputation, condition.value);
   return {
-    met: !locked,
-    reason: locked ? `reputace ${state.reputation} nesplňuje podmínku` : null,
+    holds: op(state.reputation, condition.value),
+    reason: `reputace ${state.reputation} nesplňuje podmínku`,
     requirement: repRequirement(condition.operator, condition.value),
   };
 });
 
 registerCondition("gps_zone", (condition, { position }) => {
-  if (!position) {
-    return {
-      met: false,
-      reason: "poloha není známá",
-      requirement: `být v zóně „${condition.zone}“`,
-    };
-  }
-  const inside = position.zones?.includes(condition.zone) ?? false;
+  const inside = position ? (position.zones?.includes(condition.zone) ?? false) : false;
+  // Without a position nothing is known, so "in the zone" is false either way.
+  // A choice that requires being there stays shut, which is what the printed
+  // card does too: it asks the players to be standing in the right place.
   return {
-    met: inside,
-    reason: inside ? null : `nejste v zóně „${condition.zone}“`,
-    requirement: `být v zóně „${condition.zone}“`,
+    holds: condition.negate ? !inside : inside,
+    reason: position
+      ? (inside ? `jste v zóně „${condition.zone}“` : `nejste v zóně „${condition.zone}“`)
+      : "poloha není známá",
+    requirement: condition.negate ? `být v zóně „${condition.zone}“` : null,
   };
 });
 
 registerCondition("visited", (condition, { state }) => {
   const count = state.visited[condition.scene] ?? 0;
-  const met = condition.negate ? count === 0 : count > 0;
+  const card = condition.scene.replace(/^card_/, "");
   return {
-    met,
-    reason: met ? null : `karta ${condition.scene} ${condition.negate ? "již byla" : "ještě nebyla"} navštívena`,
-    requirement: null,
+    holds: condition.negate ? count === 0 : count > 0,
+    reason: condition.negate ? `karta ${card} ještě nepadla` : `karta ${card} už padla`,
+    requirement: condition.negate ? `nejdřív projít kartu ${card}` : null,
   };
 });
 
 registerCondition("has_item", (condition, { state }) => {
   const owned = (state.inventory[condition.item]?.count ?? 0) > 0;
   return {
-    met: owned,
-    reason: owned ? null : `chybí předmět: ${condition.item}`,
-    requirement: `mít u sebe ${condition.item}`,
+    holds: condition.negate ? !owned : owned,
+    reason: condition.negate ? `chybí ${condition.item}` : `máte ${condition.item}`,
+    requirement: condition.negate ? `mít u sebe ${condition.item}` : null,
   };
 });
 
 registerCondition("quest_done", (condition, { state }) => {
   const done = state.quests[condition.quest]?.done === true;
   return {
-    met: done,
-    reason: done ? null : `úkol ${condition.quest} není splněný`,
-    requirement: `splnit úkol ${condition.quest}`,
+    holds: condition.negate ? !done : done,
+    reason: condition.negate ? `úkol ${condition.quest} není splněný` : `úkol ${condition.quest} je splněný`,
+    requirement: condition.negate ? `splnit úkol ${condition.quest}` : null,
   };
-});
-
-/* ----------------------------------------------------------------- predicates */
-
-/**
- * Plain "does this hold right now" checks, for effects that only fire under a
- * condition — B08's curse costs two reputation, but only to a group whose
- * reputation is above three.
- *
- * Deliberately a separate registry from `conditions`. There, a matching
- * condition LOCKS a choice, so `{reputation < 1}` means "closed below one".
- * Here the same JSON has to mean "true below one". One registry serving both
- * would make identical data read as its own opposite depending on which field
- * it sat in, which is exactly the kind of mistake that does not show up until
- * someone plays the card.
- */
-export const predicates = new Map();
-
-export function registerPredicate(type, fn) {
-  predicates.set(type, fn);
-}
-
-/** @returns {boolean} unknown predicates are false, never a silent pass */
-export function holds(predicate, ctx) {
-  const fn = predicates.get(predicate.type);
-  return fn ? fn(predicate, ctx) === true : false;
-}
-
-export function holdsAll(list, ctx) {
-  return (list ?? []).every((predicate) => holds(predicate, ctx));
-}
-
-registerPredicate("reputation", (predicate, { state }) => {
-  const op = OPERATORS[predicate.operator];
-  return op ? op(state.reputation, predicate.value) : false;
-});
-
-registerPredicate("visited", (predicate, { state }) => {
-  const count = state.visited[predicate.scene] ?? 0;
-  return predicate.negate ? count === 0 : count > 0;
-});
-
-registerPredicate("has_item", (predicate, { state }) => {
-  const owned = (state.inventory[predicate.item]?.count ?? 0) > 0;
-  return predicate.negate ? !owned : owned;
-});
-
-registerPredicate("quest_done", (predicate, { state }) => {
-  const done = state.quests[predicate.quest]?.done === true;
-  return predicate.negate ? !done : done;
 });
 
 /* -------------------------------------------------------------------- effects */

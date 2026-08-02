@@ -1,0 +1,100 @@
+{
+  "note": "Předměty, které skupina nese. Generováno se nepočítá — tenhle soubor je zdroj.",
+  "pools": {
+    "byliny": {
+      "name": "Stránky herbáře",
+      "source": "card_B12",
+      "maxPerGame": 5,
+      "note": "Jedna zdarma od bylinkáře na B07, až čtyři další za 1 reputaci každá (Q14b)."
+    }
+  },
+  "items": [
+    {
+      "id": "dopis",
+      "name": "Zvací dopis od paní Machny",
+      "icon": "svitek",
+      "card": "card_intro_dopis",
+      "startsWith": true,
+      "text": "Dopis, na jehož základě jste se sem vydali. Čte se na kartě B09."
+    },
+    {
+      "id": "mapa01",
+      "name": "Mapa 1 — z Troskovic na Nebákov",
+      "icon": "pin",
+      "startsWith": true,
+      "text": "Šipkami vyznačená cesta z Troskovic na Nebákov. Jen nezbytný výřez, nic víc. Přiložená ke zvacímu dopisu."
+    },
+    {
+      "id": "mapa02",
+      "name": "Mapa 2 — celá oblast",
+      "icon": "pin",
+      "text": "Zachycuje celou oblast. Obec Tachov na ní ale označená není — tu budete muset najít sami."
+    },
+    {
+      "id": "mapa03",
+      "name": "Mapa 3 — od ohrady k vodopádu",
+      "icon": "pin",
+      "text": "Detail Tachova od ohrady s ovcemi k vodopádu, cestu do ní zakreslil Jarek."
+    },
+    {
+      "id": "pistalka",
+      "name": "Dřevěná píšťalka",
+      "icon": "batoh",
+      "text": "Píšťalka, kterou vám dal kostkař v hospůdce. Chtěl si ji nechat jako talisman pro štěstí, ale vy ho potřebujete víc."
+    },
+    {
+      "id": "zakrvaceny_kamen",
+      "name": "Zakrvácený žulový kámen",
+      "icon": "batoh",
+      "text": "Kámen, který jste našli u pařezu za ohradou. Krev na něm je ještě čerstvá."
+    },
+    {
+      "id": "bylina_kontryhel",
+      "name": "Kontryhel – Alchemilla",
+      "icon": "priroda",
+      "pool": "byliny",
+      "card": "card_B12",
+      "text": "Pomůže ti od břichabolu. Máš-li běhání, nevolnost nebo větry, připrav sobě ve vodě odvar a popíjej jej čistý bez medu, a to ráno, v poledne i navečer."
+    },
+    {
+      "id": "bylina_cekanka",
+      "name": "Čekanka – Cichorium",
+      "icon": "priroda",
+      "pool": "byliny",
+      "card": "card_B12",
+      "text": "Máš-li bolest v játrech a na ledvinách, připrav sobě odvar a ten přebytečnou žluč z těla vyplaví. Pomůže též se vředy v žaludku a uleví od otravy z požití jedu."
+    },
+    {
+      "id": "bylina_zazvor",
+      "name": "Zázvor – Zingiber",
+      "icon": "priroda",
+      "pool": "byliny",
+      "card": "card_B12",
+      "text": "Z kořene zázvoru udělej sobě odvar, chceš-li se horkosti v sobě zbavit. Nebo ho požij samotný. Snad díky ohni, který v něm dříme, pomáhá také vyhnat z těla bolest."
+    },
+    {
+      "id": "bylina_kopretina",
+      "name": "Kopretina řimbaba – Leucanthemum",
+      "icon": "priroda",
+      "pool": "byliny",
+      "card": "card_B12",
+      "text": "Horečku sníží i bolest utiší. Rozžvýkej a spolkni jeden list, nebo pět, když je bolest velká. Pomazání olejovým odvarem odpuzuje hmyz a hojí jeho kousnutí."
+    },
+    {
+      "id": "bylina_hermanek",
+      "name": "Heřmánek – Matricaria",
+      "icon": "priroda",
+      "pool": "byliny",
+      "card": "card_B12",
+      "text": "Heřmánek je zázračný všelék. Na bolest, zranění, vředy, horečku i na uklidnění ducha při špatných snech. Sušený i čerstvý můžete povařit v oleji či vodě, nebo jen tak jísti."
+    },
+    {
+      "id": "bylina_mak",
+      "name": "Mák vlčí – Papaver rhoeas",
+      "icon": "priroda",
+      "pool": "byliny",
+      "card": "card_B12",
+      "text": "Vyvař květ, stvol i listy a získáš nálev pro zklidnění těla i duše a vyhnání kašle z těla. Dej však pozor na čerstvou šťávu! Neb budeš vidět věci nevídané."
+    }
+  ]
+}

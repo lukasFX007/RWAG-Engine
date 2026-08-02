@@ -20,8 +20,7 @@
       "disableIf": [
         {
           "type": "visited",
-          "scene": "card_B02",
-          "negate": true
+          "scene": "card_B02"
         }
       ],
       "note": "Splněný volitelný úkol se už nenabízí – karta B03 zbude jen jako cesta na B04."
