@@ -55,6 +55,13 @@ export function createState({ scenarioId, startScene, players = [], seed = 1 } =
     decks: {},
     /** cards held by a single player, e.g. a curse: [{ cardId, player }] */
     heldCards: [],
+    /**
+     * A card meant for some of the players and not the rest — C11's curse, D12's
+     * hint for the two playing the guards. On one phone that means handing it
+     * over, so the game stops and says so rather than printing it for everyone.
+     * { cardId, audience, keep }
+     */
+    pendingPrivate: null,
     /** roles in play: [{ playerId, roleId, usedOnce: { effectType: true } }] */
     players: players.map((p) => ({ ...p, usedOnce: {} })),
 

@@ -952,7 +952,8 @@
         {
           "type": "hold_card",
           "card": "card_C11",
-          "text": "Vezmi si kartu C11 – platí jen pro toho, kdo to udělal."
+          "text": "Kartu C11 si přečte jen ten, kdo to udělal.",
+          "audience": "ten, kdo mu zavřel oči"
         }
       ],
       "choices": [
@@ -971,7 +972,13 @@
         "Na kartě je dále uvedeno:<br>• 💀 Klatba: Od této chvíle nemůžeš mluvit.<br>• Za každé porušení klatby ztratí celá skupina reputaci (😡).<br>• 👑 Úkol (volitelný): Dej si panáka ➤ zrušení klatby"
       ],
       "choices": [],
-      "todo": "Osobní karta klatby (ponechává si ji jeden hráč), nikoli scéna s návazností."
+      "held": {
+        "banner": "Klatba: nemůžeš mluvit",
+        "detail": "Za každé porušení klatby ztrácí celá skupina reputaci (😡).",
+        "release": "Dal jsem si panáka",
+        "releaseNote": "Klatba je zrušena, můžeš zase mluvit.",
+        "audience": "ten, kdo mu zavřel oči"
+      }
     },
     {
       "id": "card_C12",
@@ -1404,6 +1411,21 @@
       ],
       "choices": [
         {
+          "icon": "mozek",
+          "text": "Aktivita (volitelná): Dva z vás hrají stráže a tajně si přečtou D12",
+          "goto": "card_D02",
+          "revisit": true,
+          "note": "Nápověda je jen pro ně dva, ostatní ji vidět nesmí.",
+          "effects": [
+            {
+              "type": "show_private",
+              "card": "card_D12",
+              "audience": "dva hráči, kteří hrají stráže",
+              "text": "Podejte telefon těm dvěma, kdo hrají stráže. Ostatní se nedívají."
+            }
+          ]
+        },
+        {
           "icon": "stopy",
           "text": "Kartu D02 odložte a pokračujte čtením karty D11.",
           "goto": "card_D11"
@@ -1636,7 +1658,10 @@
         "▶ Strážný stojící vpravo je patologický lhář."
       ],
       "choices": [],
-      "todo": "Nápovědná karta pro dva hráče hrající stráže (viz D02), nikoli scéna s návazností."
+      "private": {
+        "audience": "dva hráči, kteří hrají stráže",
+        "note": "Ostatní tuhle kartu vidět nesmí — na ní stojí celá hádanka."
+      }
     },
     {
       "id": "card_E01",

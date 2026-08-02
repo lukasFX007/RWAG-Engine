@@ -6,5 +6,11 @@
     "Na kartě je dále uvedeno:<br>• 💀 Klatba: Od této chvíle nemůžeš mluvit.<br>• Za každé porušení klatby ztratí celá skupina reputaci (😡).<br>• 👑 Úkol (volitelný): Dej si panáka ➤ zrušení klatby"
   ],
   "choices": [],
-  "todo": "Osobní karta klatby (ponechává si ji jeden hráč), nikoli scéna s návazností."
+  "held": {
+    "banner": "Klatba: nemůžeš mluvit",
+    "detail": "Za každé porušení klatby ztrácí celá skupina reputaci (😡).",
+    "release": "Dal jsem si panáka",
+    "releaseNote": "Klatba je zrušena, můžeš zase mluvit.",
+    "audience": "ten, kdo mu zavřel oči"
+  }
 }

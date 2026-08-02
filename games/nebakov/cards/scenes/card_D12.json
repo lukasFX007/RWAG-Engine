@@ -6,5 +6,8 @@
     "▶ Strážný stojící vpravo je patologický lhář."
   ],
   "choices": [],
-  "todo": "Nápovědná karta pro dva hráče hrající stráže (viz D02), nikoli scéna s návazností."
+  "private": {
+    "audience": "dva hráči, kteří hrají stráže",
+    "note": "Ostatní tuhle kartu vidět nesmí — na ní stojí celá hádanka."
+  }
 }

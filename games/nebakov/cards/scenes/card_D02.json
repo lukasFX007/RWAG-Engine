@@ -7,6 +7,21 @@
   ],
   "choices": [
     {
+      "icon": "mozek",
+      "text": "Aktivita (volitelná): Dva z vás hrají stráže a tajně si přečtou D12",
+      "goto": "card_D02",
+      "revisit": true,
+      "note": "Nápověda je jen pro ně dva, ostatní ji vidět nesmí.",
+      "effects": [
+        {
+          "type": "show_private",
+          "card": "card_D12",
+          "audience": "dva hráči, kteří hrají stráže",
+          "text": "Podejte telefon těm dvěma, kdo hrají stráže. Ostatní se nedívají."
+        }
+      ]
+    },
+    {
       "icon": "stopy",
       "text": "Kartu D02 odložte a pokračujte čtením karty D11.",
       "goto": "card_D11"

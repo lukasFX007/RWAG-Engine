@@ -161,6 +161,7 @@ export function cardView(engine, options = {}) {
     }));
   const task = taskView(engine);
   const progress = progressView(engine);
+  const held = heldCardsView(engine);
 
   return {
     id: card.id,
@@ -183,6 +184,8 @@ export function cardView(engine, options = {}) {
     /** the condition holding the group on this card; also locks every choice */
     progress,
     progressPending: Boolean(progress),
+    /** curses and personal cards still in play, shown above the card */
+    held,
     ending: card.ending === true,
     finished: engine.finished,
     /**
@@ -193,6 +196,58 @@ export function cardView(engine, options = {}) {
     deadEnd: choices.length === 0 && card.ending !== true && !progress,
     note: card.todo ?? null,
   };
+}
+
+/**
+ * A card meant for some of the players and not the rest.
+ *
+ * The printed game solves this by handing over a piece of card. One phone
+ * cannot, so the game stops, names who should be holding it, and waits — first
+ * before the text is shown, then again before play resumes, so nobody reads it
+ * over a shoulder on the way back.
+ */
+export function privateCardView(engine) {
+  const pending = engine.privateCard;
+  if (!pending?.card) return null;
+  const card = pending.card;
+  const declared = card.private ?? {};
+  const audience = pending.audience ?? declared.audience ?? "ten, komu to patří";
+  return {
+    cardId: pending.cardId,
+    cardCode: card.cardCode ?? null,
+    audience,
+    prompt: pending.prompt ?? `Podejte telefon: ${audience}.`,
+    note: declared.note ?? "Ostatní se prosím nedívají.",
+    paragraphs: cardText(card.text),
+    revealLabel: `Jsem ${audience === "ten, komu to patří" ? "to já" : "u telefonu"} — ukaž mi to`,
+    doneLabel: pending.keep ? "Přečetl jsem si to a nechávám si to" : "Přečetli jsme si to",
+    keep: pending.keep === true,
+  };
+}
+
+/**
+ * Curses and personal cards somebody is still holding.
+ *
+ * C11's says "you cannot speak from now on" and lifts only when that player has
+ * a drink, which is exactly the kind of thing that gets forgotten five minutes
+ * later — so it stays on screen above the card until it is lifted.
+ */
+export function heldCardsView(engine) {
+  return engine.heldCards
+    .filter((held) => held.card)
+    .map((held) => {
+      const declared = held.card.held ?? {};
+      return {
+        cardId: held.cardId,
+        cardCode: held.card.cardCode ?? null,
+        banner: declared.banner ?? held.card.cardCode ?? held.cardId,
+        detail: declared.detail ?? null,
+        player: held.player ?? declared.audience ?? null,
+        releaseLabel: declared.release ?? "Zrušit",
+        releaseNote: declared.releaseNote ?? null,
+        paragraphs: cardText(held.card.text),
+      };
+    });
 }
 
 /** The status bar: reputation, quest tally, whether undo is possible. */
@@ -483,18 +538,37 @@ function roleEntryView(entry, sort) {
 }
 
 /** One dealt role, as its player reads it out to the others. */
-export function roleCardView(player, role = {}) {
+/**
+ * One player's role card.
+ *
+ * The Analfabet's card is printed twice: once plainly, and once with the letters
+ * shuffled — that second version is what the player holding the role reads, and
+ * it is the whole mechanic, because the role is "you cannot read". The data was
+ * storing only the shuffled spelling, so everybody read gibberish. `playerView`
+ * now holds it and is used only for the person it belongs to.
+ */
+export function roleCardView(player, role = {}, { own = true } = {}) {
+  const view = own ? role.playerView ?? null : null;
+  const entryTexts = view
+    ? [...(view.advantages ?? []), ...(view.disadvantages ?? [])]
+    : null;
+  const entries = [
+    ...(role.advantages ?? []).map((e) => roleEntryView(e, "advantage")),
+    ...(role.disadvantages ?? []).map((e) => roleEntryView(e, "disadvantage")),
+  ];
   return {
     playerId: player.playerId,
     playerName: player.name ?? player.playerId,
     roleId: player.roleId ?? role.id ?? null,
     roleName: player.roleName ?? role.name ?? player.roleId,
     description: role.description ?? null,
-    character: cardText(role.character),
-    entries: [
-      ...(role.advantages ?? []).map((e) => roleEntryView(e, "advantage")),
-      ...(role.disadvantages ?? []).map((e) => roleEntryView(e, "disadvantage")),
-    ],
+    character: cardText(view?.character ?? role.character),
+    entries: entryTexts
+      ? entries.map((entry, index) => ({ ...entry, text: entryTexts[index] ?? entry.text }))
+      : entries,
+    /** the player is reading a version of the card only they see */
+    ownView: Boolean(view),
+    ownViewNote: view ? "Takhle ji vidíš ty. Ostatní čtou něco jiného." : null,
   };
 }
 

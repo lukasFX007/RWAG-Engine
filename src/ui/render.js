@@ -206,6 +206,58 @@ export function renderProgressPanel(progress, { onResolve } = {}) {
   );
 }
 
+/**
+ * Handing the phone over.
+ *
+ * Two taps rather than one, and deliberately: the first is the person taking the
+ * phone, the second is them giving it back. Between those two the text is on
+ * screen, and outside them it is not.
+ */
+export function renderPrivateCard(view, { onReveal, onDone, revealed = false } = {}) {
+  const root = el("section", { class: "private", role: "group", "aria-label": "Osobní karta" });
+  root.append(
+    el("p", { class: "eyebrow", text: "Jen pro jednoho" }),
+    el("h2", { class: "private-title", text: view.prompt }),
+    el("p", { class: "muted", text: view.note }),
+  );
+
+  if (!revealed) {
+    root.append(el("button", {
+      type: "button", class: "btn btn-primary btn-wide", onclick: () => onReveal?.(),
+    }, view.revealLabel));
+    return root;
+  }
+
+  const body = el("div", { class: "private-body" });
+  if (view.cardCode) body.append(el("span", { class: "card-code", text: view.cardCode }));
+  for (const lines of view.paragraphs) body.append(el("p", {}, withBreaks(lines)));
+  root.append(body);
+  root.append(el("button", {
+    type: "button", class: "btn btn-primary btn-wide", onclick: () => onDone?.(),
+  }, view.doneLabel));
+  return root;
+}
+
+/** Curses still in force, above the card so they cannot be forgotten. */
+export function renderHeldCards(held, { onRelease } = {}) {
+  const root = el("div", { class: "held-strip" });
+  for (const card of held) {
+    root.append(el("section", { class: "held", role: "status" },
+      el("div", { class: "held-body" },
+        el("p", { class: "held-banner" },
+          el("span", { "aria-hidden": "true", text: `${icon("lebka")} ` }),
+          card.banner),
+        card.player ? el("p", { class: "held-who", text: card.player }) : null,
+        card.detail ? el("p", { class: "held-detail", text: card.detail }) : null,
+      ),
+      el("button", {
+        type: "button", class: "btn btn-small", onclick: () => onRelease?.(card.cardId),
+      }, card.releaseLabel),
+    ));
+  }
+  return root;
+}
+
 /** The card's text, with an edit button when the author is in edit mode. */
 function renderCardText(view, edit) {
   const block = el("div", { class: "card-text" });
@@ -255,7 +307,8 @@ function renderCardText(view, edit) {
 }
 
 export function renderCard(view, {
-  onChoose, onUndo, onConfirmTask, onCancelTask, onResolveProgress, edit = null,
+  onChoose, onUndo, onConfirmTask, onCancelTask, onResolveProgress, onReleaseHeld,
+  edit = null,
 } = {}) {
   const root = el("article", { class: "card", "aria-live": "polite" });
 
@@ -266,6 +319,8 @@ export function renderCard(view, {
     view.taskInProgress ? el("span", { class: "badge badge-task", text: "úkol" }) : null,
     view.edited.any ? el("span", { class: "badge badge-edit", text: "upravený text" }) : null,
   ));
+
+  if (view.held?.length) root.append(renderHeldCards(view.held, { onRelease: onReleaseHeld }));
 
   if (view.image) root.append(renderImage(view.image));
 
@@ -590,6 +645,7 @@ export function renderRoleCard(card) {
           card.character.map((lines) => el("p", {}, withBreaks(lines))))
       : null,
     card.entries.length ? el("ul", { class: "role-lines" }, card.entries.map(roleEntryRow)) : null,
+    card.ownViewNote ? el("p", { class: "role-own-note", text: card.ownViewNote }) : null,
   );
 }
 

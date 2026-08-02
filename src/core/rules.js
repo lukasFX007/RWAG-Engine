@@ -260,12 +260,31 @@ registerEffect("quest_done", (effect, { state }) => {
   if (quest) quest.done = true;
 });
 
-/** Cards a single player keeps, such as the curse on C11. */
+/**
+ * Cards a single player keeps, such as the curse on C11.
+ *
+ * It does not go straight into the pile: the card is meant for one person, and
+ * on a shared phone that has to be a handover the others do not read over. The
+ * engine parks it and the UI asks for the phone to be passed; taking it is what
+ * puts it in `heldCards`.
+ */
 registerEffect("hold_card", (effect, { state, source }) => {
-  state.heldCards.push({
+  state.pendingPrivate = {
     cardId: effect.card ?? source,
-    player: effect.player ?? null,
-  });
+    audience: effect.audience ?? effect.player ?? null,
+    prompt: effect.text ?? null,
+    keep: true,
+  };
+});
+
+/** Shown to a few players and then forgotten, such as D12's hint for the guards. */
+registerEffect("show_private", (effect, { state, source }) => {
+  state.pendingPrivate = {
+    cardId: effect.card ?? source,
+    audience: effect.audience ?? null,
+    prompt: effect.text ?? null,
+    keep: false,
+  };
 });
 
 /* Role abilities. These arm a flag that the engine consumes at the right

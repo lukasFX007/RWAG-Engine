@@ -36,8 +36,10 @@ import {
   dealtRolesView,
   editModeView,
   endingView,
+  heldCardsView,
   inventoryView,
   journalView,
+  privateCardView,
   trailText,
   messageViews,
   overridesView,
@@ -52,7 +54,9 @@ import {
   renderAbilities,
   renderCard,
   renderEnding,
+  renderHeldCards,
   renderInventory,
+  renderPrivateCard,
   renderJournal,
   renderMenu,
   renderOverrides,
@@ -349,8 +353,34 @@ export function createApp({
     }));
   }
 
+  /** Whether the person holding a private card has tapped through to the text. */
+  let privateRevealed = false;
+
   function drawGame() {
     if (!engine) return;
+
+    // A card meant for one player takes over the screen: it is the only way to
+    // keep it off the eyes of everyone else sitting round the same phone.
+    const priv = privateCardView(engine);
+    if (priv) {
+      statusBar.update(statusView(engine));
+      screen.replaceChildren(renderPrivateCard(priv, {
+        revealed: privateRevealed,
+        onReveal: () => {
+          privateRevealed = true;
+          drawGame();
+        },
+        onDone: () => {
+          engine.acknowledgePrivate();
+          privateRevealed = false;
+          autosave();
+          drawGame();
+          drainMessages();
+        },
+      }));
+      return;
+    }
+
     const view = cardView(engine, {
       position: geo.position,
       imageBase: game.imageBase,
@@ -363,6 +393,15 @@ export function createApp({
       onUndo: engine.canUndo ? () => undo() : null,
       onConfirmTask: () => confirmTask(),
       onCancelTask: () => cancelTask(),
+      onReleaseHeld: (cardId) => {
+        const released = engine.heldCards.find((h) => h.cardId === cardId);
+        engine.releaseHeldCard(cardId);
+        const note = released?.card?.held?.releaseNote;
+        if (note) engine.state.toasts.push({ text: note });
+        autosave();
+        drawGame();
+        drainMessages();
+      },
       onResolveProgress: (outcome) => {
         engine.resolveProgress(outcome);
         autosave();

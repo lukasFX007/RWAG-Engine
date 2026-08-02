@@ -101,6 +101,21 @@ export class Engine {
     if (!card) return [];
     const base = { state: this.state, engine: this, items: this.items, ...ctx };
 
+    // nothing can be taken while a card is waiting to be handed to somebody
+    if (this.state.pendingPrivate) {
+      return (card.choices ?? []).map((choice, index) => ({
+        index,
+        icon: choice.icon ?? null,
+        text: choice.text ?? "",
+        goto: choice.goto ?? null,
+        available: false,
+        locked: true,
+        unlockedByAbility: false,
+        requirement: null,
+        reason: "čeká osobní karta",
+      }));
+    }
+
     // A card can refuse to let go before something is done on it. Same shape as
     // the task lock, opposite meaning: a task is about leaving, this is about
     // not leaving yet.
@@ -489,6 +504,51 @@ export class Engine {
     this.state.quests[quest.id] = quest;
     this.#emit({ type: "questStarted", quest });
     return quest;
+  }
+
+  /* ------------------------------------------------------------ private cards */
+
+  /** The card waiting to be handed to somebody, or null. */
+  get privateCard() {
+    const pending = this.state.pendingPrivate;
+    if (!pending) return null;
+    return { ...pending, card: this.scenes.get(pending.cardId) ?? null };
+  }
+
+  /** The player took the phone and read it. */
+  acknowledgePrivate() {
+    const pending = this.state.pendingPrivate;
+    if (!pending) throw new Error("žádná osobní karta nečeká");
+    if (pending.keep) {
+      this.state.heldCards.push({
+        cardId: pending.cardId,
+        player: pending.audience ?? null,
+        since: new Date().toISOString(),
+      });
+    }
+    this.state.pendingPrivate = null;
+    this.#emit({ type: "privateRead", cardId: pending.cardId, kept: pending.keep });
+    return true;
+  }
+
+  /** Cards somebody is still holding, with the scene they came from. */
+  get heldCards() {
+    return this.state.heldCards.map((held) => ({
+      ...held,
+      card: this.scenes.get(held.cardId) ?? null,
+    }));
+  }
+
+  /**
+   * A curse ends when the players say it does. C11's ends with a drink, and only
+   * the person under it knows whether they had one.
+   */
+  releaseHeldCard(cardId) {
+    const before = this.state.heldCards.length;
+    this.state.heldCards = this.state.heldCards.filter((held) => held.cardId !== cardId);
+    if (this.state.heldCards.length === before) return false;
+    this.#emit({ type: "heldCardReleased", cardId });
+    return true;
   }
 
   /* ------------------------------------------------------- progress conditions */

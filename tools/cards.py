@@ -205,9 +205,22 @@ def validate(scenario, events=None):
             else:
                 adj[s["id"]].append(tgt)
 
+    # A private card is reached by being handed to somebody, not by a goto: C11
+    # is the curse the killer keeps, D12 the hint the two guards read. Without
+    # this they look orphaned.
+    private = defaultdict(list)
+    for s_ in scenes:
+        sources = (s_.get("effects") or []) + [
+            e for c in (s_.get("choices") or []) for e in (c.get("effects") or [])]
+        for effect in sources:
+            if effect.get("type") in ("hold_card", "show_private"):
+                target = effect.get("card")
+                if target and target in by_id:
+                    private[s_["id"]].append(target)
+
     reach = defaultdict(list)
-    for node in set(adj) | set(returns):
-        reach[node] = adj[node] + returns[node]
+    for node in set(adj) | set(returns) | set(private):
+        reach[node] = adj[node] + returns[node] + private[node]
 
     start = scenario.get("startScene")
     if start and start not in by_id:

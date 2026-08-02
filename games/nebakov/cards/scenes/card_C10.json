@@ -6,7 +6,8 @@
     {
       "type": "hold_card",
       "card": "card_C11",
-      "text": "Vezmi si kartu C11 – platí jen pro toho, kdo to udělal."
+      "text": "Kartu C11 si přečte jen ten, kdo to udělal.",
+      "audience": "ten, kdo mu zavřel oči"
     }
   ],
   "choices": [

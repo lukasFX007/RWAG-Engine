@@ -52,13 +52,16 @@ G23, H03, H05, H11**. Hráč z nich dnes odejde, aniž by ji splnil.
 C25 je zákaz („nechoďte hlouběji do skal“), takže se jen potvrzuje. Panel má
 jinou barvu než úkol — obojí zamyká volby a znamená to opak.
 
-## Fáze 3 — Osobní karty a role na jednom telefonu
+## Fáze 3 — Osobní karty a role na jednom telefonu ✅
 
 UI dnes vůbec neví o `heldCards`, takže klatba z C11 se nikde nezobrazí.
 
-- [ ] C11: trvalý pruh „klatba: nemůžeš mluvit“ + tlačítko „dal jsem si panáka“
-- [ ] D12: obrazovka „podej telefon hráči X“, s volbou pro dva telefony
-- [ ] Analfabet vidí přeházený text (data už jsou v `roles.json` → `playerView`)
+- [x] C11: trvalý pruh „klatba: nemůžeš mluvit“ + tlačítko „dal jsem si panáka“
+- [x] D12: obrazovka „podej telefon hráči X“, s volbou pro dva telefony
+- [x] Analfabet vidí přeházený text (data už jsou v `roles.json` → `playerView`)
+
+*Hotovo:* předání telefonu je na dvě klepnutí — jedno pro toho, kdo si bere
+telefon, druhé, když ho vrací. Mezi nimi je text na obrazovce, mimo ně není.
 
 ## Fáze 4 — Pravidla P01–P05 do menu
 

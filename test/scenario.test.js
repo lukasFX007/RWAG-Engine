@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
 
 import { Engine } from "../src/core/engine.js";
 import { deckSize, timesDrawn } from "../src/core/decks.js";
-import { trailText } from "../src/ui/view.js";
+import { roleCardView, trailText } from "../src/ui/view.js";
 
 const read = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url), "utf8"));
 const scenario = read("../games/nebakov/scenario.json");
@@ -96,6 +96,8 @@ function walkAll(unknownSink = new Set()) {
       endings.add(engine.card.id);
       return;
     }
+    // a card meant for one player is handed over before play resumes
+    if (engine.privateCard) engine.acknowledgePrivate();
     // a card can hold the group until something is done on it; the walk does it,
     // because the alternative reading is "every exit locked", which is a trap
     if (engine.progress) {
@@ -1001,4 +1003,65 @@ test("lovčí na G23 platí jen za dva úspěchy", () => {
   lost.state.currentScene = "card_G23";
   lost.resolveProgress("neuspech");
   assert.equal(lost.state.reputation, -1);
+});
+
+/* --------------------------------------------- osobní karty a role (Fáze 3) */
+
+test("klatba z C11 se předává jednomu hráči a drží, dokud si nedá panáka", () => {
+  const engine = withItems();
+  engine.state.currentScene = "card_C08";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_C10"));
+  if (engine.pendingTask) engine.confirmArrival();
+
+  const priv = engine.privateCard;
+  assert.ok(priv, "C10 má předat kartu C11 jednomu hráči");
+  assert.equal(priv.cardId, "card_C11");
+  assert.equal(priv.keep, true);
+  assert.ok(engine.choices().every((c) => !c.available),
+    "dokud si kartu nepřečte, hra nepokračuje");
+
+  engine.acknowledgePrivate();
+  assert.equal(engine.privateCard, null);
+  assert.ok(engine.choices().some((c) => c.available));
+
+  const held = engine.heldCards;
+  assert.equal(held.length, 1);
+  assert.equal(held[0].card.held.banner, "Klatba: nemůžeš mluvit");
+
+  assert.equal(engine.releaseHeldCard("card_C11"), true);
+  assert.deepEqual(engine.heldCards, []);
+  assert.equal(engine.releaseHeldCard("card_C11"), false, "podruhé už není co rušit");
+});
+
+test("nápovědu D12 vidí jen dva strážní a nikdo si ji nenechává", () => {
+  const engine = withItems();
+  engine.state.currentScene = "card_D02";
+  const activity = engine.choices().findIndex((c) => c.goto === "card_D02");
+  assert.ok(activity >= 0, "D02 má volitelnou aktivitu se strážemi");
+  engine.choose(activity);
+
+  const priv = engine.privateCard;
+  assert.equal(priv.cardId, "card_D12");
+  assert.equal(priv.keep, false);
+  assert.match(priv.audience, /stráže/);
+
+  engine.acknowledgePrivate();
+  assert.deepEqual(engine.heldCards, [], "nápověda se nenechává, jen přečte");
+  assert.equal(engine.card.id, "card_D02", "po přečtení se pokračuje ze stejné karty");
+});
+
+test("Analfabet čte svou kartu přeházeně, ostatní ji čtou normálně", () => {
+  const role = roles.find((r) => r.id === "analfabet");
+  const player = { playerId: "p1", name: "Hráč 1", roleId: "analfabet" };
+
+  const own = roleCardView(player, role, { own: true });
+  const others = roleCardView(player, role, { own: false });
+
+  assert.equal(own.ownView, true);
+  assert.match(own.character.join(" "), /čvoljek/);
+  assert.match(own.entries[0].text, /Nemušíš/);
+
+  assert.equal(others.ownView, false);
+  assert.match(others.character.join(" "), /člověk pocházející/);
+  assert.match(others.entries[0].text, /Nemusíš/);
 });
