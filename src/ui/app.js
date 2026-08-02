@@ -41,6 +41,7 @@ import {
   inventoryView,
   journalView,
   privateCardView,
+  rulesView,
   trailText,
   messageViews,
   overridesView,
@@ -59,6 +60,7 @@ import {
   renderHeldCards,
   renderInventory,
   renderPrivateCard,
+  renderRules,
   renderJournal,
   renderMenu,
   renderOverrides,
@@ -541,6 +543,7 @@ export function createApp({
         else geo.start();
         openMenu();
       },
+      onRules: engine ? () => openSheet("rules", renderRules(rulesView(engine))) : null,
       hasRoles: (engine?.players?.length ?? 0) > 0,
       abilityCount: engine?.players?.length ? engine.abilities.length : 0,
       onAbilities: engine ? () => openAbilities() : null,

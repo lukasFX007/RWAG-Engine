@@ -19,7 +19,7 @@ Běží souběžně, nic z toho neblokuje proud B kromě označených míst.
 - [ ] **A1** · Vyplněná `kontrola-karet.html` — 166 karet ke kontrole proti tištěné hře
 - [ ] **A2** · Digitální mapy 1–3 a chybějící obrázky karet (`lipa02.jpg` a další)
 - [ ] **A3** · Souřadnice: body cestovních úkolů (hospody si dohledám sám) → blokuje Fázi 5
-- [ ] **A4** · Schválení přepsaných pravidel P01–P05 → blokuje Fázi 4
+- [ ] **A4** · Schválení přepsaných pravidel P01–P05 (návrh je hotový a v aplikaci)
 
 ---
 
@@ -63,11 +63,15 @@ UI dnes vůbec neví o `heldCards`, takže klatba z C11 se nikde nezobrazí.
 *Hotovo:* předání telefonu je na dvě klepnutí — jedno pro toho, kdo si bere
 telefon, druhé, když ho vrací. Mezi nimi je text na obrazovce, mimo ně není.
 
-## Fáze 4 — Pravidla P01–P05 do menu
+## Fáze 4 — Pravidla P01–P05 do menu ✅
 
-- [ ] Přepsat P01–P04 pro digitál (bez pouzder a balíčků) → **návrh autorovi (A4)**
-- [ ] Zpřístupnit z menu jako nápovědu
-- [ ] P05 přepsat na čistou závěrečnou obrazovku
+- [x] Přepsat P01–P04 pro digitál (bez pouzder a balíčků) — **znění je můj návrh, čeká na autora (A4)**
+- [x] Zpřístupnit z menu jako nápovědu
+- [x] P05 přepsat na čistou závěrečnou obrazovku
+
+*Hotovo:* původní tištěný text zůstal v kartách v poli `printedText`, takže se
+dá porovnat a nic se neztratilo. Znění nových pravidel jsem napsal sám — je
+v druhém dotazníku ke kontrole.
 
 ## Fáze 5 — GPS s možností přepsat
 

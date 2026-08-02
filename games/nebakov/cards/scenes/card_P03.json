@@ -2,16 +2,18 @@
   "id": "card_P03",
   "cardCode": "P03",
   "text": [
+    "Aby byla hra záživnější, dostane každý na začátku jednu roli. Každá má daný charakter (👤), výhody (⊕) a nevýhody (⊖).",
+    "Role se rozdají hned na začátku. Podejte telefon dokola, ať si každý tu svoji přečte, a od chvíle, kdy je znají všichni, se podle nich chovejte. Rozdané role se v průběhu hry nemění.",
+    "Část rolí si hlídáte sami — že Pacifista nesáhne na zbraň nebo že Lenoch si sedne, jakmile se skupina zastaví. Hra vám je připomíná, ale nekontroluje je; to je na vás. Výhody, které jsou 1× za hru, najdete v nabídce pod „Schopnosti“.",
+    "Některé karty jsou určené jednomu člověku. Hra v takové chvíli vyzve, komu telefon podat, a ostatní se nedívají."
+  ],
+  "choices": [],
+  "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+  "printedText": [
     "Aby byla hra záživnější, je pro vás připravený balíček rolí. Každá z rolí má daný charakter (👤), výhody (⊕) a nevýhody (⊖).",
     "Role si rozdělíte na konci seznamovacího balíčku, jakmile vás k tomu hra vyzve. Každý si poté náhodně vylosujte z balíčku rolí jednu kartu, představí se přečtením příslušné karty ostatním a začne se podle ní chovat. Na rubu karty je také stručný přehled značek.",
     "Pokud si budete chtít roli s někým vyměnit, musí s tím souhlasit všichni ostatní hráči! Nepřidělené role poté vrátíte zpět do pouzdra."
   ],
-  "choices": [
-    {
-      "icon": "svitek",
-      "text": "Kartu P03 vraťte do pouzdra a pokračujte kartou P04.",
-      "goto": "card_P04"
-    }
-  ],
-  "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+  "kind": "rules",
+  "title": "Role"
 }

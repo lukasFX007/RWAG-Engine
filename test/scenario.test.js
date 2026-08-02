@@ -818,7 +818,9 @@ test("efekt volby se undo vrátí", () => {
 
 test("počet hráčů na kartě P01 souhlasí s metadaty scénáře", () => {
   const p01 = scenario.scenes.find((s) => s.id === "card_P01");
-  const text = Array.isArray(p01.text) ? p01.text.join(" ") : p01.text;
+  const text = (Array.isArray(p01.text) ? p01.text.join(" ") : p01.text)
+    // the rewritten card emphasises the range, and the numbers are the point
+    .replace(/<[^>]+>/g, "");
   const printed = /skupinu\s*(\d+)\s*[–-]\s*(\d+)\s*hráč/u.exec(text);
 
   assert.ok(printed, "karta P01 musí uvádět rozsah hráčů");
@@ -1133,4 +1135,46 @@ test("hádanka ukáže řešení a odměna je bod reputace", () => {
   const wrong = withItems();
   wrong.resolveEncounter("card_N15", "neuhodli");
   assert.equal(wrong.state.reputation, 0, "za neuhodnutí se nic nestrhává");
+});
+
+/* -------------------------------------------- pravidla pro digitál (Fáze 4) */
+
+test("v textech karet nejsou žádné HTML značky kromě <br>", () => {
+  // The renderer builds text nodes and never touches innerHTML, on purpose — so
+  // a <b> in the data would be read out as "<b>" to the players.
+  const offenders = [];
+  for (const card of [...scenario.scenes, ...events.cards]) {
+    const parts = Array.isArray(card.text) ? card.text : [card.text ?? ""];
+    for (const part of parts) {
+      for (const tag of String(part).match(/<(?!br\s*\/?>)[^>]*>/gi) ?? []) {
+        offenders.push(`${card.id}: ${tag}`);
+      }
+    }
+  }
+  assert.deepEqual(offenders, [], offenders.join("\n"));
+});
+
+test("pravidla P01–P04 jsou přepsaná pro digitál a nemluví o pouzdrech", () => {
+  const pages = ["card_P01", "card_P02", "card_P03", "card_P04"]
+    .map((id) => scenario.scenes.find((s) => s.id === id));
+
+  for (const page of pages) {
+    assert.equal(page.kind, "rules", `${page.id} má být referenční stránka`);
+    assert.deepEqual(page.choices, [], `${page.id} není krok v průchodu`);
+    assert.ok(page.printedText, `${page.id} má zachovat původní tištěný text`);
+
+    const text = (Array.isArray(page.text) ? page.text.join(" ") : page.text).toLowerCase();
+    for (const word of ["pouzdr", "zamíchejte", "vraťte do balíčku", "odložte balíček"]) {
+      assert.equal(text.includes(word), false, `${page.id} pořád mluví o „${word}“`);
+    }
+  }
+});
+
+test("P05 je závěrečná obrazovka bez úklidu karet", () => {
+  const p05 = scenario.scenes.find((s) => s.id === "card_P05");
+  assert.equal(p05.ending, true);
+  const text = (Array.isArray(p05.text) ? p05.text.join(" ") : p05.text).toLowerCase();
+  assert.equal(text.includes("pouzder"), false);
+  assert.equal(text.includes("zamíchejte"), false);
+  assert.match(text, /log průchodu/, "závěr má poslat hráče pro log");
 });

@@ -28,7 +28,7 @@ Karty, které správně nemají žádné „goto“: předměty do inventáře, 
 - **card_legenda** · `card_legenda` · nedosažitelná
   - Referenční stránka (rub karty rolí), nikoli herní scéna. Obsah odpovídá legend.json. „📜A29“ je pouze ilustrativní příklad, nejde o skutečný odkaz na kartu.
 
-## D. Ověřit přiřazení textu ke kartě — 12
+## D. Ověřit přiřazení textu ke kartě — 8
 
 Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hranice. Hra se hraje, ale text může sedět na jiné kartě, než má. Nutná kontrola proti originálu.
 
@@ -44,21 +44,8 @@ Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hrani
   - Rozdělení dvojice karet G10 / G11 mezi G08 (vlídná varianta) a G09 (nevlídná varianta) je rekonstruované – ověřte proti originálu.
 - **H14** · `card_H14` · slide 22, 23
   - Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu.
-- 4 karet se stejnou poznámkou:
-  - **P01** · `card_P01` · slide 5 · nedosažitelná
-  - **P02** · `card_P02` · slide 5 · nedosažitelná
-  - **P03** · `card_P03` · slide 5, 7 · nedosažitelná
-  - **P04** · `card_P04` · slide 5 · nedosažitelná
-  - Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu.
 
-## F. Přepsat pro digitální verzi — 1
-
-Text popisuje zacházení s fyzickými kartami a v plně digitální hře nemá smysl.
-
-- **P05** · `card_P05` · slide 5, 24, 25
-  - Plně digitální verze: text je úklid fyzických karet po hře a je potřeba ho přepsat na závěrečnou obrazovku. Míří sem čtyři konce z balíčku H (H19, H22, H25, H26).
-
-## G. Vyžaduje rozhodnutí — 5
+## G. Vyžaduje rozhodnutí — 10
 
 Poznámka, na kterou nesedlo žádné pravidlo.
 
@@ -72,6 +59,13 @@ Poznámka, na kterou nesedlo žádné pravidlo.
   - Cíl volby odvozený: autor potvrdil (Q22b), že konce jsou H20, H22, H25 a H26, a text „Nedokážete skrýt své zklamání…“ patří podle Q22a na H19. Karta H20, na kterou tahle volba mířila, tím přestala být mezikrokem a stala se kladným koncem – ten na větev, kde písař odmítl pomoci, nesedí. H22 je jediný konec, který zbývá. Potvrdit v druhém dotazníku.
 - **H23** · `card_H23` · slide 24, 25
   - Hradla obou větví jsou odvozená z toho, že se doplňují: „[😡]“ pokrývá zápornou reputaci, takže „[😐]“ dostalo zbytek (0 a víc). Samotné 😐 znamená podle legendy přesně 0 – potvrďte, že tady jde o „ne špatnou“ reputaci, ne o přesnou nulu.
+- 5 karet se stejnou poznámkou:
+  - **P01** · `card_P01` · slide 5 · nedosažitelná
+  - **P02** · `card_P02` · slide 5 · nedosažitelná
+  - **P03** · `card_P03` · slide 5, 7 · nedosažitelná
+  - **P04** · `card_P04` · slide 5 · nedosažitelná
+  - **P05** · `card_P05` · slide 5, 24, 25
+  - Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.
 
 ## Chybí mimo karty
 

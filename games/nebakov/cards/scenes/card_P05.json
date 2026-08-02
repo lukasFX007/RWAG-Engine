@@ -3,9 +3,15 @@
   "cardCode": "P05",
   "ending": true,
   "text": [
+    "Tady vaše troskovické dobrodružství končí.",
+    "Hra je uložená. Z nabídky si můžete stáhnout log průchodu — je v něm, kudy jste šli, co jste kde rozhodli a jak se vyvíjela vaše reputace.",
+    "A nezapomeňte se vrátit a zažít dobrodružství znovu. Podle vašich rozhodnutí jste o část příběhu skoro určitě přišli — příště se rozhodněte jinak."
+  ],
+  "choices": [],
+  "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+  "printedText": [
     "Co udělat po skončení hry:<br>• Balíček „N“ zamíchejte lícem dolů a navrchu nechte N01.<br>• Karty reputací vraťte do příslušného balíčku (REP+ / REP-).<br>• Ostatní balíčky srovnejte lícem dolů podle čísel (O1 navrchu).<br>• Na spodu každého balíčku nechte kartu k tomu určenou.<br>• Všechny balíčky vraťte do příslušných pouzder.<br>• Mapy a dopis vraťte do příslušných obálek a příslušného pouzdra.<br>• Karty P01 – P05 nechte otočené lícem nahoru (01 navrchu).",
     "A nezapomeňte se vrátit a zažít dobrodružství znovu!"
   ],
-  "choices": [],
-  "todo": "Plně digitální verze: text je úklid fyzických karet po hře a je potřeba ho přepsat na závěrečnou obrazovku. Míří sem čtyři konce z balíčku H (H19, H22, H25, H26)."
+  "kind": "rules"
 }

@@ -403,6 +403,26 @@ export function inventoryView(engine) {
   };
 }
 
+/**
+ * The rules, as pages rather than as cards to walk through.
+ *
+ * P01 to P04 were four cards at the start of the printed game explaining how to
+ * handle pouches and warning against reading ahead — a digital game needs
+ * neither, and the author chose (Q25a) to keep the rules and move them out of
+ * the way. They are still cards in the data, so the deck and the app can be
+ * compared card for card; they just are not steps any more.
+ */
+export function rulesView(engine) {
+  return engine.scenario.scenes
+    .filter((scene) => scene.kind === "rules" && scene.id !== "card_P05")
+    .map((scene) => ({
+      id: scene.id,
+      cardCode: scene.cardCode ?? null,
+      title: scene.title ?? scene.cardCode ?? scene.id,
+      paragraphs: cardText(scene.text),
+    }));
+}
+
 /** The closing screen. The card's own text is still shown above this summary. */
 export function endingView(engine) {
   const status = statusView(engine);

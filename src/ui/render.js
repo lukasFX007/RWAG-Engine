@@ -973,6 +973,7 @@ export function renderMenu({
   onGeoToggle,
   abilityCount = 0,
   hasRoles = false,
+  onRules,
   onAbilities,
   onRoles,
   editMode = null,
@@ -1016,8 +1017,10 @@ export function renderMenu({
       el("p", { class: "muted", text: geo?.missingNote ?? "" }),
     )));
 
-  root.append(el("h3", { class: "sheet-sub", text: "Role" }));
+  root.append(el("h3", { class: "sheet-sub", text: "Role a pravidla" }));
   root.append(el("div", { class: "menu-actions" },
+    onRules ? el("button", { type: "button", class: "btn", onclick: onRules },
+      `${icon("svitek")} Pravidla`) : null,
     onAbilities
       ? el("button", { type: "button", class: "btn", onclick: onAbilities },
           `${icon("plus")} Schopnosti (${abilityCount})`)
@@ -1068,6 +1071,24 @@ export function renderMenu({
     ? "Hra se ukládá po každém rozhodnutí do tohoto prohlížeče."
     : "Ukládání není dostupné (např. anonymní režim) — hrát lze, ale po zavření se hra neobnoví." }));
   if (version) root.append(el("p", { class: "muted", text: `Verze ${version}` }));
+  return root;
+}
+
+/** The rules, read from the menu rather than walked through. */
+export function renderRules(pages) {
+  const root = el("div", { class: "rules" });
+  root.append(el("h2", { class: "sheet-title", text: "Pravidla" }));
+  if (!pages.length) {
+    root.append(el("p", { class: "muted", text: "Tento scénář pravidla neuvádí." }));
+    return root;
+  }
+  for (const page of pages) {
+    root.append(el("section", { class: "rules-page" },
+      el("h3", { class: "sheet-sub", text: page.title }),
+      el("div", { class: "card-text" },
+        page.paragraphs.map((lines) => el("p", {}, withBreaks(lines)))),
+    ));
+  }
   return root;
 }
 

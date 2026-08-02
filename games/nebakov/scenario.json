@@ -203,76 +203,89 @@
       "cardCode": "P01",
       "text": [
         "Troskovické dobrodružství: Tajemství Nebákova",
+        "Dobrodružství je pro skupinu 3 – 8 hráčů a hraje se venku, v krajině kolem Troskovic. Počítejte s celým dnem a devíti až třinácti kilometry.",
+        "Telefon vás povede kartu po kartě: říká, co se kolem vás děje, a vy se rozhodujete a chodíte. Dopředu se podívat nedá a nemusíte na to myslet — karty se odemykají samy, ve chvíli, kdy na ně dojde.",
+        "Není pravidlo, že karty jdou popořadě podle čísel. Kód v levém horním rohu je jen pro orientaci a pro případ, že byste nám chtěli něco nahlásit."
+      ],
+      "choices": [],
+      "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+      "printedText": [
+        "Troskovické dobrodružství: Tajemství Nebákova",
         "Dobrodružství je určeno pro skupinu 3 – 8 hráčů.<br>Celá hra, až na pár výjimek, sestává z několika balíčků karet.<br>Příběhové balíčky jsou označeny „A“ až „H“. Ty vás postupně provedou celým dobrodružstvím. Balíčky ani karty v nich si nečtěte dopředu ani zpětně. Není totiž pravidlo, že by za sebou karty šly popořadě podle čísel, a tak by se mohlo stát, že se připravíte o moment překvapení, a to nejen při dalším průchodu hrou."
       ],
-      "choices": [
-        {
-          "icon": "svitek",
-          "text": "Kartu P01 vraťte do pouzdra a pokračujte kartou P02.",
-          "goto": "card_P02"
-        }
-      ],
-      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+      "kind": "rules",
+      "title": "O čem to je"
     },
     {
       "id": "card_P02",
       "cardCode": "P02",
       "text": [
+        "Reputace je číslo v horní liště. Roste a klesá podle toho, jak se ke kraji a jeho lidem chováte. Některé volby se podle ní otevírají a jiné zamykají — u zamčené volby je vždycky vidět, co by bylo potřeba.",
+        "😊 znamená zvýšení, 😡 pokles. Dvě tváře znamenají dva body.",
+        "Náhodná setkání (⏳) hra vytáhne sama. Vyhodnoťte je na místě: karta se zeptá, jak to dopadlo, a vy odpovíte. Aplikace vám věří — ví jen to, co jí řeknete.",
+        "Co nesete najdete pod batohem v horní liště: zvací dopis, mapy, stránky herbáře a co dalšího po cestě získáte. Mapa je odsud vždycky na dvě klepnutí."
+      ],
+      "choices": [],
+      "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+      "printedText": [
         "Dále jsou tu balíčky s kartami kladné reputace „REP +“ a záporné reputace „REP -“ a balíčky označené písmeny „N“ a „O“.<br>Karty z těchto balíčků si budete brát a vracet zpět podle konkrétní situace ve hře nebo ve chvíli, kdy vás k tomu hra vyzve (například pomocí události). Nepotřebný balíček je lepší vždy vrátit do pouzdra, aby se vám karty nepomíchaly.",
         "V neposlední řadě jsou tu tři obálky. K jejich otevření a odhalení jejich obsahu vás hra také včas vyzve."
       ],
-      "choices": [
-        {
-          "icon": "svitek",
-          "text": "Kartu P02 vraťte do pouzdra a pokračujte kartou P03.",
-          "goto": "card_P03"
-        }
-      ],
-      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+      "kind": "rules",
+      "title": "Reputace, setkání a inventář"
     },
     {
       "id": "card_P03",
       "cardCode": "P03",
       "text": [
+        "Aby byla hra záživnější, dostane každý na začátku jednu roli. Každá má daný charakter (👤), výhody (⊕) a nevýhody (⊖).",
+        "Role se rozdají hned na začátku. Podejte telefon dokola, ať si každý tu svoji přečte, a od chvíle, kdy je znají všichni, se podle nich chovejte. Rozdané role se v průběhu hry nemění.",
+        "Část rolí si hlídáte sami — že Pacifista nesáhne na zbraň nebo že Lenoch si sedne, jakmile se skupina zastaví. Hra vám je připomíná, ale nekontroluje je; to je na vás. Výhody, které jsou 1× za hru, najdete v nabídce pod „Schopnosti“.",
+        "Některé karty jsou určené jednomu člověku. Hra v takové chvíli vyzve, komu telefon podat, a ostatní se nedívají."
+      ],
+      "choices": [],
+      "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+      "printedText": [
         "Aby byla hra záživnější, je pro vás připravený balíček rolí. Každá z rolí má daný charakter (👤), výhody (⊕) a nevýhody (⊖).",
         "Role si rozdělíte na konci seznamovacího balíčku, jakmile vás k tomu hra vyzve. Každý si poté náhodně vylosujte z balíčku rolí jednu kartu, představí se přečtením příslušné karty ostatním a začne se podle ní chovat. Na rubu karty je také stručný přehled značek.",
         "Pokud si budete chtít roli s někým vyměnit, musí s tím souhlasit všichni ostatní hráči! Nepřidělené role poté vrátíte zpět do pouzdra."
       ],
-      "choices": [
-        {
-          "icon": "svitek",
-          "text": "Kartu P03 vraťte do pouzdra a pokračujte kartou P04.",
-          "goto": "card_P04"
-        }
-      ],
-      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+      "kind": "rules",
+      "title": "Role"
     },
     {
       "id": "card_P04",
       "cardCode": "P04",
       "text": [
+        "Ve hře platí jen pár základních pravidel:",
+        "• Kromě téhle hry nepoužívejte jiné mapy ani internet. Všechno, co pro řešení situací potřebujete, máte v aplikaci a v hlavě.<br>• Buďte poctiví vůči hře i vůči sobě navzájem.<br>• Pokud chcete udělat ústupek, musí s tím souhlasit všichni.<br>• Hra se ukládá po každém rozhodnutí, takže se dá kdykoliv přerušit a vrátit se k ní.<br>• Ale hlavně se bavte a užijte si výlet!",
+        "👑 Audentes fortuna iuvat! 👑"
+      ],
+      "choices": [],
+      "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+      "printedText": [
         "Ve hře platí pouze pár základních pravidel:<br>• Nepoužívejte jiné mapy ani mobilní telefony. Vše, co potřebujete pro řešení situací, máte v rukou a hlavě.<br>• Nedívejte se na karty dříve, než k tomu budete vyzváni hrou.<br>• Buďte poctiví vůči hře i vůči sobě navzájem.<br>• Pokud chcete udělat ústupek, musí s tím souhlasit všichni.<br>• Ale hlavně se bavte a užijte si výlet!",
         "Na kartě je dále uvedeno:<br>• Kartu P04 vraťte do pouzdra."
       ],
-      "choices": [
-        {
-          "icon": "svitek",
-          "text": "Vezměte si balíček „A“ a přečtěte kartu A01.",
-          "goto": "card_A01"
-        }
-      ],
-      "todo": "Balíček P: rozdělení textu mezi karty P01–P05 je rekonstruované – na slidu je všech pět karet pohromadě a extrakce nezachovala jejich hranice. Ověřte proti originálu."
+      "kind": "rules",
+      "title": "Pár pravidel"
     },
     {
       "id": "card_P05",
       "cardCode": "P05",
       "ending": true,
       "text": [
+        "Tady vaše troskovické dobrodružství končí.",
+        "Hra je uložená. Z nabídky si můžete stáhnout log průchodu — je v něm, kudy jste šli, co jste kde rozhodli a jak se vyvíjela vaše reputace.",
+        "A nezapomeňte se vrátit a zažít dobrodružství znovu. Podle vašich rozhodnutí jste o část příběhu skoro určitě přišli — příště se rozhodněte jinak."
+      ],
+      "choices": [],
+      "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
+      "printedText": [
         "Co udělat po skončení hry:<br>• Balíček „N“ zamíchejte lícem dolů a navrchu nechte N01.<br>• Karty reputací vraťte do příslušného balíčku (REP+ / REP-).<br>• Ostatní balíčky srovnejte lícem dolů podle čísel (O1 navrchu).<br>• Na spodu každého balíčku nechte kartu k tomu určenou.<br>• Všechny balíčky vraťte do příslušných pouzder.<br>• Mapy a dopis vraťte do příslušných obálek a příslušného pouzdra.<br>• Karty P01 – P05 nechte otočené lícem nahoru (01 navrchu).",
         "A nezapomeňte se vrátit a zažít dobrodružství znovu!"
       ],
-      "choices": [],
-      "todo": "Plně digitální verze: text je úklid fyzických karet po hře a je potřeba ho přepsat na závěrečnou obrazovku. Míří sem čtyři konce z balíčku H (H19, H22, H25, H26)."
+      "kind": "rules"
     },
     {
       "id": "card_A01",
