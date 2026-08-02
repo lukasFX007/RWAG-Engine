@@ -64,6 +64,33 @@ export function taskView(engine) {
   };
 }
 
+/**
+ * The card that will not let go yet.
+ *
+ * The mirror image of `taskView`: a task is the group setting off somewhere, so
+ * the destination is hidden; a progress condition is the card holding them where
+ * they are, so everything about it is shown. The outcomes exist because some
+ * conditions have a price only the players can adjudicate — the huntsman on G23
+ * pays for the shooting challenge, but only if two of them hit the tree.
+ */
+export function progressView(engine) {
+  const pending = engine.progress;
+  if (!pending) return null;
+  return {
+    scene: pending.scene,
+    kind: pending.kind,
+    text: pending.text ?? "Než budete pokračovat, splňte podmínku postupu.",
+    note: pending.note ?? null,
+    action: pending.action ?? "Splnili jsme",
+    glyph: icon(pending.kind === "acknowledge" ? "mozek" : "hodiny"),
+    eyebrow: pending.kind === "acknowledge" ? "Podmínka postupu" : "Podmínka postupu — vyhodnoťte",
+    outcomes: (pending.outcomes ?? []).map((outcome) => ({
+      id: outcome.id,
+      label: outcome.label ?? outcome.id,
+    })),
+  };
+}
+
 function imageView(name, { knownImages = null, imageBase = "" } = {}) {
   if (!name) return null;
   // `knownImages` is optional: when the caller has no index of the image folder
@@ -133,6 +160,7 @@ export function cardView(engine, options = {}) {
       editedChoices: edited.choices,
     }));
   const task = taskView(engine);
+  const progress = progressView(engine);
 
   return {
     id: card.id,
@@ -152,6 +180,9 @@ export function cardView(engine, options = {}) {
     /** the task the group is out doing; while it is set, no choice can be taken */
     task,
     taskInProgress: Boolean(task),
+    /** the condition holding the group on this card; also locks every choice */
+    progress,
+    progressPending: Boolean(progress),
     ending: card.ending === true,
     finished: engine.finished,
     /**
@@ -159,7 +190,7 @@ export function cardView(engine, options = {}) {
      * finale. Only B02 is like that in Nebákov and the note on the card says so;
      * the UI shows the note and offers undo instead of trapping the players.
      */
-    deadEnd: choices.length === 0 && card.ending !== true,
+    deadEnd: choices.length === 0 && card.ending !== true && !progress,
     note: card.todo ?? null,
   };
 }

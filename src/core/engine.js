@@ -101,6 +101,23 @@ export class Engine {
     if (!card) return [];
     const base = { state: this.state, engine: this, items: this.items, ...ctx };
 
+    // A card can refuse to let go before something is done on it. Same shape as
+    // the task lock, opposite meaning: a task is about leaving, this is about
+    // not leaving yet.
+    if (this.state.pendingProgress) {
+      return (card.choices ?? []).map((choice, index) => ({
+        index,
+        icon: choice.icon ?? null,
+        text: choice.text ?? "",
+        goto: choice.goto ?? null,
+        available: false,
+        locked: true,
+        unlockedByAbility: false,
+        requirement: this.state.pendingProgress.text ?? null,
+        reason: "nesplněná podmínka postupu",
+      }));
+    }
+
     // while a task is being carried out, nothing else can be taken — the group
     // is on its way somewhere and has to arrive or turn back first
     if (this.state.pendingTask) {
@@ -389,6 +406,10 @@ export class Engine {
       }
     }
 
+    // stepping back onto a card re-asks its progress condition unless the group
+    // already satisfied it there
+    this.#armProgress(this.card ?? {});
+
     this.#emit({ type: "undone", to: last.from });
     return this.card;
   }
@@ -470,6 +491,63 @@ export class Engine {
     return quest;
   }
 
+  /* ------------------------------------------------------- progress conditions */
+
+  /** The condition holding the group on this card, or null. */
+  get progress() {
+    return this.state.pendingProgress ?? null;
+  }
+
+  /**
+   * Do what the card asks and let the group move on.
+   *
+   * `outcome` names one of the condition's outcomes when it has any — G23's
+   * huntsman pays for the shooting challenge only if two of the party hit the
+   * tree, and nothing but the players can know whether they did.
+   */
+  resolveProgress(outcome = null) {
+    const pending = this.state.pendingProgress;
+    if (!pending) throw new Error("žádná podmínka postupu neprobíhá");
+
+    let drawn = null;
+    if (pending.kind === "encounter") {
+      drawn = this.drawEncounter(pending.deck ?? "N");
+    } else if (pending.kind === "encounter_card") {
+      drawn = this.eventCards.get(pending.card) ?? null;
+      if (drawn) {
+        apply(drawn.effects, {
+          state: this.state, source: drawn.id, items: this.items, drawEncounter: () => {},
+        });
+        this.#emit({ type: "encounter", card: drawn });
+      }
+    }
+
+    const chosen = (pending.outcomes ?? []).find((o) => o.id === outcome);
+    if (chosen?.effects) {
+      apply(chosen.effects, {
+        state: this.state,
+        source: pending.scene,
+        items: this.items,
+        drawEncounter: (deckId) => this.drawEncounter(deckId),
+      });
+    }
+
+    this.state.progressDone[pending.scene] = true;
+    this.state.pendingProgress = null;
+    this.#emit({ type: "progressResolved", scene: pending.scene, outcome, card: drawn });
+    return drawn;
+  }
+
+  #armProgress(scene) {
+    const declared = scene.progress;
+    if (!declared || this.state.progressDone[scene.id]) {
+      this.state.pendingProgress = null;
+      return;
+    }
+    this.state.pendingProgress = { ...declared, scene: scene.id };
+    this.#emit({ type: "progressRequired", scene: scene.id, progress: this.state.pendingProgress });
+  }
+
   /* ----------------------------------------------------------------- internal */
 
   #enter(sceneId, { record }) {
@@ -490,6 +568,8 @@ export class Engine {
       // would otherwise change nothing and look like it worked.
       this.#emit({ type: "unknownEffects", scene: sceneId, types: unknown });
     }
+
+    this.#armProgress(scene);
 
     if (scene.ending) {
       this.state.finishedAt = new Date().toISOString();

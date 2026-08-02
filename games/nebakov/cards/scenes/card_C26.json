@@ -11,5 +11,11 @@
       "text": "Balíček „C“ odložte. Vezměte si balíček „E“ a přečtěte E01.",
       "goto": "card_E01"
     }
-  ]
+  ],
+  "progress": {
+    "kind": "encounter",
+    "deck": "N",
+    "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+    "action": "Vyhodnotit setkání"
+  }
 }

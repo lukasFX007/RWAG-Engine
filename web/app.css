@@ -327,6 +327,10 @@ img, figure { max-width: 100%; }
   padding: 0.85rem 0.9rem 0.95rem;
   box-shadow: 0 2px 8px var(--shadow-2);
 }
+/* A progress condition locks the same choices a task does and means the
+   opposite, so it must not look like one. */
+.task-progress { border-color: var(--warn, var(--accent)); }
+.task-progress .task-eyebrow { color: var(--warn, var(--accent)); }
 .task-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;

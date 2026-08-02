@@ -18,5 +18,11 @@
         "completedAt": "card_G24"
       }
     }
-  ]
+  ],
+  "progress": {
+    "kind": "encounter",
+    "deck": "N",
+    "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+    "action": "Vyhodnotit setkání"
+  }
 }

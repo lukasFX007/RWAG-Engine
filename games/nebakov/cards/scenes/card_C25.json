@@ -11,5 +11,10 @@
       "text": "Balíček „C“ odložte. Vezměte si balíček „D“ a přečtěte D01.",
       "goto": "card_D01"
     }
-  ]
+  ],
+  "progress": {
+    "kind": "acknowledge",
+    "text": "Nechoďte hlouběji do skalního města. Zůstaňte u vstupu.",
+    "action": "Rozumíme, dovnitř nepůjdeme"
+  }
 }

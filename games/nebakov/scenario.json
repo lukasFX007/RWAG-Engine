@@ -1316,7 +1316,12 @@
           "text": "Balíček „C“ odložte. Vezměte si balíček „D“ a přečtěte D01.",
           "goto": "card_D01"
         }
-      ]
+      ],
+      "progress": {
+        "kind": "acknowledge",
+        "text": "Nechoďte hlouběji do skalního města. Zůstaňte u vstupu.",
+        "action": "Rozumíme, dovnitř nepůjdeme"
+      }
     },
     {
       "id": "card_C26",
@@ -1331,7 +1336,13 @@
           "text": "Balíček „C“ odložte. Vezměte si balíček „E“ a přečtěte E01.",
           "goto": "card_E01"
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_C27",
@@ -1492,7 +1503,13 @@
             "completedAt": "card_E01"
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_D07",
@@ -2508,7 +2525,13 @@
             "completedAt": "card_G24"
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_G18",
@@ -2648,7 +2671,45 @@
             "completedAt": "card_G24"
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter_card",
+        "deck": "N",
+        "card": "card_N12",
+        "text": "Vyhodnoťte 📜N12. Pro získání odměny musí výzvu splnit dva členové výpravy.",
+        "action": "Přijmout výzvu lovčího",
+        "note": "V tuto chvíli nelze využít schopnosti rolí.",
+        "outcomes": [
+          {
+            "id": "uspech",
+            "label": "Trefili se aspoň dva z nás (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Lovčí uznale kývne. Získáváte reputaci."
+              }
+            ]
+          },
+          {
+            "id": "neuspech",
+            "label": "Nikdo nebo jen jeden (😡)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -1
+              },
+              {
+                "type": "toast",
+                "text": "Lovčí si odplivne. Ztrácíte reputaci."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_G24",
@@ -2775,7 +2836,13 @@
             "completedAt": "card_H08"
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_H04",
@@ -2814,7 +2881,13 @@
             "completedAt": "card_H08"
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_H06",
@@ -2947,7 +3020,13 @@
             "completedAt": "card_H15"
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_H12",

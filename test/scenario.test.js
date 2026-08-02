@@ -96,6 +96,11 @@ function walkAll(unknownSink = new Set()) {
       endings.add(engine.card.id);
       return;
     }
+    // a card can hold the group until something is done on it; the walk does it,
+    // because the alternative reading is "every exit locked", which is a trap
+    if (engine.progress) {
+      engine.resolveProgress(engine.progress.outcomes?.[0]?.id ?? null);
+    }
     const choices = engine.choices();
     const usable = choices.filter((c) => c.available && c.goto);
 
@@ -925,4 +930,75 @@ test("log průchodu zaznamená karty, reputaci i polohu", () => {
   // the letter, the first map, and the curse B08 leaves behind
   assert.match(log, /INVENTÁŘ \(3\)/);
   assert.match(log, /Prokletí od bylinkáře/);
+});
+
+/* -------------------------------------------------- podmínky postupu (Fáze 2) */
+
+const PROGRESS_CARDS = ["card_C25", "card_C26", "card_D06", "card_G17",
+  "card_G23", "card_H03", "card_H05", "card_H11"];
+
+test("osm karet drží skupinu, dokud se podmínka postupu nevyhodnotí", () => {
+  for (const id of PROGRESS_CARDS) {
+    const engine = withItems();
+    engine.state.currentScene = id;
+    // entering is what arms it, so walk in through the engine rather than jump
+    engine.state.progressDone = {};
+    const scene = scenario.scenes.find((s) => s.id === id);
+    assert.ok(scene.progress, `${id} nemá deklarovanou podmínku postupu`);
+
+    const armed = new Engine(scenario, { events, roles, items, seed: 1 });
+    armed.state.currentScene = "card_A01";
+    armed.state.progressDone = {};
+    // #enter is private; the public way in is a choice, so arm it by hand the
+    // same way the engine does and then check the lock the players would meet
+    armed.state.pendingProgress = { ...scene.progress, scene: id };
+    armed.state.currentScene = id;
+
+    const choices = armed.choices();
+    assert.ok(choices.length > 0, `${id} nemá žádnou volbu`);
+    assert.ok(choices.every((c) => !c.available),
+      `${id}: volby mají být zamčené, dokud podmínka platí`);
+
+    armed.resolveProgress(scene.progress.outcomes?.[0]?.id ?? null);
+    assert.equal(armed.progress, null);
+    assert.ok(armed.choices().some((c) => c.available), `${id}: po splnění se má odemknout`);
+  }
+});
+
+test("podmínka postupu se natáhne při vstupu na kartu a podruhé už ne", () => {
+  const engine = withItems();
+  engine.state.currentScene = "card_H10";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_H11"));
+  assert.equal(engine.card.id, "card_H11");
+  assert.ok(engine.progress, "H11 má podmínku postupu");
+  assert.equal(engine.choices().every((c) => !c.available), true);
+
+  const drawn = [];
+  engine.on((e) => e.type === "encounter" && drawn.push(e.card.id));
+  engine.resolveProgress();
+  assert.equal(drawn.length, 1, "vyhodnocení podmínky tahá z balíčku N");
+  assert.equal(engine.progress, null);
+  assert.equal(engine.state.progressDone["card_H11"], true);
+});
+
+test("lovčí na G23 platí jen za dva úspěchy", () => {
+  const scene = scenario.scenes.find((s) => s.id === "card_G23");
+  assert.equal(scene.progress.card, "card_N12");
+  assert.deepEqual(scene.progress.outcomes.map((o) => o.id), ["uspech", "neuspech"]);
+
+  const won = withItems();
+  won.state.pendingProgress = { ...scene.progress, scene: "card_G23" };
+  won.state.currentScene = "card_G23";
+  const before = won.state.reputation;
+  const seen = [];
+  won.on((e) => e.type === "encounter" && seen.push(e.card.id));
+  won.resolveProgress("uspech");
+  assert.deepEqual(seen, ["card_N12"], "podmínka ukazuje právě N12, ne náhodnou kartu");
+  assert.equal(won.state.reputation, before + 1);
+
+  const lost = withItems();
+  lost.state.pendingProgress = { ...scene.progress, scene: "card_G23" };
+  lost.state.currentScene = "card_G23";
+  lost.resolveProgress("neuspech");
+  assert.equal(lost.state.reputation, -1);
 });

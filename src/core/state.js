@@ -36,6 +36,16 @@ export function createState({ scenarioId, startScene, players = [], seed = 1 } =
      */
     pendingTask: null,
 
+    /**
+     * A card that will not let the group move on until something is done here:
+     * "Podmínka postupu: vyhodnoťte setkání (⏳)". Distinct from a task, which is
+     * about going somewhere — this one is about not leaving yet.
+     * { scene, kind, text, ... }
+     */
+    pendingProgress: null,
+    /** scene id -> true once its progress condition has been resolved */
+    progressDone: {},
+
     reputation: 0,
     /** quest id -> { id, text, sceneId, done } */
     quests: {},

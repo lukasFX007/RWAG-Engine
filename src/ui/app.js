@@ -363,6 +363,12 @@ export function createApp({
       onUndo: engine.canUndo ? () => undo() : null,
       onConfirmTask: () => confirmTask(),
       onCancelTask: () => cancelTask(),
+      onResolveProgress: (outcome) => {
+        engine.resolveProgress(outcome);
+        autosave();
+        drawGame();
+        drainMessages();
+      },
       // Edit mode adds buttons beside the texts and nothing else: the game stays
       // fully playable while it is on.
       edit: editMode
@@ -768,6 +774,11 @@ export function createApp({
     /** exposed for the browser check and for debugging in the field */
     get engine() {
       return engine;
+    },
+    /** redraw after poking the engine from the console */
+    redraw() {
+      drawGame();
+      drainMessages();
     },
   };
 }

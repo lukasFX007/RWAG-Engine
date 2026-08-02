@@ -38,15 +38,19 @@ Nejdřív, protože bez map se v terénu nehraje.
 *Hotovo:* batoh je v horní liště vedle reputace, ukazuje počet a otevře se
 jedním klepnutím. Skupina vyráží s dopisem a první mapou.
 
-## Fáze 2 — Podmínky postupu
+## Fáze 2 — Podmínky postupu ✅
 
 Osm karet má „Podmínka postupu“ jen jako větu v textu: **C25, C26, D06, G17,
 G23, H03, H05, H11**. Hráč z nich dnes odejde, aniž by ji splnil.
 
-- [ ] Datový model podmínky postupu
-- [ ] Karta nepustí dál, dokud se nevyhodnotí
-- [ ] G23 konkrétně: 📜N12, a pro odměnu ji musí splnit dva členové výpravy
-- [ ] Test, že se z těch osmi karet nedá odejít bez splnění
+- [x] Datový model podmínky postupu
+- [x] Karta nepustí dál, dokud se nevyhodnotí
+- [x] G23 konkrétně: 📜N12, a pro odměnu ji musí splnit dva členové výpravy
+- [x] Test, že se z těch osmi karet nedá odejít bez splnění
+
+*Hotovo:* šest karet žádá náhodné setkání, G23 jmenovitě 📜N12 se dvěma úspěchy,
+C25 je zákaz („nechoďte hlouběji do skal“), takže se jen potvrzuje. Panel má
+jinou barvu než úkol — obojí zamyká volby a znamená to opak.
 
 ## Fáze 3 — Osobní karty a role na jednom telefonu
 

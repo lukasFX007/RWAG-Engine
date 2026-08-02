@@ -18,5 +18,11 @@
         "completedAt": "card_H08"
       }
     }
-  ]
+  ],
+  "progress": {
+    "kind": "encounter",
+    "deck": "N",
+    "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+    "action": "Vyhodnotit setkání"
+  }
 }

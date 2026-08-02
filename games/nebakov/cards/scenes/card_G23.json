@@ -17,5 +17,43 @@
         "completedAt": "card_G24"
       }
     }
-  ]
+  ],
+  "progress": {
+    "kind": "encounter_card",
+    "deck": "N",
+    "card": "card_N12",
+    "text": "Vyhodnoťte 📜N12. Pro získání odměny musí výzvu splnit dva členové výpravy.",
+    "action": "Přijmout výzvu lovčího",
+    "note": "V tuto chvíli nelze využít schopnosti rolí.",
+    "outcomes": [
+      {
+        "id": "uspech",
+        "label": "Trefili se aspoň dva z nás (😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 1
+          },
+          {
+            "type": "toast",
+            "text": "Lovčí uznale kývne. Získáváte reputaci."
+          }
+        ]
+      },
+      {
+        "id": "neuspech",
+        "label": "Nikdo nebo jen jeden (😡)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -1
+          },
+          {
+            "type": "toast",
+            "text": "Lovčí si odplivne. Ztrácíte reputaci."
+          }
+        ]
+      }
+    ]
+  }
 }

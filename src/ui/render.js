@@ -170,6 +170,42 @@ export function renderTaskPanel(task, { onConfirm, onCancel } = {}) {
   );
 }
 
+/**
+ * The panel for a card that holds the group where they are.
+ *
+ * Deliberately shaped like the task panel and worded differently: both lock
+ * every choice underneath, and a player who cannot tell them apart cannot tell
+ * whether they are supposed to walk somewhere or to do something here.
+ */
+export function renderProgressPanel(progress, { onResolve } = {}) {
+  const actions = el("div", { class: "task-actions" });
+  if (progress.outcomes.length) {
+    for (const outcome of progress.outcomes) {
+      actions.append(el("button", {
+        type: "button",
+        class: "btn btn-wide",
+        onclick: () => onResolve?.(outcome.id),
+      }, outcome.label));
+    }
+  } else {
+    actions.append(el("button", {
+      type: "button",
+      class: "btn btn-primary btn-wide",
+      onclick: () => onResolve?.(null),
+    }, progress.action));
+  }
+
+  return el("section", { class: "task task-progress", role: "group", "aria-label": "Podmínka postupu" },
+    el("p", { class: "task-eyebrow", text: progress.eyebrow }),
+    el("p", { class: "task-text" },
+      el("span", { class: "task-icon", "aria-hidden": "true", text: `${progress.glyph} ` }),
+      progress.text),
+    progress.note ? el("p", { class: "task-note", text: progress.note }) : null,
+    el("p", { class: "task-hint", text: "Dokud to neuděláte, karta vás nepustí dál." }),
+    actions,
+  );
+}
+
 /** The card's text, with an edit button when the author is in edit mode. */
 function renderCardText(view, edit) {
   const block = el("div", { class: "card-text" });
@@ -218,7 +254,9 @@ function renderCardText(view, edit) {
   return wrap;
 }
 
-export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask, edit = null } = {}) {
+export function renderCard(view, {
+  onChoose, onUndo, onConfirmTask, onCancelTask, onResolveProgress, edit = null,
+} = {}) {
   const root = el("article", { class: "card", "aria-live": "polite" });
 
   root.append(el("div", { class: "card-head" },
@@ -242,13 +280,18 @@ export function renderCard(view, { onChoose, onUndo, onConfirmTask, onCancelTask
     ));
   }
 
+  if (view.progress) {
+    root.append(renderProgressPanel(view.progress, { onResolve: onResolveProgress }));
+  }
   if (view.task) {
     root.append(renderTaskPanel(view.task, { onConfirm: onConfirmTask, onCancel: onCancelTask }));
   }
   // The choice a task came from is the panel above, so it is not listed twice.
   const shown = view.choices.filter((choice) => !choice.inProgress);
   if (shown.length) {
-    root.append(renderChoices(shown, onChoose, { blocked: view.taskInProgress, edit }));
+    root.append(renderChoices(shown, onChoose, {
+      blocked: view.taskInProgress || view.progressPending, edit,
+    }));
   }
   return root;
 }

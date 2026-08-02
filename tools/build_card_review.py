@@ -151,6 +151,16 @@ def render_card(card, kind, fields):
         body.append(f'<p class="answer">Řešení: <strong>'
                     f'{html.escape(answer["text"])}</strong>{html.escape(printed)}</p>')
 
+    progress = card.get("progress")
+    if progress:
+        bits = [progress.get("text", "")]
+        if progress.get("card"):
+            bits.append(f"karta {progress['card'].removeprefix('card_')}")
+        for outcome in progress.get("outcomes", []):
+            bits.append(outcome.get("label", outcome.get("id", "")))
+        body.append('<p class="fx">Podmínka postupu (karta nepustí dál): '
+                    + html.escape(" · ".join(b for b in bits if b)) + "</p>")
+
     scene_effects = describe_effects(card.get("effects"))
     if scene_effects:
         body.append('<p class="fx">Karta sama o sobě: ' + html.escape(", ".join(scene_effects)) + "</p>")
