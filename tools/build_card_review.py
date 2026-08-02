@@ -453,7 +453,13 @@ refresh();
 """
 
 
-def build(out_path):
+def sections():
+    """The cards as HTML, the fields they declare, and their current wording.
+
+    Split out of `build` so the combined author pack can reuse it rather than
+    reimplement how a card is presented — two renderings of the same card that
+    drift apart would be worse than none.
+    """
     scenario = read("scenario.json")
     events = read("events.json")
 
@@ -477,8 +483,14 @@ def build(out_path):
 
     duplicates = [f["id"] for f in fields if [g["id"] for g in fields].count(f["id"]) > 1]
     if duplicates:
-        print(f"chyba: dvě karty se stejným kódem: {sorted(set(duplicates))}", file=sys.stderr)
-        return 1
+        raise SystemExit(f"chyba: dvě karty se stejným kódem: {sorted(set(duplicates))}")
+
+    todos = sum(1 for cards in grouped.values() for c, _ in cards if c.get("todo"))
+    return body, fields, current, {"decks": len(grouped), "todos": todos}
+
+
+def build(out_path):
+    body, fields, current, stats = sections()
 
     page = (PAGE
             .replace("__BODY__", "\n".join(body))
@@ -492,8 +504,8 @@ def build(out_path):
         fh.write(page)
 
     print(f"{out_path}: {round(len(page.encode()) / 1024)} KB")
-    print(f"  karet: {len(fields)} | balíčků: {len(grouped)}"
-          f" | s poznámkou todo: {sum(1 for c, _ in sum(grouped.values(), []) if c.get('todo'))}")
+    print(f"  karet: {len(fields)} | balíčků: {stats['decks']}"
+          f" | s poznámkou todo: {stats['todos']}")
     return 0
 
 

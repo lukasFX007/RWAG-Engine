@@ -492,7 +492,12 @@ refresh();
 """
 
 
-def build(out_path):
+def sections():
+    """The places as HTML plus the fields they declare.
+
+    Split out of `build` so the combined author pack can reuse it instead of
+    describing the same missing coordinates a second way.
+    """
     scenario = read("scenario.json")
     zone_data = read("zones.json") if os.path.exists(os.path.join(GAME, "zones.json")) else {}
     known = zone_data.get("zones", [])
@@ -553,13 +558,18 @@ def build(out_path):
 
     duplicates = [f["id"] for f in fields if [g["id"] for g in fields].count(f["id"]) > 1]
     if duplicates:
-        print(f"chyba: dvě políčka se stejným id: {sorted(set(duplicates))}", file=sys.stderr)
-        return 1
+        raise SystemExit(f"chyba: dvě políčka se stejným id: {sorted(set(duplicates))}")
+
+    return body, fields, anchor(known), done
+
+
+def build(out_path):
+    body, fields, mid, done = sections()
 
     page = (PAGE
             .replace("__BODY__", "\n".join(body))
             .replace("__FIELDS__", json.dumps(fields, ensure_ascii=False))
-            .replace("__ANCHOR__", json.dumps(anchor(known)))
+            .replace("__ANCHOR__", json.dumps(mid))
             .replace("__COUNT__", str(len(fields)))
             .replace("__DONE__", str(done))
             .replace("__VERSION__", VERSION))
