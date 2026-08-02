@@ -1,11 +1,15 @@
 # Plán — cesta k produkčnímu stavu
 
-Stav k `794efe2`: hra se dá projít od A01 do P05, offline, na telefonu.
-**Blokujících míst 0**, poznámek `todo` 25, testů 173.
+Stav k `f4c2d1d`: hra se dá projít od A01 do P05, offline, na telefonu.
+**Blokujících míst 0**, poznámek `todo` 23, testů **197**.
 
 Zbývající práce už není o textech. Papírová hra dělala věci, které aplikace
-zatím jen cituje — mapy, předměty, podmínky postupu, osobní karty. Tenhle
+zatím jen citovala — mapy, předměty, podmínky postupu, osobní karty. Tenhle
 seznam je o nich.
+
+**Hotovo: fáze 1–7.** Zbývá Fáze 8 (terénní test) a v proudu A čtyři věci od
+autora. Souřadnice jsou jediná věc, kvůli které je něco naprogramovaného, ale
+zatím nečinného.
 
 Odškrtávejte přímo tady (`- [x]`). Fáze jdou v pořadí podle toho, co brání
 vzít telefon a jít ven.

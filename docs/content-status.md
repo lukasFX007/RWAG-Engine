@@ -7,9 +7,9 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 - scén: **146**, karet balíčku N: **20**
 - poznámek `todo`: **23**
 - **zastavuje průchod hrou: 0**
-- dosažitelných scén bez východu: 1 (`card_P05`)
+- dosažitelných scén bez východu: 3 (`card_C11`, `card_D12`, `card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
-- nedosažitelných scén: 9 (`card_B12`, `card_C11`, `card_D12`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_intro_dopis`, `card_legenda`)
+- nedosažitelných scén: 7 (`card_B12`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_intro_dopis`, `card_legenda`)
 
 > Podstatné zjištění: velká většina poznámek `todo` **nejsou chybějící návaznosti**. Jsou to buď karty, které správně žádné pokračování nemají (předměty, osobní karty, náhodná setkání), nebo nejistota, na které kartě má text sedět. Hra je tedy prakticky průchozí a kritickou cestou k produkčnímu stavu je engine, ne dopisování obsahu.
 

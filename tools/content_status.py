@@ -105,6 +105,20 @@ def analyse():
             if choice.get("goto"):
                 adjacency[sid].append(choice["goto"])
 
+    # A private card is handed to a player rather than linked to: C11 is the curse
+    # the killer keeps, D12 the hint the two guards read. `adjacency` stays free of
+    # them because they are not exits, but reachability has to follow them or they
+    # are reported as orphaned content. tools/cards.py does the same.
+    handed = collections.defaultdict(list)
+    for sid, scene in scenes.items():
+        sources = (scene.get("effects") or []) + [
+            e for c in (scene.get("choices") or []) for e in (c.get("effects") or [])]
+        for effect in sources:
+            if effect.get("type") in ("hold_card", "show_private"):
+                target = effect.get("card")
+                if target in scenes:
+                    handed[sid].append(target)
+
     start = scenario.get("startScene")
     reached, stack = set(), [start] if start in scenes else []
     while stack:
@@ -112,7 +126,7 @@ def analyse():
         if node in reached:
             continue
         reached.add(node)
-        stack.extend(t for t in adjacency[node] if t in scenes)
+        stack.extend(t for t in adjacency[node] + handed[node] if t in scenes)
 
     cards = []
     for scene in scenario["scenes"]:
@@ -128,10 +142,15 @@ def analyse():
         is_reachable = sid in reached if kind == "scene" else None
         group = classify(todo) if todo else None
 
-        # a reachable scene with no way out is the blocking case, unless the
-        # note says it is deliberately not a scene
+        # A reachable scene with no way out is the blocking case — unless it was
+        # never a step. Some cards are read and handed back (C11's curse, D12's
+        # hint) and some are reference pages (the rules deck), and both say so in
+        # their own fields, which is sturdier than recognising them by a prose
+        # note that gets tidied away once the card is finished.
         is_ending = bool(card.get("ending"))
-        if (kind == "scene" and is_reachable and not has_exit
+        not_a_step = bool(card.get("private") or card.get("held")
+                          or card.get("kind") == "rules")
+        if (kind == "scene" and is_reachable and not has_exit and not not_a_step
                 and group not in ("nonscene",) and not is_ending and sid != start):
             group = "blocking"
         if not todo and group is None:
