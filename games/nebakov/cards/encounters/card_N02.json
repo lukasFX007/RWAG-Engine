@@ -7,5 +7,29 @@
     "Na kartě je dále uvedeno:<br>• Postih: 😡<br>• Odměna: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
   ],
   "cardCode": "N02",
-  "slug": "zlodej"
+  "slug": "zlodej",
+  "resolution": {
+    "prompt": "Ohlásili jste krádež v Troskovicích?",
+    "options": [
+      {
+        "id": "ohlasili",
+        "label": "Ohlásili jsme ji",
+        "effects": []
+      },
+      {
+        "id": "nechali",
+        "label": "Nechali jsme to být (😡)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -1
+          },
+          {
+            "type": "toast",
+            "text": "Ztrácíte bod reputace."
+          }
+        ]
+      }
+    ]
+  }
 }

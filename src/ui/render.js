@@ -351,6 +351,81 @@ export function renderCard(view, {
   return root;
 }
 
+/* ----------------------------------------------------------------- encounter */
+
+/**
+ * A card of deck N and the way it is settled.
+ *
+ * Every card prints what it pays or costs and the app cannot know which applies:
+ * only the players know whether they sang, guessed, or rolled a two. So the
+ * options are buttons, and the dice cards get both ways of rolling — the app can
+ * do it, or the group rolls real dice and types the result in, which is what the
+ * author asked for and is also the only version that works when someone brought
+ * dice along.
+ */
+export function renderEncounter(view, { onResolve, onRoll, onReveal, onClose } = {}) {
+  const root = el("div", { class: "encounter" });
+  root.append(el("h2", { class: "sheet-title", text: "Náhodné setkání" }));
+  if (view.cardCode) root.append(el("span", { class: "card-code", text: view.cardCode }));
+  root.append(el("div", { class: "card-text" },
+    view.paragraphs.map((lines) => el("p", {}, withBreaks(lines)))));
+
+  if (view.answer) {
+    root.append(view.answerShown
+      ? el("p", { class: "answer-shown" }, el("strong", { text: `Řešení: ${view.answer}` }))
+      : el("button", { type: "button", class: "btn btn-small", onclick: () => onReveal?.() },
+          view.revealLabel));
+  }
+
+  if (!view.resolution) {
+    root.append(el("button", { type: "button", class: "btn btn-primary btn-wide", onclick: () => onClose?.() },
+      "Vyhodnoceno"));
+    return root;
+  }
+
+  if (view.note) root.append(el("p", { class: "muted", text: view.note }));
+
+  if (view.dice) {
+    const rolled = view.roll
+      ? el("p", { class: "dice-result" },
+          el("span", { class: "dice-faces", text: view.roll.faces }),
+          el("span", { text: view.roll.summary }))
+      : null;
+    const manual = el("input", {
+      type: "text",
+      class: "dice-input",
+      inputmode: "numeric",
+      placeholder: view.dice.placeholder,
+      "aria-label": "Co vám padlo",
+    });
+    root.append(el("div", { class: "dice" },
+      el("p", { class: "dice-prompt", text: view.dice.text }),
+      rolled,
+      el("div", { class: "dice-actions" },
+        el("button", { type: "button", class: "btn btn-small", onclick: () => onRoll?.(null) },
+          "Hodit v aplikaci"),
+        manual,
+        el("button", {
+          type: "button",
+          class: "btn btn-small",
+          onclick: () => onRoll?.(manual.value),
+        }, "Hodili jsme sami"),
+      )));
+  }
+
+  root.append(el("p", { class: "sheet-sub", text: view.prompt }));
+  const actions = el("div", { class: "menu-actions" });
+  for (const option of view.options) {
+    actions.append(el("button", {
+      type: "button",
+      class: "btn btn-wide",
+      onclick: () => onResolve?.(option.id),
+    }, option.label));
+  }
+  root.append(actions);
+  return root;
+}
+
 /* ---------------------------------------------------------------- status bar */
 
 export function createStatusBar({ onUndo, onJournal, onInventory, onMenu } = {}) {

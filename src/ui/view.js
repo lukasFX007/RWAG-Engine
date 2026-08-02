@@ -250,6 +250,62 @@ export function heldCardsView(engine) {
     });
 }
 
+/**
+ * A drawn card of deck N, with whatever settles it.
+ *
+ * `roll` is the dice already thrown, if any, and the labels on the options tell
+ * the players which side of the throw they landed on — a card that says
+ * "⚁⚂⚃⚄: 😡😡" is asking whether the die shows one of those four, and the app
+ * answers that question rather than making them read it off a list.
+ */
+export function encounterView(card, { roll = null, answerShown = false } = {}) {
+  if (!card) return null;
+  const resolution = card.resolution ?? null;
+  const dice = resolution?.dice ?? null;
+
+  const options = (resolution?.options ?? []).map((option) => {
+    let label = option.label;
+    // once the dice are down, say what they mean for this option
+    if (roll && Array.isArray(option.faces)) {
+      const hit = roll.values.some((value) => option.faces.includes(value));
+      label = hit ? (option.failLabel ?? label) : (option.passLabel ?? label);
+    }
+    return { id: option.id, label };
+  });
+
+  return {
+    id: card.id,
+    cardCode: card.cardCode ?? null,
+    paragraphs: cardText(card.text),
+    answer: card.answer?.text ?? null,
+    answerShown,
+    revealLabel: resolution?.reveal ?? "Ukázat řešení",
+    resolution: Boolean(resolution),
+    prompt: resolution?.prompt ?? "Jak to dopadlo?",
+    note: resolution?.note ?? null,
+    dice: dice
+      ? {
+          text: dice.text ?? "Hoďte si kostkou",
+          placeholder: dice.count > 1 ? `součet nebo ${dice.count} čísel` : "co padlo",
+        }
+      : null,
+    roll: roll
+      ? {
+          faces: roll.values.map(diceFace).join(" "),
+          summary: roll.values.length > 1
+            ? `= ${roll.values.reduce((a, b) => a + b, 0)}`
+            : "",
+        }
+      : null,
+    options,
+  };
+}
+
+/** ⚀ to ⚅; anything outside one to six shows the number instead. */
+function diceFace(value) {
+  return ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"][value - 1] ?? String(value);
+}
+
 /** The status bar: reputation, quest tally, whether undo is possible. */
 export function statusView(engine) {
   const reputation = engine.state.reputation;

@@ -78,10 +78,20 @@ Podle Q08c a Q30b. `geo.js` je hotová a prázdná, chybí souřadnice.
 - [ ] „Splněno“ ověří polohu do ~25 m; když nesedí, zeptá se a nechá pokračovat
 - [ ] Zóna „mimo obec“ pro Lenocha — autor ji zatím nechal otevřenou
 
-## Fáze 6 — Kostky a fyzické výzvy
+## Fáze 6 — Vyhodnocení setkání a kostky ✅
 
-- [ ] Volba „hodí aplikace“ / „hodíme sami“ s okénkem na výsledek
-- [ ] Léčky v balíčku N a Potulný kostkař
+Vyšlo z toho víc, než bylo v plánu: **žádná z 20 karet balíčku N nevyhodnocovala
+svoji odměnu ani postih.** „Odměna: 😊“, „Postih: 😡“, „⚁⚂⚃⚄: 😡😡“ — všechno byl
+jen text.
+
+- [x] Volba „hodí aplikace“ / „hodíme sami“ s okénkem na výsledek
+- [x] Léčky v balíčku N (N08, N10) a Potulný kostkař (N04)
+- [x] Všech 19 setkání (kromě N01, což je pokyn) má tlačítka, jak dopadlo
+- [x] Sedm hádanek má tlačítko „Ukázat řešení“ — to je náhrada balíčku O
+
+*Hotovo:* po hodu se popis možnosti přepíše podle toho, na čem kostka stojí —
+karta říká „⚁⚂⚃⚄: 😡😡“, takže hra tu otázku odpoví za hráče místo toho, aby ji
+museli louskat ze seznamu.
 
 ## Fáze 7 — Úklid dluhu ✅
 

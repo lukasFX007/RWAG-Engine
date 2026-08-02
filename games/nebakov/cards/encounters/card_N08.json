@@ -6,5 +6,42 @@
     "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚁⚂⚃⚄: 😡😡"
   ],
   "cardCode": "N08",
-  "slug": "lecka_kmen"
+  "slug": "lecka_kmen",
+  "resolution": {
+    "prompt": "Půjdete dál, nebo to obejdete?",
+    "dice": {
+      "count": 1,
+      "sides": 6,
+      "text": "Hoďte si kostkou"
+    },
+    "options": [
+      {
+        "id": "obejit",
+        "label": "👣 Vyhnout se cestě k dalšímu rozcestí",
+        "effects": []
+      },
+      {
+        "id": "dal",
+        "label": "💀 Jít dál a hodit si kostkou",
+        "faces": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "failLabel": "⚁⚂⚃⚄ — léčka (😡😡)",
+        "passLabel": "⚀⚅ — prošli jste",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -2
+          },
+          {
+            "type": "toast",
+            "text": "Ztrácíte 2 body reputace."
+          }
+        ]
+      }
+    ]
+  }
 }

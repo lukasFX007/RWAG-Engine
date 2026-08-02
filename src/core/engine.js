@@ -13,7 +13,7 @@
 
 import { apply, lockState } from "./rules.js";
 import { createState, cloneState, visitCount } from "./state.js";
-import { draw, initDeck } from "./decks.js";
+import { draw, initDeck, makeRng } from "./decks.js";
 import { NO_ITEMS, createCatalogue, give, inventoryOf } from "./items.js";
 import {
   abilitiesOf,
@@ -504,6 +504,48 @@ export class Engine {
     this.state.quests[quest.id] = quest;
     this.#emit({ type: "questStarted", quest });
     return quest;
+  }
+
+  /* --------------------------------------------------------- encounter outcome */
+
+  /**
+   * Settle a card of deck N.
+   *
+   * Every one of the twenty prints what it costs or pays — "Odměna: 😊",
+   * "Postih: 😡", "⚁⚂⚃⚄: 😡😡" — and none of it was ever applied, because the
+   * outcome depends on something only the players know: whether they sang, whether
+   * they guessed, whether the die came up two. So the card offers its options and
+   * the group says which happened.
+   */
+  resolveEncounter(cardId, optionId) {
+    const card = this.eventCards.get(cardId);
+    if (!card) throw new Error(`karta ${cardId} v balíčku není`);
+    const option = (card.resolution?.options ?? []).find((o) => o.id === optionId);
+    if (!option) throw new Error(`karta ${cardId} nemá možnost ${optionId}`);
+
+    apply(option.effects, {
+      state: this.state,
+      source: cardId,
+      items: this.items,
+      drawEncounter: () => {},
+    });
+    this.#emit({ type: "encounterResolved", cardId, outcome: optionId });
+    return option;
+  }
+
+  /**
+   * Roll dice for a card that asks for them, or record what the players rolled.
+   * `given` is what came up on real dice; without it the app rolls, seeded like
+   * everything else so a restored save is reproducible.
+   */
+  rollDice(spec, given = null) {
+    const count = spec?.count ?? 1;
+    const sides = spec?.sides ?? 6;
+    if (Array.isArray(given)) return given.slice(0, count);
+
+    const rng = makeRng(this.state.seed, this.state.rngCursor);
+    this.state.rngCursor += 1;
+    return Array.from({ length: count }, () => 1 + Math.floor(rng() * sides));
   }
 
   /* ------------------------------------------------------------ private cards */

@@ -26,7 +26,31 @@
         "Na kartě je dále uvedeno:<br>• Postih: 😡<br>• Odměna: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
       ],
       "cardCode": "N02",
-      "slug": "zlodej"
+      "slug": "zlodej",
+      "resolution": {
+        "prompt": "Ohlásili jste krádež v Troskovicích?",
+        "options": [
+          {
+            "id": "ohlasili",
+            "label": "Ohlásili jsme ji",
+            "effects": []
+          },
+          {
+            "id": "nechali",
+            "label": "Nechali jsme to být (😡)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -1
+              },
+              {
+                "type": "toast",
+                "text": "Ztrácíte bod reputace."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_N03",
@@ -36,7 +60,32 @@
         "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
       ],
       "cardCode": "N03",
-      "slug": "smutne_zeny"
+      "slug": "smutne_zeny",
+      "resolution": {
+        "prompt": "Rozveselili jste je?",
+        "note": "Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.",
+        "options": [
+          {
+            "id": "ano",
+            "label": "Ano (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "ne",
+            "label": "Zatím ne",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N04",
@@ -46,7 +95,38 @@
         "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
       ],
       "cardCode": "N04",
-      "slug": "potulny_kostkar"
+      "slug": "potulny_kostkar",
+      "resolution": {
+        "prompt": "Padl vám součet 21 do sedmi pokusů?",
+        "dice": {
+          "count": 6,
+          "sides": 6,
+          "attempts": 7,
+          "target": 21,
+          "text": "Šest kostek, součet přesně 21, sedm pokusů"
+        },
+        "options": [
+          {
+            "id": "uspech",
+            "label": "Padlo nám 21",
+            "effects": []
+          },
+          {
+            "id": "neuspech",
+            "label": "Nepadlo (😡)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -1
+              },
+              {
+                "type": "toast",
+                "text": "Ztrácíte bod reputace."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_N05",
@@ -56,7 +136,54 @@
         "Na kartě je dále uvedeno:<br>• Odměna: 😊 za 1 píseň<br>• Postih: 😡<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
       ],
       "cardCode": "N05",
-      "slug": "cikani"
+      "slug": "cikani",
+      "resolution": {
+        "prompt": "Zazpívali jste si s nimi?",
+        "options": [
+          {
+            "id": "jedna",
+            "label": "Jednu píseň (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "dve",
+            "label": "Dvě písně (😊😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 2
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte 2 body reputace."
+              }
+            ]
+          },
+          {
+            "id": "zadna",
+            "label": "Nezazpívali jsme (😡)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -1
+              },
+              {
+                "type": "toast",
+                "text": "Ztrácíte bod reputace."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_N06",
@@ -66,7 +193,31 @@
         "Na kartě je dále uvedeno:<br>• Odměna: 😊"
       ],
       "cardCode": "N06",
-      "slug": "neporadek_po_najezdu"
+      "slug": "neporadek_po_najezdu",
+      "resolution": {
+        "prompt": "Uklidili jste po loupežnících?",
+        "options": [
+          {
+            "id": "ano",
+            "label": "Uklidili (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "ne",
+            "label": "Nechali jsme to být",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N07",
@@ -76,7 +227,32 @@
         "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
       ],
       "cardCode": "N07",
-      "slug": "pomoc_v_nouzi"
+      "slug": "pomoc_v_nouzi",
+      "resolution": {
+        "prompt": "Pomohli jste někomu z místních?",
+        "note": "Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.",
+        "options": [
+          {
+            "id": "ano",
+            "label": "Pomohli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "ne",
+            "label": "Zatím ne",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N08",
@@ -86,7 +262,44 @@
         "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚁⚂⚃⚄: 😡😡"
       ],
       "cardCode": "N08",
-      "slug": "lecka_kmen"
+      "slug": "lecka_kmen",
+      "resolution": {
+        "prompt": "Půjdete dál, nebo to obejdete?",
+        "dice": {
+          "count": 1,
+          "sides": 6,
+          "text": "Hoďte si kostkou"
+        },
+        "options": [
+          {
+            "id": "obejit",
+            "label": "👣 Vyhnout se cestě k dalšímu rozcestí",
+            "effects": []
+          },
+          {
+            "id": "dal",
+            "label": "💀 Jít dál a hodit si kostkou",
+            "faces": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "failLabel": "⚁⚂⚃⚄ — léčka (😡😡)",
+            "passLabel": "⚀⚅ — prošli jste",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -2
+              },
+              {
+                "type": "toast",
+                "text": "Ztrácíte 2 body reputace."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_N09",
@@ -97,7 +310,18 @@
         "Bolest poleví až na konci následujícího balíčku karet."
       ],
       "cardCode": "N09",
-      "slug": "zraneni"
+      "slug": "zraneni",
+      "resolution": {
+        "prompt": "Vyhodnoceno?",
+        "note": "Bolest poleví až na konci následujícího balíčku karet.",
+        "options": [
+          {
+            "id": "hotovo",
+            "label": "Vyhodnoceno, jdeme dál",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N10",
@@ -107,7 +331,44 @@
         "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚀⚁⚄⚅: 😡😡"
       ],
       "cardCode": "N10",
-      "slug": "lecka_zablesk"
+      "slug": "lecka_zablesk",
+      "resolution": {
+        "prompt": "Půjdete dál, nebo to obejdete?",
+        "dice": {
+          "count": 1,
+          "sides": 6,
+          "text": "Hoďte si kostkou"
+        },
+        "options": [
+          {
+            "id": "obejit",
+            "label": "👣 Vyhnout se cestě k dalšímu rozcestí",
+            "effects": []
+          },
+          {
+            "id": "dal",
+            "label": "💀 Jít dál a hodit si kostkou",
+            "faces": [
+              1,
+              2,
+              5,
+              6
+            ],
+            "failLabel": "⚀⚁⚄⚅ — léčka (😡😡)",
+            "passLabel": "⚂⚃ — prošli jste",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -2
+              },
+              {
+                "type": "toast",
+                "text": "Ztrácíte 2 body reputace."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_N11",
@@ -116,7 +377,17 @@
         "„Mezi místními se povídá, že v troskovické studni je zkažená voda. Pokud máte zásoby vody, ihned ji všechnu vylijte. Přece nechcete mít zdravotní problémy.“"
       ],
       "cardCode": "N11",
-      "slug": "zkazena_voda"
+      "slug": "zkazena_voda",
+      "resolution": {
+        "prompt": "Vylili jste zásoby vody?",
+        "options": [
+          {
+            "id": "hotovo",
+            "label": "Vyhodnoceno, jdeme dál",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N12",
@@ -127,7 +398,41 @@
         "Vyberte jednoho z vás. Ten si určí libovolný strom a pokusí se třikrát trefit do jeho kmene ze vzdálenosti 50 stop. Může házet čím chce – kámen, šiška, větev … ale má na to jen 5 pokusů.",
         "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: 😊<br>• Tuto událost vyhodnoťte, jakmile uvidíte vhodné místo.<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
       ],
-      "todo": "Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost."
+      "todo": "Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost.",
+      "resolution": {
+        "prompt": "Trefil se?",
+        "note": "Jeden z vás, libovolný strom, tři zásahy z 50 stop, pět pokusů.",
+        "options": [
+          {
+            "id": "uspech",
+            "label": "Trefil se (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuspech",
+            "label": "Netrefil (😡)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": -1
+              },
+              {
+                "type": "toast",
+                "text": "Ztrácíte bod reputace."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "card_N13",
@@ -137,7 +442,32 @@
         "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
       ],
       "cardCode": "N13",
-      "slug": "chudina_v_nouzi"
+      "slug": "chudina_v_nouzi",
+      "resolution": {
+        "prompt": "Pozvali jste někoho z místních?",
+        "note": "Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.",
+        "options": [
+          {
+            "id": "ano",
+            "label": "Pozvali jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "ne",
+            "label": "Zatím ne",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N14",
@@ -154,12 +484,32 @@
         "text": "Mapa",
         "printedOn": "O01"
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "note": "Nepočítá se to, pokud splníte úkol v rámci dobrodružství.",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N15",
@@ -176,12 +526,31 @@
         "text": "Sůl",
         "printedOn": "O02"
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N16",
@@ -198,12 +567,31 @@
         "text": "Ticho",
         "printedOn": "O03"
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N17",
@@ -219,12 +607,31 @@
         "text": "Loď",
         "printedOn": "O04"
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N18",
@@ -240,12 +647,31 @@
         "text": "Stín",
         "printedOn": null
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N19",
@@ -262,12 +688,31 @@
         "text": "Jehla",
         "printedOn": "O02"
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     },
     {
       "id": "card_N20",
@@ -284,12 +729,31 @@
         "text": "Východ a západ",
         "printedOn": "O01"
       },
-      "reward": [
-        {
-          "type": "reputation",
-          "value": 1
-        }
-      ]
+      "resolution": {
+        "prompt": "Uhodli jste?",
+        "reveal": "Ukázat řešení",
+        "options": [
+          {
+            "id": "uhodli",
+            "label": "Uhodli jsme (😊)",
+            "effects": [
+              {
+                "type": "reputation",
+                "value": 1
+              },
+              {
+                "type": "toast",
+                "text": "Získáváte bod reputace."
+              }
+            ]
+          },
+          {
+            "id": "neuhodli",
+            "label": "Neuhodli jsme",
+            "effects": []
+          }
+        ]
+      }
     }
   ]
 }

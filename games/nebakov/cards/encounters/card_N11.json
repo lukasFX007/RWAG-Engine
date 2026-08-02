@@ -5,5 +5,15 @@
     "„Mezi místními se povídá, že v troskovické studni je zkažená voda. Pokud máte zásoby vody, ihned ji všechnu vylijte. Přece nechcete mít zdravotní problémy.“"
   ],
   "cardCode": "N11",
-  "slug": "zkazena_voda"
+  "slug": "zkazena_voda",
+  "resolution": {
+    "prompt": "Vylili jste zásoby vody?",
+    "options": [
+      {
+        "id": "hotovo",
+        "label": "Vyhodnoceno, jdeme dál",
+        "effects": []
+      }
+    ]
+  }
 }

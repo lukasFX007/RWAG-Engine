@@ -13,10 +13,30 @@
     "text": "Mapa",
     "printedOn": "O01"
   },
-  "reward": [
-    {
-      "type": "reputation",
-      "value": 1
-    }
-  ]
+  "resolution": {
+    "prompt": "Uhodli jste?",
+    "reveal": "Ukázat řešení",
+    "note": "Nepočítá se to, pokud splníte úkol v rámci dobrodružství.",
+    "options": [
+      {
+        "id": "uhodli",
+        "label": "Uhodli jsme (😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 1
+          },
+          {
+            "type": "toast",
+            "text": "Získáváte bod reputace."
+          }
+        ]
+      },
+      {
+        "id": "neuhodli",
+        "label": "Neuhodli jsme",
+        "effects": []
+      }
+    ]
+  }
 }

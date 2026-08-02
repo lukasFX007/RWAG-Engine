@@ -6,5 +6,36 @@
     "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: —<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
   ],
   "cardCode": "N04",
-  "slug": "potulny_kostkar"
+  "slug": "potulny_kostkar",
+  "resolution": {
+    "prompt": "Padl vám součet 21 do sedmi pokusů?",
+    "dice": {
+      "count": 6,
+      "sides": 6,
+      "attempts": 7,
+      "target": 21,
+      "text": "Šest kostek, součet přesně 21, sedm pokusů"
+    },
+    "options": [
+      {
+        "id": "uspech",
+        "label": "Padlo nám 21",
+        "effects": []
+      },
+      {
+        "id": "neuspech",
+        "label": "Nepadlo (😡)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -1
+          },
+          {
+            "type": "toast",
+            "text": "Ztrácíte bod reputace."
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -36,6 +36,7 @@ import {
   dealtRolesView,
   editModeView,
   endingView,
+  encounterView,
   heldCardsView,
   inventoryView,
   journalView,
@@ -54,6 +55,7 @@ import {
   renderAbilities,
   renderCard,
   renderEnding,
+  renderEncounter,
   renderHeldCards,
   renderInventory,
   renderPrivateCard,
@@ -794,16 +796,52 @@ export function createApp({
   }
 
   /** A card drawn from deck N interrupts the story, so it gets the sheet. */
-  function showEncounter(card) {
+  /** dice thrown for the encounter on screen, and whether its answer is shown */
+  let encounterRoll = null;
+  let encounterAnswerShown = false;
+
+  function showEncounter(card, { keepState = false } = {}) {
     if (!card) return;
-    const body = el("div", { class: "encounter" },
-      el("h2", { class: "sheet-title", text: "Náhodné setkání" }),
-      card.cardCode ? el("span", { class: "card-code", text: card.cardCode }) : null,
-      el("div", { class: "card-text" },
-        cardText(card.text).map((lines) => el("p", {}, withBreaks(lines)))),
-      el("button", { type: "button", class: "btn btn-primary", onclick: () => sheet.close() }, "Vyhodnoceno"),
-    );
-    openSheet("encounter", body);
+    if (!keepState) {
+      encounterRoll = null;
+      encounterAnswerShown = false;
+    }
+    const view = encounterView(card, {
+      roll: encounterRoll,
+      answerShown: encounterAnswerShown,
+    });
+    openSheet("encounter", renderEncounter(view, {
+      onReveal: () => {
+        encounterAnswerShown = true;
+        showEncounter(card, { keepState: true });
+      },
+      onRoll: (typed) => {
+        const spec = card.resolution?.dice ?? { count: 1, sides: 6 };
+        const given = parseDice(typed, spec);
+        encounterRoll = { values: engine.rollDice(spec, given) };
+        showEncounter(card, { keepState: true });
+      },
+      onResolve: (optionId) => {
+        engine.resolveEncounter(card.id, optionId);
+        encounterRoll = null;
+        encounterAnswerShown = false;
+        autosave();
+        sheet.close();
+        drawGame();
+        drainMessages();
+      },
+      onClose: () => sheet.close(),
+    }));
+  }
+
+  /**
+   * What the players typed after rolling their own dice: "4", "2 5 1", "2,5,1".
+   * Anything that is not a run of numbers means "let the app roll".
+   */
+  function parseDice(typed, spec) {
+    const numbers = String(typed ?? "").match(/\d+/g);
+    if (!numbers) return null;
+    return numbers.slice(0, spec.count ?? 1).map(Number);
   }
 
   return {

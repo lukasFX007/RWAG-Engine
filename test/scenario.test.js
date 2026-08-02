@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
 
 import { Engine } from "../src/core/engine.js";
 import { deckSize, timesDrawn } from "../src/core/decks.js";
-import { roleCardView, trailText } from "../src/ui/view.js";
+import { encounterView, roleCardView, trailText } from "../src/ui/view.js";
 
 const read = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url), "utf8"));
 const scenario = read("../games/nebakov/scenario.json");
@@ -1064,4 +1064,73 @@ test("Analfabet čte svou kartu přeházeně, ostatní ji čtou normálně", () 
   assert.equal(others.ownView, false);
   assert.match(others.character.join(" "), /člověk pocházející/);
   assert.match(others.entries[0].text, /Nemusíš/);
+});
+
+/* --------------------------------------- vyhodnocení setkání a kostky (Fáze 6) */
+
+test("každá karta balíčku N kromě N01 se dá vyhodnotit", () => {
+  for (const card of events.cards) {
+    if (card.cardCode === "N01") {
+      assert.equal(card.resolution, undefined, "N01 je pokyn, ne setkání");
+      continue;
+    }
+    assert.ok(card.resolution?.options?.length,
+      `${card.cardCode} nemá jak dopadnout`);
+    for (const option of card.resolution.options) {
+      assert.ok(option.id && option.label, `${card.cardCode}: možnost bez id nebo popisu`);
+    }
+  }
+});
+
+test("léčka na N08 stojí dva body, když kostka padne špatně", () => {
+  const engine = withItems();
+  const before = engine.state.reputation;
+  engine.resolveEncounter("card_N08", "dal");
+  assert.equal(engine.state.reputation, before - 2);
+
+  const lucky = withItems();
+  lucky.resolveEncounter("card_N08", "obejit");
+  assert.equal(lucky.state.reputation, before, "obejít nic nestojí");
+
+  assert.throws(() => lucky.resolveEncounter("card_N08", "vymyslene"), /nemá možnost/);
+});
+
+test("kostka: aplikace hodí sama, nebo přijme, co padlo hráčům", () => {
+  const engine = withItems();
+  const spec = { count: 2, sides: 6 };
+
+  const own = engine.rollDice(spec);
+  assert.equal(own.length, 2);
+  assert.ok(own.every((v) => v >= 1 && v <= 6), `padlo ${own}`);
+
+  assert.deepEqual(engine.rollDice(spec, [4, 1]), [4, 1], "zadaný hod se respektuje");
+  assert.deepEqual(engine.rollDice(spec, [4, 1, 6]), [4, 1], "víc čísel než kostek se zkrátí");
+});
+
+test("hod mění popis možnosti podle toho, na čem kostka stojí", () => {
+  const card = events.cards.find((c) => c.cardCode === "card_N08" || c.cardCode === "N08");
+
+  const trapped = encounterView(card, { roll: { values: [3] } });
+  assert.match(trapped.options[1].label, /léčka/);
+  assert.match(trapped.roll.faces, /⚂/);
+
+  const spared = encounterView(card, { roll: { values: [6] } });
+  assert.match(spared.options[1].label, /prošli jste/);
+});
+
+test("hádanka ukáže řešení a odměna je bod reputace", () => {
+  const card = events.cards.find((c) => c.cardCode === "N15");
+  assert.equal(card.answer.text, "Sůl");
+
+  const hidden = encounterView(card, {});
+  assert.equal(hidden.answerShown, false);
+  assert.equal(hidden.answer, "Sůl", "text je ve view, ale skrytý až do odhalení");
+
+  const engine = withItems();
+  engine.resolveEncounter("card_N15", "uhodli");
+  assert.equal(engine.state.reputation, 1);
+
+  const wrong = withItems();
+  wrong.resolveEncounter("card_N15", "neuhodli");
+  assert.equal(wrong.state.reputation, 0, "za neuhodnutí se nic nestrhává");
 });

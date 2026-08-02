@@ -6,5 +6,29 @@
     "Na kartě je dále uvedeno:<br>• Odměna: 😊"
   ],
   "cardCode": "N06",
-  "slug": "neporadek_po_najezdu"
+  "slug": "neporadek_po_najezdu",
+  "resolution": {
+    "prompt": "Uklidili jste po loupežnících?",
+    "options": [
+      {
+        "id": "ano",
+        "label": "Uklidili (😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 1
+          },
+          {
+            "type": "toast",
+            "text": "Získáváte bod reputace."
+          }
+        ]
+      },
+      {
+        "id": "ne",
+        "label": "Nechali jsme to být",
+        "effects": []
+      }
+    ]
+  }
 }

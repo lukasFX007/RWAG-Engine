@@ -6,5 +6,52 @@
     "Na kartě je dále uvedeno:<br>• Odměna: 😊 za 1 píseň<br>• Postih: 😡<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
   ],
   "cardCode": "N05",
-  "slug": "cikani"
+  "slug": "cikani",
+  "resolution": {
+    "prompt": "Zazpívali jste si s nimi?",
+    "options": [
+      {
+        "id": "jedna",
+        "label": "Jednu píseň (😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 1
+          },
+          {
+            "type": "toast",
+            "text": "Získáváte bod reputace."
+          }
+        ]
+      },
+      {
+        "id": "dve",
+        "label": "Dvě písně (😊😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 2
+          },
+          {
+            "type": "toast",
+            "text": "Získáváte 2 body reputace."
+          }
+        ]
+      },
+      {
+        "id": "zadna",
+        "label": "Nezazpívali jsme (😡)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -1
+          },
+          {
+            "type": "toast",
+            "text": "Ztrácíte bod reputace."
+          }
+        ]
+      }
+    ]
+  }
 }

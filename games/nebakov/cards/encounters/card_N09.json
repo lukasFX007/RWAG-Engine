@@ -7,5 +7,16 @@
     "Bolest poleví až na konci následujícího balíčku karet."
   ],
   "cardCode": "N09",
-  "slug": "zraneni"
+  "slug": "zraneni",
+  "resolution": {
+    "prompt": "Vyhodnoceno?",
+    "note": "Bolest poleví až na konci následujícího balíčku karet.",
+    "options": [
+      {
+        "id": "hotovo",
+        "label": "Vyhodnoceno, jdeme dál",
+        "effects": []
+      }
+    ]
+  }
 }

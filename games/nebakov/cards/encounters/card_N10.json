@@ -6,5 +6,42 @@
     "Na kartě je dále uvedeno:<br>• 👣 Vyhnout se cestě vedoucí k dalšímu rozcestí<br>• 💀 Jít dál a hodit si kostkou: ⚀⚁⚄⚅: 😡😡"
   ],
   "cardCode": "N10",
-  "slug": "lecka_zablesk"
+  "slug": "lecka_zablesk",
+  "resolution": {
+    "prompt": "Půjdete dál, nebo to obejdete?",
+    "dice": {
+      "count": 1,
+      "sides": 6,
+      "text": "Hoďte si kostkou"
+    },
+    "options": [
+      {
+        "id": "obejit",
+        "label": "👣 Vyhnout se cestě k dalšímu rozcestí",
+        "effects": []
+      },
+      {
+        "id": "dal",
+        "label": "💀 Jít dál a hodit si kostkou",
+        "faces": [
+          1,
+          2,
+          5,
+          6
+        ],
+        "failLabel": "⚀⚁⚄⚅ — léčka (😡😡)",
+        "passLabel": "⚂⚃ — prošli jste",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -2
+          },
+          {
+            "type": "toast",
+            "text": "Ztrácíte 2 body reputace."
+          }
+        ]
+      }
+    ]
+  }
 }

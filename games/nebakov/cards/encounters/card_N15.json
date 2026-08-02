@@ -13,10 +13,29 @@
     "text": "Sůl",
     "printedOn": "O02"
   },
-  "reward": [
-    {
-      "type": "reputation",
-      "value": 1
-    }
-  ]
+  "resolution": {
+    "prompt": "Uhodli jste?",
+    "reveal": "Ukázat řešení",
+    "options": [
+      {
+        "id": "uhodli",
+        "label": "Uhodli jsme (😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 1
+          },
+          {
+            "type": "toast",
+            "text": "Získáváte bod reputace."
+          }
+        ]
+      },
+      {
+        "id": "neuhodli",
+        "label": "Neuhodli jsme",
+        "effects": []
+      }
+    ]
+  }
 }

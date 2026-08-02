@@ -6,5 +6,30 @@
     "Na kartě je dále uvedeno:<br>• Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.<br>• Odměna: 😊"
   ],
   "cardCode": "N03",
-  "slug": "smutne_zeny"
+  "slug": "smutne_zeny",
+  "resolution": {
+    "prompt": "Rozveselili jste je?",
+    "note": "Můžete to provést kdykoliv v průběhu dobrodružství, ale jen jednou.",
+    "options": [
+      {
+        "id": "ano",
+        "label": "Ano (😊)",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": 1
+          },
+          {
+            "type": "toast",
+            "text": "Získáváte bod reputace."
+          }
+        ]
+      },
+      {
+        "id": "ne",
+        "label": "Zatím ne",
+        "effects": []
+      }
+    ]
+  }
 }

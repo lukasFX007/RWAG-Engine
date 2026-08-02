@@ -878,3 +878,42 @@ img, figure { max-width: 100%; }
 .held-banner { margin: 0; font-weight: 700; color: var(--bad); }
 .held-who, .held-detail { margin: 0.15rem 0 0; font-size: 0.85rem; color: var(--ink-soft); }
 .role-own-note { margin: 0.5rem 0 0; font-size: 0.85rem; font-style: italic; color: var(--ink-soft); }
+
+/* ------------------------------------------------------------ dice */
+
+.dice {
+  margin: 1rem 0;
+  background: var(--surface-2);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r);
+  padding: 0.7rem 0.8rem;
+}
+.dice-prompt { margin: 0 0 0.5rem; font-weight: 600; }
+.dice-result {
+  margin: 0 0 0.6rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.dice-faces { font-size: 1.9rem; line-height: 1; letter-spacing: 0.1em; }
+.dice-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.dice-input {
+  font: inherit;
+  min-height: var(--tap);
+  flex: 1 1 6rem;
+  min-width: 5rem;
+  padding: 0 0.6rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+}
+.answer-shown {
+  margin: 0.6rem 0;
+  padding: 0.5rem 0.7rem;
+  background: var(--surface-2);
+  border-left: 4px solid var(--ok);
+  border-radius: var(--r);
+  color: var(--ok);
+}
