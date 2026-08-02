@@ -14,7 +14,7 @@
     "docs:questions": "python3 tools/build_questionnaire.py",
     "standalone": "python3 tools/build_standalone.py --scenario nebakov",
     "docs:review": "python3 tools/build_card_review.py",
-    "docs:places": "python3 tools/waypoints.py --out docs/mista-k-doplneni.md"
+    "docs:places": "python3 tools/waypoints.py --out docs/mista-k-doplneni.md && python3 tools/build_places_form.py"
   },
   "engines": {
     "node": ">=20"
