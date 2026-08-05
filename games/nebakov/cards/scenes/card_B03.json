@@ -27,7 +27,7 @@
     },
     {
       "icon": "stopy",
-      "text": "Jít rovnou za dobrodružstvím",
+      "text": "Pokračovat.",
       "goto": "card_B04"
     }
   ]
