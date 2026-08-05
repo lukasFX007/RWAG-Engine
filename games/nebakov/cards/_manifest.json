@@ -11,7 +11,30 @@
     "players_max": 8,
     "startScene": "card_A01",
     "items": "items.json",
-    "zones": "zones.json"
+    "zones": "zones.json",
+    "groupActions": [
+      {
+        "id": "ask_locals",
+        "icon": "lupa",
+        "title": "Požádat místní o pomoc",
+        "text": "Někdo ze zdejších vám poradí s cestou. Cizince tu ale rádi nemají, a tak vás rada bude stát jednu kladnou reputaci.",
+        "confirm": "Zeptali jste se a poradili vám?",
+        "effects": [
+          {
+            "type": "reputation",
+            "value": -1
+          }
+        ],
+        "disableIf": [
+          {
+            "type": "reputation",
+            "operator": "<",
+            "value": 1
+          }
+        ],
+        "note": "Pravidlo je na kartě B09: platí se kladnou reputací, takže při nule ani v mínusu se pomoc koupit nedá."
+      }
+    ]
   },
   "sceneOrder": [
     "card_B06",

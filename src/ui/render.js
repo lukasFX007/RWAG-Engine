@@ -810,6 +810,61 @@ export function renderAbilities(view, { onUse } = {}) {
   return root;
 }
 
+/* ------------------------------------------------------------- group actions */
+
+export function renderGroupActions(view, { onUse } = {}) {
+  const root = el("div", { class: "abilities" });
+  root.append(el("h2", { class: "sheet-title", text: "Co můžete udělat" }));
+  root.append(el("p", { class: "muted", text: view.note }));
+
+  if (view.empty) {
+    root.append(el("p", { class: "muted", text: view.emptyLabel }));
+    return root;
+  }
+
+  const list = el("ul", { class: "ability-list" });
+  for (const action of view.list) {
+    const item = el("li", { class: "ability", "data-locked": String(action.locked) });
+    const actions = el("div", { class: "ability-actions" });
+
+    if (action.locked) {
+      actions.append(el("p", { class: "ability-cost" },
+        el("span", { "aria-hidden": "true", text: `${icon("zamceno")} ` }),
+        action.lockLabel ?? "Zamčeno"));
+    } else {
+      const use = el("button", { type: "button", class: "btn btn-small" }, "Použít");
+      use.addEventListener("click", () => {
+        actions.replaceChildren(
+          el("span", { class: "ability-confirm", text: action.confirm ?? "Opravdu?" }),
+          el("button", {
+            type: "button",
+            class: "btn btn-small btn-primary",
+            onclick: () => onUse?.(action),
+          }, "Ano"),
+          el("button", {
+            type: "button",
+            class: "btn btn-small btn-quiet",
+            onclick: () => actions.replaceChildren(use),
+          }, "Zpět"),
+        );
+      });
+      actions.append(use);
+    }
+
+    item.append(
+      el("div", { class: "ability-head" },
+        el("span", { class: "ability-icon", "aria-hidden": "true", text: action.glyph }),
+        el("span", { class: "ability-player", text: action.title }),
+      ),
+      el("p", { class: "ability-text", text: action.text }),
+      actions,
+    );
+    list.append(item);
+  }
+  root.append(list);
+  return root;
+}
+
 /* ------------------------------------------------------------- standing rules */
 
 export function renderRoleRules(view, cards = []) {
@@ -975,6 +1030,7 @@ export function renderMenu({
   hasRoles = false,
   onRules,
   onAbilities,
+  onGroupActions,
   onRoles,
   editMode = null,
   onEditMode,
@@ -1024,6 +1080,10 @@ export function renderMenu({
     onAbilities
       ? el("button", { type: "button", class: "btn", onclick: onAbilities },
           `${icon("plus")} Schopnosti (${abilityCount})`)
+      : null,
+    onGroupActions
+      ? el("button", { type: "button", class: "btn", onclick: onGroupActions },
+          `${icon("bublina")} Co můžete udělat`)
       : null,
     onRoles ? el("button", { type: "button", class: "btn", onclick: onRoles }, `${icon("role")} Role a pravidla`) : null,
   ));

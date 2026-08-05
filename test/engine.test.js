@@ -577,3 +577,54 @@ test("na místě se potvrzení nikoho na nic neptá", () => {
   const quest = engine.completedQuests[0];
   assert.equal(quest.completedBy, "position", "splněno podle polohy, ne na slovo");
 });
+
+/* ------------------------------------------------------- akce mimo karty */
+
+function withActions() {
+  const scenario = fixture();
+  scenario.groupActions = [{
+    id: "ask_locals",
+    icon: "lupa",
+    title: "Požádat místní o pomoc",
+    text: "Poradí vám s cestou.",
+    effects: [{ type: "reputation", value: -1 }],
+    disableIf: [{ type: "reputation", operator: "<", value: 1 }],
+  }];
+  return scenario;
+}
+
+test("akce skupiny stojí reputaci a zamkne se, jakmile není kladná", () => {
+  const engine = new Engine(withActions());
+  assert.equal(engine.state.reputation, 2, "úvodní karta dá dva body");
+
+  const [action] = engine.groupActions();
+  assert.equal(action.id, "ask_locals");
+  assert.equal(action.available, true);
+
+  engine.useGroupAction("ask_locals");
+  assert.equal(engine.state.reputation, 1);
+  engine.useGroupAction("ask_locals");
+  assert.equal(engine.state.reputation, 0);
+
+  // nula není kladná, takže dál se pomoc koupit nedá (karta B09)
+  const [spent] = engine.groupActions();
+  assert.equal(spent.available, false);
+  assert.equal(spent.locked, true);
+  assert.equal(spent.requirement, "reputace 1 nebo více");
+});
+
+test("zamčenou akci nelze provést ani přímým voláním", () => {
+  const engine = new Engine(withActions());
+  engine.state.reputation = 0;
+  assert.throws(() => engine.useGroupAction("ask_locals"), /zamčená/);
+  assert.equal(engine.state.reputation, 0, "za neúspěšný pokus se neplatí");
+});
+
+test("neznámá akce skupiny je chyba, ne tichý souhlas", () => {
+  const engine = new Engine(withActions());
+  assert.throws(() => engine.useGroupAction("neexistuje"), /ve scénáři není/);
+});
+
+test("scénář bez akcí skupiny jich nabízí nula", () => {
+  assert.deepEqual(new Engine(fixture()).groupActions(), []);
+});

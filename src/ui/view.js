@@ -698,6 +698,29 @@ export function abilitiesView(engine, roles = []) {
 }
 
 /**
+ * What the group can do off the cards, right now.
+ *
+ * A locked action is shown locked rather than hidden, the same way a locked
+ * choice is: the players are meant to see that asking a local exists and that
+ * their reputation is what is standing in the way of it.
+ */
+export function groupActionsView(engine, ctx = {}) {
+  const list = engine.groupActions(ctx).map((action) => ({
+    ...action,
+    glyph: action.icon ? icon(action.icon) : "",
+    // the same phrasing a locked choice gets, so a lock reads the same wherever
+    // the players meet one
+    lockLabel: lockLabel(action),
+  }));
+  return {
+    list,
+    empty: list.length === 0,
+    emptyLabel: "Tento scénář nenabízí nic mimo karty.",
+    note: "Platí se hned, jakmile potvrdíte. Zpět to vzít nejde.",
+  };
+}
+
+/**
  * Standing obligations, grouped per player — the role card in play.
  *
  * Built from the players rather than from the reminders, because a player can

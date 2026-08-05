@@ -32,6 +32,7 @@ import { clear, el, withBreaks } from "./dom.js";
 import { cardText } from "./text.js";
 import {
   abilitiesView,
+  groupActionsView,
   cardView,
   dealtRolesView,
   editModeView,
@@ -54,6 +55,7 @@ import {
   createMessages,
   createStatusBar,
   renderAbilities,
+  renderGroupActions,
   renderCard,
   renderEnding,
   renderEncounter,
@@ -587,6 +589,7 @@ export function createApp({
       hasRoles: (engine?.players?.length ?? 0) > 0,
       abilityCount: engine?.players?.length ? engine.abilities.length : 0,
       onAbilities: engine ? () => openAbilities() : null,
+      onGroupActions: engine?.scenario?.groupActions?.length ? () => openGroupActions() : null,
       onRoles: engine ? () => openRoleRules() : null,
       editMode: editModeView({
         enabled: editMode,
@@ -644,6 +647,32 @@ export function createApp({
         // so the sheet is only dismissed if it is still the ability list — and
         // dismissed it must be, because every ability changes the card behind it.
         if (sheetBody.dataset.kind === kindBefore) sheet.close();
+      },
+    }));
+  }
+
+  /**
+   * What the group can do off the cards — asking a local the way, for now.
+   *
+   * Unlike an ability this does not move anyone, so the card behind stays put
+   * and the sheet is redrawn rather than closed: paying the reputation is the
+   * whole event, and seeing the action lock itself afterwards is the feedback.
+   */
+  function openGroupActions() {
+    if (!engine) return;
+    openSheet("actions", renderGroupActions(groupActionsView(engine, { position: geo.position }), {
+      onUse: (action) => {
+        try {
+          engine.useGroupAction(action.id, { position: geo.position });
+        } catch (err) {
+          messages.push([{ kind: "toast", text: err.message, glyph: "⚠️" }]);
+          return;
+        }
+        autosave();
+        drainMessages();
+        messages.push([{ kind: "toast", glyph: action.glyph, text: `${action.title} — hotovo.` }]);
+        drawGame();
+        openGroupActions();
       },
     }));
   }

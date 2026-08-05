@@ -10,6 +10,29 @@
   "startScene": "card_A01",
   "items": "items.json",
   "zones": "zones.json",
+  "groupActions": [
+    {
+      "id": "ask_locals",
+      "icon": "lupa",
+      "title": "Požádat místní o pomoc",
+      "text": "Někdo ze zdejších vám poradí s cestou. Cizince tu ale rádi nemají, a tak vás rada bude stát jednu kladnou reputaci.",
+      "confirm": "Zeptali jste se a poradili vám?",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": -1
+        }
+      ],
+      "disableIf": [
+        {
+          "type": "reputation",
+          "operator": "<",
+          "value": 1
+        }
+      ],
+      "note": "Pravidlo je na kartě B09: platí se kladnou reputací, takže při nule ani v mínusu se pomoc koupit nedá."
+    }
+  ],
   "scenes": [
     {
       "id": "card_B06",
@@ -252,6 +275,7 @@
         "Reputace je číslo v horní liště. Roste a klesá podle toho, jak se ke kraji a jeho lidem chováte. Některé volby se podle ní otevírají a jiné zamykají — u zamčené volby je vždycky vidět, co by bylo potřeba.",
         "😊 znamená zvýšení, 😡 pokles. Dvě tváře znamenají dva body.",
         "Náhodná setkání (⏳) hra vytáhne sama. Vyhodnoťte je na místě: karta se zeptá, jak to dopadlo, a vy odpovíte. Aplikace vám věří — ví jen to, co jí řeknete.",
+        "Když si nebudete vědět rady s cestou, můžete požádat o pomoc někoho ze zdejších — je to v Nabídce pod „Co můžete udělat“. Rada stojí jednu kladnou reputaci, takže při nule ani v mínusu ji koupit nelze.",
         "Co nesete najdete pod batohem v horní liště: zvací dopis a mapu máte od začátku, další předměty získáte po cestě. Poslední získaná mapa je odsud vždycky na dvě klepnutí."
       ],
       "choices": [],

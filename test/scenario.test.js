@@ -1180,3 +1180,26 @@ test("P05 je závěrečná obrazovka bez úklidu karet", () => {
   assert.equal(text.includes("zamíchejte"), false);
   assert.match(text, /log průchodu/, "závěr má poslat hráče pro log");
 });
+
+test("pomoc od místních drží pravidlo, které vyslovuje karta B09", () => {
+  const engine = fresh();
+  const [action] = engine.groupActions();
+  assert.equal(action.id, "ask_locals", "scénář tu akci nabízí");
+
+  // B09: „za každou takovou pomoc ztratíte jednu kladnou reputaci
+  // (pokud není Vaše reputace kladná, pomoc využít nemůžete)“ — nula tedy
+  // blokuje. Text karty a podmínka v enginu musí říkat totéž.
+  const b09 = scenario.scenes.find((s) => s.cardCode === "B09");
+  const printed = [b09.text].flat().join(" ");
+  assert.match(printed, /není\s+Vaše\s+reputace\s+kladná/);
+
+  engine.state.reputation = 1;
+  assert.equal(engine.groupActions()[0].available, true);
+
+  engine.useGroupAction("ask_locals");
+  assert.equal(engine.state.reputation, 0, "stojí přesně jeden bod");
+  assert.equal(engine.groupActions()[0].available, false, "při nule už ne");
+
+  engine.state.reputation = -1;
+  assert.equal(engine.groupActions()[0].available, false, "v mínusu tím spíš");
+});

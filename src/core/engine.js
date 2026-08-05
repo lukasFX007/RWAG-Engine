@@ -421,6 +421,57 @@ export class Engine {
   }
 
   /**
+   * Things the group can do at any time, off the cards — today only B09's
+   * "ask a local the way", which costs a point of reputation.
+   *
+   * Declared in the scenario rather than here, and gated by the same
+   * `disableIf` the choices use, so the rule the card prints and the rule the
+   * engine keeps are one condition and cannot drift apart.
+   */
+  groupActions(ctx = {}) {
+    const base = { state: this.state, engine: this, items: this.items, ...ctx };
+    return (this.scenario.groupActions ?? []).map((action) => {
+      const { locked, reasons, requirements } = lockState(action.disableIf, base);
+      return {
+        id: action.id,
+        icon: action.icon ?? null,
+        title: action.title ?? "",
+        text: action.text ?? "",
+        confirm: action.confirm ?? null,
+        available: !locked,
+        locked,
+        requirement: requirements.join(" a ") || null,
+        reason: reasons.join("; ") || null,
+      };
+    });
+  }
+
+  /**
+   * Do one. Throws when it is locked, for the same reason `choose` does: the
+   * gate is the rule, and a UI that forgot to grey a button must not be able to
+   * walk through it.
+   */
+  useGroupAction(id, ctx = {}) {
+    const declared = (this.scenario.groupActions ?? []).find((a) => a.id === id);
+    if (!declared) throw new Error(`akce ${id} ve scénáři není`);
+
+    const action = this.groupActions(ctx).find((a) => a.id === id);
+    if (!action.available) {
+      throw new Error(`akce „${action.title}“ je zamčená: ${action.reason ?? "nesplněná podmínka"}`);
+    }
+
+    apply(declared.effects ?? [], {
+      state: this.state,
+      source: `action:${id}`,
+      items: this.items,
+      drawEncounter: (deckId) => this.drawEncounter(deckId),
+    });
+
+    this.#emit({ type: "groupActionUsed", id, title: action.title });
+    return true;
+  }
+
+  /**
    * Rules the players have to keep themselves, per player. Distinct from
    * takeReminders(), which drains the queue of reminders raised by cards.
    */

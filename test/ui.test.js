@@ -17,6 +17,7 @@ import { icon, questIcon, reputationIcon, reputationIconName } from "../src/ui/i
 import {
   abilitiesView,
   cardView,
+  groupActionsView,
   dealtRolesView,
   durationLabel,
   endingView,
@@ -659,4 +660,49 @@ test("schopnost Milovníka přírody úkol uzavře, ale panel zůstane", () => {
   assert.equal(view.task.fulfilled, true, "a přiznat, že úkol je splněný");
   engine.confirmArrival();
   assert.equal(cardView(engine).cardCode, "B01");
+});
+
+/* -------------------------------------------------------------- akce skupiny */
+
+function actionEngine() {
+  const scenario = roleFixture();
+  scenario.groupActions = [{
+    id: "ask_locals",
+    icon: "lupa",
+    title: "Požádat místní o pomoc",
+    text: "Poradí vám s cestou.",
+    confirm: "Poradili vám?",
+    effects: [{ type: "reputation", value: -1 }],
+    disableIf: [{ type: "reputation", operator: "<", value: 1 }],
+  }];
+  return new Engine(scenario, { roles: NEBAKOV_ROLES });
+}
+
+test("akce skupiny se nabídne s ikonou a potvrzením", () => {
+  const engine = actionEngine();
+  engine.state.reputation = 2;
+  const view = groupActionsView(engine);
+
+  assert.equal(view.empty, false);
+  assert.equal(view.list.length, 1);
+  assert.equal(view.list[0].glyph, "🔍");
+  assert.equal(view.list[0].confirm, "Poradili vám?");
+  assert.equal(view.list[0].available, true);
+});
+
+test("nedostupná akce zůstane vidět i s tím, co by bylo potřeba", () => {
+  const engine = actionEngine();
+  engine.state.reputation = 0;
+  const [action] = groupActionsView(engine).list;
+
+  assert.equal(action.available, false);
+  assert.equal(action.locked, true);
+  assert.equal(action.requirement, "reputace 1 nebo více");
+  assert.equal(action.lockLabel, "Vyžaduje: reputace 1 nebo více");
+});
+
+test("scénář bez akcí to řekne místo prázdného seznamu", () => {
+  const view = groupActionsView(new Engine(roleFixture(), { roles: NEBAKOV_ROLES }));
+  assert.equal(view.empty, true);
+  assert.match(view.emptyLabel, /mimo karty/);
 });
