@@ -20,10 +20,10 @@ vzít telefon a jít ven.
 
 Běží souběžně, nic z toho neblokuje proud B kromě označených míst.
 
-- [ ] **A1** · Vyplněná `kontrola-karet.html` — 166 karet ke kontrole proti tištěné hře
+- [x] **A1** · Kontrola karet — vrátila se, 132 karet potvrzeno, 31 opraveno
 - [ ] **A2** · Digitální mapy 1–3 a chybějící obrázky karet (`lipa02.jpg` a další)
 - [x] **A3** · Souřadnice — hotovo, 36 míst v datech
-- [ ] **A4** · Schválení přepsaných pravidel P01–P05 (návrh je hotový a v aplikaci)
+- [x] **A4** · Pravidla P01–P05 — autor potvrdil P01, P03, P04, P05 a opravil P02
 
 ---
 
@@ -69,7 +69,7 @@ telefon, druhé, když ho vrací. Mezi nimi je text na obrazovce, mimo ně není
 
 ## Fáze 4 — Pravidla P01–P05 do menu ✅
 
-- [x] Přepsat P01–P04 pro digitál (bez pouzder a balíčků) — **znění je můj návrh, čeká na autora (A4)**
+- [x] Přepsat P01–P04 pro digitál (bez pouzder a balíčků) — **potvrzeno autorem**
 - [x] Zpřístupnit z menu jako nápovědu
 - [x] P05 přepsat na čistou závěrečnou obrazovku
 
