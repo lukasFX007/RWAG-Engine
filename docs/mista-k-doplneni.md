@@ -1,6 +1,6 @@
 # Místa k doplnění
 
-Úkolů celkem **46**, z toho cestovních **27**. Souřadnice má **0**. Zón v datech: **2**.
+Úkolů celkem **46**, z toho cestovních **27**. Souřadnice má **25**. Zón v datech: **11**.
 
 Bez souřadnic se hra hraje na čestné slovo: tlačítko „Jsme na místě“ prostě odhalí další kartu. Se souřadnicemi se hra zeptá, když je skupina podle GPS jinde — a nechá si odporovat, protože signál pod skalami je často mimo (Q08c).
 
@@ -16,10 +16,10 @@ Kvůli Nenasytovi (+1 v hospodách) a Lenochovi (−1 mimo obce).
 |---|---|---|
 | Hospůdka Apolena | 50.5101141, 15.225715 ✅ | 60 m |
 | Křenovský šenk | 50.5075111, 15.2268738 ✅ | 60 m |
-| Restaurace Nebákov | | |
-| Restaurace Trosky | | |
-| Občerstvení Vidlák | | |
-| Občerstvení Keltské opidum Semín | | |
+| Občerstvení Keltské opidum Semín | 50.5087003, 15.1970597 ✅ | 60 m |
+| Občerstvení Vidlák | 50.5227211, 15.209965 ✅ | 60 m |
+| Restaurace Nebákov | 50.5027894, 15.2026175 ✅ | 60 m |
+| Restaurace Trosky | 50.514625, 15.2302047 ✅ | 60 m |
 
 ## Obce
 
@@ -27,7 +27,11 @@ Autor to nechal otevřené (Q08b): v okruhu hry je dnes jen Troskovice, ale osad
 
 | Obec / osada | Střed | Rádius |
 |---|---|---|
-| Troskovice |  |  |
+| Nebákov | 50.5032725, 15.2028411 ✅ | 120 |
+| Slatějov | 50.5074894, 15.2221853 ✅ | 250 |
+| Tachov | 50.5185281, 15.2218139 ✅ | 200 |
+| Troskovice | 50.5122469, 15.2237128 ✅ | 300 |
+| Žďár | 50.5039617, 15.2180547 ✅ | 200 |
 | Tachov | | |
 | | | |
 
@@ -39,41 +43,41 @@ Kam hra skupinu posílá. Stačí ta místa, u kterých má smysl polohu kontrol
 
 | Karta | Úkol | Souřadnice |
 |---|---|---|
-| B10 | Dojděte k tisícileté lípě |  |
+| B10 | Dojděte k tisícileté lípě | 50.5047836, 15.2164186 ✅ |
 
 ### Balíček C
 
 | Karta | Úkol | Souřadnice |
 |---|---|---|
-| C12 | Dojděte k nebákovskému mlýnu |  |
-| C13 | Dojděte zpět k lípě |  |
-| C15 | Dojděte zpět k lípě |  |
-| C18 | Vraťte se zpět k tisícileté lípě |  |
-| C22 | Vraťte se zpět k tisícileté lípě |  |
-| C23 | Doběhněte k nebákovskému mlýnu! |  |
-| C27 | Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01. |  |
+| C12 | Dojděte k nebákovskému mlýnu | 50.5028614, 15.2031408 ✅ |
+| C13 | Dojděte zpět k lípě | 50.5047836, 15.2164186 ✅ |
+| C15 | Dojděte zpět k lípě | 50.5047836, 15.2164186 ✅ |
+| C18 | Vraťte se zpět k tisícileté lípě | 50.5047836, 15.2164186 ✅ |
+| C22 | Vraťte se zpět k tisícileté lípě | 50.5047836, 15.2164186 ✅ |
+| C23 | Doběhněte k nebákovskému mlýnu! | 50.5028614, 15.2031408 ✅ |
+| C27 | Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01. | 50.5098294, 15.2320467 ✅ |
 
 ### Balíček D
 
 | Karta | Úkol | Souřadnice |
 |---|---|---|
-| D03 | Vraťte se ke vstupu do Apoleny |  |
-| D05 | Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01. |  |
-| D06 | Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01. |  |
-| D11 | Dojděte pod Trosky |  |
-| D11 | Dojděte do Troskovic |  |
+| D03 | Vraťte se ke vstupu do Apoleny | 50.5095822, 15.2320842 ✅ |
+| D05 | Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01. | 50.5101141, 15.225715 ✅ |
+| D06 | Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01. | 50.5101141, 15.225715 ✅ |
+| D11 | Dojděte pod Trosky | 50.514625, 15.2302047 ✅ |
+| D11 | Dojděte do Troskovic | 50.5111225, 15.2251078 ✅ |
 
 ### Balíček G
 
 | Karta | Úkol | Souřadnice |
 |---|---|---|
-| G17 | Dojděte na palouk se seníkem |  |
-| G19 | Dojděte na louku s lovištěm vysoké |  |
-| G20 | Dojděte na palouk se seníkem |  |
-| G21 | Dojděte ke skále za odbočkou do lesa |  |
-| G23 | Vraťte se na palouk s rozpadlým stavením |  |
-| G24 | Dojděte k vodopádu |  |
-| G26 | Dojděte na louku s lovištěm vysoké |  |
+| G17 | Dojděte na palouk se seníkem | 50.5170017, 15.2138158 ✅ |
+| G19 | Dojděte na louku s lovištěm vysoké | 50.5157408, 15.215525 ✅ |
+| G20 | Dojděte na palouk se seníkem | 50.5170017, 15.2138158 ✅ |
+| G21 | Dojděte ke skále za odbočkou do lesa | 50.5166036, 15.2118556 ✅ |
+| G23 | Vraťte se na palouk s rozpadlým stavením | 50.5170017, 15.2138158 ✅ |
+| G24 | Dojděte k vodopádu | 50.5170356, 15.2182522 ✅ |
+| G26 | Dojděte na louku s lovištěm vysoké | 50.5157408, 15.215525 ✅ |
 
 ### Balíček H
 
@@ -81,11 +85,11 @@ Kam hra skupinu posílá. Stačí ta místa, u kterých má smysl polohu kontrol
 |---|---|---|
 | H03 | Vraťte se zpět k ohradě s ovcemi |  |
 | H05 | Vraťte se k ohradě s ovcemi |  |
-| H07 | Dojděte na cestu u rybníka západně odsud |  |
-| H11 | Dojděte do Troskovic |  |
-| H13 | Dojděte do Troskovic |  |
-| H14 | Dojděte do Troskovic |  |
-| H16 | Dojděte k hospůdce Apolena |  |
+| H07 | Dojděte na cestu u rybníka západně odsud | 50.5166036, 15.2118556 ✅ |
+| H11 | Dojděte do Troskovic | 50.5122469, 15.2237128 ✅ |
+| H13 | Dojděte do Troskovic | 50.5122469, 15.2237128 ✅ |
+| H14 | Dojděte do Troskovic | 50.5122469, 15.2237128 ✅ |
+| H16 | Dojděte k hospůdce Apolena | 50.5101141, 15.225715 ✅ |
 
 ## Ostatní úkoly (poloha se u nich nekontroluje)
 

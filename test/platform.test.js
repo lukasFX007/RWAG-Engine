@@ -185,11 +185,11 @@ test("haversine měří v metrech", () => {
 });
 
 test("zóny nejsou v datech, takže se nikdy netrefí", () => {
-  // roles.json gates two role effects on `pubs` and `no_village`, but no
+  // roles.json gates two role effects on `pubs` and `village`, but no
   // coordinates exist anywhere in the game data. Inventing them is out of scope,
   // so the resolver must answer honestly: no zone.
   assert.deepEqual([...ZONES], []);
-  assert.deepEqual([...REFERENCED_ZONES], ["pubs", "no_village"]);
+  assert.deepEqual([...REFERENCED_ZONES], ["pubs", "village"]);
   assert.deepEqual(zonesAt({ lat: 50.5, lon: 15.2 }), []);
 });
 
@@ -350,20 +350,45 @@ test("hospody z dat se poznají podle polohy", () => {
 
   for (const pub of pubs) {
     assert.ok(Number.isFinite(pub.lat) && Number.isFinite(pub.lon), `${pub.name} bez souřadnic`);
-    // in the doorway
-    assert.deepEqual(zonesAt({ lat: pub.lat, lon: pub.lon }, zoneData.zones), ["pubs"],
+    // Standing in the doorway counts — and may well also count as standing in
+    // the village, because a pub is usually in one. The zones overlap on
+    // purpose; what matters is that this one is among them.
+    assert.ok(zonesAt({ lat: pub.lat, lon: pub.lon }, zoneData.zones).includes("pubs"),
       `${pub.name} se nepozná ani na svých vlastních souřadnicích`);
   }
 
-  // Apolena and the Křenovský šenk are about 300 m apart, so standing at one
-  // must not count as standing at the other with a 60 m radius
-  const [apolena, krenov] = pubs;
-  const gap = haversine(apolena, krenov);
-  assert.ok(gap > apolena.radius + krenov.radius,
-    `zóny se překrývají: ${Math.round(gap)} m mezi nimi`);
+  // no two pubs may sit inside each other's radius, or being at one would read
+  // as being at the other
+  for (const a of pubs) {
+    for (const b of pubs) {
+      if (a === b) continue;
+      const gap = haversine(a, b);
+      assert.ok(gap > a.radius + b.radius,
+        `${a.name} a ${b.name} se překrývají: ${Math.round(gap)} m mezi nimi`);
+    }
+  }
 
-  // a field two kilometres north is not a pub
+  // a field two kilometres north of Apolena is neither pub nor village
+  const [apolena] = pubs;
   assert.deepEqual(zonesAt({ lat: apolena.lat + 0.02, lon: apolena.lon }, zoneData.zones), []);
+});
+
+test("obce jsou zóna „village“, protože to jsou obce", () => {
+  // The Lenoch loses reputation *outside* villages, and the zone lists villages.
+  // Naming it after the rule instead of its contents is how the same JSON ends
+  // up meaning its own opposite, so the rule carries the negation, not the name.
+  const villages = zoneData.zones.filter((z) => z.id === "village");
+  assert.ok(villages.length >= 2, `obcí v datech je ${villages.length}`);
+
+  const roles = JSON.parse(
+    readFileSync(new URL("../games/nebakov/roles.json", import.meta.url), "utf8")).roles;
+  const lenoch = roles.find((r) => r.id === "lenoch");
+  const rule = lenoch.disadvantages[0];
+  assert.deepEqual(rule.condition, { type: "gps_zone", zone: "village", negate: true });
+  assert.match(rule.text, /[Mm]imo obce/);
+
+  const troskovice = villages.find((v) => v.name === "Troskovice");
+  assert.ok(zonesAt(troskovice, zoneData.zones).includes("village"));
 });
 
 test("zóny dorazí se scénářem, ne při vytvoření modulu", () => {
@@ -373,8 +398,7 @@ test("zóny dorazí se scénářem, ne při vytvoření modulu", () => {
 
   geo.setZones(zoneData.zones, zoneData.pending);
   assert.equal(geo.zones.length, zoneData.zones.length);
-  assert.match(geo.missingNote, /Zón v datech: 2/);
-  assert.match(geo.missingNote, /Chybí 5/);
+  assert.match(geo.missingNote, new RegExp(`Zón v datech: ${zoneData.zones.length}`));
 });
 
 test("čekající zóny zůstávají bez souřadnic, ne s vymyšlenými", () => {

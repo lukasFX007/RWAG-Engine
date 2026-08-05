@@ -14,7 +14,13 @@
         "id": "q_G23_0",
         "kind": "travel",
         "text": "Vraťte se na palouk s rozpadlým stavením",
-        "completedAt": "card_G24"
+        "completedAt": "card_G24",
+        "at": {
+          "lat": 50.5170017,
+          "lon": 15.2138158,
+          "radius": 50,
+          "name": "Vraťte se na palouk s rozpadlým stavením"
+        }
       }
     }
   ],

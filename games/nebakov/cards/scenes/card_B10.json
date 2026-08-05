@@ -15,7 +15,13 @@
         "id": "q_B10_0",
         "kind": "travel",
         "text": "Dojděte k tisícileté lípě",
-        "completedAt": "card_B11"
+        "completedAt": "card_B11",
+        "at": {
+          "lat": 50.5047836,
+          "lon": 15.2164186,
+          "radius": 30,
+          "name": "Dojděte k tisícileté lípě"
+        }
       }
     }
   ]

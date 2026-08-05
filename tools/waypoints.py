@@ -107,7 +107,7 @@ def report(scenario, out):
         "|---|---|---|",
     ]
     for zone in have + waiting:
-        if zone.get("id") != "no_village":
+        if zone.get("id") != "village":
             continue
         coords = f"{zone['lat']}, {zone['lon']} ✅" if zone.get("lat") else ""
         lines.append(f"| {zone.get('name')} | {coords} | {zone.get('radius', '')} |")

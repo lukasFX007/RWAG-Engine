@@ -39,13 +39,13 @@ DECK_NAMES = {
 }
 ZONE_TITLES = {
     "pubs": "Hospody a místa s jídlem",
-    "no_village": "Obce a osady",
+    "village": "Obce a osady",
 }
 ZONE_NOTES = {
     "pubs": "Nenasyta má v hospodě a jejím okolí +1 k reputaci. Rádius 60 m je "
             "můj odhad — „v hospodách a jejich okolí“ je víc než dveře a méně "
             "než vesnice.",
-    "no_village": "Lenoch má mimo obce −1 k reputaci. Tady jde o střed a rádius; "
+    "village": "Lenoch má mimo obce −1 k reputaci. Tady jde o střed a rádius; "
                   "obvod na mapě neodpovídá cedulím, takže to bude vždycky "
                   "kompromis. Dokud tu nic není, Lenochova nevýhoda se "
                   "nevyhodnocuje.",
@@ -522,7 +522,7 @@ def sections():
             field_id = f"zona-{zone_id}-{slug(zone.get('name'))}"
             body.append(row(field_id, zone.get("name", zone_id), zone.get("note"), fields))
             fields[-1]["tag"] = f"ZONA {zone_id}"
-        if zone_id == "no_village":
+        if zone_id == "village":
             # the author said which villages count is still open, so leave room
             for n in range(1, 4):
                 field_id = f"zona-{zone_id}-dalsi{n}"

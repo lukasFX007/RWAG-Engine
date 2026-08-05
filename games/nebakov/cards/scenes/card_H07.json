@@ -14,7 +14,13 @@
         "id": "q_H07_0",
         "kind": "travel",
         "text": "Dojděte na cestu u rybníka západně odsud",
-        "completedAt": "card_H09"
+        "completedAt": "card_H09",
+        "at": {
+          "lat": 50.5166036,
+          "lon": 15.2118556,
+          "radius": 50,
+          "name": "Dojděte na cestu u rybníka západně odsud"
+        }
       }
     }
   ]

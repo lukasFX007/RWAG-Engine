@@ -8,5 +8,19 @@
       "goto": "card_C20"
     }
   ],
-  "cardCode": "C03"
+  "cardCode": "C03",
+  "events": [
+    {
+      "kind": "encounter",
+      "deck": "N",
+      "text": "Dojdete na místo, kde je les po obou stranách cesty",
+      "at": {
+        "lat": 50.5026225,
+        "lon": 15.2101617,
+        "radius": 50,
+        "name": "Dojdete na místo, kde je les po obou stranách cesty"
+      },
+      "note": "Vyhodnotí se, až tudy skupina půjde. Mechanika zatím není hotová — souřadnice jsou uložené, aby se neztratily."
+    }
+  ]
 }

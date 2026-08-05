@@ -14,7 +14,13 @@
         "id": "q_C15_0",
         "kind": "travel",
         "text": "Dojděte zpět k lípě",
-        "completedAt": "card_C17"
+        "completedAt": "card_C17",
+        "at": {
+          "lat": 50.5047836,
+          "lon": 15.2164186,
+          "radius": 30,
+          "name": "Dojděte zpět k lípě"
+        }
       }
     },
     {

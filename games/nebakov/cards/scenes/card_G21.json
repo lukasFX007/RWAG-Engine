@@ -13,7 +13,13 @@
         "id": "q_G21_0",
         "kind": "travel",
         "text": "Dojděte ke skále za odbočkou do lesa",
-        "completedAt": "card_G17"
+        "completedAt": "card_G17",
+        "at": {
+          "lat": 50.5166036,
+          "lon": 15.2118556,
+          "radius": 30,
+          "name": "Dojděte ke skále za odbočkou do lesa"
+        }
       }
     }
   ]

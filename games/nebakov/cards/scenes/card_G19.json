@@ -14,7 +14,13 @@
         "id": "q_G19_0",
         "kind": "travel",
         "text": "Dojděte na louku s lovištěm vysoké",
-        "completedAt": "card_G22"
+        "completedAt": "card_G22",
+        "at": {
+          "lat": 50.5157408,
+          "lon": 15.215525,
+          "radius": 50,
+          "name": "Dojděte na louku s lovištěm vysoké"
+        }
       }
     }
   ]

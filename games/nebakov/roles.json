@@ -274,7 +274,8 @@
                     },
                     "condition": {
                         "type": "gps_zone",
-                        "zone": "no_village"
+                        "zone": "village",
+                        "negate": true
                     },
                     "text": "[vždy] Mimo obce se vaší skupině počítá -1 k reputaci.",
                     "trigger": "always"

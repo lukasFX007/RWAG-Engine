@@ -20,7 +20,13 @@
         "id": "q_D06_0",
         "kind": "travel",
         "text": "Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
-        "completedAt": "card_E01"
+        "completedAt": "card_E01",
+        "at": {
+          "lat": 50.5101141,
+          "lon": 15.225715,
+          "radius": 30,
+          "name": "Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01."
+        }
       }
     }
   ],

@@ -19,7 +19,13 @@
         "id": "q_C12_1",
         "kind": "travel",
         "text": "Dojděte k nebákovskému mlýnu",
-        "completedAt": "card_C15"
+        "completedAt": "card_C15",
+        "at": {
+          "lat": 50.5028614,
+          "lon": 15.2031408,
+          "radius": 30,
+          "name": "Dojděte k nebákovskému mlýnu"
+        }
       }
     }
   ],

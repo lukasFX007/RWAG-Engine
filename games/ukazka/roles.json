@@ -1,273 +1,274 @@
 {
-  "roleSet": "stredovek",
-  "roles": [
-    {
-      "id": "tupec",
-      "name": "Tupec",
-      "description": "Neoplýváš intelektem, ale máš srdce na dlani.",
-      "icon": "role",
-      "character": [
-        "Hned po porodu jsi spadl na hlavu. Snad kvůli tomu věci chápeš pomaleji. Ale ostatní tolerují tvůj snížený intelekt a jsou k tobě ohleduplní."
-      ],
-      "advantages": [
+    "roleSet": "stredovek",
+    "roles": [
         {
-          "icon": "plus",
-          "effects": {
-            "type": "ignore_choice_condition"
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[1/hru] Vaše skupina může ignorovat podmínku rozhodnutí (vyjma závěru hry).",
-          "trigger": "once"
-        }
-      ],
-      "disadvantages": [
+            "id": "tupec",
+            "name": "Tupec",
+            "description": "Neoplýváš intelektem, ale máš srdce na dlani.",
+            "icon": "role",
+            "character": [
+                "Hned po porodu jsi spadl na hlavu. Snad kvůli tomu věci chápeš pomaleji. Ale ostatní tolerují tvůj snížený intelekt a jsou k tobě ohleduplní."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "ignore_choice_condition"
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[1/hru] Vaše skupina může ignorovat podmínku rozhodnutí (vyjma závěru hry).",
+                    "trigger": "once"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "roleplay_twice_answer"
+                    },
+                    "text": "[vždy] Pokud se na něco zeptáš, musí ti to dotazovaný říci dvakrát, abys to pochopil. Tvých přátel se to však netýká.",
+                    "trigger": "always"
+                }
+            ]
+        },
         {
-          "icon": "minus",
-          "effects": {
-            "type": "roleplay_twice_answer"
-          },
-          "text": "[vždy] Pokud se na něco zeptáš, musí ti to dotazovaný říci dvakrát, abys to pochopil. Tvých přátel se to však netýká.",
-          "trigger": "always"
-        }
-      ]
-    },
-    {
-      "id": "pacifista",
-      "name": "Pacifista",
-      "description": "Příčí se ti násilí a zbraně.",
-      "icon": "role",
-      "character": [
-        "Vyhýbáš se konfliktům a příčí se ti násilí. Vše raději řešíš mírovou cestou. Při pohledu na krev se ti dělá zle a okamžitě odvracíš zrak."
-      ],
-      "advantages": [
+            "id": "pacifista",
+            "name": "Pacifista",
+            "description": "Příčí se ti násilí a zbraně.",
+            "icon": "role",
+            "character": [
+                "Vyhýbáš se konfliktům a příčí se ti násilí. Vše raději řešíš mírovou cestou. Při pohledu na krev se ti dělá zle a okamžitě odvracíš zrak."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "reputation",
+                        "value": 1
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[začátek] Vaše skupina získává +1 k reputaci.",
+                    "trigger": "start"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "roleplay_cant_use_weapons"
+                    },
+                    "text": "[vždy] Nemůžeš používat zbraně a nože.",
+                    "trigger": "always"
+                }
+            ]
+        },
         {
-          "icon": "plus",
-          "effects": {
-            "type": "reputation",
-            "value": 1
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[začátek] Vaše skupina získává +1 k reputaci.",
-          "trigger": "start"
-        }
-      ],
-      "disadvantages": [
+            "id": "analfabet",
+            "name": "Alanafbet",
+            "description": "Ve čtení a psaní nevynikáš, ale má to i své výhody.",
+            "icon": "role",
+            "character": [
+                "Jsi čvoljek sporsýtch pomjerů a vdzěnálí se ti nidky nedosalto. Noevádláš žándý cyzí jazik. Kydž tě zajume někajý npáis, ptáš se osatntích, co to je."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "roleplay_no_tips"
+                    },
+                    "text": "[vdžy] Nmeusíš nechváat srpopitné.",
+                    "trigger": "always"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "roleplay_cant_read_nor_calculate"
+                    },
+                    "text": "[vdžy] Nemuíš čsít ani počtíat.",
+                    "trigger": "always"
+                }
+            ]
+        },
         {
-          "icon": "minus",
-          "effects": {
-            "type": "roleplay_cant_use_weapons"
-          },
-          "text": "[vždy] Nemůžeš používat zbraně a nože.",
-          "trigger": "always"
-        }
-      ]
-    },
-    {
-      "id": "analfabet",
-      "name": "Alanafbet",
-      "description": "Ve čtení a psaní nevynikáš, ale má to i své výhody.",
-      "icon": "role",
-      "character": [
-        "Jsi čvoljek sporsýtch pomjerů a vdzěnálí se ti nidky nedosalto. Noevádláš žándý cyzí jazik. Kydž tě zajume někajý npáis, ptáš se osatntích, co to je."
-      ],
-      "advantages": [
+            "id": "nenasyta",
+            "name": "Nenasyta",
+            "description": "Stále hladový, ale vděčný strávník.",
+            "icon": "role",
+            "character": [
+                "Jako nejmladší dítě jsi se musel hodně snažit, aby na tebe něco zbylo. Pokud někdo z tvých přátel něco jí a ty ne, snažíš se ze všech sil získat od něj alespoň jedno sousto."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "reputation",
+                        "value": 1
+                    },
+                    "condition": {
+                        "type": "gps_zone",
+                        "zone": "pubs"
+                    },
+                    "text": "[vždy] V hospodách a jejich okolí se vaší skupině počítá +1 k reputaci.",
+                    "trigger": "always"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "roleplay_buy_and_eat"
+                    },
+                    "condition": {
+                        "type": "gps_zone",
+                        "zone": "pubs"
+                    },
+                    "text": "[vždy] Pokud jsi u místa, kde se prodává jídlo si musíš něco koupit a hned to sníst.",
+                    "trigger": "always"
+                }
+            ]
+        },
         {
-          "icon": "plus",
-          "effects": {
-            "type": "roleplay_no_tips"
-          },
-          "text": "[vdžy] Nmeusíš nechváat srpopitné.",
-          "trigger": "always"
-        }
-      ],
-      "disadvantages": [
+            "id": "pedant",
+            "name": "Vzdělaný pedant",
+            "description": "Osina v zadku pro ty, kdo mluví jak jim zobák narostl.",
+            "icon": "role",
+            "character": [
+                "Byl jsi na učení jazyka českého v Kutné Hoře. Hlídáš to, že ostatní mluví spisovně a jak se patří. A pokud se tak nestane, řádně je na to upozorníš. Často však k jejich nelibosti."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "return_on_choice"
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[1/hru] Můžete vzít zpět jednou rozhodnutí.",
+                    "trigger": "once"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "encounter"
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[následek] Ihned poté nastane náhodné setkání.",
+                    "trigger": "consequence"
+                }
+            ]
+        },
         {
-          "icon": "minus",
-          "effects": {
-            "type": "roleplay_cant_read_nor_calculate"
-          },
-          "text": "[vdžy] Nemuíš čsít ani počtíat.",
-          "trigger": "always"
-        }
-      ]
-    },
-    {
-      "id": "nenasyta",
-      "name": "Nenasyta",
-      "description": "Stále hladový, ale vděčný strávník.",
-      "icon": "role",
-      "character": [
-        "Jako nejmladší dítě jsi se musel hodně snažit, aby na tebe něco zbylo. Pokud někdo z tvých přátel něco jí a ty ne, snažíš se ze všech sil získat od něj alespoň jedno sousto."
-      ],
-      "advantages": [
+            "id": "slechtic",
+            "name": "Šlechtic",
+            "description": "Nejspíše urozený člověk, který očekává odpovídající zacházení.",
+            "icon": "role",
+            "character": [
+                "Máš urozený původ. … nebo si to alespoň myslíš. Nebavíš se s nikým, kdo viditelně nenosí nějaký šperk. A pokud tě takový člověk osloví, prostě ho ignoruješ. O sobě mluvíš výhradně v první osobě množného čísla."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "ignore_reputation_loss"
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[1/hru] Vaše skupina může ignorovat jednu ztrátu reputace.",
+                    "trigger": "once"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "roleplay_higher_tip"
+                    },
+                    "text": "[vždy] Platíš jako poslední a musíš dávat vyšší spropitné.",
+                    "trigger": "always"
+                }
+            ]
+        },
         {
-          "icon": "plus",
-          "effects": {
-            "type": "reputation",
-            "value": 1
-          },
-          "condition": {
-            "type": "gps_zone",
-            "zone": "pubs"
-          },
-          "text": "[vždy] V hospodách a jejich okolí se vaší skupině počítá +1 k reputaci.",
-          "trigger": "always"
-        }
-      ],
-      "disadvantages": [
+            "id": "vegetarian",
+            "name": "Milovník přírody",
+            "description": "Zapřísáhlý bíložravec s láskou k přírodě.",
+            "icon": "role",
+            "character": [
+                "Miluješ přírodu a zvlášť zvířata. To samozřejmě znamená, že nejíš maso. Jakmile vidíš někoho jíst maso, cítíš osobní odpovědnost ho napomenout."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "nature_quest_done"
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[1/hru] Vaše skupina může ihned splnit úkol charakteru příroda (🌿).",
+                    "trigger": "once"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "roleplay_no_meat"
+                    },
+                    "text": "[vždy] Jíš pouze bezmasá jídla.",
+                    "trigger": "always"
+                }
+            ]
+        },
         {
-          "icon": "minus",
-          "effects": {
-            "type": "roleplay_buy_and_eat"
-          },
-          "condition": {
-            "type": "gps_zone",
-            "zone": "pubs"
-          },
-          "text": "[vždy] Pokud jsi u místa, kde se prodává jídlo si musíš něco koupit a hned to sníst.",
-          "trigger": "always"
+            "id": "lenoch",
+            "name": "Lenoch",
+            "description": "Vesnický povaleč. Málokde jsi oblíbený.",
+            "icon": "role",
+            "character": [
+                "Už od mala jsi pohodlný. Jakmile se vaše skupina jen na chvíli zastaví, musíš si hned sednout. A když není poblíž lavice ani pařez, sedneš si prostě na zem. A zvedáš se zásadně jako poslední člen ve skupině."
+            ],
+            "advantages": [
+                {
+                    "icon": "plus",
+                    "effects": {
+                        "type": "ignore_encounter"
+                    },
+                    "usage": {
+                        "type": "once"
+                    },
+                    "text": "[1/hru] Vaše skupina může předejít náhodnému setkání (⌛).",
+                    "trigger": "once"
+                }
+            ],
+            "disadvantages": [
+                {
+                    "icon": "minus",
+                    "effects": {
+                        "type": "reputation",
+                        "value": -1
+                    },
+                    "condition": {
+                        "type": "gps_zone",
+                        "zone": "village",
+                        "negate": true
+                    },
+                    "text": "[vždy] Mimo obce se vaší skupině počítá -1 k reputaci.",
+                    "trigger": "always"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "id": "pedant",
-      "name": "Vzdělaný pedant",
-      "description": "Osina v zadku pro ty, kdo mluví jak jim zobák narostl.",
-      "icon": "role",
-      "character": [
-        "Byl jsi na učení jazyka českého v Kutné Hoře. Hlídáš to, že ostatní mluví spisovně a jak se patří. A pokud se tak nestane, řádně je na to upozorníš. Často však k jejich nelibosti."
-      ],
-      "advantages": [
-        {
-          "icon": "plus",
-          "effects": {
-            "type": "return_on_choice"
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[1/hru] Můžete vzít zpět jednou rozhodnutí.",
-          "trigger": "once"
-        }
-      ],
-      "disadvantages": [
-        {
-          "icon": "minus",
-          "effects": {
-            "type": "encounter"
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[následek] Ihned poté nastane náhodné setkání.",
-          "trigger": "consequence"
-        }
-      ]
-    },
-    {
-      "id": "slechtic",
-      "name": "Šlechtic",
-      "description": "Nejspíše urozený člověk, který očekává odpovídající zacházení.",
-      "icon": "role",
-      "character": [
-        "Máš urozený původ. … nebo si to alespoň myslíš. Nebavíš se s nikým, kdo viditelně nenosí nějaký šperk. A pokud tě takový člověk osloví, prostě ho ignoruješ. O sobě mluvíš výhradně v první osobě množného čísla."
-      ],
-      "advantages": [
-        {
-          "icon": "plus",
-          "effects": {
-            "type": "ignore_reputation_loss"
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[1/hru] Vaše skupina může ignorovat jednu ztrátu reputace.",
-          "trigger": "once"
-        }
-      ],
-      "disadvantages": [
-        {
-          "icon": "minus",
-          "effects": {
-            "type": "roleplay_higher_tip"
-          },
-          "text": "[vždy] Platíš jako poslední a musíš dávat vyšší spropitné.",
-          "trigger": "always"
-        }
-      ]
-    },
-    {
-      "id": "vegetarian",
-      "name": "Milovník přírody",
-      "description": "Zapřísáhlý bíložravec s láskou k přírodě.",
-      "icon": "role",
-      "character": [
-        "Miluješ přírodu a zvlášť zvířata. To samozřejmě znamená, že nejíš maso. Jakmile vidíš někoho jíst maso, cítíš osobní odpovědnost ho napomenout."
-      ],
-      "advantages": [
-        {
-          "icon": "plus",
-          "effects": {
-            "type": "nature_quest_done"
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[1/hru] Vaše skupina může ihned splnit úkol charakteru příroda (🌿).",
-          "trigger": "once"
-        }
-      ],
-      "disadvantages": [
-        {
-          "icon": "minus",
-          "effects": {
-            "type": "roleplay_no_meat"
-          },
-          "text": "[vždy] Jíš pouze bezmasá jídla.",
-          "trigger": "always"
-        }
-      ]
-    },
-    {
-      "id": "lenoch",
-      "name": "Lenoch",
-      "description": "Vesnický povaleč. Málokde jsi oblíbený.",
-      "icon": "role",
-      "character": [
-        "Už od mala jsi pohodlný. Jakmile se vaše skupina jen na chvíli zastaví, musíš si hned sednout. A když není poblíž lavice ani pařez, sedneš si prostě na zem. A zvedáš se zásadně jako poslední člen ve skupině."
-      ],
-      "advantages": [
-        {
-          "icon": "plus",
-          "effects": {
-            "type": "ignore_encounter"
-          },
-          "usage": {
-            "type": "once"
-          },
-          "text": "[1/hru] Vaše skupina může předejít náhodnému setkání (⌛).",
-          "trigger": "once"
-        }
-      ],
-      "disadvantages": [
-        {
-          "icon": "minus",
-          "effects": {
-            "type": "reputation",
-            "value": -1
-          },
-          "condition": {
-            "type": "gps_zone",
-            "zone": "no_village"
-          },
-          "text": "[vždy] Mimo obce se vaší skupině počítá -1 k reputaci.",
-          "trigger": "always"
-        }
-      ]
-    }
-  ]
+    ]
 }

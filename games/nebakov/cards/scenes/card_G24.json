@@ -24,7 +24,13 @@
         "id": "q_G24_0",
         "kind": "travel",
         "text": "Dojděte k vodopádu",
-        "completedAt": "card_G25"
+        "completedAt": "card_G25",
+        "at": {
+          "lat": 50.5170356,
+          "lon": 15.2182522,
+          "radius": 30,
+          "name": "Dojděte k vodopádu"
+        }
       }
     },
     {

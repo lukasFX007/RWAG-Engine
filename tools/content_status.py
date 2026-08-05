@@ -243,7 +243,7 @@ def render(scenario, events, buckets, unreachable, terminal, scenes, slides):
     add("- **Karty REP+ / REP−** — zmíněné v pravidlech na `card_P02`, nikdy "
         "nedigitalizované.")
     add("- **Obrázek `lipa02.jpg`** — používají ho `card_C05` a `card_C06`.")
-    add("- **Souřadnice GPS zón** — `pubs` a `no_village` se používají v "
+    add("- **Souřadnice GPS zón** — `pubs` a `village` se používají v "
         "`roles.json`, nikde nejsou definované.")
     add("- **Mapy a obálky** — fyzické rekvizity („Mapa 03“, tři obálky); v plně "
         "digitální verzi je potřeba nahradit obsahem.")

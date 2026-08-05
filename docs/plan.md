@@ -22,7 +22,7 @@ Běží souběžně, nic z toho neblokuje proud B kromě označených míst.
 
 - [ ] **A1** · Vyplněná `kontrola-karet.html` — 166 karet ke kontrole proti tištěné hře
 - [ ] **A2** · Digitální mapy 1–3 a chybějící obrázky karet (`lipa02.jpg` a další)
-- [ ] **A3** · Souřadnice — 2 z 6 hospod hotové, seznam se sám aktualizuje v `docs/mista-k-doplneni.md`
+- [x] **A3** · Souřadnice — hotovo, 36 míst v datech
 - [ ] **A4** · Schválení přepsaných pravidel P01–P05 (návrh je hotový a v aplikaci)
 
 ---
@@ -77,21 +77,26 @@ telefon, druhé, když ho vrací. Mezi nimi je text na obrazovce, mimo ně není
 dá porovnat a nic se neztratilo. Znění nových pravidel jsem napsal sám — je
 v druhém dotazníku ke kontrole.
 
-## Fáze 5 — GPS s možností přepsat — mechanismus ✅, souřadnice ⏳
+## Fáze 5 — GPS s možností přepsat ✅
 
-Podle Q08c a Q30b. Mechanismus je hotový, chybí čísla.
+Podle Q08c a Q30b. Mechanismus i souřadnice hotové.
 
 - [x] „Jsme na místě“ ověří polohu do 25 m; když nesedí, zeptá se
       („Podle GPS jste 340 m od místa. Přesto pokračovat?“) a nechá si odporovat
 - [x] Splnění podle polohy se v deníku i v logu odliší od splnění na slovo
 - [x] Seznam míst k doplnění: `docs/mista-k-doplneni.md` (`npm run docs:places`)
-- [x] Zóny hospod: **Apolena a Křenovský šenk hotové** (od autora), zbývají Nebákov, Trosky, Vidlák, Semín → **A3**
-- [ ] Souřadnice 27 cestovních úkolů → **A3**
-- [ ] Zóna „mimo obec“ pro Lenocha — autor ji zatím nechal otevřenou → **A3**
+- [x] Zóny hospod: **všech 6** (Apolena, Křenovský šenk, Nebákov, Trosky, Vidlák, Semín)
+- [x] Souřadnice cestovních úkolů: **26 zapsaných, 2 označené jako nepotřebné**
+- [x] Obce pro Lenocha: **5** (Troskovice, Tachov, Slatějov, Žďár, Nebákov)
 
-*Stav:* dokud souřadnice nejsou, hra se hraje na čestné slovo přesně jako dřív —
-tlačítko odhalí kartu a nikdo se na nic neptá. Jakmile se doplní, kontrola se
-zapne sama, kartu po kartě.
+*Hotovo:* kontrola je od téhle chvíle živá. Zóna se přejmenovala z `no_village`
+na `village` — seznam obsahuje obce, ne „ne-obce“, a Lenochovo „mimo obce“ je
+teď negace v pravidle, ne v názvu.
+
+Zbývá jedna věc, kterou autor přidal a která zatím nemá mechaniku: **tři místa
+na cestě, která spustí setkání, když skupina půjde kolem** (rozcestí Svitačka,
+odbočka na Želejov, les po obou stranách cesty u C03). Souřadnice jsou uložené
+v kartách, aby se neztratily.
 
 ## Fáze 6 — Vyhodnocení setkání a kostky ✅
 

@@ -15,7 +15,13 @@
         "id": "q_G20_0",
         "kind": "travel",
         "text": "Dojděte na palouk se seníkem",
-        "completedAt": "card_G24"
+        "completedAt": "card_G24",
+        "at": {
+          "lat": 50.5170017,
+          "lon": 15.2138158,
+          "radius": 50,
+          "name": "Dojděte na palouk se seníkem"
+        }
       }
     }
   ],

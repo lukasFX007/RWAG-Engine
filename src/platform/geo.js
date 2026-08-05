@@ -2,7 +2,7 @@
  * Position, and the zones that do not exist yet.
  *
  * `roles.json` gates two role effects on GPS zones — the Nenasyta gains
- * reputation in the `pubs` zone, the Lenoch loses it in `no_village` — but the
+ * reputation in the `pubs` zone, the Lenoch loses it outside `village` — but the
  * game data contains no coordinates for either zone, anywhere. That is missing
  * content, not something this module may invent: making up a circle around
  * Troskovice would silently decide game balance and would be wrong on the
@@ -26,13 +26,21 @@ import { formatDistance, haversine } from "../core/distance.js";
 export { formatDistance, haversine };
 
 /** Zone ids the role data refers to. Coordinates are not in the data. */
-export const REFERENCED_ZONES = Object.freeze(["pubs", "no_village"]);
+/**
+ * Zone ids the role data refers to.
+ *
+ * `village` lists villages, and the Lenoch's rule is "minus one *outside* them",
+ * which is the negated form. An earlier name of `no_village` described the rule
+ * rather than the contents, so the same JSON read as its own opposite depending
+ * on who was reading it.
+ */
+export const REFERENCED_ZONES = Object.freeze(["pubs", "village"]);
 
 /** @type {ReadonlyArray<{id:string,name?:string,lat:number,lon:number,radius:number}>} */
 export const ZONES = Object.freeze([]);
 
 export const ZONES_MISSING_NOTE =
-  "Souřadnice zón (pubs, no_village) nejsou v datech hry. " +
+  "Souřadnice zón (pubs, village) nejsou v datech hry. " +
   "Podmínky na zónu proto zůstávají nesplněné a u volby se zobrazí jako požadavek.";
 
 /** What to say once some of the zones exist and some do not. */

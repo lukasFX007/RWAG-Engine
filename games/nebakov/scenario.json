@@ -91,7 +91,21 @@
           "goto": "card_C20"
         }
       ],
-      "cardCode": "C03"
+      "cardCode": "C03",
+      "events": [
+        {
+          "kind": "encounter",
+          "deck": "N",
+          "text": "Dojdete na místo, kde je les po obou stranách cesty",
+          "at": {
+            "lat": 50.5026225,
+            "lon": 15.2101617,
+            "radius": 50,
+            "name": "Dojdete na místo, kde je les po obou stranách cesty"
+          },
+          "note": "Vyhodnotí se, až tudy skupina půjde. Mechanika zatím není hotová — souřadnice jsou uložené, aby se neztratily."
+        }
+      ]
     },
     {
       "id": "card_C04",
@@ -713,7 +727,13 @@
             "id": "q_B05_0",
             "kind": "inspect",
             "text": "Dojděte k pomníku",
-            "completedAt": "card_B03"
+            "completedAt": "card_B03",
+            "at": {
+              "lat": 50.5120308,
+              "lon": 15.2270839,
+              "radius": 30,
+              "name": "Dojděte k pomníku"
+            }
           }
         },
         {
@@ -869,7 +889,13 @@
             "id": "q_B10_0",
             "kind": "travel",
             "text": "Dojděte k tisícileté lípě",
-            "completedAt": "card_B11"
+            "completedAt": "card_B11",
+            "at": {
+              "lat": 50.5047836,
+              "lon": 15.2164186,
+              "radius": 30,
+              "name": "Dojděte k tisícileté lípě"
+            }
           }
         }
       ]
@@ -1015,7 +1041,13 @@
             "id": "q_C12_1",
             "kind": "travel",
             "text": "Dojděte k nebákovskému mlýnu",
-            "completedAt": "card_C15"
+            "completedAt": "card_C15",
+            "at": {
+              "lat": 50.5028614,
+              "lon": 15.2031408,
+              "radius": 30,
+              "name": "Dojděte k nebákovskému mlýnu"
+            }
           }
         }
       ],
@@ -1045,7 +1077,13 @@
             "id": "q_C13_1",
             "kind": "travel",
             "text": "Dojděte zpět k lípě",
-            "completedAt": "card_C19"
+            "completedAt": "card_C19",
+            "at": {
+              "lat": 50.5047836,
+              "lon": 15.2164186,
+              "radius": 30,
+              "name": "Dojděte zpět k lípě"
+            }
           }
         }
       ]
@@ -1078,7 +1116,13 @@
             "id": "q_C15_0",
             "kind": "travel",
             "text": "Dojděte zpět k lípě",
-            "completedAt": "card_C17"
+            "completedAt": "card_C17",
+            "at": {
+              "lat": 50.5047836,
+              "lon": 15.2164186,
+              "radius": 30,
+              "name": "Dojděte zpět k lípě"
+            }
           }
         },
         {
@@ -1153,7 +1197,13 @@
             "id": "q_C18_0",
             "kind": "travel",
             "text": "Vraťte se zpět k tisícileté lípě",
-            "completedAt": "card_C17"
+            "completedAt": "card_C17",
+            "at": {
+              "lat": 50.5047836,
+              "lon": 15.2164186,
+              "radius": 30,
+              "name": "Vraťte se zpět k tisícileté lípě"
+            }
           }
         }
       ]
@@ -1252,7 +1302,13 @@
             "id": "q_C22_0",
             "kind": "travel",
             "text": "Vraťte se zpět k tisícileté lípě",
-            "completedAt": "card_C19"
+            "completedAt": "card_C19",
+            "at": {
+              "lat": 50.5047836,
+              "lon": 15.2164186,
+              "radius": 30,
+              "name": "Vraťte se zpět k tisícileté lípě"
+            }
           }
         }
       ],
@@ -1297,7 +1353,13 @@
             "id": "q_C23_0",
             "kind": "travel",
             "text": "Doběhněte k nebákovskému mlýnu!",
-            "completedAt": "card_C21"
+            "completedAt": "card_C21",
+            "at": {
+              "lat": 50.5028614,
+              "lon": 15.2031408,
+              "radius": 30,
+              "name": "Doběhněte k nebákovskému mlýnu!"
+            }
           }
         }
       ]
@@ -1387,7 +1449,13 @@
             "id": "q_C27_0",
             "kind": "travel",
             "text": "Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01.",
-            "completedAt": "card_D01"
+            "completedAt": "card_D01",
+            "at": {
+              "lat": 50.5098294,
+              "lon": 15.2320467,
+              "radius": 60,
+              "name": "Dojděte ke vstupu do skalního města Apolena – balíček „C“ odložte, vezměte si balíček „D“ a přečtěte si kartu D01."
+            }
           }
         }
       ]
@@ -1462,7 +1530,13 @@
             "id": "q_D03_0",
             "kind": "travel",
             "text": "Vraťte se ke vstupu do Apoleny",
-            "completedAt": "card_D07"
+            "completedAt": "card_D07",
+            "at": {
+              "lat": 50.5095822,
+              "lon": 15.2320842,
+              "radius": 30,
+              "name": "Vraťte se ke vstupu do Apoleny"
+            }
           }
         }
       ]
@@ -1509,7 +1583,13 @@
             "id": "q_D05_0",
             "kind": "travel",
             "text": "Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
-            "completedAt": "card_E01"
+            "completedAt": "card_E01",
+            "at": {
+              "lat": 50.5101141,
+              "lon": 15.225715,
+              "radius": 30,
+              "name": "Dojděte k místní hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01."
+            }
           }
         }
       ]
@@ -1536,7 +1616,13 @@
             "id": "q_D06_0",
             "kind": "travel",
             "text": "Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01.",
-            "completedAt": "card_E01"
+            "completedAt": "card_E01",
+            "at": {
+              "lat": 50.5101141,
+              "lon": 15.225715,
+              "radius": 30,
+              "name": "Dojděte k troskovické hospodě – balíček „D“ odložte, vezměte si balíček „E“ a přečtěte si kartu E01."
+            }
           }
         }
       ],
@@ -1648,7 +1734,13 @@
             "id": "q_D11_0",
             "kind": "travel",
             "text": "Dojděte pod Trosky",
-            "completedAt": "card_D06"
+            "completedAt": "card_D06",
+            "at": {
+              "lat": 50.514625,
+              "lon": 15.2302047,
+              "radius": 50,
+              "name": "Dojděte pod Trosky"
+            }
           }
         },
         {
@@ -1659,7 +1751,13 @@
             "id": "q_D11_1",
             "kind": "travel",
             "text": "Dojděte do Troskovic",
-            "completedAt": "card_D05"
+            "completedAt": "card_D05",
+            "at": {
+              "lat": 50.5111225,
+              "lon": 15.2251078,
+              "radius": 170,
+              "name": "Dojděte do Troskovic"
+            }
           }
         }
       ]
@@ -2561,7 +2659,13 @@
             "id": "q_G17_0",
             "kind": "travel",
             "text": "Dojděte na palouk se seníkem",
-            "completedAt": "card_G24"
+            "completedAt": "card_G24",
+            "at": {
+              "lat": 50.5170017,
+              "lon": 15.2138158,
+              "radius": 50,
+              "name": "Dojděte na palouk se seníkem"
+            }
           }
         }
       ],
@@ -2618,7 +2722,13 @@
             "id": "q_G19_0",
             "kind": "travel",
             "text": "Dojděte na louku s lovištěm vysoké",
-            "completedAt": "card_G22"
+            "completedAt": "card_G22",
+            "at": {
+              "lat": 50.5157408,
+              "lon": 15.215525,
+              "radius": 50,
+              "name": "Dojděte na louku s lovištěm vysoké"
+            }
           }
         }
       ]
@@ -2640,7 +2750,13 @@
             "id": "q_G20_0",
             "kind": "travel",
             "text": "Dojděte na palouk se seníkem",
-            "completedAt": "card_G24"
+            "completedAt": "card_G24",
+            "at": {
+              "lat": 50.5170017,
+              "lon": 15.2138158,
+              "radius": 50,
+              "name": "Dojděte na palouk se seníkem"
+            }
           }
         }
       ],
@@ -2666,7 +2782,13 @@
             "id": "q_G21_0",
             "kind": "travel",
             "text": "Dojděte ke skále za odbočkou do lesa",
-            "completedAt": "card_G17"
+            "completedAt": "card_G17",
+            "at": {
+              "lat": 50.5166036,
+              "lon": 15.2118556,
+              "radius": 30,
+              "name": "Dojděte ke skále za odbočkou do lesa"
+            }
           }
         }
       ]
@@ -2707,7 +2829,13 @@
             "id": "q_G23_0",
             "kind": "travel",
             "text": "Vraťte se na palouk s rozpadlým stavením",
-            "completedAt": "card_G24"
+            "completedAt": "card_G24",
+            "at": {
+              "lat": 50.5170017,
+              "lon": 15.2138158,
+              "radius": 50,
+              "name": "Vraťte se na palouk s rozpadlým stavením"
+            }
           }
         }
       ],
@@ -2776,7 +2904,13 @@
             "id": "q_G24_0",
             "kind": "travel",
             "text": "Dojděte k vodopádu",
-            "completedAt": "card_G25"
+            "completedAt": "card_G25",
+            "at": {
+              "lat": 50.5170356,
+              "lon": 15.2182522,
+              "radius": 30,
+              "name": "Dojděte k vodopádu"
+            }
           }
         },
         {
@@ -2821,7 +2955,13 @@
             "id": "q_G26_0",
             "kind": "travel",
             "text": "Dojděte na louku s lovištěm vysoké",
-            "completedAt": "card_G23"
+            "completedAt": "card_G23",
+            "at": {
+              "lat": 50.5157408,
+              "lon": 15.215525,
+              "radius": 50,
+              "name": "Dojděte na louku s lovištěm vysoké"
+            }
           }
         }
       ]
@@ -2872,7 +3012,8 @@
             "id": "q_H03_0",
             "kind": "travel",
             "text": "Vraťte se zpět k ohradě s ovcemi",
-            "completedAt": "card_H08"
+            "completedAt": "card_H08",
+            "needsPlace": false
           }
         }
       ],
@@ -2917,7 +3058,8 @@
             "id": "q_H05_0",
             "kind": "travel",
             "text": "Vraťte se k ohradě s ovcemi",
-            "completedAt": "card_H08"
+            "completedAt": "card_H08",
+            "needsPlace": false
           }
         }
       ],
@@ -2961,7 +3103,13 @@
             "id": "q_H07_0",
             "kind": "travel",
             "text": "Dojděte na cestu u rybníka západně odsud",
-            "completedAt": "card_H09"
+            "completedAt": "card_H09",
+            "at": {
+              "lat": 50.5166036,
+              "lon": 15.2118556,
+              "radius": 50,
+              "name": "Dojděte na cestu u rybníka západně odsud"
+            }
           }
         }
       ]
@@ -3056,7 +3204,13 @@
             "id": "q_H11_0",
             "kind": "travel",
             "text": "Dojděte do Troskovic",
-            "completedAt": "card_H15"
+            "completedAt": "card_H15",
+            "at": {
+              "lat": 50.5122469,
+              "lon": 15.2237128,
+              "radius": 300,
+              "name": "Dojděte do Troskovic"
+            }
           }
         }
       ],
@@ -3101,7 +3255,13 @@
             "id": "q_H13_0",
             "kind": "travel",
             "text": "Dojděte do Troskovic",
-            "completedAt": "card_H15"
+            "completedAt": "card_H15",
+            "at": {
+              "lat": 50.5122469,
+              "lon": 15.2237128,
+              "radius": 300,
+              "name": "Dojděte do Troskovic"
+            }
           }
         }
       ]
@@ -3123,7 +3283,13 @@
             "id": "q_H14_0",
             "kind": "travel",
             "text": "Dojděte do Troskovic",
-            "completedAt": "card_H15"
+            "completedAt": "card_H15",
+            "at": {
+              "lat": 50.5122469,
+              "lon": 15.2237128,
+              "radius": 300,
+              "name": "Dojděte do Troskovic"
+            }
           }
         }
       ],
@@ -3160,7 +3326,13 @@
             "id": "q_H16_0",
             "kind": "travel",
             "text": "Dojděte k hospůdce Apolena",
-            "completedAt": "card_H17"
+            "completedAt": "card_H17",
+            "at": {
+              "lat": 50.5101141,
+              "lon": 15.225715,
+              "radius": 30,
+              "name": "Dojděte k hospůdce Apolena"
+            }
           }
         }
       ]

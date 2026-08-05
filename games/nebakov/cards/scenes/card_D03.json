@@ -14,7 +14,13 @@
         "id": "q_D03_0",
         "kind": "travel",
         "text": "Vraťte se ke vstupu do Apoleny",
-        "completedAt": "card_D07"
+        "completedAt": "card_D07",
+        "at": {
+          "lat": 50.5095822,
+          "lon": 15.2320842,
+          "radius": 30,
+          "name": "Vraťte se ke vstupu do Apoleny"
+        }
       }
     }
   ]

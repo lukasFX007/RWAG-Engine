@@ -1,5 +1,5 @@
 {
-  "note": "Zóny, na kterých visí schopnosti rolí. Nenasyta má v zóně „pubs“ +1 k reputaci, Lenoch mimo zónu „no_village“ −1. Souřadnice jsou obsah hry, ne nastavení aplikace, proto jsou tady a ne v src/platform/geo.js.",
+  "note": "Zóny, na kterých visí schopnosti rolí. Nenasyta má v zóně „pubs“ +1 k reputaci, Lenoch mimo zónu „village“ −1. Souřadnice jsou obsah hry, ne nastavení aplikace, proto jsou tady a ne v src/platform/geo.js.",
   "radiusNote": "Rádius u hospod je 60 m — karta říká „v hospodách a jejich okolí“, což je víc než dveře a méně než vesnice. Je to můj odhad, klidně přepište.",
   "zones": [
     {
@@ -17,17 +17,79 @@
       "lon": 15.2268738,
       "radius": 60,
       "source": "autor"
+    },
+    {
+      "id": "pubs",
+      "name": "Občerstvení Keltské opidum Semín",
+      "lat": 50.5087003,
+      "lon": 15.1970597,
+      "radius": 60,
+      "source": "autor"
+    },
+    {
+      "id": "pubs",
+      "name": "Občerstvení Vidlák",
+      "lat": 50.5227211,
+      "lon": 15.209965,
+      "radius": 60,
+      "source": "autor"
+    },
+    {
+      "id": "pubs",
+      "name": "Restaurace Nebákov",
+      "lat": 50.5027894,
+      "lon": 15.2026175,
+      "radius": 60,
+      "source": "autor"
+    },
+    {
+      "id": "pubs",
+      "name": "Restaurace Trosky",
+      "lat": 50.514625,
+      "lon": 15.2302047,
+      "radius": 60,
+      "source": "autor"
+    },
+    {
+      "id": "village",
+      "name": "Nebákov",
+      "lat": 50.5032725,
+      "lon": 15.2028411,
+      "radius": 120,
+      "source": "autor"
+    },
+    {
+      "id": "village",
+      "name": "Slatějov",
+      "lat": 50.5074894,
+      "lon": 15.2221853,
+      "radius": 250,
+      "source": "autor"
+    },
+    {
+      "id": "village",
+      "name": "Tachov",
+      "lat": 50.5185281,
+      "lon": 15.2218139,
+      "radius": 200,
+      "source": "autor"
+    },
+    {
+      "id": "village",
+      "name": "Troskovice",
+      "lat": 50.5122469,
+      "lon": 15.2237128,
+      "radius": 300,
+      "source": "autor"
+    },
+    {
+      "id": "village",
+      "name": "Žďár",
+      "lat": 50.5039617,
+      "lon": 15.2180547,
+      "radius": 200,
+      "source": "autor"
     }
   ],
-  "pending": [
-    { "id": "pubs", "name": "Restaurace Nebákov" },
-    { "id": "pubs", "name": "Restaurace Trosky" },
-    { "id": "pubs", "name": "Občerstvení Vidlák" },
-    { "id": "pubs", "name": "Občerstvení Keltské opidum Semín" },
-    {
-      "id": "no_village",
-      "name": "Troskovice",
-      "note": "Autor nechal otevřené, co se má počítat za obec (Q08b). Dokud tu nic není, Lenochova nevýhoda se nevyhodnocuje."
-    }
-  ]
+  "pending": []
 }

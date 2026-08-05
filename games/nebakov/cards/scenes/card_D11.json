@@ -11,7 +11,13 @@
         "id": "q_D11_0",
         "kind": "travel",
         "text": "Dojděte pod Trosky",
-        "completedAt": "card_D06"
+        "completedAt": "card_D06",
+        "at": {
+          "lat": 50.514625,
+          "lon": 15.2302047,
+          "radius": 50,
+          "name": "Dojděte pod Trosky"
+        }
       }
     },
     {
@@ -22,7 +28,13 @@
         "id": "q_D11_1",
         "kind": "travel",
         "text": "Dojděte do Troskovic",
-        "completedAt": "card_D05"
+        "completedAt": "card_D05",
+        "at": {
+          "lat": 50.5111225,
+          "lon": 15.2251078,
+          "radius": 170,
+          "name": "Dojděte do Troskovic"
+        }
       }
     }
   ]

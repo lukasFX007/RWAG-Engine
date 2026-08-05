@@ -14,7 +14,13 @@
         "id": "q_B05_0",
         "kind": "inspect",
         "text": "Dojděte k pomníku",
-        "completedAt": "card_B03"
+        "completedAt": "card_B03",
+        "at": {
+          "lat": 50.5120308,
+          "lon": 15.2270839,
+          "radius": 30,
+          "name": "Dojděte k pomníku"
+        }
       }
     },
     {

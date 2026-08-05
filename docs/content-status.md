@@ -72,6 +72,6 @@ Poznámka, na kterou nesedlo žádné pravidlo.
 - **Balíček O** (`O01`–`O03`, případně `O04`) — řešení hádanek balíčku N. Odkazuje se na něj pět hádanek, v repu není vůbec.
 - **Karty REP+ / REP−** — zmíněné v pravidlech na `card_P02`, nikdy nedigitalizované.
 - **Obrázek `lipa02.jpg`** — používají ho `card_C05` a `card_C06`.
-- **Souřadnice GPS zón** — `pubs` a `no_village` se používají v `roles.json`, nikde nejsou definované.
+- **Souřadnice GPS zón** — `pubs` a `village` se používají v `roles.json`, nikde nejsou definované.
 - **Mapy a obálky** — fyzické rekvizity („Mapa 03“, tři obálky); v plně digitální verzi je potřeba nahradit obsahem.
 

@@ -14,7 +14,13 @@
         "id": "q_C22_0",
         "kind": "travel",
         "text": "Vraťte se zpět k tisícileté lípě",
-        "completedAt": "card_C19"
+        "completedAt": "card_C19",
+        "at": {
+          "lat": 50.5047836,
+          "lon": 15.2164186,
+          "radius": 30,
+          "name": "Vraťte se zpět k tisícileté lípě"
+        }
       }
     }
   ],

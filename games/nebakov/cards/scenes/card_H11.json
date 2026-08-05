@@ -14,7 +14,13 @@
         "id": "q_H11_0",
         "kind": "travel",
         "text": "Dojděte do Troskovic",
-        "completedAt": "card_H15"
+        "completedAt": "card_H15",
+        "at": {
+          "lat": 50.5122469,
+          "lon": 15.2237128,
+          "radius": 300,
+          "name": "Dojděte do Troskovic"
+        }
       }
     }
   ],

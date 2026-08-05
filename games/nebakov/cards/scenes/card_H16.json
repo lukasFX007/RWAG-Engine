@@ -14,7 +14,13 @@
         "id": "q_H16_0",
         "kind": "travel",
         "text": "Dojděte k hospůdce Apolena",
-        "completedAt": "card_H17"
+        "completedAt": "card_H17",
+        "at": {
+          "lat": 50.5101141,
+          "lon": 15.225715,
+          "radius": 30,
+          "name": "Dojděte k hospůdce Apolena"
+        }
       }
     }
   ]

@@ -14,7 +14,13 @@
         "id": "q_C23_0",
         "kind": "travel",
         "text": "Doběhněte k nebákovskému mlýnu!",
-        "completedAt": "card_C21"
+        "completedAt": "card_C21",
+        "at": {
+          "lat": 50.5028614,
+          "lon": 15.2031408,
+          "radius": 30,
+          "name": "Doběhněte k nebákovskému mlýnu!"
+        }
       }
     }
   ]

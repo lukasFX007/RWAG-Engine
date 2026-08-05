@@ -15,7 +15,8 @@
         "id": "q_H05_0",
         "kind": "travel",
         "text": "Vraťte se k ohradě s ovcemi",
-        "completedAt": "card_H08"
+        "completedAt": "card_H08",
+        "needsPlace": false
       }
     }
   ],
