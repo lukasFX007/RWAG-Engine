@@ -11,7 +11,7 @@
  * choices with a requirement string rather than hiding them.
  */
 
-import { apply, lockState } from "./rules.js";
+import { apply, holdsAll, lockState } from "./rules.js";
 import { createState, cloneState, visitCount } from "./state.js";
 import { draw, initDeck, makeRng } from "./decks.js";
 import { NO_ITEMS, createCatalogue, give, inventoryOf } from "./items.js";
@@ -164,7 +164,7 @@ export class Engine {
         index,
         icon: choice.icon ?? null,
         text: choice.text ?? "",
-        goto: choice.goto ?? null,
+        goto: this.#routeOf(choice, base),
         available: !locked || overridable,
         locked,
         unlockedByAbility: locked && overridable,
@@ -173,6 +173,87 @@ export class Engine {
         reason: reasons.join("; ") || null,
       };
     });
+  }
+
+  /**
+   * Where a choice actually leads.
+   *
+   * One button, more than one destination: B03's "Pokračovat" goes to B02 when
+   * the group held their minute of silence and straight to B04 when they did
+   * not. The alternative — two buttons, one of them locked — would put the
+   * answer on screen, and the whole point is that the players just carry on.
+   *
+   * First matching route wins; `goto` is the fallback, so a choice without
+   * routes behaves exactly as before.
+   */
+  #routeOf(choice, ctx) {
+    for (const route of choice.routes ?? []) {
+      if (route.goto && holdsAll(route.when, ctx)) return route.goto;
+    }
+    return choice.goto ?? null;
+  }
+
+  /* ------------------------------------------------------------ card tasks */
+
+  /**
+   * Things to tick off on this card rather than walk through.
+   *
+   * An optional deed — the minute of silence at the memorial, opening the map in
+   * the bag — is not a fork in the story: the group either did it or did not,
+   * and the game goes on the same way either way. It used to be modelled as a
+   * choice with a destination, which meant taking it moved everybody and not
+   * taking it left a button on screen forever. A checkbox says what it is.
+   */
+  cardTasks() {
+    const card = this.card;
+    return (card?.tasks ?? []).map((task) => ({
+      id: task.id,
+      icon: task.icon ?? "fajfka",
+      text: task.text ?? "",
+      optional: task.optional !== false,
+      done: this.state.quests[task.id]?.done === true,
+    }));
+  }
+
+  /**
+   * Tick one off, or take it back.
+   *
+   * Untick has to work: this is a phone in a pocket on a walk, and a deed the
+   * group did not do must not stay ticked because somebody brushed the screen.
+   * What a deed pays is therefore paid on the tick and taken back on the untick,
+   * which is why `tasks[].effects` is restricted to reputation — the one thing
+   * that can be undone by applying its opposite. `cards.py validate` enforces
+   * that, so an effect that cannot be reversed cannot get onto a checkbox.
+   */
+  setTask(id, done = true) {
+    const card = this.card;
+    const declared = (card?.tasks ?? []).find((t) => t.id === id);
+    if (!declared) throw new Error(`karta ${card?.id} úkol ${id} nemá`);
+
+    const quest = this.state.quests[id] ?? (this.state.quests[id] = {
+      ...declared,
+      startedAt: card.id,
+      done: false,
+      completedBy: null,
+    });
+
+    const wanted = Boolean(done);
+    if (quest.done !== wanted) {
+      const effects = (declared.effects ?? []).map((effect) => (
+        wanted ? effect : { ...effect, value: -(effect.value ?? 0) }
+      ));
+      apply(effects, {
+        state: this.state,
+        source: card.id,
+        items: this.items,
+        drawEncounter: (deckId) => this.drawEncounter(deckId),
+      });
+    }
+    quest.done = wanted;
+    quest.completedBy = wanted ? "checked" : null;
+
+    this.#emit({ type: wanted ? "questDone" : "questReopened", quest });
+    return quest.done;
   }
 
   /* ---------------------------------------------------------------- actions */

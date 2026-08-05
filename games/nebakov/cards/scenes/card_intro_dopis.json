@@ -13,6 +13,11 @@
     "Dáno v dobré víře a s nadějí,",
     "Machna, paní z Nebákova<br>psáno v čase nejistém, léta Páně 1423"
   ],
-  "choices": [],
-  "todo": "Zvací dopis je fyzická příloha v obálce; ve hře se čte na kartě B09. Návaznost není na dopise uvedena."
+  "choices": [
+    {
+      "icon": "lupa",
+      "text": "Podívat se na přiloženou mapu",
+      "goto": "card_mapa01"
+    }
+  ]
 }

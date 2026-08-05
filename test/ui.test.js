@@ -21,6 +21,8 @@ import {
   dealtRolesView,
   durationLabel,
   endingView,
+  inventoryView,
+  itemCardView,
   journalView,
   lockLabel,
   messageViews,
@@ -705,4 +707,46 @@ test("scénář bez akcí to řekne místo prázdného seznamu", () => {
   const view = groupActionsView(new Engine(roleFixture(), { roles: NEBAKOV_ROLES }));
   assert.equal(view.empty, true);
   assert.match(view.emptyLabel, /mimo karty/);
+});
+
+/* --------------------------------------------------- zaškrtávací úkoly a batoh */
+
+const NEBAKOV_SCENARIO = JSON.parse(
+  fs.readFileSync(new URL("../games/nebakov/scenario.json", import.meta.url), "utf8"),
+);
+const NEBAKOV_ITEMS = JSON.parse(
+  fs.readFileSync(new URL("../games/nebakov/items.json", import.meta.url), "utf8"),
+);
+
+test("volitelný úkol na kartě se ukáže jako zaškrtávátko, ne jako volba", () => {
+  const engine = new Engine(NEBAKOV_SCENARIO, { items: NEBAKOV_ITEMS });
+  engine.state.currentScene = "card_B03";
+  const view = cardView(engine);
+
+  assert.equal(view.tasks.length, 1);
+  assert.equal(view.tasks[0].label, "Úkol (volitelný): Držte minutu ticha za padlé");
+  assert.equal(view.tasks[0].glyph, "👑");
+  assert.equal(view.tasks[0].done, false);
+
+  // a z pomníku vede jediné tlačítko — kudy povede, řeší zaškrtnutí
+  assert.deepEqual(view.choices.map((c) => c.text), ["Pokračovat"]);
+
+  engine.setTask("q_B03_ticho", true);
+  assert.equal(cardView(engine).tasks[0].done, true);
+});
+
+test("dopis a mapy se dají otevřít z batohu", () => {
+  const engine = new Engine(NEBAKOV_SCENARIO, { items: NEBAKOV_ITEMS });
+  const bag = inventoryView(engine);
+  const readable = bag.groups.flatMap((g) => g.items).filter((i) => i.cardId);
+
+  assert.deepEqual(readable.map((i) => i.id).sort(), ["dopis", "mapa01"]);
+  assert.equal(readable.find((i) => i.id === "mapa01").openLabel, "Rozložit");
+  assert.equal(readable.find((i) => i.id === "dopis").openLabel, "Přečíst");
+
+  const page = itemCardView(engine, readable.find((i) => i.id === "dopis"));
+  assert.equal(page.id, "card_intro_dopis");
+  assert.match(page.paragraphs.flat().join(" "), /Machna/);
+  // otevřít mapu u vodopádu nesmí nikoho nikam poslat, takže volby tu nejsou
+  assert.equal("choices" in page, false);
 });

@@ -8,19 +8,33 @@
   "choices": [
     {
       "icon": "lupa",
-      "text": "Úkol: Prohlédněte si přiloženou mapu",
-      "goto": "card_B05",
+      "text": "Dojít nejprve k pomníku",
+      "goto": "card_B03",
       "quest": {
-        "id": "q_B09_0",
+        "id": "q_B09_pomnik",
         "kind": "inspect",
-        "text": "Prohlédněte si přiloženou mapu",
-        "completedAt": "card_B05"
+        "text": "Dojděte k pomníku",
+        "completedAt": "card_B03",
+        "at": {
+          "lat": 50.5120308,
+          "lon": 15.2270839,
+          "radius": 30,
+          "name": "Dojděte k pomníku"
+        }
       }
     },
     {
       "icon": "stopy",
-      "text": "Vyrazit rovnou za dobrodružstvím",
+      "text": "Vyrazit rovnou na Nebákov",
       "goto": "card_B04"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "q_B09_mapa",
+      "icon": "pin",
+      "optional": true,
+      "text": "Rozložte si mapu v batohu (🎒)"
     }
   ]
 }

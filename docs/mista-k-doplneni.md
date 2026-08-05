@@ -1,6 +1,6 @@
 # Místa k doplnění
 
-Úkolů celkem **46**, z toho cestovních **27**. Souřadnice má **25**. Zón v datech: **11**.
+Úkolů celkem **44**, z toho cestovních **28**. Souřadnice má **25**. Zón v datech: **11**.
 
 Bez souřadnic se hra hraje na čestné slovo: tlačítko „Jsme na místě“ prostě odhalí další kartu. Se souřadnicemi se hra zeptá, když je skupina podle GPS jinde — a nechá si odporovat, protože signál pod skalami je často mimo (Q08c).
 
@@ -86,6 +86,7 @@ Kam hra skupinu posílá. Stačí ta místa, u kterých má smysl polohu kontrol
 | H03 | Vraťte se zpět k ohradě s ovcemi |  |
 | H05 | Vraťte se k ohradě s ovcemi |  |
 | H07 | Dojděte na cestu u rybníka západně odsud | 50.5166036, 15.2118556 ✅ |
+| H10 | Dojděte do Troskovic |  |
 | H11 | Dojděte do Troskovic | 50.5122469, 15.2237128 ✅ |
 | H13 | Dojděte do Troskovic | 50.5122469, 15.2237128 ✅ |
 | H14 | Dojděte do Troskovic | 50.5122469, 15.2237128 ✅ |
@@ -96,9 +97,7 @@ Kam hra skupinu posílá. Stačí ta místa, u kterých má smysl polohu kontrol
 Tady jde o něco, co se udělá, ne o to, kam se dojde — nechávám je na čestné slovo.
 
 - **B01** · Přečtěte si zvací dopis (inspect)
-- **B03** · Držte minutu ticha za padlé (deed)
-- **B05** · Dojděte k pomníku (inspect)
-- **B09** · Prohlédněte si přiloženou mapu (inspect)
+- **B09** · Dojděte k pomníku (inspect)
 - **C07** · Sežeňte něco na bolest a vraťte se ke stromu (nature)
 - **C08** · Určete jednoho z vás, kdo to udělá (deed)
 - **C13** · Dejte si něco ve mlýně (deed)
@@ -109,7 +108,6 @@ Tady jde o něco, co se udělá, ne o to, kam se dojde — nechávám je na čes
 - **E05** · Úkol [😊]: Alespoň jeden z vás si něco objedná (deed)
 - **F01** · Zjistěte, zda někdo z hostů hraje kostky (inspect)
 - **F07** · Vraťte protihráči peníze (deed)
-- **G13** · Spočítejte ovce v ohradě (nature)
 - **G18** · Spočítejte ovce v ohradě (nature)
 - **H08** · Dojděte ke kříži (deed)
 - **H09** · Dojděte k ohradě s ovcemi za Jarkem (deed)

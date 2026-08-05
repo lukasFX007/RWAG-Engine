@@ -9,11 +9,11 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 - **zastavuje průchod hrou: 0**
 - dosažitelných scén bez východu: 3 (`card_C11`, `card_D12`, `card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
-- nedosažitelných scén: 7 (`card_B12`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_intro_dopis`, `card_legenda`)
+- nedosažitelných scén: 6 (`card_B12`, `card_P01`, `card_P02`, `card_P03`, `card_P04`, `card_legenda`)
 
 > Podstatné zjištění: velká většina poznámek `todo` **nejsou chybějící návaznosti**. Jsou to buď karty, které správně žádné pokračování nemají (předměty, osobní karty, náhodná setkání), nebo nejistota, na které kartě má text sedět. Hra je tedy prakticky průchozí a kritickou cestou k produkčnímu stavu je engine, ne dopisování obsahu.
 
-## C. Není to scéna — potřebuje datový model — 5
+## C. Není to scéna — potřebuje datový model — 4
 
 Karty, které správně nemají žádné „goto“: předměty do inventáře, osobní karty, nápovědy pro konkrétního hráče, náhodná setkání, referenční listy. Nechybí u nich obsah, chybí jim v enginu odpovídající pojem.
 
@@ -23,8 +23,6 @@ Karty, které správně nemají žádné „goto“: předměty do inventáře, 
   - Karta N01 leží navrchu balíčku „N“ – uvádí mechaniku náhodných setkání. Nemá návaznost.
 - **N12** · `card_N12` · slide 20, 27 · balíček N
   - Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost.
-- **card_intro_dopis** · `card_intro_dopis` · nedosažitelná
-  - Zvací dopis je fyzická příloha v obálce; ve hře se čte na kartě B09. Návaznost není na dopise uvedena.
 - **card_legenda** · `card_legenda` · nedosažitelná
   - Referenční stránka (rub karty rolí), nikoli herní scéna. Obsah odpovídá legend.json. „📜A29“ je pouze ilustrativní příklad, nejde o skutečný odkaz na kartu.
 
@@ -43,7 +41,7 @@ Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hrani
 - **H14** · `card_H14` · slide 22, 23
   - Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu.
 
-## G. Vyžaduje rozhodnutí — 10
+## G. Vyžaduje rozhodnutí — 11
 
 Poznámka, na kterou nesedlo žádné pravidlo.
 
@@ -64,6 +62,8 @@ Poznámka, na kterou nesedlo žádné pravidlo.
   - **P04** · `card_P04` · slide 5 · nedosažitelná
   - **P05** · `card_P05` · slide 5, 24, 25
   - Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.
+- **card_mapa01** · `card_mapa01`
+  - Obrázek mapy 1 zatím není dodaný (mapa01.jpg). Do té doby se místo něj ukáže poznámka, že chybí.
 
 ## Chybí mimo karty
 

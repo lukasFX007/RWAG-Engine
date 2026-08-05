@@ -15,14 +15,15 @@
       "icon": "svitek",
       "card": "card_intro_dopis",
       "startsWith": true,
-      "text": "Dopis, na jehož základě jste se sem vydali. Čte se na kartě B09."
+      "text": "Dopis, na jehož základě jste se sem vydali. Přečíst si ho můžete odsud kdykoliv."
     },
     {
       "id": "mapa01",
       "name": "Mapa 1 — z Troskovic na Nebákov",
       "icon": "pin",
       "startsWith": true,
-      "text": "Šipkami vyznačená cesta z Troskovic na Nebákov. Jen nezbytný výřez, nic víc. Přiložená ke zvacímu dopisu."
+      "text": "Šipkami vyznačená cesta z Troskovic na Nebákov. Jen nezbytný výřez, nic víc. Přiložená ke zvacímu dopisu — rozložit si ji můžete odsud kdykoliv.",
+      "card": "card_mapa01"
     },
     {
       "id": "mapa02",

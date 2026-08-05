@@ -15,10 +15,8 @@
   "choices": [
     {
       "icon": "stopy",
-      "text": "Vrátit se k pomníku a pokračovat",
-      "goto": "card_B03",
-      "revisit": true,
-      "note": "Návrat na B03; úkol, který sem vedl, se tam už podruhé nenabídne."
+      "text": "Pokračovat",
+      "goto": "card_B04"
     }
   ]
 }

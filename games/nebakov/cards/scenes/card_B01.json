@@ -3,20 +3,34 @@
   "cardCode": "B01",
   "text": [
     "Povoz Vás vysadil u tábořiště v Troskovicích. Vzal si peníze za cestu a teď už odjíždí pryč.",
-    "Dříve, než vyjdete za dobrodružstvím, si přečtete zvací dopis, na základě kterého jste se sem vydali. A můžete to klidně udělat u dobrého pití.",
-    "Na kartě je dále uvedeno:<br>• 🔍 Úkol (volitelný): Osvěžte se v místní hospůdce ➤ 😊"
+    "Dříve, než vyjdete za dobrodružstvím, si přečtete zvací dopis, na základě kterého jste se sem vydali. A můžete to klidně udělat u dobrého pití."
   ],
   "choices": [
     {
       "icon": "lupa",
       "text": "Úkol: Přečtěte si zvací dopis",
-      "goto": "card_B09",
+      "goto": "card_intro_dopis",
       "quest": {
         "id": "q_B01_0",
         "kind": "inspect",
         "text": "Přečtěte si zvací dopis",
-        "completedAt": "card_B09"
+        "completedAt": "card_intro_dopis"
       }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "q_B01_hospoda",
+      "icon": "lupa",
+      "optional": true,
+      "text": "Osvěžte se v místní hospůdce",
+      "effects": [
+        {
+          "type": "reputation",
+          "value": 1
+        }
+      ],
+      "note": "Karta B01 tiskla „Osvěžte se v místní hospůdce ➤ 😊“ — reputace se připíše zaškrtnutím a odškrtnutím zase odečte."
     }
   ]
 }

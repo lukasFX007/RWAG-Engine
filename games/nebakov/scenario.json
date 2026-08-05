@@ -237,8 +237,30 @@
         "Dáno v dobré víře a s nadějí,",
         "Machna, paní z Nebákova<br>psáno v čase nejistém, léta Páně 1423"
       ],
-      "choices": [],
-      "todo": "Zvací dopis je fyzická příloha v obálce; ve hře se čte na kartě B09. Návaznost není na dopise uvedena."
+      "choices": [
+        {
+          "icon": "lupa",
+          "text": "Podívat se na přiloženou mapu",
+          "goto": "card_mapa01"
+        }
+      ]
+    },
+    {
+      "id": "card_mapa01",
+      "text": [
+        "Rozložili jste mapu a snažíte se v ní zorientovat. Jsou v ní viditelně zakreslené důležité záchytné body. Takže i když to tu neznáte, s touhle mapou by se vám zde mohlo dobře cestovat.",
+        "Hlavní pro vás je, že je tam vyznačená cesta na Nebákov. A ta je teď cíl vaší cesty.",
+        "Mapu si můžete kdykoliv znovu rozložit v batohu (🎒 v horní liště)."
+      ],
+      "image": "mapa01.jpg",
+      "choices": [
+        {
+          "icon": "stopy",
+          "text": "Složit mapu a jít",
+          "goto": "card_B09"
+        }
+      ],
+      "todo": "Obrázek mapy 1 zatím není dodaný (mapa01.jpg). Do té doby se místo něj ukáže poznámka, že chybí."
     },
     {
       "id": "card_legenda",
@@ -276,7 +298,8 @@
         "😊 znamená zvýšení, 😡 pokles. Dvě tváře znamenají dva body.",
         "Náhodná setkání (⏳) hra vytáhne sama. Vyhodnoťte je na místě: karta se zeptá, jak to dopadlo, a vy odpovíte. Aplikace vám věří — ví jen to, co jí řeknete.",
         "Když si nebudete vědět rady s cestou, můžete požádat o pomoc někoho ze zdejších — je to v Nabídce pod „Co můžete udělat“. Rada stojí jednu kladnou reputaci, takže při nule ani v mínusu ji koupit nelze.",
-        "Co nesete najdete pod batohem v horní liště: zvací dopis a mapu máte od začátku, další předměty získáte po cestě. Poslední získaná mapa je odsud vždycky na dvě klepnutí."
+        "Co nesete najdete pod batohem v horní liště: zvací dopis a mapu máte od začátku, další předměty získáte po cestě. Dopis i každou mapu si odsud můžete kdykoliv znovu otevřít — u mapy tlačítkem „Rozložit“.",
+        "Volitelné úkoly (🔍 Úkol (volitelný)) se zaškrtávají přímo na kartě. Nikam vás neposunou, jen si hra poznamená, že jste je splnili — a někdy podle toho pozná, kudy jít dál. Odškrtnout je můžete zase zpátky, včetně reputace, kterou přinesly."
       ],
       "choices": [],
       "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
@@ -652,20 +675,34 @@
       "cardCode": "B01",
       "text": [
         "Povoz Vás vysadil u tábořiště v Troskovicích. Vzal si peníze za cestu a teď už odjíždí pryč.",
-        "Dříve, než vyjdete za dobrodružstvím, si přečtete zvací dopis, na základě kterého jste se sem vydali. A můžete to klidně udělat u dobrého pití.",
-        "Na kartě je dále uvedeno:<br>• 🔍 Úkol (volitelný): Osvěžte se v místní hospůdce ➤ 😊"
+        "Dříve, než vyjdete za dobrodružstvím, si přečtete zvací dopis, na základě kterého jste se sem vydali. A můžete to klidně udělat u dobrého pití."
       ],
       "choices": [
         {
           "icon": "lupa",
           "text": "Úkol: Přečtěte si zvací dopis",
-          "goto": "card_B09",
+          "goto": "card_intro_dopis",
           "quest": {
             "id": "q_B01_0",
             "kind": "inspect",
             "text": "Přečtěte si zvací dopis",
-            "completedAt": "card_B09"
+            "completedAt": "card_intro_dopis"
           }
+        }
+      ],
+      "tasks": [
+        {
+          "id": "q_B01_hospoda",
+          "icon": "lupa",
+          "optional": true,
+          "text": "Osvěžte se v místní hospůdce",
+          "effects": [
+            {
+              "type": "reputation",
+              "value": 1
+            }
+          ],
+          "note": "Karta B01 tiskla „Osvěžte se v místní hospůdce ➤ 😊“ — reputace se připíše zaškrtnutím a odškrtnutím zase odečte."
         }
       ]
     },
@@ -686,10 +723,8 @@
       "choices": [
         {
           "icon": "stopy",
-          "text": "Vrátit se k pomníku a pokračovat",
-          "goto": "card_B03",
-          "revisit": true,
-          "note": "Návrat na B03; úkol, který sem vedl, se tam už podruhé nenabídne."
+          "text": "Pokračovat",
+          "goto": "card_B04"
         }
       ]
     },
@@ -702,28 +737,29 @@
       ],
       "choices": [
         {
-          "icon": "koruna",
-          "text": "Úkol (volitelný): Držte minutu ticha za padlé",
-          "goto": "card_B02",
-          "quest": {
-            "id": "q_B03_0",
-            "kind": "deed",
-            "text": "Držte minutu ticha za padlé",
-            "completedAt": "card_B02",
-            "optional": true
-          },
-          "disableIf": [
+          "icon": "stopy",
+          "text": "Pokračovat",
+          "goto": "card_B04",
+          "routes": [
             {
-              "type": "visited",
-              "scene": "card_B02"
+              "when": [
+                {
+                  "type": "quest_done",
+                  "quest": "q_B03_ticho"
+                }
+              ],
+              "goto": "card_B02"
             }
           ],
-          "note": "Splněný volitelný úkol se už nenabízí – karta B03 zbude jen jako cesta na B04."
-        },
+          "note": "Kdo minutu ticha držel, projde ještě přes B02 (a dostane za ni reputaci); kdo ne, jde rovnou na B04."
+        }
+      ],
+      "tasks": [
         {
-          "icon": "stopy",
-          "text": "Pokračovat.",
-          "goto": "card_B04"
+          "id": "q_B03_ticho",
+          "icon": "koruna",
+          "optional": true,
+          "text": "Držte minutu ticha za padlé"
         }
       ]
     },
@@ -744,38 +780,6 @@
           "icon": "stopy",
           "text": "Ignorovat ho",
           "goto": "card_B08"
-        }
-      ]
-    },
-    {
-      "id": "card_B05",
-      "cardCode": "B05",
-      "text": [
-        "Rozložili jste mapu a snažíte se v ní zorientovat. Jsou v ní viditelně zakreslené důležité záchytné body. Takže i když to tu neznáte, s touhle mapou by se vám zde mohlo dobře cestovat. Hlavní pro vás je, že je tam vyznačená cesta na Nebákov. A ta je teď cíl vaší cesty.",
-        "Také vás zaujala značka pomníku kousek odsud. Můžete se jít podívat, co připomíná, nebo se vydat rovnou za dobrodružstvím."
-      ],
-      "choices": [
-        {
-          "icon": "lupa",
-          "text": "Úkol: Dojděte k pomníku",
-          "goto": "card_B03",
-          "quest": {
-            "id": "q_B05_0",
-            "kind": "inspect",
-            "text": "Dojděte k pomníku",
-            "completedAt": "card_B03",
-            "at": {
-              "lat": 50.5120308,
-              "lon": 15.2270839,
-              "radius": 30,
-              "name": "Dojděte k pomníku"
-            }
-          }
-        },
-        {
-          "icon": "stopy",
-          "text": "Vydat se rovnou za dobrodružstvím",
-          "goto": "card_B04"
         }
       ]
     },
@@ -892,19 +896,33 @@
       "choices": [
         {
           "icon": "lupa",
-          "text": "Úkol: Prohlédněte si přiloženou mapu",
-          "goto": "card_B05",
+          "text": "Dojít nejprve k pomníku",
+          "goto": "card_B03",
           "quest": {
-            "id": "q_B09_0",
+            "id": "q_B09_pomnik",
             "kind": "inspect",
-            "text": "Prohlédněte si přiloženou mapu",
-            "completedAt": "card_B05"
+            "text": "Dojděte k pomníku",
+            "completedAt": "card_B03",
+            "at": {
+              "lat": 50.5120308,
+              "lon": 15.2270839,
+              "radius": 30,
+              "name": "Dojděte k pomníku"
+            }
           }
         },
         {
           "icon": "stopy",
-          "text": "Vyrazit rovnou za dobrodružstvím",
+          "text": "Vyrazit rovnou na Nebákov",
           "goto": "card_B04"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "q_B09_mapa",
+          "icon": "pin",
+          "optional": true,
+          "text": "Rozložte si mapu v batohu (🎒)"
         }
       ]
     },

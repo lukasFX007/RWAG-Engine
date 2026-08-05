@@ -75,6 +75,55 @@ def deck_of(card, from_events=False):
     return code[0] if code and code[0].isalpha() else "REF"
 
 
+def condition_label(condition):
+    """The `when` on a route, short enough to hang off an edge label."""
+    kind = condition.get("type")
+    if kind == "quest_done":
+        return f"úkol {condition['quest']} {'nesplněn' if condition.get('negate') else 'splněn'}"
+    if kind == "visited":
+        return f"viděli {condition['scene']}"
+    if kind == "has_item":
+        return f"nesou {condition['item']}"
+    return kind or "?"
+
+
+def routed_choices(card):
+    """
+    A choice can lead more than one way.
+
+    B03's single "Pokračovat" goes to B02 when the minute of silence was ticked
+    off and to B04 when it was not. On the map that is two edges out of one
+    button, so each is drawn with the condition that picks it.
+    """
+    for choice in card.get("choices") or []:
+        for route in choice.get("routes") or []:
+            if not route.get("goto"):
+                continue
+            when = ", ".join(condition_label(c) for c in route.get("when") or [])
+            yield {
+                "icon": choice.get("icon"),
+                "text": f"{choice.get('text')} — pokud {when}" if when else choice.get("text"),
+                "goto": route["goto"],
+                "disableIf": choice.get("disableIf"),
+            }
+        if choice.get("goto"):
+            text = choice.get("text")
+            if choice.get("routes"):
+                text = f"{text} — jinak"
+            yield {
+                "icon": choice.get("icon"),
+                "text": text,
+                "goto": choice["goto"],
+                "disableIf": choice.get("disableIf"),
+            }
+
+
+def destinations_of(choice):
+    targets = [r.get("goto") for r in choice.get("routes") or []]
+    targets.append(choice.get("goto"))
+    return [t for t in targets if t]
+
+
 def build_dataset(scenario, events):
     scenes = {s["id"]: s for s in scenario["scenes"]}
     inbound = collections.defaultdict(list)
@@ -82,12 +131,10 @@ def build_dataset(scenario, events):
     edges = 0
     for sid, scene in scenes.items():
         for choice in scene.get("choices") or []:
-            target = choice.get("goto")
-            if not target:
-                continue
-            edges += 1
-            adjacency[sid].append(target)
-            inbound[target].append(sid)
+            for target in destinations_of(choice):
+                edges += 1
+                adjacency[sid].append(target)
+                inbound[target].append(sid)
 
     start = scenario.get("startScene")
     reached, stack = set(), [start] if start in scenes else []
@@ -112,9 +159,10 @@ def build_dataset(scenario, events):
             "image": card.get("image"),
             "effects": card.get("effects"),
             "todo": card.get("todo"),
-            "choices": [{"icon": c.get("icon"), "text": c.get("text"),
-                         "goto": c.get("goto"), "disableIf": c.get("disableIf")}
-                        for c in (card.get("choices") or [])],
+            "choices": list(routed_choices(card)),
+            "tasks": [{"icon": t.get("icon"), "text": t.get("text"),
+                       "optional": t.get("optional", True)}
+                      for t in (card.get("tasks") or [])],
             "inbound": sorted(inbound[card["id"]]),
             "reachable": None if from_events else card["id"] in reached,
             "fromEvents": from_events,

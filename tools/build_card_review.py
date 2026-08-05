@@ -165,18 +165,44 @@ def render_card(card, kind, fields):
     if scene_effects:
         body.append('<p class="fx">Karta sama o sobě: ' + html.escape(", ".join(scene_effects)) + "</p>")
 
+    # Deeds are ticked on the card and lead nowhere, so they are listed above the
+    # ways on rather than among them — that is also how the app shows them.
+    tasks = card.get("tasks") or []
+    if tasks:
+        body.append('<ul class="choices">')
+        for task in tasks:
+            icon = ICONS.get(task.get("icon"), "•")
+            label = ("Úkol (volitelný): " if task.get("optional", True) else "Úkol: ") \
+                + task.get("text", "")
+            notes = ["zaškrtne se na kartě, nikam nevede"] + describe_effects(task.get("effects"))
+            body.append(f'<li><span class="ico">{icon}</span>'
+                        f'<span class="ctext">☐ {html.escape(label)}</span>'
+                        f'<span class="goto">—</span>'
+                        f'<span class="note">{html.escape(" · ".join(notes))}</span></li>')
+        body.append("</ul>")
+
     choices = card.get("choices") or []
     if choices:
         body.append('<ul class="choices">')
         for choice in choices:
             icon = ICONS.get(choice.get("icon"), "•")
+            notes = describe_gate(choice.get("disableIf")) + describe_effects(choice.get("effects"))
+            if choice.get("quest"):
+                notes.insert(0, "úkol — karta se odkryje až po potvrzení")
+            # a routed choice is one button with more than one destination
+            for route in choice.get("routes") or []:
+                when = ", ".join(c.get("type", "?") for c in route.get("when") or [])
+                target = (route.get("goto") or "").removeprefix("card_") or "—"
+                body.append(f'<li><span class="ico">{icon}</span>'
+                            f'<span class="ctext">{html.escape(choice.get("text", ""))}</span>'
+                            f'<span class="goto">→ {html.escape(target)}</span>'
+                            f'<span class="note">{html.escape("pokud " + when)}</span></li>')
             target = (choice.get("goto") or "").removeprefix("card_") or "—"
             line = (f'<li><span class="ico">{icon}</span>'
                     f'<span class="ctext">{html.escape(choice.get("text", ""))}</span>'
                     f'<span class="goto">→ {html.escape(target)}</span>')
-            notes = describe_gate(choice.get("disableIf")) + describe_effects(choice.get("effects"))
-            if choice.get("quest"):
-                notes.insert(0, "úkol — karta se odkryje až po potvrzení")
+            if choice.get("routes"):
+                notes = ["jinak"] + notes
             if notes:
                 line += f'<span class="note">{html.escape(" · ".join(notes))}</span>'
             body.append(line + "</li>")

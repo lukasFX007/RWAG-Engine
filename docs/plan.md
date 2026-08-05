@@ -123,6 +123,26 @@ z jednoho místa na dvacet.
       `reputation` se obrací, `visited`/`has_item` ne. Dnes to drží jen proto,
       že se `visited` v `disableIf` používá jednou.
 
+## Fáze 9 — Úpravy po prvním průchodu ✅
+
+Z projití hry na stole. Volitelný úkol je teď věc, kterou skupina buď udělala,
+nebo ne — ne odbočka v příběhu.
+
+- [x] Volitelné úkoly se zaškrtávají na kartě (`tasks[]`), nikam nevedou.
+      Zaškrtnutí zaplatí reputaci, odškrtnutí ji vrátí — proto na ně `validate`
+      pouští jen `reputation`, jediný efekt, který jde obrátit.
+- [x] Jedno tlačítko, dvě cesty (`choices[].routes`): B03 „Pokračovat“ vede na
+      B02, když se drželo ticho, jinak rovnou na B04. Dvě tlačítka, z toho jedno
+      zamčené, by tu odpověď vyzradila.
+- [x] B01: úkol otevře zvací dopis a za ním přiloženou mapu, teprve pak B09
+- [x] Dopis a mapy jsou i v batohu — každá s tlačítkem „Přečíst“ / „Rozložit“
+- [x] B09: mapa je zaškrtávátko, ne cesta; přibyla volba „Dojít nejprve
+      k pomníku“ se souřadnicemi (a s GPS kontrolou) vedle „Vyrazit rovnou“
+- [x] Karta B05 zrušená, její text je na kartě mapy
+- [x] Potvrzení polohy bez GPS říká, co tím skupina ošidí
+
+Zbývá dodat: `mapa01.jpg` (a mapy 2–3) od autora.
+
 ## Fáze 8 — Terénní test
 
 Brána před dalším vývojem. Hra má být 8 hodin a 9–13 km; všechno, co dosud

@@ -306,9 +306,32 @@ function renderCardText(view, edit) {
   return wrap;
 }
 
+/**
+ * Deeds to tick off on this card.
+ *
+ * A real checkbox, not a button that looks like one: the group needs to see at a
+ * glance whether they did it, and to be able to untick a mis-tap. Nothing moves
+ * when it changes — what it changes is where "Pokračovat" goes next.
+ */
+function renderCardTasks(tasks, onToggle) {
+  const list = el("ul", { class: "card-tasks" });
+  for (const task of tasks) {
+    const box = el("input", { type: "checkbox", class: "card-task-box", id: `task-${task.id}` });
+    box.checked = task.done;
+    box.addEventListener("change", () => onToggle?.(task, box.checked));
+    list.append(el("li", { class: `card-task${task.done ? " is-done" : ""}` },
+      el("label", { class: "card-task-label", for: `task-${task.id}` },
+        box,
+        el("span", { class: "card-task-icon", "aria-hidden": "true", text: task.glyph }),
+        el("span", { class: "card-task-text", text: task.label }),
+      )));
+  }
+  return list;
+}
+
 export function renderCard(view, {
   onChoose, onUndo, onConfirmTask, onCancelTask, onResolveProgress, onReleaseHeld,
-  edit = null,
+  onToggleTask, edit = null,
 } = {}) {
   const root = el("article", { class: "card", "aria-live": "polite" });
 
@@ -334,6 +357,8 @@ export function renderCard(view, {
         `${icon("zpet")} Vrátit poslední rozhodnutí`) : null,
     ));
   }
+
+  if (view.tasks?.length) root.append(renderCardTasks(view.tasks, onToggleTask));
 
   if (view.progress) {
     root.append(renderProgressPanel(view.progress, { onResolve: onResolveProgress }));
@@ -521,7 +546,7 @@ export function renderJournal(journal, { onAction } = {}) {
 
 /* ------------------------------------------------------------------ inventory */
 
-export function renderInventory(inventory) {
+export function renderInventory(inventory, { onOpen } = {}) {
   const root = el("div", { class: "inventory" });
   root.append(el("h2", { class: "sheet-title", text: "Co neseme" }));
 
@@ -540,10 +565,29 @@ export function renderInventory(inventory) {
           el("span", { class: "item-name", text: item.name }),
           item.count ? el("span", { class: "quest-tag", text: `${item.count}×` }) : null,
           item.text ? el("p", { class: "item-text", text: item.text }) : null,
+          item.cardId && onOpen
+            ? el("button", {
+                type: "button",
+                class: "btn btn-small",
+                onclick: () => onOpen(item),
+              }, item.openLabel)
+            : null,
         )));
     }
     root.append(list);
   }
+  return root;
+}
+
+/** One carried thing, opened from the bag: what it says and what it looks like. */
+export function renderItemCard(view) {
+  const root = el("div", { class: "item-card" });
+  root.append(el("h2", { class: "sheet-title", text: view.title }));
+  if (view.cardCode) root.append(el("span", { class: "card-code", text: view.cardCode }));
+  if (view.image) root.append(renderImage(view.image));
+  const block = el("div", { class: "card-text" });
+  for (const lines of view.paragraphs) block.append(el("p", {}, withBreaks(lines)));
+  root.append(block);
   return root;
 }
 

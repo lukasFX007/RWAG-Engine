@@ -190,29 +190,75 @@ test("hra dojde do konce označeného ending", () => {
 
 /* ------------------------------------------ what the author confirmed in v1 */
 
-test("minuta ticha u pomníku se dá splnit jen jednou", () => {
+test("minuta ticha u pomníku rozhoduje, kudy se jde dál", () => {
   const engine = fresh();
   engine.state.currentScene = "card_B03";
 
-  const silence = engine.choices().findIndex((c) => c.goto === "card_B02");
-  assert.ok(silence >= 0, "z B03 musí vést volitelný úkol na B02");
-  assert.equal(engine.choices()[silence].available, true);
+  // The deed is a tick on the card, not a fork: there is one way on either way.
+  const [silence] = engine.cardTasks();
+  assert.equal(silence.id, "q_B03_ticho");
+  assert.equal(silence.done, false);
+  assert.equal(engine.choices().length, 1, "z pomníku vede jediná cesta");
 
-  engine.choose(silence);
-  engine.confirmArrival();
+  // untouched, the group walks straight past
+  assert.equal(engine.choices()[0].goto, "card_B04");
+
+  engine.setTask("q_B03_ticho", true);
+  assert.equal(engine.choices()[0].goto, "card_B02",
+    "kdo ticho držel, projde ještě B02");
+
+  // a mis-tap has to be undoable, and unticking must put the route back
+  engine.setTask("q_B03_ticho", false);
+  assert.equal(engine.choices()[0].goto, "card_B04");
+
+  engine.setTask("q_B03_ticho", true);
+  engine.choose(0);
   assert.equal(engine.card.id, "card_B02");
-  assert.equal(engine.state.reputation, 1);
+  assert.equal(engine.state.reputation, 1, "úcta k padlým se cení");
 
-  // B02 is the one place in the game that leads back where it came from, so the
-  // task that got there has to close behind it or the loop never ends
-  const back = engine.choices().findIndex((c) => c.goto === "card_B03");
-  assert.ok(back >= 0, "B02 se musí vracet na B03");
-  engine.choose(back);
+  // B02 no longer sends anybody back to the memorial: it lets them carry on
+  assert.deepEqual(engine.choices().map((c) => c.goto), ["card_B04"]);
+});
 
+test("od dopisu se jde přes mapu a teprve pak na B09", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_B01";
+
+  engine.choose(0);
+  engine.confirmArrival();
+  assert.equal(engine.card.id, "card_intro_dopis", "úkol otevře dopis");
+
+  engine.choose(0);
+  assert.equal(engine.card.id, "card_mapa01", "za dopisem je přiložená mapa");
+
+  engine.choose(0);
+  assert.equal(engine.card.id, "card_B09");
+});
+
+test("z B09 vedou dvě cesty a k pomníku se musí dojít", () => {
+  const engine = fresh();
+  engine.state.currentScene = "card_B09";
+
+  // the map is a tick now — it is opened from the bag, not walked to
+  assert.deepEqual(engine.cardTasks().map((t) => t.id), ["q_B09_mapa"]);
+
+  const routes = engine.choices();
+  assert.deepEqual(routes.map((c) => c.goto), ["card_B03", "card_B04"]);
+
+  engine.choose(0);
+  const quest = engine.state.quests.q_B09_pomnik;
+  assert.ok(quest.at, "cesta k pomníku má souřadnice, takže se kontroluje GPS");
+
+  // standing somewhere else, the app asks rather than refuses
+  const far = { lat: 50.6, lon: 15.4 };
+  assert.throws(() => engine.confirmArrival({ position: far }), (err) => {
+    assert.equal(err.code, "not_at_place");
+    return true;
+  });
+  assert.equal(engine.card.id, "card_B09", "dokud nedojdou, karta se nemění");
+
+  engine.confirmArrival({ position: far, override: true });
   assert.equal(engine.card.id, "card_B03");
-  const again = engine.choices().find((c) => c.goto === "card_B02");
-  assert.equal(again.available, false, "splněný úkol se nesmí nabízet podruhé");
-  assert.ok(engine.choices().some((c) => c.goto === "card_B04" && c.available));
 });
 
 /** Walk B04 -> B08, the card that ignores the herbalist, so its effects run. */
@@ -414,14 +460,19 @@ test("v datech jsou tři přírodní úkoly, které schopnost roli umí splnit",
 test("id úkolů jsou jedinečná", () => {
   const seen = new Map();
   for (const scene of scenario.scenes) {
-    for (const choice of scene.choices ?? []) {
-      const id = choice.quest?.id;
+    // both kinds share one namespace in state.quests, so a collision between a
+    // walked task and a ticked deed would silently mark the wrong one done
+    const ids = [
+      ...(scene.choices ?? []).map((c) => c.quest?.id),
+      ...(scene.tasks ?? []).map((t) => t.id),
+    ];
+    for (const id of ids) {
       if (!id) continue;
       assert.equal(seen.has(id), false, `duplicitní id úkolu ${id} (${seen.get(id)} a ${scene.id})`);
       seen.set(id, scene.id);
     }
   }
-  assert.equal(seen.size, 46);
+  assert.equal(seen.size, 47);
 });
 
 /* ---------------------------------------------------- roles on the real data */

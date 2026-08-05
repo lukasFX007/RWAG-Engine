@@ -40,6 +40,7 @@ import {
   encounterView,
   heldCardsView,
   inventoryView,
+  itemCardView,
   journalView,
   privateCardView,
   rulesView,
@@ -61,6 +62,7 @@ import {
   renderEncounter,
   renderHeldCards,
   renderInventory,
+  renderItemCard,
   renderPrivateCard,
   renderRules,
   renderJournal,
@@ -403,6 +405,14 @@ export function createApp({
       onUndo: engine.canUndo ? () => undo() : null,
       onConfirmTask: () => confirmTask(),
       onCancelTask: () => cancelTask(),
+      // Ticking a deed moves nobody, but it can change where the way on leads
+      // (B03's "Pokračovat"), so the card is redrawn rather than left alone.
+      onToggleTask: (task, done) => {
+        engine.setTask(task.id, done);
+        autosave();
+        drawGame();
+        drainMessages();
+      },
       onReleaseHeld: (cardId) => {
         const released = engine.heldCards.find((h) => h.cardId === cardId);
         engine.releaseHeldCard(cardId);
@@ -504,6 +514,13 @@ export function createApp({
       el("p", { class: "muted", text:
         `Vzdálenost podle GPS: ${check.distance} m, místo se počítá do ${check.radius} m`
         + (check.accuracy ? ` (přesnost signálu ±${Math.round(check.accuracy)} m)` : "") }),
+      // The override exists because a phone under trees is wrong often enough
+      // that refusing would break the game. It is still worth saying out loud
+      // what it costs — the walk is the game, and skipping it only cheats the
+      // people doing the skipping.
+      el("p", { class: "warn-note", text:
+        "Potvrdit můžete i tak — signál umí lhát. Ale pokud tam nejste, "
+        + "ošidíte hlavně sami sebe: to dojít tam je celá hra." }),
       el("div", { class: "menu-actions" },
         el("button", {
           type: "button",
@@ -562,7 +579,20 @@ export function createApp({
 
   function openInventory() {
     if (!engine) return;
-    openSheet("inventory", renderInventory(inventoryView(engine)));
+    openSheet("inventory", renderInventory(inventoryView(engine), {
+      onOpen: (item) => {
+        const view = itemCardView(engine, item, { imageBase: game.imageBase });
+        if (!view) return;
+        openSheet("item", el("div", {},
+          renderItemCard(view),
+          el("div", { class: "menu-actions" },
+            el("button", {
+              type: "button",
+              class: "btn btn-wide",
+              onclick: () => openInventory(),
+            }, "Zpět do batohu"))));
+      },
+    }));
   }
 
   function openMenu() {

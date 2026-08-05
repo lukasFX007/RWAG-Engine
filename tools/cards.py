@@ -195,15 +195,20 @@ def validate(scenario, events=None):
     returns = defaultdict(list)
     for s in scenes:
         for c in s.get("choices") or []:
-            tgt = c.get("goto")
-            if not tgt:
-                continue
-            if tgt not in by_id:
-                errors.append(f"{s['id']}: goto míří na neexistující {tgt}")
-            elif c.get("revisit"):
-                returns[s["id"]].append(tgt)
-            else:
-                adj[s["id"]].append(tgt)
+            # One button can lead two ways: B03's "Pokračovat" goes to B02 when
+            # the minute of silence was ticked off and to B04 when it was not.
+            # Both are real edges — a route the graph does not know about looks
+            # like an orphaned card.
+            targets = [c.get("goto")] + [r.get("goto") for r in c.get("routes") or []]
+            for tgt in targets:
+                if not tgt:
+                    continue
+                if tgt not in by_id:
+                    errors.append(f"{s['id']}: goto míří na neexistující {tgt}")
+                elif c.get("revisit"):
+                    returns[s["id"]].append(tgt)
+                else:
+                    adj[s["id"]].append(tgt)
 
     # A private card is reached by being handed to somebody, not by a goto: C11
     # is the curse the killer keeps, D12 the hint the two guards read. Without
@@ -258,6 +263,19 @@ def validate(scenario, events=None):
     if ordered != len(by_id):
         stuck = sorted(k for k, dv in indeg.items() if dv > 0)
         errors.append(f"graf obsahuje cyklus, uzly: {stuck}")
+
+    # A ticked deed can be unticked, and the engine takes back what it paid by
+    # applying the opposite. Only reputation can be reversed that way, so only
+    # reputation may sit on a checkbox — anything else would be one-way.
+    for s in scenes:
+        for task in s.get("tasks") or []:
+            if not task.get("id"):
+                errors.append(f"{s['id']}: zaškrtávací úkol nemá id")
+            for effect in task.get("effects") or []:
+                if effect.get("type") != "reputation":
+                    errors.append(
+                        f"{s['id']}: úkol {task.get('id')} má efekt {effect.get('type')!r} — "
+                        "na zaškrtnutí smí být jen reputation, jinak by ho nešlo vzít zpět")
 
     # reputation effect vs. its toast wording
     for s in scenes:

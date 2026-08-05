@@ -628,3 +628,67 @@ test("neznámá akce skupiny je chyba, ne tichý souhlas", () => {
 test("scénář bez akcí skupiny jich nabízí nula", () => {
   assert.deepEqual(new Engine(fixture()).groupActions(), []);
 });
+
+/* ------------------------------------------------ zaškrtávací úkoly na kartě */
+
+function withTasks() {
+  return {
+    gameId: "test",
+    startScene: "a",
+    scenes: [
+      {
+        id: "a",
+        text: "start",
+        tasks: [
+          { id: "t_deed", icon: "koruna", text: "Udělejte to", optional: true,
+            effects: [{ type: "reputation", value: 1 }] },
+        ],
+        choices: [{
+          text: "Pokračovat",
+          goto: "c",
+          routes: [{ when: [{ type: "quest_done", quest: "t_deed" }], goto: "b" }],
+        }],
+      },
+      { id: "b", text: "odměna", choices: [{ text: "dál", goto: "c" }] },
+      { id: "c", text: "konec", ending: true, choices: [] },
+    ],
+  };
+}
+
+test("zaškrtnutí úkolu zaplatí reputaci a odškrtnutí ji vrátí", () => {
+  const engine = new Engine(withTasks());
+  const [task] = engine.cardTasks();
+  assert.equal(task.id, "t_deed");
+  assert.equal(task.done, false);
+  assert.equal(engine.state.reputation, 0);
+
+  engine.setTask("t_deed", true);
+  assert.equal(engine.state.reputation, 1);
+  assert.equal(engine.cardTasks()[0].done, true);
+
+  // překlep na telefonu v kapse se musí dát vzít zpět, i s tím, co zaplatil
+  engine.setTask("t_deed", false);
+  assert.equal(engine.state.reputation, 0);
+  assert.equal(engine.cardTasks()[0].done, false);
+
+  // a dvojí zaškrtnutí nesmí zaplatit dvakrát
+  engine.setTask("t_deed", true);
+  engine.setTask("t_deed", true);
+  assert.equal(engine.state.reputation, 1);
+});
+
+test("zaškrtnutý úkol přesměruje jedinou cestu dál", () => {
+  const engine = new Engine(withTasks());
+  assert.equal(engine.choices().length, 1);
+  assert.equal(engine.choices()[0].goto, "c");
+
+  engine.setTask("t_deed", true);
+  assert.equal(engine.choices()[0].goto, "b");
+  engine.choose(0);
+  assert.equal(engine.card.id, "b");
+});
+
+test("úkol, který karta nemá, je chyba", () => {
+  const engine = new Engine(withTasks());
+  assert.throws(() => engine.setTask("neexistuje", true), /nemá/);
+});

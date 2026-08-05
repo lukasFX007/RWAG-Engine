@@ -7,28 +7,29 @@
   ],
   "choices": [
     {
-      "icon": "koruna",
-      "text": "Úkol (volitelný): Držte minutu ticha za padlé",
-      "goto": "card_B02",
-      "quest": {
-        "id": "q_B03_0",
-        "kind": "deed",
-        "text": "Držte minutu ticha za padlé",
-        "completedAt": "card_B02",
-        "optional": true
-      },
-      "disableIf": [
+      "icon": "stopy",
+      "text": "Pokračovat",
+      "goto": "card_B04",
+      "routes": [
         {
-          "type": "visited",
-          "scene": "card_B02"
+          "when": [
+            {
+              "type": "quest_done",
+              "quest": "q_B03_ticho"
+            }
+          ],
+          "goto": "card_B02"
         }
       ],
-      "note": "Splněný volitelný úkol se už nenabízí – karta B03 zbude jen jako cesta na B04."
-    },
+      "note": "Kdo minutu ticha držel, projde ještě přes B02 (a dostane za ni reputaci); kdo ne, jde rovnou na B04."
+    }
+  ],
+  "tasks": [
     {
-      "icon": "stopy",
-      "text": "Pokračovat.",
-      "goto": "card_B04"
+      "id": "q_B03_ticho",
+      "icon": "koruna",
+      "optional": true,
+      "text": "Držte minutu ticha za padlé"
     }
   ]
 }

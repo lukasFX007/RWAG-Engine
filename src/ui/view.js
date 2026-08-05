@@ -178,6 +178,12 @@ export function cardView(engine, options = {}) {
     edited,
     image: imageView(card.image, { knownImages, imageBase }),
     choices,
+    /** deeds to tick off here; they do not move anybody */
+    tasks: engine.cardTasks().map((entry) => ({
+      ...entry,
+      glyph: icon(entry.icon),
+      label: entry.optional ? `Úkol (volitelný): ${entry.text}` : `Úkol: ${entry.text}`,
+    })),
     /** the task the group is out doing; while it is set, no choice can be taken */
     task,
     taskInProgress: Boolean(task),
@@ -393,6 +399,13 @@ export function inventoryView(engine) {
       glyph: item.icon ?? "batoh",
       text: item.text ?? null,
       count: item.count > 1 ? item.count : null,
+      /**
+       * Some things are carried and also read: the letter and the maps have a
+       * card of their own. The bag is where the group goes back to them, so the
+       * card id travels with the item and the sheet can open it.
+       */
+      cardId: item.card ?? null,
+      openLabel: item.icon === "pin" ? "Rozložit" : "Přečíst",
     });
   }
   return {
@@ -694,6 +707,27 @@ export function abilitiesView(engine, roles = []) {
       : "Tato hra nemá rozdané role, takže není co použít.",
     note: "Každou schopnost lze použít jen jednou za hru. Použití nelze vzít zpět.",
     confirmPrompt: "Použít nevratně?",
+  };
+}
+
+/**
+ * A carried thing, read as a page rather than walked through as a step.
+ *
+ * The letter and the maps are cards in the scenario — they are read once on the
+ * way — and items in the bag, because the group goes back to them all day. Same
+ * card either way; what the bag leaves out is the choices, since opening the map
+ * at the waterfall must not walk anybody anywhere.
+ */
+export function itemCardView(engine, item, options = {}) {
+  const card = engine.scenes.get(item.cardId);
+  if (!card) return null;
+  const { knownImages = null, imageBase = "" } = options;
+  return {
+    id: card.id,
+    title: item.name,
+    cardCode: card.cardCode ?? null,
+    paragraphs: cardText(card.text),
+    image: imageView(card.image, { knownImages, imageBase }),
   };
 }
 

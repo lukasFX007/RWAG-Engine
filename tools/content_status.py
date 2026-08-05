@@ -102,8 +102,12 @@ def analyse():
     adjacency = collections.defaultdict(list)
     for sid, scene in scenes.items():
         for choice in scene.get("choices") or []:
-            if choice.get("goto"):
-                adjacency[sid].append(choice["goto"])
+            # One button, more than one destination: B03's "Pokračovat" leads to
+            # B02 or to B04 depending on whether the minute of silence was
+            # ticked. Both are exits; missing the routed one orphans B02.
+            for target in [r.get("goto") for r in choice.get("routes") or []] + [choice.get("goto")]:
+                if target:
+                    adjacency[sid].append(target)
 
     # A private card is handed to a player rather than linked to: C11 is the curse
     # the killer keeps, D12 the hint the two guards read. `adjacency` stays free of
