@@ -1,7 +1,9 @@
 {
   "id": "card_C04",
   "image": "lipa01.jpg",
-  "text": "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže muž náhle otevřel oči a chytil ho za zápěstí. Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá, zasípal.",
+  "text": [
+    "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže, muž náhle otevřel oči a chytil ho za zápěstí. „Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá,“ zasípal. 😡 Poté zakašlal a z koutku úst mu vyšel pramínek krve. „Tak do toho, … stejně už mi moc života … nezbývá,“ dodal, sevření povolilo a opět se opřel o kmen lípy."
+  ],
   "effects": [
     {
       "type": "reputation",

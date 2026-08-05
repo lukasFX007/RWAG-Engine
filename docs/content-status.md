@@ -5,7 +5,7 @@ Generováno nástrojem `tools/content_status.py` z `games/nebakov/scenario.json`
 ## Souhrn
 
 - scén: **146**, karet balíčku N: **20**
-- poznámek `todo`: **23**
+- poznámek `todo`: **22**
 - **zastavuje průchod hrou: 0**
 - dosažitelných scén bez východu: 3 (`card_C11`, `card_D12`, `card_P05`)
   - z toho označených jako konec hry (`ending: true`): `card_P05`
@@ -28,7 +28,7 @@ Karty, které správně nemají žádné „goto“: předměty do inventáře, 
 - **card_legenda** · `card_legenda` · nedosažitelná
   - Referenční stránka (rub karty rolí), nikoli herní scéna. Obsah odpovídá legend.json. „📜A29“ je pouze ilustrativní příklad, nejde o skutečný odkaz na kartu.
 
-## D. Ověřit přiřazení textu ke kartě — 8
+## D. Ověřit přiřazení textu ke kartě — 7
 
 Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hranice. Hra se hraje, ale text může sedět na jiné kartě, než má. Nutná kontrola proti originálu.
 
@@ -40,8 +40,6 @@ Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hrani
   - **C15** · `card_C15` · slide 11
   - **G11** · `card_G11` · slide 19
   - Přiřazení textu ke kódu karty je rekonstruované ze slidu, na kterém je vysázeno více karet – ověřte proti originálu.
-- **G09** · `card_G09` · slide 18, 19
-  - Rozdělení dvojice karet G10 / G11 mezi G08 (vlídná varianta) a G09 (nevlídná varianta) je rekonstruované – ověřte proti originálu.
 - **H14** · `card_H14` · slide 22, 23
   - Text karty („necháte věci tak, jak jsou“) nezapadá zcela do návaznosti z H12 („Vydejte se rovnou za písařem“) – přiřazení textu ke kódu H14 ověřte proti originálu.
 
@@ -49,10 +47,10 @@ Na zdrojovém slidu je víc karet pohromadě a extrakce nezachovala jejich hrani
 
 Poznámka, na kterou nesedlo žádné pravidlo.
 
-- **C12** · `card_C12` · slide 11
-  - Text karty potvrzen autorem (Q15a). Původně sem byl přiřazen text „Ještě než ten chudák vydechl naposledy…“, který podle autora patří na C16 – jenže C16 už nese jiný text. Kam přesně patří, ověřuje druhý dotazník.
 - **F14** · `card_F14` · slide 17, 18
   - Karta obsahuje pouze rámečky s podmínkami, samostatný narativní text na ní ve zdroji není.
+- **G09** · `card_G09` · slide 18, 19
+  - Autor ve druhém dotazníku uvedl, že tahle volba míří na G10 — jenže v prvním dotazníku (Q17a) potvrdil párování G08→G10, G09→G11, a při G09→G10 se na G11 nedá vůbec dostat. Ponecháno podle prvního dotazníku, k rozhodnutí autora.
 - **H20** · `card_H20` · slide 24
   - Konec hry (Q22b): H20, H22, H25 a H26 jsou čtyři závěry příběhu a všechny ústí do P05, což je závěrečná obrazovka. Míří sem H19 (dobrá reputace).
 - **H21** · `card_H21` · slide 24

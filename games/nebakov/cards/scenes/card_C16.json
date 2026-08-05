@@ -2,20 +2,15 @@
   "id": "card_C16",
   "cardCode": "C16",
   "text": [
-    "Netušíte, zda je to ten záhadný cizinec, o kterém se píše v dopise, ale je to vaše jediná stopa, a tudíž i jediná naděje. Takže teď už jen zbývá ho najít. Kde ale začít?",
-    "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 02“.<br>• ⏳ Událost: Povedou-li vaše kroky na vámi vybrané „správné místo“ přes rozcestí označené „Troskovice – Křenovy“, zastavte se tam a vyhodnoťte náhodné setkání (⏳)."
+    "Ještě než ten chudák vydechl naposledy, vám něco stihl sdělit. Společně teď zvažujete, co tím asi myslel. Má vás to snad nasměrovat správným směrem? Jak rádi byste mu teď položili spoustu otázek.",
+    "Bohužel vám toho už víc nepoví. A tak musíte pracovat s tím, co víte, rozhodnout se a vyrazit na cestu, pryč z tohohle smutného místa.",
+    "Na kartě je dále uvedeno:<br>• ⏳ Událost: Povedou-li vaše kroky na vámi vybrané „správné místo“ přes rozcestí označené „Troskovice – Křenovy“, zastavte se tam a vyhodnoťte náhodné setkání (⏳)."
   ],
   "choices": [
     {
       "icon": "mozek",
       "text": "Až budete rozhodnutí, že jste na správném místě",
       "goto": "card_C24"
-    }
-  ],
-  "effects": [
-    {
-      "type": "item",
-      "item": "mapa02"
     }
   ]
 }

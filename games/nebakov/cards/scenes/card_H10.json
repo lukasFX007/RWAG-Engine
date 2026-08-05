@@ -18,9 +18,15 @@
       }
     },
     {
-      "icon": "lupa",
-      "text": "Ihned si prohlédněte svitek",
-      "goto": "card_H11"
+      "icon": "stopy",
+      "text": "Úkol: Dojděte do Troskovic",
+      "goto": "card_H15",
+      "quest": {
+        "id": "q_H10_1",
+        "kind": "travel",
+        "text": "Dojděte do Troskovic",
+        "completedAt": "card_H15"
+      }
     }
   ]
 }

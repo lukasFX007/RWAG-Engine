@@ -1,12 +1,22 @@
 {
   "id": "card_C14",
   "cardCode": "C14",
-  "text": "Prohlédli jste tašvici toho nebožáka. Obsahovala pár grošů, mapu a list s nahrubo načrtnutým portrétem nějakého muže. Kresba je provedena černým uhlem. Jen kámen, který mu visí na krku, je výrazně modrý.",
+  "text": [
+    "Prohlédli jste tašvici toho nebožáka. Obsahovala pár grošů, mapu a list s nahrubo načrtnutým portrétem nějakého muže. Kresba je provedena černým uhlem. Jen kámen, který mu visí na krku, je výrazně modrý.",
+    "Netušíte, zda je to ten záhadný cizinec, o kterém se píše v dopise, ale je to vaše jediná stopa, a tudíž i jediná naděje. Takže teď už jen zbývá ho najít. Kde ale začít?",
+    "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 02“."
+  ],
   "choices": [
     {
       "icon": "stopy",
       "text": "Pokračujte kartou C16",
       "goto": "card_C16"
+    }
+  ],
+  "effects": [
+    {
+      "type": "item",
+      "item": "mapa02"
     }
   ]
 }

@@ -1,7 +1,9 @@
 {
   "id": "card_C05",
   "image": "lipa02.jpg",
-  "text": "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve.",
+  "text": [
+    "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve. „Prosím, pomozte mi, jste-li dobří,“ řekl. Poté oči zavřel a polohlasem dodal: „To je bolest. To je bolest!“"
+  ],
   "choices": [
     {
       "icon": "stopy",

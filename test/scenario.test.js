@@ -371,7 +371,7 @@ test("úkol reálného scénáře drží cílovou kartu skrytou, dokud ho hráč
 
 test("deník ukáže probíhající úkol, takže „Splnili jsme“ má co splnit", () => {
   const engine = fresh();
-  engine.state.currentScene = "card_G13"; // Úkol: Spočítejte ovce v ohradě (příroda)
+  engine.state.currentScene = "card_G18"; // Úkol: Spočítejte ovce v ohradě (příroda)
   const index = engine.choices().findIndex((c) => c.goto === "card_G14");
   assert.ok(index >= 0);
 
@@ -401,14 +401,14 @@ test("všechny úkolové volby mají anotaci a platný cíl", () => {
   assert.deepEqual(problems, [], problems.join("\n"));
 });
 
-test("v datech jsou čtyři přírodní úkoly, které schopnost roli umí splnit", () => {
+test("v datech jsou tři přírodní úkoly, které schopnost roli umí splnit", () => {
   const nature = [];
   for (const scene of scenario.scenes) {
     for (const choice of scene.choices ?? []) {
       if (choice.quest?.kind === "nature") nature.push(choice.quest.id);
     }
   }
-  assert.equal(nature.length, 4, `přírodní úkoly: ${nature.join(", ")}`);
+  assert.equal(nature.length, 3, `přírodní úkoly: ${nature.join(", ")}`);
 });
 
 test("id úkolů jsou jedinečná", () => {
@@ -470,7 +470,7 @@ test("schopnosti 1/hru odpovídají pěti rolím z pravidel", () => {
 test("Milovník přírody splní probíhající přírodní úkol reálné hry", () => {
   const engine = fresh();
   engine.dealRoles(8);
-  engine.state.currentScene = "card_G13"; // Úkol: Spočítejte ovce v ohradě
+  engine.state.currentScene = "card_G18"; // Úkol: Spočítejte ovce v ohradě
   const index = engine.choices().findIndex((c) => c.goto === "card_G14");
   engine.choose(index);
   assert.equal(engine.activeQuests.length, 1);
@@ -910,9 +910,11 @@ test("mapy přibývají tam, kde je karta předává", () => {
   const has = (id) => engine.inventory.some((i) => i.id === id);
 
   assert.equal(has("mapa02"), false);
-  engine.state.currentScene = "card_C14";
-  engine.choose(engine.choices().findIndex((c) => c.goto === "card_C16"));
-  assert.equal(has("mapa02"), true, "C16 vydává mapu 2");
+  engine.state.currentScene = "card_C13";
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_C19"));
+  if (engine.pendingTask) engine.confirmArrival();
+  engine.choose(engine.choices().findIndex((c) => c.goto === "card_C14"));
+  assert.equal(has("mapa02"), true, "C14 vydává mapu 2");
 
   assert.equal(has("mapa03"), false);
   engine.state.currentScene = "card_G16";
@@ -971,7 +973,7 @@ test("osm karet drží skupinu, dokud se podmínka postupu nevyhodnotí", () => 
 
 test("podmínka postupu se natáhne při vstupu na kartu a podruhé už ne", () => {
   const engine = withItems();
-  engine.state.currentScene = "card_H10";
+  engine.state.currentScene = "card_H08";
   engine.choose(engine.choices().findIndex((c) => c.goto === "card_H11"));
   assert.equal(engine.card.id, "card_H11");
   assert.ok(engine.progress, "H11 má podmínku postupu");

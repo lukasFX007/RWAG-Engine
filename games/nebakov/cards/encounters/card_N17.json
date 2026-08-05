@@ -4,13 +4,14 @@
     "Hádankář",
     "„Potkali jste ženu, která má pro vás hádanku:",
     "‚Kdybych byla živá, neunesla bych tolik jako teď. Uvnitř jsem sice dutá, ale často plná života a mnohdy i dobrého jídla. Ačkoliv jsem obtěžkána, neklesám dolů. Co jsem?‘",
-    "Uhodnete správnou odpověď?“"
+    "Uhodnete správnou odpověď?“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O03, vlevo uprostřed."
   ],
   "cardCode": "N17",
   "slug": "hadankar_neuplna",
   "answer": {
     "text": "Loď",
-    "printedOn": "O04"
+    "printedOn": "O03"
   },
   "resolution": {
     "prompt": "Uhodli jste?",

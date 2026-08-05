@@ -1,7 +1,11 @@
 {
   "id": "card_C06",
   "image": "lipa02.jpg",
-  "text": "Mužova tvář se kroutí bolestí. Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete zbavit ho trápení jednou provždy?",
+  "text": [
+    "Mužova tvář se kroutí bolestí. Od té zpravidla pomáhá apatykář, nebo kat. Když navíc vezmete v úvahu četná zranění, je vám jasné, že mu už opravdu moc času nezbývá.",
+    "Apatykáře mezi sebou sice nemáte, ale možná by se dalo něco vymyslet. A koneckonců, roli kata by mohl zastat kdokoliv z vás.",
+    "Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete, že lepší bude udělat to postaru a zbavit ho trápení jednou pro vždy?"
+  ],
   "choices": [
     {
       "icon": "mozek",

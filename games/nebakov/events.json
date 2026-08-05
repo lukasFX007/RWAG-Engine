@@ -374,7 +374,8 @@
       "id": "card_N11",
       "text": [
         "Zkažená voda",
-        "„Mezi místními se povídá, že v troskovické studni je zkažená voda. Pokud máte zásoby vody, ihned ji všechnu vylijte. Přece nechcete mít zdravotní problémy.“"
+        "„Mezi místními se povídá, že v troskovické studni je zkažená voda. Pokud máte zásoby vody, ihned ji všechnu vylijte. Přece nechcete mít zdravotní problémy.“",
+        "Na kartě je dále uvedeno:<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
       ],
       "cardCode": "N11",
       "slug": "zkazena_voda",
@@ -396,7 +397,7 @@
         "Střelecká výzva",
         "„Lovčí od Věžáku vás vyzývá na duel. Nenechte se zahanbit!“",
         "Vyberte jednoho z vás. Ten si určí libovolný strom a pokusí se třikrát trefit do jeho kmene ze vzdálenosti 50 stop. Může házet čím chce – kámen, šiška, větev … ale má na to jen 5 pokusů.",
-        "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: 😊<br>• Tuto událost vyhodnoťte, jakmile uvidíte vhodné místo.<br>• Dokud nevyhodnotíte tuto událost, nemůžete pokračovat v příběhu."
+        "Na kartě je dále uvedeno:<br>• Neúspěch: 😡<br>• Úspěch: 😊<br>• Tuto událost vyhodnoťte, jakmile uvidíte vhodné místo."
       ],
       "todo": "Kartu N12 vyvolává karta G22 (lovčí u konce cesty). Sama nemá návaznost.",
       "resolution": {
@@ -476,7 +477,7 @@
         "„Potkali jste cizince, který má pro vás hádanku:",
         "‚Mám města, ale žádné zlato. Mám domy, ale žádné lidi. Mám lesy, ale žádnou zvěř. Mám vodu, ale žádné ryby. Co jsem?‘",
         "Uhodnete správnou odpověď?“",
-        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• (Nepočítá se to, pokud splníte úkol v rámci dobrodružství.)<br>• Řešení najdete na kartě O01, uprostřed."
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O01, uprostřed."
       ],
       "cardCode": "N14",
       "slug": "hadankar_kraj",
@@ -487,7 +488,6 @@
       "resolution": {
         "prompt": "Uhodli jste?",
         "reveal": "Ukázat řešení",
-        "note": "Nepočítá se to, pokud splníte úkol v rámci dobrodružství.",
         "options": [
           {
             "id": "uhodli",
@@ -599,13 +599,14 @@
         "Hádankář",
         "„Potkali jste ženu, která má pro vás hádanku:",
         "‚Kdybych byla živá, neunesla bych tolik jako teď. Uvnitř jsem sice dutá, ale často plná života a mnohdy i dobrého jídla. Ačkoliv jsem obtěžkána, neklesám dolů. Co jsem?‘",
-        "Uhodnete správnou odpověď?“"
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O03, vlevo uprostřed."
       ],
       "cardCode": "N17",
       "slug": "hadankar_neuplna",
       "answer": {
         "text": "Loď",
-        "printedOn": "O04"
+        "printedOn": "O03"
       },
       "resolution": {
         "prompt": "Uhodli jste?",
@@ -641,11 +642,12 @@
         "Hádankář",
         "„Potkali jste cizince, který má pro vás hádanku:",
         "‚Každý mne má, ať už živý nebo ne. Člověk i zvíře. Květina i strom. Skála i Měsíc. Točím se za vším jako Slunce. Můžeš se mě na čas zbavit, ale vždy se k tobě vrátím. Co jsem?‘",
-        "Uhodnete správnou odpověď?“"
+        "Uhodnete správnou odpověď?“",
+        "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, vpravo nahoře."
       ],
       "answer": {
         "text": "Stín",
-        "printedOn": null
+        "printedOn": "O02"
       },
       "resolution": {
         "prompt": "Uhodli jste?",

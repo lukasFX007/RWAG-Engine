@@ -2,8 +2,8 @@
   "id": "card_G13",
   "cardCode": "G13",
   "text": [
-    "Jarek se usmál od ucha k uchu a odhalil dásně postrádající spoustu zubů. „Jé! To je moje píšťalka! Děkuju moc! 😊 Můžu si s ní pšivolat svýho pejska. A vy mi zatím plosím spočítejte ty ovce.“",
     "Vrátili jste Jarkovi jeho ztracenou píšťalku. Radši jste mu řekli, že jste ji našli cestou, když jste šli od Troskovic sem. Nechtěli jste tomu neznámému muži z Nebákova ještě víc zhoršit reputaci tím, že byste o něm rozhlašovali, že krade. Už takhle to vypadá, že je v problémech. A vy nevíte, jestli jeho pomoc náhodou nebudete ještě potřebovat.",
+    "Jarek se usmál od ucha k uchu a odhalil dásně postrádající spoustu zubů. „Jé! To je moje píšťalka! Děkuju moc! 😊 Můžu si s ní pšivolat svýho pejska. A vy mi zatím plosím spočítejte ty ovce.“",
     "Na kartě je dále uvedeno:<br>• Kartu s píšťalkou vraťte do balíčku."
   ],
   "effects": [
@@ -20,15 +20,11 @@
   ],
   "choices": [
     {
-      "icon": "priroda",
-      "text": "Úkol: Spočítejte ovce v ohradě",
-      "goto": "card_G14",
-      "quest": {
-        "id": "q_G13_0",
-        "kind": "nature",
-        "text": "Spočítejte ovce v ohradě",
-        "completedAt": "card_G14"
-      }
+      "icon": "stopy",
+      "text": "Vrátit se k Jarkovi a k ovcím",
+      "goto": "card_G18",
+      "revisit": true,
+      "note": "Karta G13 končí a vrací se na G18 (potvrzeno autorem)."
     }
   ]
 }

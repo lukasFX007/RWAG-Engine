@@ -16,6 +16,11 @@
         "text": "Dojděte ke kříži",
         "completedAt": "card_H12"
       }
+    },
+    {
+      "icon": "lupa",
+      "text": "Ihned si prohlédněte svitek",
+      "goto": "card_H11"
     }
   ]
 }

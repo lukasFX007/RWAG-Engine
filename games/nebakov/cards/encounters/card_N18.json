@@ -6,11 +6,12 @@
     "Hádankář",
     "„Potkali jste cizince, který má pro vás hádanku:",
     "‚Každý mne má, ať už živý nebo ne. Člověk i zvíře. Květina i strom. Skála i Měsíc. Točím se za vším jako Slunce. Můžeš se mě na čas zbavit, ale vždy se k tobě vrátím. Co jsem?‘",
-    "Uhodnete správnou odpověď?“"
+    "Uhodnete správnou odpověď?“",
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O02, vpravo nahoře."
   ],
   "answer": {
     "text": "Stín",
-    "printedOn": null
+    "printedOn": "O02"
   },
   "resolution": {
     "prompt": "Uhodli jste?",

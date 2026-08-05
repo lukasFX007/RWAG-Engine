@@ -45,7 +45,13 @@
           "goto": "card_B06"
         }
       ],
-      "cardCode": "B11"
+      "cardCode": "B11",
+      "progress": {
+        "kind": "acknowledge",
+        "text": "Ten, jehož rolí je Pacifista, je od zbytku skupiny vzdálený alespoň 20 kroků.",
+        "action": "Pacifista je dost daleko",
+        "note": "Pacifistovi se dělá zle při pohledu na krev — musí odejít, než se skupina pustí do ohledávání."
+      }
     },
     {
       "id": "card_C01",
@@ -110,7 +116,9 @@
     {
       "id": "card_C04",
       "image": "lipa01.jpg",
-      "text": "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže muž náhle otevřel oči a chytil ho za zápěstí. Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá, zasípal.",
+      "text": [
+        "Jeden z vás natáhl ruku k jeho tašvici. Ve chvíli, kdy se dotkl jeho paže, muž náhle otevřel oči a chytil ho za zápěstí. „Jestli chceš obírat mrtvolu… přesvědč se, že je skutečně mrtvá,“ zasípal. 😡 Poté zakašlal a z koutku úst mu vyšel pramínek krve. „Tak do toho, … stejně už mi moc života … nezbývá,“ dodal, sevření povolilo a opět se opřel o kmen lípy."
+      ],
       "effects": [
         {
           "type": "reputation",
@@ -145,7 +153,9 @@
     {
       "id": "card_C05",
       "image": "lipa02.jpg",
-      "text": "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve.",
+      "text": [
+        "Jeden z vás k němu poklekl a prohlíží si ho zblízka. Při bližším zkoumání si všiml, že ten člověk dýchá, ač nepravidelně. Vzal ho za rameno a zatřásl s ním. Muž náhle otevřel oči, zakašlal a z koutku úst mu vyšel pramínek krve. „Prosím, pomozte mi, jste-li dobří,“ řekl. Poté oči zavřel a polohlasem dodal: „To je bolest. To je bolest!“"
+      ],
       "choices": [
         {
           "icon": "stopy",
@@ -170,7 +180,11 @@
     {
       "id": "card_C06",
       "image": "lipa02.jpg",
-      "text": "Mužova tvář se kroutí bolestí. Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete zbavit ho trápení jednou provždy?",
+      "text": [
+        "Mužova tvář se kroutí bolestí. Od té zpravidla pomáhá apatykář, nebo kat. Když navíc vezmete v úvahu četná zranění, je vám jasné, že mu už opravdu moc času nezbývá.",
+        "Apatykáře mezi sebou sice nemáte, ale možná by se dalo něco vymyslet. A koneckonců, roli kata by mohl zastat kdokoliv z vás.",
+        "Zkusíte mu sehnat něco na utišení bolesti? Nebo se rozhodnete, že lepší bude udělat to postaru a zbavit ho trápení jednou pro vždy?"
+      ],
       "choices": [
         {
           "icon": "mozek",
@@ -238,7 +252,7 @@
         "Reputace je číslo v horní liště. Roste a klesá podle toho, jak se ke kraji a jeho lidem chováte. Některé volby se podle ní otevírají a jiné zamykají — u zamčené volby je vždycky vidět, co by bylo potřeba.",
         "😊 znamená zvýšení, 😡 pokles. Dvě tváře znamenají dva body.",
         "Náhodná setkání (⏳) hra vytáhne sama. Vyhodnoťte je na místě: karta se zeptá, jak to dopadlo, a vy odpovíte. Aplikace vám věří — ví jen to, co jí řeknete.",
-        "Co nesete najdete pod batohem v horní liště: zvací dopis, mapy, stránky herbáře a co dalšího po cestě získáte. Mapa je odsud vždycky na dvě klepnutí."
+        "Co nesete najdete pod batohem v horní liště: zvací dopis a mapu máte od začátku, další předměty získáte po cestě. Poslední získaná mapa je odsud vždycky na dvě klepnutí."
       ],
       "choices": [],
       "todo": "Přepsáno pro digitální verzi (Q25a). Původní tištěný text zůstává v poli printedText. Znění je můj návrh — projděte ho prosím v druhém dotazníku.",
@@ -695,8 +709,7 @@
       "cardCode": "B04",
       "text": [
         "Ve stínu vysokého stromu postává starší pohublý muž v ošuntělých hadrech. V ruce drží hůl a přes rameno má tlumok se svitky.",
-        "Gestem naznačuje, ať přijdete blíž.",
-        "„Zdravím vás, dobří lidé. Žel, po delší době jsem byl donucen opustit svou jeskyni v Apoleně. Strávil jsem tam mnoho let. Studoval jsem byliny a trávil čas přípravou mastí a léčivých odvarů. Rozhodl jsem se, že se o své nabyté vědomosti budu dělit s ostatními. …“"
+        "Gestem naznačuje, ať přijdete blíž."
       ],
       "choices": [
         {
@@ -747,7 +760,7 @@
       "id": "card_B07",
       "cardCode": "B07",
       "text": [
-        "„… ostatními. Už mám svá léta a můj čas se blíží. Prosím, vezměte si něco málo z mých znalostí. A máte-li dobrou pověst, klidně i víc.“",
+        "„Zdravím vás dobří lidé. Žel, po delší době jsem byl donucen opustit svou jeskyni v Apoleně. Strávil jsem tam mnoho let. Studoval jsem byliny a trávil čas přípravou mastí a léčivých odvarů. Rozhodl jsem se, že se o své nabyté vědomosti budu dělit s ostatními. Už mám svá léta a můj čas se blíží. Prosím, vezměte si něco málo z mých znalostí. A máte-li dobrou pověst, klidně i víc.“",
         "Na kartě je dále uvedeno:<br>• 🌿 Výhoda [😊]: Smíte si náhodně vybrat až 4 další, každou výměnou za 1 pozitivní reputaci."
       ],
       "choices": [
@@ -973,8 +986,8 @@
       "id": "card_C09",
       "cardCode": "C09",
       "text": [
-        "„Děkuji, šlechetní pánové, … ale těch pár bylin … mě stejně nezachrání. … Neztrácejte tu čas … s mrtvolou.“",
-        "Po chvíli hledání se vám podařilo sehnat něco na tišení bolesti. Když jste se vrátili k lípě, zraněný mělce oddychoval a spal. Jeho tvář viditelně pobledla. Probrali jste ho lehkým zatřesením a podali mu lék. Muž polknul, zakašlal a poté promluvil. Jeho slova byla prokládaná hlubokými nádechy."
+        "Po chvíli hledání se vám podařilo sehnat něco na tišení bolesti. Když jste se vrátili k lípě, zraněný mělce oddychoval a spal. Jeho tvář viditelně pobledla. Probrali jste ho lehkým zatřesením a podali mu lék. Muž polknul, zakašlal a poté promluvil. Jeho slova byla prokládaná hlubokými nádechy.",
+        "„Děkuji, šlechetní pánové, … ale těch pár bylin … mě stejně nezachrání. … Neztrácejte tu čas … s mrtvolou.“"
       ],
       "choices": [
         {
@@ -1050,8 +1063,7 @@
             }
           }
         }
-      ],
-      "todo": "Text karty potvrzen autorem (Q15a). Původně sem byl přiřazen text „Ještě než ten chudák vydechl naposledy…“, který podle autora patří na C16 – jenže C16 už nese jiný text. Kam přesně patří, ověřuje druhý dotazník."
+      ]
     },
     {
       "id": "card_C13",
@@ -1091,12 +1103,22 @@
     {
       "id": "card_C14",
       "cardCode": "C14",
-      "text": "Prohlédli jste tašvici toho nebožáka. Obsahovala pár grošů, mapu a list s nahrubo načrtnutým portrétem nějakého muže. Kresba je provedena černým uhlem. Jen kámen, který mu visí na krku, je výrazně modrý.",
+      "text": [
+        "Prohlédli jste tašvici toho nebožáka. Obsahovala pár grošů, mapu a list s nahrubo načrtnutým portrétem nějakého muže. Kresba je provedena černým uhlem. Jen kámen, který mu visí na krku, je výrazně modrý.",
+        "Netušíte, zda je to ten záhadný cizinec, o kterém se píše v dopise, ale je to vaše jediná stopa, a tudíž i jediná naděje. Takže teď už jen zbývá ho najít. Kde ale začít?",
+        "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 02“."
+      ],
       "choices": [
         {
           "icon": "stopy",
           "text": "Pokračujte kartou C16",
           "goto": "card_C16"
+        }
+      ],
+      "effects": [
+        {
+          "type": "item",
+          "item": "mapa02"
         }
       ]
     },
@@ -1143,20 +1165,15 @@
       "id": "card_C16",
       "cardCode": "C16",
       "text": [
-        "Netušíte, zda je to ten záhadný cizinec, o kterém se píše v dopise, ale je to vaše jediná stopa, a tudíž i jediná naděje. Takže teď už jen zbývá ho najít. Kde ale začít?",
-        "Na kartě je dále uvedeno:<br>• 🔍 Vezměte si mapu v obálce označené „Mapa 02“.<br>• ⏳ Událost: Povedou-li vaše kroky na vámi vybrané „správné místo“ přes rozcestí označené „Troskovice – Křenovy“, zastavte se tam a vyhodnoťte náhodné setkání (⏳)."
+        "Ještě než ten chudák vydechl naposledy, vám něco stihl sdělit. Společně teď zvažujete, co tím asi myslel. Má vás to snad nasměrovat správným směrem? Jak rádi byste mu teď položili spoustu otázek.",
+        "Bohužel vám toho už víc nepoví. A tak musíte pracovat s tím, co víte, rozhodnout se a vyrazit na cestu, pryč z tohohle smutného místa.",
+        "Na kartě je dále uvedeno:<br>• ⏳ Událost: Povedou-li vaše kroky na vámi vybrané „správné místo“ přes rozcestí označené „Troskovice – Křenovy“, zastavte se tam a vyhodnoťte náhodné setkání (⏳)."
       ],
       "choices": [
         {
           "icon": "mozek",
           "text": "Až budete rozhodnutí, že jste na správném místě",
           "goto": "card_C24"
-        }
-      ],
-      "effects": [
-        {
-          "type": "item",
-          "item": "mapa02"
         }
       ]
     },
@@ -1458,7 +1475,13 @@
             }
           }
         }
-      ]
+      ],
+      "progress": {
+        "kind": "encounter",
+        "deck": "N",
+        "text": "Vyhodnoťte náhodné setkání (⏳), než budete pokračovat.",
+        "action": "Vyhodnotit setkání"
+      }
     },
     {
       "id": "card_D01",
@@ -1813,8 +1836,9 @@
       "id": "card_E03",
       "cardCode": "E03",
       "text": [
-        "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle.<br>Výraz hospodského se náhle změnil. Přívětivě se na vás usmál a řekl: „Tak se mi to líbí! Běžte se posadit, přátelé. Hned vám to přinesu.“ 😊",
-        "Během chvíle byl zpět se vším, co jste si objednali."
+        "Výraz hospodského se náhle změnil. Přívětivě se na vás usmál a řekl: „Tak se mi to líbí! Běžte se posadit, přátelé. Hned vám to přinesu.“ 😊",
+        "Během chvíle byl zpět se vším, co jste si objednali.",
+        "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle."
       ],
       "effects": [
         {
@@ -1903,8 +1927,9 @@
       "id": "card_E06",
       "cardCode": "E06",
       "text": [
-        "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle.<br>Výraz hospodského se lehce změnil. Nasadil něco jako úsměv a řekl: „Tak přece víte, jak se chovat v hospodě. Běžte se posadit, hned vám to přinesu.“",
-        "Během chvíle byl zpět se vším, co jste si objednali."
+        "Výraz hospodského se lehce změnil. Nasadil něco jako úsměv a řekl: „Tak přece víte, jak se chovat v hospodě. Běžte se posadit, hned vám to přinesu.“",
+        "Během chvíle byl zpět se vším, co jste si objednali.",
+        "Teď nastal čas, abyste vstřebali vše, co jste doteď prožili, a užili si společně příjemné chvíle."
       ],
       "choices": [
         {
@@ -2004,8 +2029,8 @@
       "id": "card_F03",
       "cardCode": "F03",
       "text": [
-        "Kostkář: „No výborně. Tak uvidíme, jestli vám to půjde líp než jemu včera. A co říkáte? Okořeníme si tu hru sázkou, nebo si zahrajeme jen tak?“",
-        "Škoda, že jste s tím dopředu nepočítali a svoje „speciální“ kostky nechali doma. Budete muset hrát s těmi, které vám půjčí hospodský. Snad nebudou vychýlené na tu druhou stranu."
+        "Škoda, že jste s tím dopředu nepočítali a svoje „speciální“ kostky nechali doma. Budete muset hrát s těmi, které vám půjčí hospodský. Snad nebudou vychýlené na tu druhou stranu.",
+        "Kostkář: „No výborně. Tak uvidíme, jestli vám to půjde líp než jemu včera. A co říkáte? Okořeníme si tu hru sázkou, nebo si zahrajeme jen tak?“"
       ],
       "choices": [
         {
@@ -2064,7 +2089,7 @@
       "id": "card_F06",
       "cardCode": "F06",
       "text": [
-        "Kostkář: „Haha! 😊 Tak nevím, jestli byste měli větší šanci než včera on. Ale protože jste hráli férově, dám vám tohle.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale vy to štěstí potřebujete víc. A třeba vám pomůže při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+        "Kostkář: „Taková smůla! Ještě, že to nebylo o peníze! To jediné mě zachránilo. Tohle vám dám.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale jak vidno, nefunguje. Alespoň ne při hře v kostky. Snad vám přinese štěstí při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
         "Na kartě je dále uvedeno:<br>• Kartu F06 si ponechte."
       ],
       "effects": [
@@ -2150,7 +2175,7 @@
       "id": "card_F10",
       "cardCode": "F10",
       "text": [
-        "Kostkář: „Taková smůla! Ještě, že to nebylo o peníze! To jediné mě zachránilo. Tohle vám dám.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale jak vidno, nefunguje. Alespoň ne při hře v kostky. Snad vám přinese štěstí při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
+        "Kostkář: „Haha! 😊 Tak nevím, jestli byste měli větší šanci než včera on. Ale protože jste hráli férově, dám vám tohle.“ Podal vám dřevěnou píšťalku. „Vypadla mu z kapsy, když vstával od stolu. Chtěl jsem si ji nechat jako talisman pro štěstí, ale vy to štěstí potřebujete víc. A třeba vám pomůže při hledání toho chlapíka. A teď už běžte za tím hospodským, jistě vám má ještě co říct.“",
         "Na kartě je dále uvedeno:<br>• Kartu F10 si ponechte."
       ],
       "choices": [
@@ -2196,8 +2221,7 @@
       "cardCode": "F12",
       "text": [
         "Hospodský: „Kde byste asi tak mohli najít Jarka z Tachova?“ zeptal se jízlivě. Na chvíli se vzorově zamyslel a potom pokračoval: „Možná v Tachově, co myslíte?“ Od srdce se rozesmál, ale váš nechápavý výraz nejspíš vypověděl za vše. Hned proto dodal: „Aha. No, půjdete vodsuď na západ a pak na sever. Hlavní povede rovně, ale vy se dáte doleva. Vohrada je u vodbočky, co vede ke křížku svatýho Jána. To nemůžete minout. Prostě půjdete za zvukem. A smradem vovcí. Hehe.“",
-        "Váš další cíl je tímto daný – rozcestí u ohrady s ovcemi v Tachově.",
-        "Na kartě je dále uvedeno:<br>• ⏳ Událost: Opustíte Troskovice ➤ ⏳"
+        "Váš další cíl je tímto daný – rozcestí u ohrady s ovcemi v Tachově."
       ],
       "choices": [
         {
@@ -2212,7 +2236,8 @@
       "cardCode": "F13",
       "text": [
         "Váš další cíl je tedy jasný – najít Tachov a rozcestí u ohrady s ovcemi. A tam potom vyhledat pasáčka Jarka. Snad vám řekne, kam ten záhadný cizinec po potyčce s ním odešel, a možná i co je zač.",
-        "Škoda, že moc neznáte zdejší kraj. V mapě, kterou máte k dispozici, je více míst s ovcemi, ale žádný Tachov. Třeba se vám nějak povede najít to správné místo. A při nejhorším se zeptáte místních. Je lepší trocha ostudy, než tu bloudit až do setmění."
+        "Škoda, že moc neznáte zdejší kraj. V mapě, kterou máte k dispozici, je více míst s ovcemi, ale žádný Tachov. Třeba se vám nějak povede najít to správné místo. A při nejhorším se zeptáte místních. Je lepší trocha ostudy, než tu bloudit až do setmění.",
+        "Na kartě je dále uvedeno:<br>• ⏳ Událost: Opustíte Troskovice ➤ ⏳"
       ],
       "choices": [
         {
@@ -2404,8 +2429,7 @@
       "id": "card_G08",
       "cardCode": "G08",
       "text": [
-        "Jarek: „Tak to vážně netuším. Když sem ho viděl naposledy, stál tam na tom pažezu.“ Ukázal na pařez za druhou stranou ohrady. Koukal se tím směrem a vyprávěl to s takovým přesvědčením, jako by ho tam pořád viděl. „Hulákal na mě a takhle mi hlozil pěstí.“ Při tom zatnul ruku v pěst a pohrozil směrem k pařezu. „Pak uklouznul, nebo co, skutálel se smělem k vodopádu a zmizel.“",
-        "Na chvíli se zamyslel a potom pokračoval: „No, a když mi teď pomůžete, poladím vám, kudy se dá bezpečně dostat k vodopádu.“"
+        "Jarek: „Tak to vážně netuším. Když sem ho viděl naposledy, stál tam na tom pažezu.“ Ukázal na pařez za druhou stranou ohrady. Koukal se tím směrem a vyprávěl to s takovým přesvědčením, jako by ho tam pořád viděl. „Hulákal na mě a takhle mi hlozil pěstí.“ Při tom zatnul ruku v pěst a pohrozil směrem k pařezu. „Pak uklouznul, nebo co, skutálel se smělem k vodopádu a zmizel.“"
       ],
       "choices": [
         {
@@ -2454,12 +2478,262 @@
           "goto": "card_G12"
         }
       ],
-      "todo": "Rozdělení dvojice karet G10 / G11 mezi G08 (vlídná varianta) a G09 (nevlídná varianta) je rekonstruované – ověřte proti originálu."
+      "todo": "Autor ve druhém dotazníku uvedl, že tahle volba míří na G10 — jenže v prvním dotazníku (Q17a) potvrdil párování G08→G10, G09→G11, a při G09→G10 se na G11 nedá vůbec dostat. Ponecháno podle prvního dotazníku, k rozhodnutí autora."
     },
     {
       "id": "card_G10",
       "cardCode": "G10",
-      "text": "Jarek: „No jo, ten kámen sem po něm hodil. Ale minul sem. Oplavdu! Aspoň teda myslím… To víte, už sem stalej dědek a zlak mi neslouží tak jako džív. Hele, podívejte se, když budete mít kliku, bude si u vodopádu lízat lány a nebo dospávat kocovinu.“",
+      "text": [
+        "J",
+        "a",
+        "r",
+        "e",
+        "k",
+        ":",
+        " ",
+        "„",
+        "N",
+        "o",
+        " ",
+        "j",
+        "o",
+        ",",
+        " ",
+        "t",
+        "e",
+        "n",
+        " ",
+        "k",
+        "á",
+        "m",
+        "e",
+        "n",
+        " ",
+        "s",
+        "e",
+        "m",
+        " ",
+        "p",
+        "o",
+        " ",
+        "n",
+        "ě",
+        "m",
+        " ",
+        "h",
+        "o",
+        "d",
+        "i",
+        "l",
+        ".",
+        " ",
+        "A",
+        "l",
+        "e",
+        " ",
+        "m",
+        "i",
+        "n",
+        "u",
+        "l",
+        " ",
+        "s",
+        "e",
+        "m",
+        ".",
+        " ",
+        "O",
+        "p",
+        "l",
+        "a",
+        "v",
+        "d",
+        "u",
+        "!",
+        " ",
+        "A",
+        "s",
+        "p",
+        "o",
+        "ň",
+        " ",
+        "t",
+        "e",
+        "d",
+        "a",
+        " ",
+        "m",
+        "y",
+        "s",
+        "l",
+        "í",
+        "m",
+        "…",
+        " ",
+        "T",
+        "o",
+        " ",
+        "v",
+        "í",
+        "t",
+        "e",
+        ",",
+        " ",
+        "u",
+        "ž",
+        " ",
+        "s",
+        "e",
+        "m",
+        " ",
+        "s",
+        "t",
+        "a",
+        "l",
+        "e",
+        "j",
+        " ",
+        "d",
+        "ě",
+        "d",
+        "e",
+        "k",
+        " ",
+        "a",
+        " ",
+        "z",
+        "l",
+        "a",
+        "k",
+        " ",
+        "m",
+        "i",
+        " ",
+        "n",
+        "e",
+        "s",
+        "l",
+        "o",
+        "u",
+        "ž",
+        "í",
+        " ",
+        "t",
+        "a",
+        "k",
+        " ",
+        "j",
+        "a",
+        "k",
+        "o",
+        " ",
+        "d",
+        "ž",
+        "í",
+        "v",
+        ".",
+        " ",
+        "H",
+        "e",
+        "l",
+        "e",
+        ",",
+        " ",
+        "p",
+        "o",
+        "d",
+        "í",
+        "v",
+        "e",
+        "j",
+        "t",
+        "e",
+        " ",
+        "s",
+        "e",
+        ",",
+        " ",
+        "k",
+        "d",
+        "y",
+        "ž",
+        " ",
+        "b",
+        "u",
+        "d",
+        "e",
+        "t",
+        "e",
+        " ",
+        "m",
+        "í",
+        "t",
+        " ",
+        "k",
+        "l",
+        "i",
+        "k",
+        "u",
+        ",",
+        " ",
+        "b",
+        "u",
+        "d",
+        "e",
+        " ",
+        "s",
+        "i",
+        " ",
+        "u",
+        " ",
+        "v",
+        "o",
+        "d",
+        "o",
+        "p",
+        "á",
+        "d",
+        "u",
+        " ",
+        "l",
+        "í",
+        "z",
+        "a",
+        "t",
+        " ",
+        "l",
+        "á",
+        "n",
+        "y",
+        " ",
+        "a",
+        " ",
+        "n",
+        "e",
+        "b",
+        "o",
+        " ",
+        "d",
+        "o",
+        "s",
+        "p",
+        "á",
+        "v",
+        "a",
+        "t",
+        " ",
+        "k",
+        "o",
+        "c",
+        "o",
+        "v",
+        "i",
+        "n",
+        "u",
+        ".",
+        "“",
+        "Na chvíli se zamyslel a potom pokračoval: „No, a když mi teď pomůžete, poladím vám, kudy se dá bezpečně dostat k vodopádu.“"
+      ],
       "choices": [
         {
           "icon": "koruna",
@@ -2476,7 +2750,265 @@
     {
       "id": "card_G11",
       "cardCode": "G11",
-      "text": "Jarek: „No jo, ten kámen sem po něm hodil. Ale minul sem. Bohužel. Aspoň teda myslím… Holt už sem stalej dědek a zlak mi neslouží tak jako džív. Hele, co se stalo, stalo se. Já nevím, ploč bych se zlovna vám měl zpovídat. Najděte ho a zeptejte se ho sami.“",
+      "text": [
+        "J",
+        "a",
+        "r",
+        "e",
+        "k",
+        ":",
+        " ",
+        "„",
+        "N",
+        "o",
+        " ",
+        "j",
+        "o",
+        ",",
+        " ",
+        "t",
+        "e",
+        "n",
+        " ",
+        "k",
+        "á",
+        "m",
+        "e",
+        "n",
+        " ",
+        "s",
+        "e",
+        "m",
+        " ",
+        "p",
+        "o",
+        " ",
+        "n",
+        "ě",
+        "m",
+        " ",
+        "h",
+        "o",
+        "d",
+        "i",
+        "l",
+        ".",
+        " ",
+        "A",
+        "l",
+        "e",
+        " ",
+        "m",
+        "i",
+        "n",
+        "u",
+        "l",
+        " ",
+        "s",
+        "e",
+        "m",
+        ".",
+        " ",
+        "B",
+        "o",
+        "h",
+        "u",
+        "ž",
+        "e",
+        "l",
+        ".",
+        " ",
+        "A",
+        "s",
+        "p",
+        "o",
+        "ň",
+        " ",
+        "t",
+        "e",
+        "d",
+        "a",
+        " ",
+        "m",
+        "y",
+        "s",
+        "l",
+        "í",
+        "m",
+        "…",
+        " ",
+        "H",
+        "o",
+        "l",
+        "t",
+        " ",
+        "u",
+        "ž",
+        " ",
+        "s",
+        "e",
+        "m",
+        " ",
+        "s",
+        "t",
+        "a",
+        "l",
+        "e",
+        "j",
+        " ",
+        "d",
+        "ě",
+        "d",
+        "e",
+        "k",
+        " ",
+        "a",
+        " ",
+        "z",
+        "l",
+        "a",
+        "k",
+        " ",
+        "m",
+        "i",
+        " ",
+        "n",
+        "e",
+        "s",
+        "l",
+        "o",
+        "u",
+        "ž",
+        "í",
+        " ",
+        "t",
+        "a",
+        "k",
+        " ",
+        "j",
+        "a",
+        "k",
+        "o",
+        " ",
+        "d",
+        "ž",
+        "í",
+        "v",
+        ".",
+        " ",
+        "H",
+        "e",
+        "l",
+        "e",
+        ",",
+        " ",
+        "c",
+        "o",
+        " ",
+        "s",
+        "e",
+        " ",
+        "s",
+        "t",
+        "a",
+        "l",
+        "o",
+        ",",
+        " ",
+        "s",
+        "t",
+        "a",
+        "l",
+        "o",
+        " ",
+        "s",
+        "e",
+        ".",
+        " ",
+        "J",
+        "á",
+        " ",
+        "n",
+        "e",
+        "v",
+        "í",
+        "m",
+        ",",
+        " ",
+        "p",
+        "l",
+        "o",
+        "č",
+        " ",
+        "b",
+        "y",
+        "c",
+        "h",
+        " ",
+        "s",
+        "e",
+        " ",
+        "z",
+        "l",
+        "o",
+        "v",
+        "n",
+        "a",
+        " ",
+        "v",
+        "á",
+        "m",
+        " ",
+        "m",
+        "ě",
+        "l",
+        " ",
+        "z",
+        "p",
+        "o",
+        "v",
+        "í",
+        "d",
+        "a",
+        "t",
+        ".",
+        " ",
+        "N",
+        "a",
+        "j",
+        "d",
+        "ě",
+        "t",
+        "e",
+        " ",
+        "h",
+        "o",
+        " ",
+        "a",
+        " ",
+        "z",
+        "e",
+        "p",
+        "t",
+        "e",
+        "j",
+        "t",
+        "e",
+        " ",
+        "s",
+        "e",
+        " ",
+        "h",
+        "o",
+        " ",
+        "s",
+        "a",
+        "m",
+        "i",
+        ".",
+        "“",
+        "A pak dodal: „Když budete mít kliku, čeba ho tam ještě někde potkáte. Beztak si bude u vodopádu lízal lány a nebo dospávat kocovinu.“"
+      ],
       "choices": [
         {
           "icon": "koruna",
@@ -2532,8 +3064,8 @@
       "id": "card_G13",
       "cardCode": "G13",
       "text": [
-        "Jarek se usmál od ucha k uchu a odhalil dásně postrádající spoustu zubů. „Jé! To je moje píšťalka! Děkuju moc! 😊 Můžu si s ní pšivolat svýho pejska. A vy mi zatím plosím spočítejte ty ovce.“",
         "Vrátili jste Jarkovi jeho ztracenou píšťalku. Radši jste mu řekli, že jste ji našli cestou, když jste šli od Troskovic sem. Nechtěli jste tomu neznámému muži z Nebákova ještě víc zhoršit reputaci tím, že byste o něm rozhlašovali, že krade. Už takhle to vypadá, že je v problémech. A vy nevíte, jestli jeho pomoc náhodou nebudete ještě potřebovat.",
+        "Jarek se usmál od ucha k uchu a odhalil dásně postrádající spoustu zubů. „Jé! To je moje píšťalka! Děkuju moc! 😊 Můžu si s ní pšivolat svýho pejska. A vy mi zatím plosím spočítejte ty ovce.“",
         "Na kartě je dále uvedeno:<br>• Kartu s píšťalkou vraťte do balíčku."
       ],
       "effects": [
@@ -2550,15 +3082,11 @@
       ],
       "choices": [
         {
-          "icon": "priroda",
-          "text": "Úkol: Spočítejte ovce v ohradě",
-          "goto": "card_G14",
-          "quest": {
-            "id": "q_G13_0",
-            "kind": "nature",
-            "text": "Spočítejte ovce v ohradě",
-            "completedAt": "card_G14"
-          }
+          "icon": "stopy",
+          "text": "Vrátit se k Jarkovi a k ovcím",
+          "goto": "card_G18",
+          "revisit": true,
+          "note": "Karta G13 končí a vrací se na G18 (potvrzeno autorem)."
         }
       ]
     },
@@ -3132,6 +3660,11 @@
             "text": "Dojděte ke kříži",
             "completedAt": "card_H12"
           }
+        },
+        {
+          "icon": "lupa",
+          "text": "Ihned si prohlédněte svitek",
+          "goto": "card_H11"
         }
       ]
     },
@@ -3182,9 +3715,15 @@
           }
         },
         {
-          "icon": "lupa",
-          "text": "Ihned si prohlédněte svitek",
-          "goto": "card_H11"
+          "icon": "stopy",
+          "text": "Úkol: Dojděte do Troskovic",
+          "goto": "card_H15",
+          "quest": {
+            "id": "q_H10_1",
+            "kind": "travel",
+            "text": "Dojděte do Troskovic",
+            "completedAt": "card_H15"
+          }
         }
       ]
     },

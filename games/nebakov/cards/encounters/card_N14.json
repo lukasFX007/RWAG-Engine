@@ -5,7 +5,7 @@
     "„Potkali jste cizince, který má pro vás hádanku:",
     "‚Mám města, ale žádné zlato. Mám domy, ale žádné lidi. Mám lesy, ale žádnou zvěř. Mám vodu, ale žádné ryby. Co jsem?‘",
     "Uhodnete správnou odpověď?“",
-    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• (Nepočítá se to, pokud splníte úkol v rámci dobrodružství.)<br>• Řešení najdete na kartě O01, uprostřed."
+    "Na kartě je dále uvedeno:<br>• Odměna: 😊<br>• Řešení najdete na kartě O01, uprostřed."
   ],
   "cardCode": "N14",
   "slug": "hadankar_kraj",
@@ -16,7 +16,6 @@
   "resolution": {
     "prompt": "Uhodli jste?",
     "reveal": "Ukázat řešení",
-    "note": "Nepočítá se to, pokud splníte úkol v rámci dobrodružství.",
     "options": [
       {
         "id": "uhodli",

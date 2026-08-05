@@ -8,5 +8,11 @@
       "goto": "card_B06"
     }
   ],
-  "cardCode": "B11"
+  "cardCode": "B11",
+  "progress": {
+    "kind": "acknowledge",
+    "text": "Ten, jehož rolí je Pacifista, je od zbytku skupiny vzdálený alespoň 20 kroků.",
+    "action": "Pacifista je dost daleko",
+    "note": "Pacifistovi se dělá zle při pohledu na krev — musí odejít, než se skupina pustí do ohledávání."
+  }
 }
