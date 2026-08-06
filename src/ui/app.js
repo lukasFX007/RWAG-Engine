@@ -246,6 +246,14 @@ export function createApp({
     game.pristine = structuredClone(game.scenario);
     records = overrides.list(entry.id);
     const overrideResult = applyOverrides(game.scenario, records);
+    // A rewrite whose base no longer matches but whose value already does was
+    // adopted some other way — a later build, most often. There is nothing to
+    // apply and nothing to ask about, so it is dropped from storage right here
+    // rather than sitting forever next to whatever the author writes next.
+    if (overrideResult.resolved.length) {
+      for (const record of overrideResult.resolved) overrides.remove(entry.id, record);
+      records = overrides.list(entry.id);
+    }
     staleRecords = overrideResult.stale;
     if (staleRecords.length) {
       messages.push([{

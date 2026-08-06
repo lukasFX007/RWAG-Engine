@@ -29,8 +29,7 @@ import {
   sameText,
   toEditorText,
 } from "../src/platform/overrides.js";
-import { cardView } from "../src/ui/view.js";
-import { overridesView } from "../src/ui/view.js";
+import { cardView, editedFieldsOf, overridesView } from "../src/ui/view.js";
 
 function scenario() {
   return {
@@ -163,9 +162,25 @@ test("applyOverrides roztřídí použité, zastaralé a chybějící", () => {
 
   const result = applyOverrides(data, [good, stale, missing]);
   assert.equal(result.applied.length, 1);
+  assert.equal(result.resolved.length, 0);
   assert.equal(result.stale.length, 1);
   assert.equal(result.missing.length, 1);
   assert.equal(result.stale[0].current, "jednoduchý text", "u zastaralého se nese i aktuální text");
+});
+
+test("přepis, který mezitím dostal přesně to, co chtěl, se tiše vyřeší", () => {
+  const data = scenario();
+  // the base no longer matches — something else rewrote the field — but the
+  // current text happens to already say exactly what the rewrite wanted
+  const record = makeRecord({ cardId: "b", field: "text", value: ["jednoduchý text"], base: ["stará verze"] });
+
+  assert.equal(applyRecord(data, record), "resolved");
+  assert.equal(data.scenes[1].text, "jednoduchý text", "nic se nemuselo měnit");
+
+  const result = applyOverrides(data, [record]);
+  assert.equal(result.resolved.length, 1);
+  assert.equal(result.stale.length, 0, "vyřešené není totéž jako zastaralé");
+  assert.equal(result.applied.length, 0);
 });
 
 test("hra na přepsaných datech běží dál normálně", () => {
@@ -267,6 +282,25 @@ test("upravená karta to dá najevo v modelu", () => {
   assert.equal(view.choices[0].edited, false);
 });
 
+test("konfliktní přepis nerozsvítí odznak — text na obrazovce není jeho", () => {
+  const data = scenario();
+  // base does not match (something else changed the card) and the current
+  // text is not the record's value either — a genuine, unresolved conflict
+  const conflict = makeRecord({ cardId: "a", field: "text", value: ["Moje verze."], base: ["Stará verze."] });
+  applyOverrides(data, [conflict]);
+  assert.equal(applyRecord(scenario(), conflict), "stale", "ověření, že je to skutečně konflikt");
+
+  const view = cardView(new Engine(data), { records: [conflict] });
+  assert.equal(view.edited.any, false,
+    "karta nesmí vypadat upraveně, když se zobrazuje text, který ten přepis nikdy nenastavil");
+});
+
+test("editedFieldsOf bez scénáře se chová jako dřív — nemá čím konflikt poznat", () => {
+  const conflict = makeRecord({ cardId: "a", field: "text", value: ["Moje verze."], base: ["Stará verze."] });
+  const view = editedFieldsOf([conflict], "a");
+  assert.equal(view.any, true, "bez scénáře je přítomnost záznamu jediné vodítko");
+});
+
 test("seznam přepisů pozná ten, kterému se změnil originál", () => {
   const pristine = scenario();
   const records = [
@@ -323,6 +357,17 @@ test("zastaralý přepis se nevyexportuje, ale ani neztratí", () => {
   assert.equal(out.stale.length, 1);
   assert.equal(out.stale[0].cardId, "b");
   assert.equal(out.stale[0].current, "jednoduchý text");
+});
+
+test("vyřešený přepis se z exportu úplně ztratí — není co hlásit", () => {
+  const pristine = scenario();
+  // base drifted, but the data already says exactly what the rewrite wanted
+  const records = [makeRecord({ cardId: "b", field: "text", value: ["jednoduchý text"], base: ["stará verze"] })];
+  const out = exportOverrides({ scenarioId: "test", records, scenario: pristine });
+
+  assert.equal(out.count, 0);
+  assert.deepEqual(out.cards, {});
+  assert.deepEqual(out.stale, [], "vyřešené nepatří ani mezi zastaralé");
 });
 
 test("base se počítá proti datům, ne proti předchozí úpravě", () => {

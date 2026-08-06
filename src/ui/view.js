@@ -152,7 +152,7 @@ export function cardView(engine, options = {}) {
 
   const declared = card.choices ?? [];
   const pendingChoiceIndex = engine.pendingTask?.choiceIndex ?? null;
-  const edited = editedFieldsOf(records, card.id);
+  const edited = editedFieldsOf(records, card.id, { scenario: engine.scenario });
   const choices = engine
     .choices({ position })
     .map((annotated) => choiceView(annotated, declared[annotated.index], {
@@ -805,13 +805,26 @@ export function roleRulesView(engine) {
 
 /* ------------------------------------------------------------- text overrides */
 
-/** Which fields of one card the author has rewritten locally. */
-export function editedFieldsOf(records = [], cardId) {
+/**
+ * Which fields of one card the author has rewritten locally.
+ *
+ * "Rewritten" means the edit is actually showing — the live text says what the
+ * record wanted. A record stuck as a conflict (the card changed for some
+ * unrelated reason, so `applyOverrides` never mutated it) is pending review,
+ * not a live edit; the badge this feeds must not claim credit for text it did
+ * not produce. Pass `scenario` to check that; without one, every record for
+ * the card counts, as before — a caller with no scenario handy has no way to
+ * tell the difference.
+ */
+export function editedFieldsOf(records = [], cardId, { scenario = null } = {}) {
   const mine = records.filter((record) => record.cardId === cardId);
+  const live = scenario
+    ? mine.filter((record) => sameText(currentValue(scenario, record), record.value))
+    : mine;
   return {
-    text: mine.some((record) => record.field === "text"),
-    choices: mine.filter((record) => record.field === "choice").map((record) => record.index),
-    any: mine.length > 0,
+    text: live.some((record) => record.field === "text"),
+    choices: live.filter((record) => record.field === "choice").map((record) => record.index),
+    any: live.length > 0,
   };
 }
 

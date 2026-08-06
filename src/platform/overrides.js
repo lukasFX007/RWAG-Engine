@@ -129,34 +129,45 @@ export function currentValue(scenario, record) {
  * so an edit made mid-game shows up on the next redraw without rebuilding the
  * engine or losing the group's position.
  *
- * @returns {"applied"|"stale"|"missing"}
+ * A base that no longer matches splits two ways. If the current text already
+ * says what the rewrite wanted (a later build adopted it, or just landed on
+ * the same words some other way), there is nothing to apply and nothing for
+ * the author to decide — "resolved". Otherwise the field moved on for an
+ * unrelated reason and the rewrite is a genuine "stale" conflict that needs a
+ * human to look at both versions.
+ *
+ * @returns {"applied"|"resolved"|"stale"|"missing"}
  */
 export function applyRecord(scenario, record) {
   const scene = sceneOf(scenario, record.cardId);
   if (!scene) return "missing";
 
   if (record.field === "text") {
-    if (!sameText(scene.text, record.base)) return "stale";
-    scene.text = matchShape(scene.text, toParagraphs(record.value));
-    return "applied";
+    if (sameText(scene.text, record.base)) {
+      scene.text = matchShape(scene.text, toParagraphs(record.value));
+      return "applied";
+    }
+    return sameText(scene.text, record.value) ? "resolved" : "stale";
   }
 
   const choice = scene.choices?.[record.index];
   if (!choice) return "missing";
-  if (!sameText(choice.text, record.base)) return "stale";
-
-  const questText = questTextFor(choice, record.value);
-  choice.text = String(record.value);
-  if (questText) choice.quest.text = questText;
-  return "applied";
+  if (sameText(choice.text, record.base)) {
+    const questText = questTextFor(choice, record.value);
+    choice.text = String(record.value);
+    if (questText) choice.quest.text = questText;
+    return "applied";
+  }
+  return sameText(choice.text, record.value) ? "resolved" : "stale";
 }
 
 /**
  * Apply every rewrite to a scenario, reporting the ones that could not be.
- * @returns {{scenario, applied: object[], stale: object[], missing: object[]}}
+ * @returns {{scenario, applied: object[], resolved: object[], stale: object[], missing: object[]}}
  */
 export function applyOverrides(scenario, records = []) {
   const applied = [];
+  const resolved = [];
   const stale = [];
   const missing = [];
 
@@ -164,10 +175,11 @@ export function applyOverrides(scenario, records = []) {
     const before = currentValue(scenario, record);
     const result = applyRecord(scenario, record);
     if (result === "applied") applied.push(record);
+    else if (result === "resolved") resolved.push(record);
     else if (result === "stale") stale.push({ record, current: before });
     else missing.push(record);
   }
-  return { scenario, applied, stale, missing };
+  return { scenario, applied, resolved, stale, missing };
 }
 
 /* --------------------------------------------------------------------- export */
@@ -177,8 +189,10 @@ export function applyOverrides(scenario, records = []) {
  * card, one path per field, each carrying the base it was written against so the
  * tool can refuse anything that has moved on.
  *
- * Rewrites whose base no longer matches are listed separately rather than
- * exported: they need a human to compare the two versions first.
+ * Rewrites whose base no longer matches split the same way `applyRecord`
+ * does: one already resolved needs no export and no mention at all, the
+ * other kind is a genuine conflict and is listed separately, since it needs
+ * a human to compare the two versions first.
  */
 export function exportOverrides({
   scenarioId,
@@ -189,10 +203,14 @@ export function exportOverrides({
 } = {}) {
   const cards = {};
   const stale = [];
+  let written = 0;
 
   for (const record of records) {
     const current = scenario ? currentValue(scenario, record) : null;
     const drifted = scenario ? !sameText(current, record.base) : false;
+    const resolved = drifted && scenario ? sameText(current, record.value) : false;
+    if (resolved) continue;
+
     const entry = {
       path: recordPath(record),
       base: record.base,
@@ -220,6 +238,7 @@ export function exportOverrides({
     const card = (cards[record.cardId] ??= { choices: [] });
     if (record.field === "choice") card.choices.push(entry);
     else card.text = entry;
+    written += 1;
   }
 
   for (const card of Object.values(cards)) {
@@ -232,7 +251,7 @@ export function exportOverrides({
     scenarioId: scenarioId ?? null,
     build: build ?? null,
     exportedAt: at ?? new Date().toISOString(),
-    count: records.length - stale.length,
+    count: written,
     cards,
     stale,
   };
