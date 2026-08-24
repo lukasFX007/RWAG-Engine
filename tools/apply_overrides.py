@@ -119,6 +119,27 @@ def plan_entry(card, entry, card_id, path_label):
     return apply_choice, None
 
 
+def print_notes(notes):
+    """
+    Field notes ride in the same export as the rewrites, and nothing here writes
+    them anywhere: they are somebody's sentences about the walk, addressed to a
+    person. Printing them is the whole job — a note that scrolled past unread is
+    the same as a note nobody wrote.
+    """
+    if not notes:
+        return
+    print(f"POZNÁMKY Z PRŮCHODU ({len(notes)}) — nezapisují se, jsou k přečtení:")
+    for note in notes:
+        where = ""
+        if note.get("lat") is not None and note.get("lon") is not None:
+            where = f"  @ {note['lat']:.5f},{note['lon']:.5f}"
+        stamp = str(note.get("at") or "")[11:16] or "--:--"
+        print(f"  [{note.get('cardCode') or '—'}] {stamp}{where}")
+        for line in str(note.get("text") or "").splitlines():
+            print(f"      {line}")
+    print()
+
+
 def apply_export(export, root, dry_run=False):
     if export.get("format") != EXPECTED_FORMAT:
         print(f"neznámý formát: {export.get('format')!r} (čekán {EXPECTED_FORMAT!r})", file=sys.stderr)
@@ -128,6 +149,8 @@ def apply_export(export, root, dry_run=False):
     if not scenario_id:
         print("export neuvádí scenarioId", file=sys.stderr)
         return 2
+
+    print_notes(export.get("notes") or [])
 
     cards = export.get("cards") or {}
     if not cards:

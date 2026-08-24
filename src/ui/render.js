@@ -331,7 +331,7 @@ function renderCardTasks(tasks, onToggle) {
 
 export function renderCard(view, {
   onChoose, onUndo, onConfirmTask, onCancelTask, onResolveProgress, onReleaseHeld,
-  onToggleTask, edit = null,
+  onToggleTask, onAddNote, edit = null,
 } = {}) {
   const root = el("article", { class: "card", "aria-live": "polite" });
 
@@ -372,6 +372,14 @@ export function renderCard(view, {
     root.append(renderChoices(shown, onChoose, {
       blocked: view.taskInProgress || view.progressPending, edit,
     }));
+  }
+
+  // Deliberately last and deliberately quiet: writing a note is not a move in
+  // the game, and it must never be mistaken for one of the ways on.
+  if (onAddNote) {
+    root.append(el("div", { class: "card-note-row" },
+      el("button", { type: "button", class: "btn btn-small btn-quiet", onclick: () => onAddNote() },
+        `${icon("psani")} Poznámka`)));
   }
   return root;
 }
@@ -1005,6 +1013,81 @@ export function renderRoleRules(view, cards = [], { onChangeRole } = {}) {
   return root;
 }
 
+/* --------------------------------------------------------------- field notes */
+
+/**
+ * The box a note is written in.
+ *
+ * The card, the time and the position sit above it as a fact, not as fields to
+ * fill in — every second spent on a form is a second standing in a field with a
+ * phone out. Save is disabled until something is actually typed, because an
+ * empty note is worse than none: it looks like a record of something.
+ */
+export function renderNote(draft, { onSave, onCancel } = {}) {
+  const root = el("div", { class: "note-compose" });
+  root.append(
+    el("h2", { class: "sheet-title", text: draft.title }),
+    el("p", { class: "note-context", text: draft.contextLabel }),
+  );
+
+  const box = el("textarea", {
+    class: "note-input",
+    rows: "5",
+    placeholder: draft.placeholder,
+    "aria-label": draft.title,
+  });
+  root.append(box);
+  root.append(el("p", { class: "muted", text: draft.hint }));
+
+  const save = el("button", {
+    type: "button",
+    class: "btn btn-primary btn-wide",
+    onclick: () => onSave?.(box.value),
+  }, draft.saveLabel);
+  save.disabled = true;
+  box.addEventListener("input", () => { save.disabled = box.value.trim().length === 0; });
+
+  root.append(el("div", { class: "menu-actions" },
+    save,
+    el("button", { type: "button", class: "btn btn-quiet", onclick: () => onCancel?.() },
+      draft.cancelLabel),
+  ));
+  // the phone is out and the point is to type: focus without waiting to be asked
+  queueMicrotask(() => box.focus());
+  return root;
+}
+
+/** The notes so far, each with where it came from and a way to drop it. */
+export function renderNotes(view, { onRemove } = {}) {
+  const root = el("div", { class: "notes" });
+  if (view.empty) {
+    root.append(el("p", { class: "muted", text: view.emptyLabel }));
+    return root;
+  }
+
+  const list = el("ul", { class: "note-list" });
+  for (const note of view.list) {
+    list.append(el("li", { class: "note" },
+      el("div", { class: "note-head" },
+        el("span", { class: "card-code", text: note.cardCode }),
+        el("span", { class: "note-time", text: note.time }),
+        note.place ? el("span", { class: "note-place", text: note.place }) : null,
+      ),
+      el("p", { class: "note-text" }, withBreaks(String(note.text).split("\n"))),
+      onRemove
+        ? el("div", { class: "override-actions" },
+            el("button", {
+              type: "button",
+              class: "btn btn-small btn-quiet",
+              onclick: () => onRemove(note),
+            }, view.removeLabel))
+        : null,
+    ));
+  }
+  root.append(list);
+  return root;
+}
+
 /* ------------------------------------------------------------- text overrides */
 
 /**
@@ -1023,16 +1106,29 @@ export function renderOverrides(view, {
   onDownload,
   onKeepMine,
   onDiscardMine,
+  onRemoveNote,
+  notes = null,
   json = "",
   status = null,
 } = {}) {
   const root = el("div", { class: "overrides" });
-  root.append(el("h2", { class: "sheet-title", text: `Upravené texty (${view.count})` }));
+  const total = view.count + (notes?.count ?? 0);
+  root.append(el("h2", { class: "sheet-title", text: `Poznámky a úpravy (${total})` }));
 
-  if (view.empty) {
+  // Notes come first: on a walk they are what gets written, and the rewrites
+  // are the rarer, more deliberate thing.
+  if (notes && !notes.empty) {
+    root.append(el("h3", { class: "sheet-sub", text: `Poznámky (${notes.count})` }));
+    root.append(renderNotes(notes, { onRemove: onRemoveNote }));
+  }
+
+  // One kind of thing being empty must not blank the sheet — the export lives
+  // down here and has to stay reachable while only notes exist.
+  if (view.empty && (!notes || notes.empty)) {
     root.append(el("p", { class: "muted", text: view.emptyLabel }));
     return root;
   }
+  if (!view.empty) root.append(el("h3", { class: "sheet-sub", text: `Upravené texty (${view.count})` }));
   if (view.staleNote) root.append(el("p", { class: "warn-note", text: view.staleNote }));
 
   const list = el("ul", { class: "override-list" });
@@ -1083,7 +1179,7 @@ export function renderOverrides(view, {
     }
     list.append(row);
   }
-  root.append(list);
+  if (!view.empty) root.append(list);
 
   const revertAll = el("button", { type: "button", class: "btn btn-small btn-quiet" }, view.revertAllLabel);
   const bulk = el("div", { class: "override-bulk" });
@@ -1102,7 +1198,9 @@ export function renderOverrides(view, {
       `${icon("kopirovat")} ${view.copyLabel}`),
     el("button", { type: "button", class: "btn btn-small", onclick: () => onDownload?.() },
       `${icon("disketa")} ${view.downloadLabel}`),
-    bulk,
+    // "revert all" only ever undid the text rewrites, so it stays out of sight
+    // when there are none — it must not read as a way to bin the notes too
+    view.empty ? null : bulk,
   ));
   if (status) root.append(el("p", { class: "muted", text: status }));
 
@@ -1138,6 +1236,7 @@ export function renderMenu({
   editMode = null,
   onEditMode,
   onOverrides,
+  noteCount = 0,
   storageAvailable,
   onTrail,
   onCatalogue,
@@ -1194,6 +1293,16 @@ export function renderMenu({
     root.append(el("p", { class: "muted", text: "Tato rozehraná hra nemá rozdané role — začala před tím, než hra role rozdávala." }));
   }
 
+  // Notes and rewrites leave together, so the way out of the app is one button
+  // and it does not hide behind the edit-mode switch — most of what gets
+  // written on a walk is a note, and edit mode is off for that.
+  if (onOverrides) {
+    root.append(el("h3", { class: "sheet-sub", text: "Zápisky" }));
+    root.append(el("div", { class: "menu-actions" },
+      el("button", { type: "button", class: "btn", onclick: onOverrides },
+        `${icon("psani")} Poznámky a úpravy (${noteCount + (editMode?.count ?? 0)})`)));
+  }
+
   if (editMode) {
     root.append(el("h3", { class: "sheet-sub", text: "Texty" }));
     root.append(el("div", { class: "menu-row" },
@@ -1214,10 +1323,6 @@ export function renderMenu({
           }, "Zapnuto")),
         el("p", { class: "muted", text: editMode.hint }),
         editMode.unavailableNote ? el("p", { class: "warn-note", text: editMode.unavailableNote }) : null,
-        onOverrides
-          ? el("button", { type: "button", class: "btn btn-small", onclick: onOverrides },
-              `${icon("psani")} Upravené texty (${editMode.count})`)
-          : null,
       )));
   }
 

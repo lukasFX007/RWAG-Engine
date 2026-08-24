@@ -17,6 +17,7 @@
 import { Engine } from "../core/engine.js";
 import { createLoader } from "../platform/data.js";
 import { createStorage } from "../platform/storage.js";
+import { createNotes, makeNote } from "../platform/notes.js";
 import { accuracyLabel, createGeo } from "../platform/geo.js";
 import {
   applyOverrides,
@@ -41,6 +42,8 @@ import {
   heldCardsView,
   inventoryView,
   itemCardView,
+  noteDraft,
+  notesView,
   journalView,
   privateCardView,
   rulesView,
@@ -63,6 +66,7 @@ import {
   renderHeldCards,
   renderInventory,
   renderItemCard,
+  renderNote,
   renderPrivateCard,
   renderRules,
   renderJournal,
@@ -92,6 +96,7 @@ export function createApp({
   loader = createLoader({ base }),
   geo = createGeo(),
   overrides = createOverrides(),
+  notes = createNotes(),
 } = {}) {
   /* ---------------------------------------------------------------- skeleton */
 
@@ -137,6 +142,8 @@ export function createApp({
   /** rewrites for the loaded scenario, and the ones whose original has moved on */
   let records = [];
   let staleRecords = [];
+  /** field notes for the loaded scenario, oldest first */
+  let fieldNotes = [];
   /** last thing the export sheet did, shown in it */
   let overrideStatus = null;
   applyTheme(theme);
@@ -199,6 +206,7 @@ export function createApp({
     lastApplied = [];
     records = [];
     staleRecords = [];
+    fieldNotes = [];
     overrideStatus = null;
     statusBar.element.hidden = true;
     messages.clear();
@@ -255,6 +263,7 @@ export function createApp({
       for (const record of overrideResult.resolved) overrides.remove(entry.id, record);
       records = overrides.list(entry.id);
     }
+    fieldNotes = notes.list(entry.id);
     staleRecords = overrideResult.stale;
     if (staleRecords.length) {
       messages.push([{
@@ -426,6 +435,9 @@ export function createApp({
       onCancelTask: () => cancelTask(),
       // Ticking a deed moves nobody, but it can change where the way on leads
       // (B03's "Pokračovat"), so the card is redrawn rather than left alone.
+      // A note is not a move: nothing in the game changes, so the card behind
+      // is left exactly as it is and only the sheet comes and goes.
+      onAddNote: notes.available ? () => openNote() : null,
       onToggleTask: (task, done) => {
         engine.setTask(task.id, done);
         autosave();
@@ -596,6 +608,40 @@ export function createApp({
     }));
   }
 
+  function openNote() {
+    if (!engine || !game) return;
+    const draft = noteDraft(engine, { position: geo.position });
+    openSheet("note", renderNote(draft, {
+      onSave: (text) => {
+        const note = makeNote({
+          text,
+          cardId: draft.cardId,
+          cardCode: draft.cardCode,
+          position: { lat: draft.lat, lon: draft.lon },
+          at: draft.at,
+        });
+        if (!note.text) return;
+        if (!notes.add(game.entry.id, note)) {
+          messages.push([{
+            kind: "toast",
+            glyph: "\u26a0\ufe0f",
+            text: `Poznámku nešlo uložit: ${notes.lastError ?? "úložiště není dostupné"}`,
+          }]);
+          sheet.close();
+          return;
+        }
+        fieldNotes = notes.list(game.entry.id);
+        sheet.close();
+        messages.push([{
+          kind: "toast",
+          glyph: "\u270f\ufe0f",
+          text: `Poznámka uložena (${fieldNotes.length}). Najdete ji v Nabídce pod „Poznámky a úpravy“.`,
+        }]);
+      },
+      onCancel: () => sheet.close(),
+    }));
+  }
+
   function openInventory() {
     if (!engine) return;
     openSheet("inventory", renderInventory(inventoryView(engine), {
@@ -647,6 +693,7 @@ export function createApp({
       }),
       onEditMode: (enabled) => setEditMode(enabled),
       onOverrides: game ? () => openOverrides() : null,
+      noteCount: fieldNotes.length,
       storageAvailable: storage.available,
       onTrail: engine ? () => downloadTrail() : null,
       onCatalogue: () => {
@@ -817,6 +864,7 @@ export function createApp({
     return exportOverrides({
       scenarioId: game?.entry?.id ?? null,
       records,
+      notes: fieldNotes,
       scenario: game?.pristine ?? null,
       build: version,
     });
@@ -832,7 +880,14 @@ export function createApp({
 
     openSheet("overrides", renderOverrides(view, {
       json,
+      notes: notesView(fieldNotes),
       status: overrideStatus,
+      onRemoveNote: (note) => {
+        notes.remove(game.entry.id, note.id);
+        fieldNotes = notes.list(game.entry.id);
+        overrideStatus = "Poznámka smazána.";
+        openOverrides();
+      },
       onRevert: (item) => revertOverride(item.record),
       onRevertAll: () => {
         overrides.clear(game.entry.id);
@@ -905,7 +960,9 @@ export function createApp({
    * remembers, so the field test needs the record, not the recollection.
    */
   function downloadTrail() {
-    const text = trailText(engine, { scenarioName: game?.entry?.name ?? "", version });
+    const text = trailText(engine, {
+      scenarioName: game?.entry?.name ?? "", version, notes: fieldNotes,
+    });
     const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
     try {
       const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
@@ -929,7 +986,7 @@ export function createApp({
       const url = URL.createObjectURL(blob);
       const link = el("a", {
         href: url,
-        download: `rwag-upravy-${game.entry.id}-${new Date().toISOString().slice(0, 10)}.json`,
+        download: `rwag-poznamky-${game.entry.id}-${new Date().toISOString().slice(0, 10)}.json`,
       });
       document.body.append(link);
       link.click();

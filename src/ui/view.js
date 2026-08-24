@@ -463,7 +463,7 @@ export function endingView(engine) {
  * the time, the reputation it left behind and the position the device had, so a
  * complaint can be traced to a card and a place.
  */
-export function trailText(engine, { scenarioName = "", version = "" } = {}) {
+export function trailText(engine, { scenarioName = "", version = "", notes = [] } = {}) {
   const cardCode = (id) => engine.scenes.get(id)?.cardCode ?? id;
   const started = engine.state.startedAt;
   const lines = [
@@ -504,6 +504,16 @@ export function trailText(engine, { scenarioName = "", version = "" } = {}) {
       + (quest.completedBy ? ` — ${quest.completedBy}` : ""));
   }
   if (!quests.length) lines.push("  žádné");
+
+  // the text log is meant to be the whole day, so what somebody typed on the
+  // trail belongs in it as much as what the engine recorded
+  lines.push("", `POZNÁMKY (${notes.length})`);
+  for (const note of notes) {
+    const where = note.lat != null ? ` @ ${note.lat.toFixed(5)},${note.lon.toFixed(5)}` : "";
+    lines.push(`  ${clock(note.at)}  ${note.cardCode ?? "—"}${where}`);
+    for (const line of String(note.text ?? "").split("\n")) lines.push(`      ${line}`);
+  }
+  if (!notes.length) lines.push("  žádné");
 
   return lines.join("\n") + "\n";
 }
@@ -824,6 +834,68 @@ export function roleRulesView(engine, roles = []) {
       "Změna role přepočítá i to, co role dala na začátku. Utracené schopnosti zůstávají utracené.",
     zonesNote:
       "Podmínky na zóny (hospody, mimo obce) nejde vyhodnotit — v datech hry chybí souřadnice.",
+  };
+}
+
+/* --------------------------------------------------------------- field notes */
+
+/** Local time, for a header a person reads rather than a machine parses. */
+function clockLabel(iso) {
+  return String(iso ?? "").slice(11, 16) || "--:--";
+}
+
+function placeLabel(lat, lon) {
+  return lat != null && lon != null ? `${lat.toFixed(5)}, ${lon.toFixed(5)}` : null;
+}
+
+/**
+ * What a note about to be written will attach itself to.
+ *
+ * Shown above the box so it is obvious the card and the place are recorded
+ * automatically — otherwise people write "u té lípy" to be helpful, which is
+ * the one part the app already knows.
+ */
+export function noteDraft(engine, { position = null, at = null } = {}) {
+  const card = engine?.card ?? null;
+  const when = at ?? new Date().toISOString();
+  const lat = Number.isFinite(position?.lat) ? position.lat : null;
+  const lon = Number.isFinite(position?.lon) ? position.lon : null;
+  return {
+    cardId: card?.id ?? null,
+    cardCode: card?.cardCode ?? null,
+    at: when,
+    lat,
+    lon,
+    title: "Poznámka z cesty",
+    contextLabel: [
+      card?.cardCode ? `Karta ${card.cardCode}` : null,
+      clockLabel(when),
+      placeLabel(lat, lon) ?? "bez polohy",
+    ].filter(Boolean).join(" · "),
+    placeholder: "Co nesedělo? Co by šlo líp?",
+    hint: "Karta, čas i poloha se uloží samy — stačí napsat, o co jde.",
+    saveLabel: "Uložit poznámku",
+    cancelLabel: "Zpět",
+  };
+}
+
+/** The notes written so far, newest first — the last one is the one being checked. */
+export function notesView(notes = []) {
+  const list = [...notes].reverse().map((note) => ({
+    id: note.id,
+    text: note.text,
+    cardCode: note.cardCode ?? "—",
+    time: clockLabel(note.at),
+    place: placeLabel(note.lat, note.lon),
+    context: [note.cardCode ? `Karta ${note.cardCode}` : null, clockLabel(note.at)]
+      .filter(Boolean).join(" · "),
+  }));
+  return {
+    list,
+    count: list.length,
+    empty: list.length === 0,
+    emptyLabel: "Zatím žádná poznámka.",
+    removeLabel: "Smazat",
   };
 }
 

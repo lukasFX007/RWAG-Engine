@@ -197,6 +197,7 @@ export function applyOverrides(scenario, records = []) {
 export function exportOverrides({
   scenarioId,
   records = [],
+  notes = [],
   scenario = null,
   build = null,
   at = null,
@@ -254,6 +255,12 @@ export function exportOverrides({
     count: written,
     cards,
     stale,
+    /**
+     * Field notes ride along in the same file, so a walk produces one thing to
+     * hand over rather than two. They are messages to a human and nothing here
+     * writes them into the cards — `tools/apply_overrides.py` prints them.
+     */
+    notes,
   };
 }
 
