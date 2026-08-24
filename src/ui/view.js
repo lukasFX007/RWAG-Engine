@@ -587,6 +587,10 @@ export function playerBounds(scenario, roles = []) {
     min,
     max,
     roleCount,
+    /** the roles to choose from, for a group playing the paper deck alongside */
+    roleOptions: roles.map((role) => ({ id: role.id, name: role.name })),
+    randomLabel: "Náhodně",
+    roleHint: "Roli můžete nechat náhodnou, nebo zadat tu, kterou si hráč vytáhl z papírového balíčku.",
     /** the scenario claims more players than it has roles for */
     limitedByRoles: roleCount > 0 && declaredMax > roleCount,
     limitNote: roleCount > 0 && declaredMax > roleCount
@@ -762,12 +766,28 @@ export function groupActionsView(engine, ctx = {}) {
  * consequence, neither of which stands all game. Grouping the reminders alone
  * would drop that player from the sheet entirely.
  */
-export function roleRulesView(engine) {
+export function roleRulesView(engine, roles = []) {
+  const held = new Map((engine.players ?? []).map((p) => [p.roleId, p.playerId]));
   const players = new Map(
     (engine.players ?? []).map((player) => [player.playerId, {
       playerId: player.playerId,
       playerName: player.name ?? player.playerId,
+      roleId: player.roleId ?? null,
       roleName: player.roleName ?? player.roleId,
+      /**
+       * P03 lets the group swap roles if everyone agrees, and a group typing
+       * in what the paper deck dealt has to be able to fix a mistake. A role
+       * somebody else holds is offered but disabled — seeing who has it is
+       * more useful than the option quietly not being there.
+       */
+      roleOptions: roles.map((role) => ({
+        id: role.id,
+        name: role.name,
+        taken: held.has(role.id) && held.get(role.id) !== player.playerId,
+        takenBy: held.get(role.id) !== player.playerId
+          ? (engine.players ?? []).find((p) => p.roleId === role.id)?.name ?? null
+          : null,
+      })),
       rules: [],
       noRulesLabel: "Žádné trvalé pravidlo — role má jen schopnost na jedno použití.",
     }]),
@@ -798,6 +818,10 @@ export function roleRulesView(engine) {
     players: list,
     empty: list.length === 0,
     emptyLabel: "Tato hra nemá rozdané role.",
+    canChangeRole: roles.length > 0,
+    changeRoleLabel: "Role",
+    changeRoleNote:
+      "Změna role přepočítá i to, co role dala na začátku. Utracené schopnosti zůstávají utracené.",
     zonesNote:
       "Podmínky na zóny (hospody, mimo obce) nejde vyhodnotit — v datech hry chybí souřadnice.",
   };

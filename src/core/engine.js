@@ -29,6 +29,7 @@ import {
   consequencesOf,
   dealRoles,
   passiveReminders,
+  startEffectsOf,
 } from "./roles.js";
 
 export class Engine {
@@ -424,18 +425,79 @@ export class Engine {
    * Hand out roles, one per player, and apply what they do at the start.
    * Card P03 is where the game asks for this.
    */
-  dealRoles(playerCount, { names = [] } = {}) {
+  dealRoles(playerCount, { names = [], roleIds = [] } = {}) {
     if (!this.roles?.length) throw new Error("scénář nemá žádné role");
     this.state.players = dealRoles(this.roles, playerCount, {
       seed: this.state.seed,
       cursor: this.state.rngCursor,
       names,
+      roleIds,
     });
     this.state.rngCursor += 1;
 
     const applied = applyStartEffects(this.state, this.roles);
     this.#emit({ type: "rolesDealt", players: this.state.players, applied });
     return this.state.players;
+  }
+
+  /**
+   * Put a different role on a player who is already in the game.
+   *
+   * Card P03 lets the group swap roles if everyone agrees, and a group playing
+   * the paper deck alongside the app needs to be able to correct a mistyped
+   * one. Either way this is bookkeeping, not a move: nobody goes anywhere and
+   * no card is drawn.
+   *
+   * What has to be got right is the `start` effect. It was applied when the
+   * roles were handed out, so changing the role has to take the old one back
+   * and pay the new one — otherwise Pacifista's +1 either doubles up or
+   * lingers for a role that is no longer in play. Only `reputation` can be
+   * undone by applying its opposite, so a role carrying any other kind of
+   * start effect refuses the change rather than quietly leaving it behind.
+   * (Nebákov has exactly one start effect today, and it is reputation.)
+   *
+   * `usedOnce` is deliberately left alone. It is keyed by ability type, so a
+   * spent ability stays spent: what changes hands is the role card, not the
+   * history of what the group has already used up.
+   */
+  setRole(playerId, roleId) {
+    const player = this.state.players.find((p) => p.playerId === playerId);
+    if (!player) throw new Error(`hráč ${playerId} není ve hře`);
+
+    const next = this.roles.find((r) => r.id === roleId);
+    if (!next) throw new Error(`role „${roleId}“ ve scénáři není`);
+    if (player.roleId === roleId) return player;
+
+    const holder = this.state.players.find((p) => p.roleId === roleId);
+    if (holder) {
+      throw new Error(`roli „${next.name}“ už má ${holder.name}; každá je ve hře jen jednou`);
+    }
+
+    const previous = this.roles.find((r) => r.id === player.roleId) ?? null;
+    const leaving = previous ? startEffectsOf(previous) : [];
+    const stuck = leaving.find((entry) => entry.effect && entry.effect.type !== "reputation");
+    if (stuck) {
+      throw new Error(
+        `roli „${previous.name}“ nelze vyměnit: její efekt na začátku (${stuck.effect.type}) `
+        + "se nedá vzít zpět",
+      );
+    }
+
+    const ctx = { state: this.state, source: `role:${roleId}`, items: this.items };
+    for (const entry of leaving) {
+      if (entry.effect) apply([{ ...entry.effect, value: -(entry.effect.value ?? 0) }], ctx);
+    }
+    for (const entry of startEffectsOf(next)) {
+      if (entry.effect) apply([entry.effect], ctx);
+    }
+
+    const before = { roleId: player.roleId, roleName: player.roleName };
+    player.roleId = next.id;
+    player.roleName = next.name;
+    player.abilities = abilitiesOf(next).map((a) => a.type).filter(Boolean);
+
+    this.#emit({ type: "roleChanged", playerId, from: before, to: { roleId: next.id, roleName: next.name } });
+    return player;
   }
 
   get players() {

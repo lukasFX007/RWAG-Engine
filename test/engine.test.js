@@ -692,3 +692,94 @@ test("úkol, který karta nemá, je chyba", () => {
   const engine = new Engine(withTasks());
   assert.throws(() => engine.setTask("neexistuje", true), /nemá/);
 });
+
+/* ------------------------------------------------------- ručně zadané role */
+
+test("zadané role se respektují a zbytek se dolosuje", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  // druhý hráč zůstává prázdný — na papíře ho ještě nevytáhli
+  engine.dealRoles(3, { roleIds: ["pedant", null, "tupec"] });
+
+  const ids = engine.players.map((p) => p.roleId);
+  assert.equal(ids[0], "pedant");
+  assert.equal(ids[2], "tupec");
+  assert.equal(ids[1], "pacifista", "na prázdné místo zbyla jediná role");
+  assert.equal(new Set(ids).size, 3);
+});
+
+test("celá sestava zadaná ručně se nezamíchá", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  engine.dealRoles(3, { roleIds: ["tupec", "pedant", "pacifista"] });
+  assert.deepEqual(engine.players.map((p) => p.roleId), ["tupec", "pedant", "pacifista"]);
+  assert.equal(engine.players[0].roleName, "Tupec");
+});
+
+test("dvakrát zadaná role je chyba, ne tichý přepis", () => {
+  const engine = new Engine(fixture(), { roles: ROLES });
+  assert.throws(() => engine.dealRoles(3, { roleIds: ["tupec", "tupec", null] }),
+    /dvakrát|jen jednou/);
+});
+
+test("neznámé id role je chyba", () => {
+  const engine = new Engine(fixture(), { roles: ROLES });
+  assert.throws(() => engine.dealRoles(3, { roleIds: ["kominik", null, null] }),
+    /ve scénáři není/);
+});
+
+test("ručně zadaný Pacifista dá +1 stejně jako vylosovaný", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  const before = engine.state.reputation;
+  engine.dealRoles(3, { roleIds: ["tupec", "pacifista", "pedant"] });
+  assert.equal(engine.state.reputation, before + 1);
+});
+
+/* -------------------------------------------------- výměna role za běhu */
+
+test("výměna role přenese i to, co role dávala na začátku", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  engine.dealRoles(3, { roleIds: ["tupec", "pacifista", "pedant"] });
+  const rep = engine.state.reputation;
+
+  // Pacifista pryč: jeho +1 musí odejít s ním
+  const pacifista = engine.players.find((p) => p.roleId === "pacifista");
+  engine.state.players = engine.state.players.filter((p) => p.roleId !== "pedant");
+  engine.setRole(pacifista.playerId, "pedant");
+  assert.equal(engine.players.find((p) => p.playerId === pacifista.playerId).roleName,
+    "Vzdělaný pedant");
+  assert.equal(engine.state.reputation, rep - 1, "reputace za Pacifistu se vrátí");
+
+  // a zpátky: přijde znovu
+  engine.setRole(pacifista.playerId, "pacifista");
+  assert.equal(engine.state.reputation, rep);
+});
+
+test("roli, kterou už někdo má, nelze vzít podruhé", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  engine.dealRoles(3, { roleIds: ["tupec", "pacifista", "pedant"] });
+  const [first] = engine.players;
+  assert.throws(() => engine.setRole(first.playerId, "pedant"), /už má/);
+  assert.equal(engine.players[0].roleId, "tupec", "nic se nezměnilo");
+});
+
+test("utracená schopnost výměnu role přežije", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  engine.dealRoles(2, { roleIds: ["tupec", "pacifista"] });
+  const tupec = engine.players[0];
+
+  engine.useAbility(tupec.playerId, "ignore_choice_condition");
+  engine.setRole(tupec.playerId, "pedant");
+  assert.equal(engine.players[0].usedOnce.ignore_choice_condition, true,
+    "co je utracené, zůstává utracené");
+  assert.deepEqual(engine.players[0].abilities, ["return_on_choice"],
+    "schopnosti odpovídají nové roli");
+});
+
+test("nastavení stejné role je bez následků", () => {
+  const engine = new Engine(fixture(), { roles: ROLES, seed: 3 });
+  engine.dealRoles(3, { roleIds: ["tupec", "pacifista", "pedant"] });
+  const rep = engine.state.reputation;
+  const pacifista = engine.players.find((p) => p.roleId === "pacifista");
+
+  engine.setRole(pacifista.playerId, "pacifista");
+  assert.equal(engine.state.reputation, rep, "reputace se nesmí připsat podruhé");
+});

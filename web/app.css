@@ -517,6 +517,26 @@ img, figure { max-width: 100%; }
 }
 .name-input::placeholder { color: var(--ink-soft); }
 
+/* name beside role: on a narrow phone they stack, side by side once there is room */
+.player-row { display: grid; gap: 0.4rem; }
+@media (min-width: 26rem) {
+  .player-row { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+}
+
+.role-select {
+  font: inherit;
+  min-height: var(--tap);
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+}
+.role-select:disabled { opacity: 0.6; }
+/* in the role sheet the switcher sits in the card head, so it must not stretch */
+.role-card-head > .role-select { width: auto; max-width: 100%; }
+
 .role-cards { display: grid; gap: 0.85rem; }
 @media (min-width: 46rem) {
   .role-cards { grid-template-columns: 1fr 1fr; }

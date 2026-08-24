@@ -750,3 +750,48 @@ test("dopis a mapy se dají otevřít z batohu", () => {
   // otevřít mapu u vodopádu nesmí nikoho nikam poslat, takže volby tu nejsou
   assert.equal("choices" in page, false);
 });
+
+/* ------------------------------------------------------ ruční výběr rolí */
+
+test("nastavení hry nabídne role k výběru", () => {
+  const bounds = playerBounds(roleFixture(), NEBAKOV_ROLES);
+  assert.equal(bounds.roleOptions.length, 8);
+  assert.deepEqual(bounds.roleOptions[0], { id: "tupec", name: "Tupec" });
+  assert.equal(bounds.randomLabel, "Náhodně");
+  assert.match(bounds.roleHint, /papírového balíčku/);
+});
+
+test("scénář bez rolí nemá co nabízet", () => {
+  const bounds = playerBounds(roleFixture(), []);
+  assert.deepEqual(bounds.roleOptions, []);
+});
+
+test("přehled rolí ukáže u každého hráče, co si může vzít", () => {
+  const engine = roleEngine(3);
+  const view = roleRulesView(engine, NEBAKOV_ROLES);
+
+  assert.equal(view.canChangeRole, true);
+  const [first] = view.players;
+  assert.equal(first.roleOptions.length, 8, "na výběr jsou všechny role");
+  assert.ok(first.roleId, "hráč ví, kterou má");
+
+  // vlastní role není „zabraná“, cizí ano — a je vidět kým
+  const own = first.roleOptions.find((r) => r.id === first.roleId);
+  assert.equal(own.taken, false);
+
+  const otherPlayer = view.players[1];
+  const theirs = first.roleOptions.find((r) => r.id === otherPlayer.roleId);
+  assert.equal(theirs.taken, true);
+  assert.equal(theirs.takenBy, otherPlayer.playerName);
+
+  // role, kterou při třech hráčích nikdo nedostal, je volná
+  const held = new Set(view.players.map((p) => p.roleId));
+  const free = first.roleOptions.find((r) => !held.has(r.id));
+  assert.equal(free.taken, false);
+});
+
+test("bez seznamu rolí se přehled nepřepíná", () => {
+  const view = roleRulesView(roleEngine(3));
+  assert.equal(view.canChangeRole, false);
+  assert.deepEqual(view.players[0].roleOptions, []);
+});

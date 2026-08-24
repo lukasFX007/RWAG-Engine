@@ -129,7 +129,7 @@ export function createApp({
   let game = null; // { entry, scenario, events, roles, imageBase }
   let engine = null;
   /** the setup form's state, kept while the group fiddles with it */
-  const setup = { count: 0, names: [], error: null };
+  const setup = { count: 0, names: [], roleIds: [], error: null };
   /** what the roles applied the moment they were dealt, from the engine's event */
   let lastApplied = [];
   let theme = readTheme();
@@ -194,6 +194,7 @@ export function createApp({
     game = null;
     setup.count = 0;
     setup.names.length = 0;
+    setup.roleIds.length = 0;
     setup.error = null;
     lastApplied = [];
     records = [];
@@ -313,11 +314,13 @@ export function createApp({
     const bounds = playerBounds(game.scenario, game.roles);
     if (setup.count < bounds.min || setup.count > bounds.max) setup.count = bounds.min;
     setup.names.length = setup.count;
+    setup.roleIds.length = setup.count;
 
     screen.replaceChildren(renderSetup({
       ...bounds,
       count: setup.count,
       names: setup.names,
+      roleIds: setup.roleIds,
       error: setup.error,
       scenarioName: game.entry?.name ?? game.scenario?.scenarioName ?? null,
     }, {
@@ -330,6 +333,13 @@ export function createApp({
         // no redraw: retyping the field would lose the caret
         setup.names[index] = value;
       },
+      // a redraw here on purpose, unlike the name field: picking a role changes
+      // which options the other rows may still offer
+      onRole: (index, roleId) => {
+        setup.roleIds[index] = roleId;
+        setup.error = null;
+        showSetup();
+      },
       onDeal: () => dealRoles(),
       onCancel: () => showCatalogue(),
     }));
@@ -338,8 +348,9 @@ export function createApp({
 
   function dealRoles() {
     const names = setup.names.slice(0, setup.count).map((n) => (n ?? "").trim());
+    const roleIds = setup.roleIds.slice(0, setup.count).map((id) => id || null);
     try {
-      engine.dealRoles(setup.count, { names });
+      engine.dealRoles(setup.count, { names, roleIds });
     } catch (err) {
       // More players than roles is the one case the engine refuses; the picker
       // should not have allowed it, so show what it said rather than swallow it.
@@ -719,8 +730,34 @@ export function createApp({
   function openRoleRules() {
     if (!engine) return;
     openSheet("roles", renderRoleRules(
-      roleRulesView(engine),
+      roleRulesView(engine, game?.roles ?? []),
       dealtRolesView(engine, game?.roles ?? []),
+      {
+        // Changing a role rebalances what that role gave at the start, so the
+        // status bar and the card behind can both move — everything is redrawn,
+        // and the sheet stays open so the group can see the new line-up.
+        onChangeRole: (player, roleId) => {
+          const before = engine.state.reputation;
+          try {
+            engine.setRole(player.playerId, roleId);
+          } catch (err) {
+            messages.push([{ kind: "toast", text: err.message, glyph: "⚠️" }]);
+            openRoleRules();
+            return;
+          }
+          autosave();
+          const moved = engine.state.reputation - before;
+          messages.push([{
+            kind: "toast",
+            glyph: "👤",
+            text: `${player.playerName}: ${engine.players.find((p) => p.playerId === player.playerId).roleName}`
+              + (moved ? ` (reputace ${moved > 0 ? "+" : ""}${moved})` : ""),
+          }]);
+          drawGame();
+          drainMessages();
+          openRoleRules();
+        },
+      },
     ));
   }
 

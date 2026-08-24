@@ -56,12 +56,32 @@ export function startEffectsOf(role) {
     .map((e) => ({ type: e.effects?.type, text: e.text, effect: e.effects }));
 }
 
+/** One player's entry, built the same way whether the role was drawn or chosen. */
+export function buildPlayer(role, index, name) {
+  return {
+    playerId: `p${index + 1}`,
+    name: name || `Hráč ${index + 1}`,
+    roleId: role.id,
+    roleName: role.name,
+    abilities: abilitiesOf(role).map((a) => a.type).filter(Boolean),
+    usedOnce: {},
+  };
+}
+
 /**
  * Deal one role per player. Fewer roles than players is a data problem, not
  * something to paper over by handing the same role out twice — each role's
  * once-per-game ability is meant to exist once.
+ *
+ * `roleIds` names the roles that are already decided, by player index, and may
+ * have gaps: a group playing the paper deck alongside the app types in what
+ * they physically drew, while a group that knows only some of them leaves the
+ * rest blank and those are drawn from whatever is left. Passing none is the
+ * old behaviour — everything shuffled.
  */
-export function dealRoles(roles, playerCount, { seed = 1, cursor = 0, names = [] } = {}) {
+export function dealRoles(roles, playerCount, {
+  seed = 1, cursor = 0, names = [], roleIds = [],
+} = {}) {
   if (!Array.isArray(roles) || roles.length === 0) {
     throw new Error("žádné role k rozdělení");
   }
@@ -72,19 +92,33 @@ export function dealRoles(roles, playerCount, { seed = 1, cursor = 0, names = []
     );
   }
 
-  const rng = makeRng(seed, cursor);
-  const drawn = shuffled(roles.map((r) => r.id), rng).slice(0, playerCount);
+  const chosen = [];
+  const taken = new Set();
+  for (let i = 0; i < playerCount; i += 1) {
+    const wanted = roleIds[i] || null;
+    if (!wanted) {
+      chosen.push(null);
+      continue;
+    }
+    const role = roles.find((r) => r.id === wanted);
+    if (!role) throw new Error(`role „${wanted}“ ve scénáři není`);
+    if (taken.has(wanted)) {
+      throw new Error(`role „${role.name}“ je vybraná dvakrát; každá má být ve hře jen jednou`);
+    }
+    taken.add(wanted);
+    chosen.push(role);
+  }
 
-  return drawn.map((roleId, index) => {
-    const role = roles.find((r) => r.id === roleId);
-    return {
-      playerId: `p${index + 1}`,
-      name: names[index] || `Hráč ${index + 1}`,
-      roleId,
-      roleName: role.name,
-      abilities: abilitiesOf(role).map((a) => a.type).filter(Boolean),
-      usedOnce: {},
-    };
+  // whatever nobody claimed, shuffled, fills the gaps in player order
+  const rng = makeRng(seed, cursor);
+  const pool = shuffled(roles.filter((r) => !taken.has(r.id)).map((r) => r.id), rng);
+  let next = 0;
+
+  return chosen.map((role, index) => {
+    if (role) return buildPlayer(role, index, names[index]);
+    const drawnId = pool[next];
+    next += 1;
+    return buildPlayer(roles.find((r) => r.id === drawnId), index, names[index]);
   });
 }
 

@@ -691,7 +691,37 @@ export function renderPicker(list, { onPlay, onContinue, onDelete, storageNote, 
  * scenario and the number of roles so an impossible number cannot be entered at
  * all. Names are optional — the engine falls back to "Hráč 1".
  */
-export function renderSetup(setup, { onCount, onName, onDeal, onCancel } = {}) {
+/**
+ * The role picker on one player's row.
+ *
+ * A `<select>` rather than anything cleverer: this is filled in at a table
+ * before setting off, often by one person reading eight paper cards out loud,
+ * and the native control is the one that works on every phone with no fuss.
+ * A role somebody else has already been given is shown but disabled, so the
+ * list stays the same length and it is obvious why an option is unavailable.
+ */
+function rolePicker(setup, index, onRole) {
+  const chosen = setup.roleIds?.[index] ?? "";
+  const takenElsewhere = new Set(
+    (setup.roleIds ?? []).filter((id, i) => id && i !== index),
+  );
+
+  const select = el("select", {
+    class: "role-select",
+    "aria-label": `Role hráče ${index + 1}`,
+  });
+  select.append(el("option", { value: "", text: setup.randomLabel ?? "Náhodně" }));
+  for (const role of setup.roleOptions ?? []) {
+    const option = el("option", { value: role.id, text: role.name });
+    if (takenElsewhere.has(role.id)) option.disabled = true;
+    select.append(option);
+  }
+  select.value = chosen;
+  select.addEventListener("change", () => onRole?.(index, select.value || null));
+  return select;
+}
+
+export function renderSetup(setup, { onCount, onName, onRole, onDeal, onCancel } = {}) {
   const root = el("section", { class: "setup" });
   root.append(
     el("p", { class: "eyebrow", text: setup.scenarioName ?? "Nová hra" }),
@@ -713,7 +743,9 @@ export function renderSetup(setup, { onCount, onName, onDeal, onCancel } = {}) {
 
   if (setup.limitNote) root.append(el("p", { class: "muted", text: setup.limitNote }));
 
-  root.append(el("h3", { class: "sheet-sub", text: "Jména (nepovinné)" }));
+  root.append(el("h3", { class: "sheet-sub", text: "Hráči a role" }));
+  if (setup.roleHint) root.append(el("p", { class: "muted", text: setup.roleHint }));
+
   const names = el("div", { class: "name-fields" });
   for (let i = 0; i < setup.count; i += 1) {
     const input = el("input", {
@@ -726,7 +758,10 @@ export function renderSetup(setup, { onCount, onName, onDeal, onCancel } = {}) {
       maxlength: "24",
     });
     input.addEventListener("input", () => onName?.(i, input.value));
-    names.append(input);
+    names.append(el("div", { class: "player-row" },
+      input,
+      setup.roleOptions?.length ? rolePicker(setup, i, onRole) : null,
+    ));
   }
   root.append(names);
 
@@ -911,7 +946,26 @@ export function renderGroupActions(view, { onUse } = {}) {
 
 /* ------------------------------------------------------------- standing rules */
 
-export function renderRoleRules(view, cards = []) {
+/** The role a player has, swappable in place — P03 allows the trade. */
+function roleSwitcher(player, onChangeRole) {
+  const select = el("select", {
+    class: "role-select",
+    "aria-label": `Role hráče ${player.playerName}`,
+  });
+  for (const role of player.roleOptions ?? []) {
+    const option = el("option", {
+      value: role.id,
+      text: role.taken ? `${role.name} — má ${role.takenBy}` : role.name,
+    });
+    if (role.taken) option.disabled = true;
+    select.append(option);
+  }
+  select.value = player.roleId ?? "";
+  select.addEventListener("change", () => onChangeRole?.(player, select.value));
+  return select;
+}
+
+export function renderRoleRules(view, cards = [], { onChangeRole } = {}) {
   const root = el("div", { class: "role-rules" });
   root.append(el("h2", { class: "sheet-title", text: "Role a jejich pravidla" }));
 
@@ -920,11 +974,16 @@ export function renderRoleRules(view, cards = []) {
     return root;
   }
 
+  const swappable = view.canChangeRole && onChangeRole;
+  if (swappable) root.append(el("p", { class: "muted", text: view.changeRoleNote }));
+
   for (const player of view.players) {
     root.append(el("div", { class: "role-rule-block" },
       el("div", { class: "role-card-head" },
         el("span", { class: "role-player", text: player.playerName }),
-        el("span", { class: "role-name", text: player.roleName }),
+        swappable
+          ? roleSwitcher(player, onChangeRole)
+          : el("span", { class: "role-name", text: player.roleName }),
       ),
       player.rules.length
         ? el("ul", { class: "role-lines" },
